@@ -28,7 +28,10 @@ test:
 server:
 	go run ./cmd/server/main.go
 
+wire:
+	cd internal/wire && wire
+
 # mock:
 # 	mockgen -package mockstore -destination db/mock/store.go github.com/NghiaLeopard/simple-bank/db/sqlc Store
 
-.PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc test server
+.PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc test server wire

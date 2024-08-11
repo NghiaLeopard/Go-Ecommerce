@@ -1,4 +1,4 @@
-package interfaces
+package IUseCase
 
 import "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
 
