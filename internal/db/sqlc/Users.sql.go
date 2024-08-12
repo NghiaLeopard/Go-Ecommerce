@@ -15,7 +15,7 @@ INSERT INTO "Users" (
 ) VALUES (
   $1, $2
 )
-RETURNING id, email, password, "resetToken", "resetTokenExpiration", create_at
+RETURNING id, email, password, "resetToken", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", addresses, "resetTokenExpiration", create_at
 `
 
 type CreateUserParams struct {
@@ -31,6 +31,18 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		&i.Email,
 		&i.Password,
 		&i.ResetToken,
+		&i.Status,
+		&i.Address,
+		&i.Avatar,
+		&i.PhoneNumber,
+		&i.Role,
+		&i.FirstName,
+		&i.LastName,
+		&i.MiddleName,
+		&i.City,
+		&i.LikeProducts,
+		&i.ViewedProducts,
+		&i.Addresses,
 		&i.ResetTokenExpiration,
 		&i.CreateAt,
 	)
@@ -47,8 +59,39 @@ func (q *Queries) DeleteUser(ctx context.Context, id int64) error {
 	return err
 }
 
+const findEmail = `-- name: FindEmail :one
+SELECT id, email, password, "resetToken", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", addresses, "resetTokenExpiration", create_at FROM "Users"
+WHERE email = $1 LIMIT 1
+`
+
+func (q *Queries) FindEmail(ctx context.Context, email string) (User, error) {
+	row := q.db.QueryRowContext(ctx, findEmail, email)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Email,
+		&i.Password,
+		&i.ResetToken,
+		&i.Status,
+		&i.Address,
+		&i.Avatar,
+		&i.PhoneNumber,
+		&i.Role,
+		&i.FirstName,
+		&i.LastName,
+		&i.MiddleName,
+		&i.City,
+		&i.LikeProducts,
+		&i.ViewedProducts,
+		&i.Addresses,
+		&i.ResetTokenExpiration,
+		&i.CreateAt,
+	)
+	return i, err
+}
+
 const getUser = `-- name: GetUser :one
-SELECT id, email, password, "resetToken", "resetTokenExpiration", create_at FROM "Users"
+SELECT id, email, password, "resetToken", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", addresses, "resetTokenExpiration", create_at FROM "Users"
 WHERE id = $1 LIMIT 1
 `
 
@@ -60,6 +103,18 @@ func (q *Queries) GetUser(ctx context.Context, id int64) (User, error) {
 		&i.Email,
 		&i.Password,
 		&i.ResetToken,
+		&i.Status,
+		&i.Address,
+		&i.Avatar,
+		&i.PhoneNumber,
+		&i.Role,
+		&i.FirstName,
+		&i.LastName,
+		&i.MiddleName,
+		&i.City,
+		&i.LikeProducts,
+		&i.ViewedProducts,
+		&i.Addresses,
 		&i.ResetTokenExpiration,
 		&i.CreateAt,
 	)
@@ -67,7 +122,7 @@ func (q *Queries) GetUser(ctx context.Context, id int64) (User, error) {
 }
 
 const listUsers = `-- name: ListUsers :many
-SELECT id, email, password, "resetToken", "resetTokenExpiration", create_at FROM "Users"
+SELECT id, email, password, "resetToken", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", addresses, "resetTokenExpiration", create_at FROM "Users"
 ORDER BY create_at DESC
 `
 
@@ -85,6 +140,18 @@ func (q *Queries) ListUsers(ctx context.Context) ([]User, error) {
 			&i.Email,
 			&i.Password,
 			&i.ResetToken,
+			&i.Status,
+			&i.Address,
+			&i.Avatar,
+			&i.PhoneNumber,
+			&i.Role,
+			&i.FirstName,
+			&i.LastName,
+			&i.MiddleName,
+			&i.City,
+			&i.LikeProducts,
+			&i.ViewedProducts,
+			&i.Addresses,
 			&i.ResetTokenExpiration,
 			&i.CreateAt,
 		); err != nil {

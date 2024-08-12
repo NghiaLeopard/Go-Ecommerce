@@ -10,6 +10,10 @@ RETURNING *;
 SELECT * FROM "Users"
 WHERE id = $1 LIMIT 1;
 
+-- name: FindEmail :one
+SELECT * FROM "Users"
+WHERE email = $1 LIMIT 1;
+
 -- name: ListUsers :many
 SELECT * FROM "Users"
 ORDER BY create_at DESC;

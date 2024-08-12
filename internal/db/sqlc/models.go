@@ -6,14 +6,73 @@ package db
 
 import (
 	"database/sql"
+	"database/sql/driver"
+	"fmt"
 	"time"
+
+	"github.com/sqlc-dev/pqtype"
 )
 
+type UsersStatus string
+
+const (
+	UsersStatus1 UsersStatus = "1"
+	UsersStatus2 UsersStatus = "2"
+	UsersStatus3 UsersStatus = "3"
+)
+
+func (e *UsersStatus) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = UsersStatus(s)
+	case string:
+		*e = UsersStatus(s)
+	default:
+		return fmt.Errorf("unsupported scan type for UsersStatus: %T", src)
+	}
+	return nil
+}
+
+type NullUsersStatus struct {
+	UsersStatus UsersStatus `json:"users_status"`
+	Valid       bool        `json:"valid"` // Valid is true if UsersStatus is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullUsersStatus) Scan(value interface{}) error {
+	if value == nil {
+		ns.UsersStatus, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.UsersStatus.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullUsersStatus) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.UsersStatus), nil
+}
+
 type User struct {
-	ID                   int64          `json:"id"`
-	Email                string         `json:"email"`
-	Password             string         `json:"password"`
-	ResetToken           sql.NullString `json:"resetToken"`
-	ResetTokenExpiration sql.NullTime   `json:"resetTokenExpiration"`
-	CreateAt             time.Time      `json:"create_at"`
+	ID                   int64                 `json:"id"`
+	Email                string                `json:"email"`
+	Password             string                `json:"password"`
+	ResetToken           sql.NullString        `json:"resetToken"`
+	Status               NullUsersStatus       `json:"status"`
+	Address              sql.NullString        `json:"address"`
+	Avatar               sql.NullString        `json:"avatar"`
+	PhoneNumber          sql.NullInt64         `json:"phoneNumber"`
+	Role                 sql.NullInt64         `json:"role"`
+	FirstName            sql.NullString        `json:"firstName"`
+	LastName             sql.NullString        `json:"lastName"`
+	MiddleName           sql.NullString        `json:"middleName"`
+	City                 sql.NullInt64         `json:"city"`
+	LikeProducts         sql.NullInt64         `json:"likeProducts"`
+	ViewedProducts       sql.NullInt64         `json:"viewedProducts"`
+	Addresses            pqtype.NullRawMessage `json:"addresses"`
+	ResetTokenExpiration sql.NullTime          `json:"resetTokenExpiration"`
+	CreateAt             time.Time             `json:"create_at"`
 }
