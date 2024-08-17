@@ -6,6 +6,7 @@ import (
 )
 
 type IAuthUseCase interface {
-	LoginUseCase(ctx *gin.Context,email string, password string) (response.LoginResponse,error)
-	RegisterUseCase(ctx *gin.Context,email string, password string) error
+	LoginUseCase(ctx *gin.Context, email string, password string) (response.LoginResponse, error, int)
+	RegisterUseCase(ctx *gin.Context, email string, password string) error
+	LogoutUseCase(ctx *gin.Context) (error, int)
 }

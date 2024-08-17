@@ -23,12 +23,18 @@ func (a *AuthHandler) LoginUser(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 
 	if err != nil {
-		response.ErrorResponse(ctx,"Email or password is invalid",400)
+		response.ErrorResponse(ctx, "Email or password is invalid", 400)
 		return
 	}
 
-	user, err := a.AuthUseCase.LoginUseCase(ctx,req.Email,req.Password)
+	user, err, statusCode := a.AuthUseCase.LoginUseCase(ctx, req.Email, req.Password)
 
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), statusCode)
+		return
+	}
+
+	response.SuccessResponse(ctx, "Login success", 201, user)
 
 }
 
@@ -39,19 +45,29 @@ func (a *AuthHandler) SignUpUser(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 
 	if err != nil {
-		response.ErrorResponse(ctx,"Email or password is invalid",400)
+		response.ErrorResponse(ctx, "Email or password is invalid", 400)
 		return
 	}
 
-	err = a.AuthUseCase.RegisterUseCase(ctx,req.Email,req.Password)
+	err = a.AuthUseCase.RegisterUseCase(ctx, req.Email, req.Password)
 
 	if err != nil {
-		response.ErrorResponse(ctx,err.Error(),500)
+		response.ErrorResponse(ctx, err.Error(), 500)
 		return
 	}
-	
-	response.SuccessResponse(ctx,"Register success",200,"")
+
+	response.SuccessResponse(ctx, "Register success", 201, "")
 
 }
 
+// LogoutUser implements IHandler.IAuthHandler.
+func (a *AuthHandler) LogoutUser(ctx *gin.Context) {
+	err,statusCode := a.AuthUseCase.LogoutUseCase(ctx)
 
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), 500)
+		return
+	}
+
+	response.SuccessResponse(ctx, "Logout success", statusCode, "")
+}

@@ -8,13 +8,16 @@ import (
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/middleware"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
 	"github.com/google/wire"
 )
 
-func InitApi(db *sql.DB,config config.Config) (*api.ServerHTTP,error) {
+func InitApi(db *sql.DB, config config.Config, token token.Maker) (*api.ServerHTTP, error) {
 	wire.Build(
+		middleware.NewMiddleware,
 		// use case
 		usecase.NewAuthUseCase,
 
@@ -24,5 +27,5 @@ func InitApi(db *sql.DB,config config.Config) (*api.ServerHTTP,error) {
 		api.NewServerHTTP,
 	)
 
-	return &api.ServerHTTP{},nil
+	return &api.ServerHTTP{}, nil
 }

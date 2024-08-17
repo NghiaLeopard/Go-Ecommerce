@@ -10,15 +10,18 @@ import (
 	"database/sql"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/middleware"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
 )
 
 // Injectors from wire.go:
 
-func InitApi(db *sql.DB, config2 config.Config) (*api.ServerHTTP, error) {
-	iAuthUseCase := usecase.NewAuthUseCase(db)
+func InitApi(db *sql.DB, config2 config.Config, token2 token.Maker) (*api.ServerHTTP, error) {
+	middlewareMiddleware := middleware.NewMiddleware(token2)
+	iAuthUseCase := usecase.NewAuthUseCase(db, config2, token2)
 	iAuthHandler := handler.NewAuthHandler(iAuthUseCase)
-	serverHTTP := api.NewServerHTTP(config2, iAuthHandler)
+	serverHTTP := api.NewServerHTTP(config2, middlewareMiddleware, iAuthHandler)
 	return serverHTTP, nil
 }

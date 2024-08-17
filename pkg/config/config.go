@@ -1,11 +1,18 @@
 package config
 
-import "github.com/spf13/viper"
+import (
+	"time"
+
+	"github.com/spf13/viper"
+)
 
 type Config struct {
-	DBDrive      string `mapstructure:"DB_DRIVE"`
-	DBSource     string `mapstructure:"DB_SOURCE"`
-	ServerAction string `mapstructure:"SERVER_ACTION"`
+	DBDrive       string        `mapstructure:"DB_DRIVE"`
+	DBSource      string        `mapstructure:"DB_SOURCE"`
+	ServerAction  string        `mapstructure:"SERVER_ACTION"`
+	Symmetric     string        `mapstructure:"SYMMETRICKEY"`
+	Access_token  time.Duration `mapstructure:"ACCESS_TOKEN"`
+	Refresh_token time.Duration `mapstructure:"REFRESH_TOKEN"`
 }
 
 func LoadConfig(path string) (config Config, err error) {
@@ -28,5 +35,5 @@ func LoadConfig(path string) (config Config, err error) {
 		return
 	}
 
-	return 
+	return
 }
