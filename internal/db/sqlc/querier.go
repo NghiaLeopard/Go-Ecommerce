@@ -9,10 +9,15 @@ import (
 )
 
 type Querier interface {
+	CreateRole(ctx context.Context, arg CreateRoleParams) (Role, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
+	DeleteRole(ctx context.Context, id int64) error
 	DeleteUser(ctx context.Context, id int64) error
-	FindEmail(ctx context.Context, email string) (User, error)
+	FindEmail(ctx context.Context, email string) (FindEmailRow, error)
+	GetRole(ctx context.Context, id int64) (Role, error)
 	GetUser(ctx context.Context, id int64) (User, error)
+	InitDefaultAdmin(ctx context.Context, arg InitDefaultAdminParams) (User, error)
+	ListRole(ctx context.Context) ([]Role, error)
 	ListUsers(ctx context.Context) ([]User, error)
 }
 

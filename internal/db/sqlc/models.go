@@ -56,6 +56,12 @@ func (ns NullUsersStatus) Value() (driver.Value, error) {
 	return string(ns.UsersStatus), nil
 }
 
+type Role struct {
+	ID         int64    `json:"id"`
+	Name       string   `json:"name"`
+	Permission []string `json:"permission"`
+}
+
 type User struct {
 	ID                   int64                 `json:"id"`
 	Email                string                `json:"email"`

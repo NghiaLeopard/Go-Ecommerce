@@ -12,5 +12,11 @@ func UserRouter(api *gin.RouterGroup, middleware middleware.Middleware, authHand
 		auth.POST("/register", authHandler.SignUpUser)
 		auth.POST("/login", authHandler.LoginUser)
 		auth.POST("/logout", authHandler.LogoutUser)
+
+		authMe := auth.Use(middleware.AuthMiddleware("1", true, false))
+		{
+			authMe.PATCH("/change-password",)
+		}
 	}
+
 }

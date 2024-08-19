@@ -13,11 +13,11 @@ migrateup:
 migratedown:
 	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/ECOMMERCE?sslmode=disable" -verbose down
 
-# migrateup1:
-# 	migrate -path db/migration -database "postgresql://root:0945639220Beo@localhost:5432/Ecommerce?sslmode=disable" -verbose up
+migrateup1:
+	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/ECOMMERCE?sslmode=disable" -verbose up 1
 
-# migratedown1:
-# 	migrate -path db/migration -database "postgresql://root:0945639220Beo@localhost:5432/Ecommerce?sslmode=disable" -verbose down
+migratedown1:
+	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/ECOMMERCE?sslmode=disable" -verbose down 1
 
 sqlc:
 	sqlc generate
@@ -27,6 +27,9 @@ test:
 
 server:
 	go run ./cmd/server/main.go
+
+initDB:
+	go run ./cmd/server/initDB.go
 
 wire:
 	cd internal/wire && wire

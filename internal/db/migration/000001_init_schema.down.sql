@@ -1,1 +1,3 @@
+DROP TYPE users_status;
+
 DROP TABLE IF EXISTS Users

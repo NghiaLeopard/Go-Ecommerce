@@ -6,4 +6,5 @@ type IAuthHandler interface {
 	LoginUser(ctx *gin.Context)
 	SignUpUser(ctx *gin.Context)
 	LogoutUser(ctx *gin.Context)
+	ChangePasswordUser(ctx *gin.Context)
 }

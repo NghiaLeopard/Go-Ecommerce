@@ -13,10 +13,10 @@ type ServerHTTP struct {
 	config config.Config
 }
 
-func NewServerHTTP(config config.Config, middleware middleware.Middleware,authHandler IHandler.IAuthHandler) *ServerHTTP {
+func NewServerHTTP(config config.Config, middleware middleware.Middleware, authHandler IHandler.IAuthHandler) *ServerHTTP {
 	engine := gin.Default()
 
-	routers.UserRouter(engine.Group("/api"),middleware, authHandler)
+	routers.UserRouter(engine.Group("/api"), middleware, authHandler)
 
 	return &ServerHTTP{Engine: engine, config: config}
 }

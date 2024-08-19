@@ -62,7 +62,7 @@ func (a *AuthHandler) SignUpUser(ctx *gin.Context) {
 
 // LogoutUser implements IHandler.IAuthHandler.
 func (a *AuthHandler) LogoutUser(ctx *gin.Context) {
-	err,statusCode := a.AuthUseCase.LogoutUseCase(ctx)
+	err, statusCode := a.AuthUseCase.LogoutUseCase(ctx)
 
 	if err != nil {
 		response.ErrorResponse(ctx, err.Error(), 500)
@@ -70,4 +70,15 @@ func (a *AuthHandler) LogoutUser(ctx *gin.Context) {
 	}
 
 	response.SuccessResponse(ctx, "Logout success", statusCode, "")
+}
+
+// ChangePasswordUser implements IHandler.IAuthHandler.
+func (a *AuthHandler) ChangePasswordUser(ctx *gin.Context) {
+	var req *IRequest.ChangePasswordRequest
+
+	err := ctx.ShouldBindJSON(&req)
+
+	if err != nil {
+		response.ErrorResponse(ctx,"bind json false",400)
+	}
 }

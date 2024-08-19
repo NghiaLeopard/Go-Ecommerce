@@ -13,45 +13,51 @@ func TestCreateTokenPaseto(t *testing.T) {
 	id := 1
 	duration := time.Minute * 60
 
-	paseto,err := NewPasetoMaker([]byte(symmetricKey))
+	permissions := []string{utils.RandomString(20)}
 
-	require.NoError(t,err)
+	paseto, err := NewPasetoMaker([]byte(symmetricKey))
 
-	token,payload1,err := paseto.CreateTokenPaseto(id,duration)
+	require.NoError(t, err)
 
-	require.NoError(t,err)
-	require.NotEmpty(t,token)
-	require.NotEmpty(t,payload1)
+	token, payload1, err := paseto.CreateTokenPaseto(id, permissions, duration)
 
+	require.NoError(t, err)
+	require.NotEmpty(t, token)
+	require.NotEmpty(t, payload1)
 
-	payload2,err := paseto.VerifyTokenPaseto(token)
-	t.Log(payload2.IssuedAt,payload2.Expired)
+	payload2, err := paseto.VerifyTokenPaseto(token)
 
-	require.NoError(t,err)
-	require.NotEmpty(t,payload2)
+	require.NoError(t, err)
+	require.NotEmpty(t, payload2)
 
-	require.Equal(t,id,payload2.Id)
-	require.WithinDuration(t,time.Now(),payload2.IssuedAt,time.Second)
-	require.WithinDuration(t,time.Now().Add(duration),payload2.Expired,time.Second)
+	require.Equal(t, len(permissions), len(payload2.Permissions))
+
+	for i, v := range payload2.Permissions {
+		require.Equal(t, permissions[i], v)
+	}
+
+	require.Equal(t, id, payload2.Id)
+	require.WithinDuration(t, time.Now(), payload2.IssuedAt, time.Second)
+	require.WithinDuration(t, time.Now().Add(duration), payload2.Expired, time.Second)
 }
 
 func TestTokenExpire(t *testing.T) {
 	symmetricKey := utils.RandomString(32)
 	id := 1
 	duration := time.Minute * 60
+	permissions := []string{utils.RandomString(20)}
 
-	paseto,err := NewPasetoMaker([]byte(symmetricKey))
+	paseto, err := NewPasetoMaker([]byte(symmetricKey))
 
-	require.NoError(t,err)
+	require.NoError(t, err)
 
-	token,payload1,err := paseto.CreateTokenPaseto(id,-duration)
+	token, payload1, err := paseto.CreateTokenPaseto(id, permissions, -duration)
 
-	require.NoError(t,err)
-	require.NotEmpty(t,token)
-	require.NotEmpty(t,payload1)
+	require.NoError(t, err)
+	require.NotEmpty(t, token)
+	require.NotEmpty(t, payload1)
 
+	_, err = paseto.VerifyTokenPaseto(token)
 
-	_,err = paseto.VerifyTokenPaseto(token)
-
-	require.Error(t,err)
+	require.Error(t, err)
 }

@@ -27,8 +27,8 @@ func NewPasetoMaker(symmetricKey []byte) (Maker, error) {
 }
 
 // CreateTokenPaseto implements Maker.
-func (p *PasetoMaker) CreateTokenPaseto(id int, duration time.Duration) (string, *Payload, error) {
-	payload := NewPayload(id, duration)
+func (p *PasetoMaker) CreateTokenPaseto(id int, permissions []string, duration time.Duration) (string, *Payload, error) {
+	payload := NewPayload(id, permissions, duration)
 
 	token, err := p.Paseto.Encrypt(p.SymmetricKey, payload, nil)
 

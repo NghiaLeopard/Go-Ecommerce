@@ -6,7 +6,7 @@ import (
 )
 
 type Middleware interface {
-	authMiddleWare(permission string, isAuthMe bool, isPublic bool) gin.HandlerFunc
+	AuthMiddleware(permission string, isAuthMe bool, isPublic bool) gin.HandlerFunc
 }
 
 type middleware struct {
