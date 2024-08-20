@@ -51,7 +51,7 @@ func TestAuthMiddleware(t *testing.T) {
 		{
 			name: "is auth me",
 			caseGet: func(router *gin.Engine, middleware Middleware) {
-				router.GET("/auth", middleware.AuthMiddleware("", true, false), func(ctx *gin.Context) {
+				router.GET("/auth", middleware.AuthMiddleware("1", true, false), func(ctx *gin.Context) {
 					response.SuccessResponse(ctx, "Success", 200, nil)
 				})
 			},
@@ -65,7 +65,7 @@ func TestAuthMiddleware(t *testing.T) {
 		{
 			name: "isPublic",
 			caseGet: func(router *gin.Engine, middleware Middleware) {
-				router.GET("/auth", middleware.AuthMiddleware("", false, true), func(ctx *gin.Context) {
+				router.GET("/auth", middleware.AuthMiddleware("1", false, true), func(ctx *gin.Context) {
 					response.SuccessResponse(ctx, "Success", 200, nil)
 				})
 			},
@@ -74,6 +74,20 @@ func TestAuthMiddleware(t *testing.T) {
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusOK, recorder.Code)
+			},
+		},
+		{
+			name: "unauthorized",
+			caseGet: func(router *gin.Engine, middleware Middleware) {
+				router.GET("/auth", middleware.AuthMiddleware("1", false, false), func(ctx *gin.Context) {
+					response.SuccessResponse(ctx, "Success", 200, nil)
+				})
+			},
+			setupAuth: func(t *testing.T, request *http.Request, makerToken token.Maker, authorizationHeader string, authorizationType string, id int, permission []string, duration time.Duration) {
+				AddAuthorization(t, request, makerToken, authorizationHeader, authorizationType, id, []string{"Test"}, duration)
+			},
+			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
+				require.Equal(t, http.StatusUnauthorized, recorder.Code)
 			},
 		},
 		{
@@ -91,7 +105,7 @@ func TestAuthMiddleware(t *testing.T) {
 			},
 		},
 		{
-			name: "invalid type",
+			name: "invalid format",
 			caseGet: func(router *gin.Engine, middleware Middleware) {
 				router.GET("/auth", middleware.AuthMiddleware("", false, true), func(ctx *gin.Context) {
 					response.SuccessResponse(ctx, "Success", 200, nil)
@@ -99,6 +113,20 @@ func TestAuthMiddleware(t *testing.T) {
 			},
 			setupAuth: func(t *testing.T, request *http.Request, makerToken token.Maker, authorizationHeader string, authorizationType string, id int, permission []string, duration time.Duration) {
 				AddAuthorization(t, request, makerToken, authorizationHeader, "", id, permission, duration)
+			},
+			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
+				require.Equal(t, http.StatusUnauthorized, recorder.Code)
+			},
+		},
+		{
+			name: "invalid type",
+			caseGet: func(router *gin.Engine, middleware Middleware) {
+				router.GET("/auth", middleware.AuthMiddleware("", false, true), func(ctx *gin.Context) {
+					response.SuccessResponse(ctx, "Success", 200, nil)
+				})
+			},
+			setupAuth: func(t *testing.T, request *http.Request, makerToken token.Maker, authorizationHeader string, authorizationType string, id int, permission []string, duration time.Duration) {
+				AddAuthorization(t, request, makerToken, authorizationHeader, "1", id, permission, duration)
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusUnauthorized, recorder.Code)
@@ -135,7 +163,7 @@ func TestAuthMiddleware(t *testing.T) {
 			request, err := http.NewRequest(http.MethodGet, "/auth", nil)
 			tc.caseGet(router, middleware)
 
-			tc.setupAuth(t, request, maker, authorizationHeader, authorizationType, 1, []string{config.CONFIG_PERMISSIONS["ADMIN"].(string)}, 10*time.Hour)
+			tc.setupAuth(t, request, maker, AuthorizationHeader, AuthorizationType, 1, []string{config.CONFIG_PERMISSIONS["ADMIN"].(string)}, 10*time.Hour)
 
 			require.NoError(t, err)
 

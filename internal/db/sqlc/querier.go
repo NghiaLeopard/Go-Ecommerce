@@ -19,6 +19,7 @@ type Querier interface {
 	InitDefaultAdmin(ctx context.Context, arg InitDefaultAdminParams) (User, error)
 	ListRole(ctx context.Context) ([]Role, error)
 	ListUsers(ctx context.Context) ([]User, error)
+	UpdatePasswordUser(ctx context.Context, arg UpdatePasswordUserParams) error
 }
 
 var _ Querier = (*Queries)(nil)

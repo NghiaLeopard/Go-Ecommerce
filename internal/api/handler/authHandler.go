@@ -79,6 +79,29 @@ func (a *AuthHandler) ChangePasswordUser(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 
 	if err != nil {
-		response.ErrorResponse(ctx,"bind json false",400)
+		response.ErrorResponse(ctx, "Current password or new password is invalid", 400)
+		return
 	}
+
+	err, statusCode := a.AuthUseCase.ChangePasswordUseCase(ctx, req.CurrentPassword, req.NewPassword)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), statusCode)
+		return
+	}
+
+	response.SuccessResponse(ctx, "change password success", statusCode, "")
+}
+
+// ForgotPasswordUser implements IHandler.IAuthHandler.
+func (a *AuthHandler) ForgotPasswordUser(ctx *gin.Context) {
+	var req *IRequest.ForgotPasswordRequest
+
+	err := ctx.ShouldBindJSON(&req)
+
+	if err != nil {
+		response.ErrorResponse(ctx, "Email is invalid", 400)
+		return
+	}
+
 }

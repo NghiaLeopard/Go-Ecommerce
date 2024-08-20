@@ -28,6 +28,10 @@ WHERE "Users".email = $1;
 SELECT * FROM "Users"
 ORDER BY create_at DESC;
 
+-- name: UpdatePasswordUser :exec
+UPDATE "Users" SET password = $1
+WHERE id = $2;
+
 -- name: DeleteUser :exec
 DELETE FROM "Users"
 WHERE id = $1;

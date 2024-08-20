@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/middleware"
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
@@ -103,12 +104,48 @@ func (a *AuthUseCase) RegisterUseCase(ctx *gin.Context, email string, password s
 }
 
 // ChangePasswordUseCase implements IUseCase.IAuthUseCase.
-func (a *AuthUseCase) ChangePasswordUseCase(ctx *gin.Context, currentPassword string, newPassword string) (error,int) {
-	
+func (a *AuthUseCase) ChangePasswordUseCase(ctx *gin.Context, currentPassword string, newPassword string) (error, int) {
+	payload := ctx.MustGet(middleware.AuthorizationKey).(*token.Payload)
+
+	user, err := a.DB.GetUser(ctx, int64(payload.Id))
+
+	if err != nil {
+		return fmt.Errorf("get user db fail"), 500
+	}
+
+	err = utils.CheckPassword(user.Password, currentPassword)
+
+	if err != nil {
+		return fmt.Errorf("password is not correct"), 400
+	}
+
+	hashNewPassword, err := utils.HashPassword(newPassword)
+
+	if err != nil {
+		return fmt.Errorf("hash password fail"), 500
+	}
+
+	arg := db.UpdatePasswordUserParams{
+		ID:       user.ID,
+		Password: hashNewPassword,
+	}
+
+	err = a.DB.UpdatePasswordUser(ctx, arg)
+
+	if err != nil {
+		return fmt.Errorf("update user fail"), 500
+	}
+
+	return nil, 200
 }
 
 // LogoutUseCase implements IUseCase.IAuthUseCase.
 func (a *AuthUseCase) LogoutUseCase(ctx *gin.Context) (error, int) {
 	// TODO: blackList
 	return nil, 200
+}
+
+// ForgotPasswordUseCase implements IUseCase.IAuthUseCase.
+func (a *AuthUseCase) ForgotPasswordUseCase(ctx *gin.Context, email string) (error, int) {
+	panic("unimplemented")
 }
