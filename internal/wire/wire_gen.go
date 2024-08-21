@@ -13,14 +13,15 @@ import (
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/gmail"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
 )
 
 // Injectors from wire.go:
 
-func InitApi(sqlcDB *db.Queries, config2 config.Config, token2 token.Maker) (*api.ServerHTTP, error) {
+func InitApi(sqlcDB *db.Queries, config2 config.Config, token2 token.Maker, gmail2 gmail.Sender) (*api.ServerHTTP, error) {
 	middlewareMiddleware := middleware.NewMiddleware(token2)
-	iAuthUseCase := usecase.NewAuthUseCase(sqlcDB, config2, token2)
+	iAuthUseCase := usecase.NewAuthUseCase(sqlcDB, config2, token2, gmail2)
 	iAuthHandler := handler.NewAuthHandler(iAuthUseCase)
 	serverHTTP := api.NewServerHTTP(config2, middlewareMiddleware, iAuthHandler)
 	return serverHTTP, nil

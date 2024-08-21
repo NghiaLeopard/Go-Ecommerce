@@ -104,4 +104,12 @@ func (a *AuthHandler) ForgotPasswordUser(ctx *gin.Context) {
 		return
 	}
 
+	err,statusCode := a.AuthUseCase.ForgotPasswordUseCase(ctx,req.Email)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), statusCode)
+		return
+	}
+
+	response.SuccessResponse(ctx, "Send gmail", statusCode, "")
 }

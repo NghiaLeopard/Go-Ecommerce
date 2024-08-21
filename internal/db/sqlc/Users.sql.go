@@ -64,14 +64,14 @@ func (q *Queries) DeleteUser(ctx context.Context, id int64) error {
 	return err
 }
 
-const findEmail = `-- name: FindEmail :one
+const getAllFieldUser = `-- name: GetAllFieldUser :one
 SELECT "Users".id, "Users".email, "Users".password, "Users"."resetToken", "Users".status, "Users".address, "Users".avatar, "Users"."phoneNumber", "Users".role, "Users"."firstName", "Users"."lastName", "Users"."middleName", "Users".city, "Users"."likeProducts", "Users"."viewedProducts", "Users".addresses, "Users"."resetTokenExpiration", "Users".create_at,"Role".id, "Role".name, "Role".permission
 FROM "Users"
 JOIN "Role" ON "Role".id = "Users".role
 WHERE "Users".email = $1
 `
 
-type FindEmailRow struct {
+type GetAllFieldUserRow struct {
 	ID                   int64                 `json:"id"`
 	Email                string                `json:"email"`
 	Password             string                `json:"password"`
@@ -95,9 +95,9 @@ type FindEmailRow struct {
 	Permission           []string              `json:"permission"`
 }
 
-func (q *Queries) FindEmail(ctx context.Context, email string) (FindEmailRow, error) {
-	row := q.db.QueryRowContext(ctx, findEmail, email)
-	var i FindEmailRow
+func (q *Queries) GetAllFieldUser(ctx context.Context, email string) (GetAllFieldUserRow, error) {
+	row := q.db.QueryRowContext(ctx, getAllFieldUser, email)
+	var i GetAllFieldUserRow
 	err := row.Scan(
 		&i.ID,
 		&i.Email,
@@ -124,13 +124,44 @@ func (q *Queries) FindEmail(ctx context.Context, email string) (FindEmailRow, er
 	return i, err
 }
 
-const getUser = `-- name: GetUser :one
+const getUserByEmail = `-- name: GetUserByEmail :one
+SELECT id, email, password, "resetToken", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", addresses, "resetTokenExpiration", create_at FROM "Users"
+WHERE email = $1 LIMIT 1
+`
+
+func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error) {
+	row := q.db.QueryRowContext(ctx, getUserByEmail, email)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Email,
+		&i.Password,
+		&i.ResetToken,
+		&i.Status,
+		&i.Address,
+		&i.Avatar,
+		&i.PhoneNumber,
+		&i.Role,
+		&i.FirstName,
+		&i.LastName,
+		&i.MiddleName,
+		&i.City,
+		&i.LikeProducts,
+		&i.ViewedProducts,
+		&i.Addresses,
+		&i.ResetTokenExpiration,
+		&i.CreateAt,
+	)
+	return i, err
+}
+
+const getUserById = `-- name: GetUserById :one
 SELECT id, email, password, "resetToken", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", addresses, "resetTokenExpiration", create_at FROM "Users"
 WHERE id = $1 LIMIT 1
 `
 
-func (q *Queries) GetUser(ctx context.Context, id int64) (User, error) {
-	row := q.db.QueryRowContext(ctx, getUser, id)
+func (q *Queries) GetUserById(ctx context.Context, id int64) (User, error) {
+	row := q.db.QueryRowContext(ctx, getUserById, id)
 	var i User
 	err := row.Scan(
 		&i.ID,

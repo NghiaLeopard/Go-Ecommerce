@@ -10,11 +10,12 @@ import (
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/gmail"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
 	"github.com/google/wire"
 )
 
-func InitApi(sqlcDB *db.Queries, config config.Config, token token.Maker) (*api.ServerHTTP, error) {
+func InitApi(sqlcDB *db.Queries, config config.Config, token token.Maker, gmail gmail.Sender) (*api.ServerHTTP, error) {
 	wire.Build(
 		middleware.NewMiddleware,
 		// use case

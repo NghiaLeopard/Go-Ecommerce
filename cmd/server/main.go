@@ -7,6 +7,7 @@ import (
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/wire"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/gmail"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
 	_ "github.com/lib/pq"
 )
@@ -32,7 +33,9 @@ func main() {
 		log.Fatal("Init token fail: ", err)
 	}
 
-	server, err := wire.InitApi(sqlcDB, config, Token)
+	gmailSender := gmail.NewEmailSender("Nguyễn Đại Nghĩa", config.Account_email, config.Password_email)
+
+	server, err := wire.InitApi(sqlcDB, config, Token, gmailSender)
 
 	if err != nil {
 		log.Fatal("Run server fail: ", err)

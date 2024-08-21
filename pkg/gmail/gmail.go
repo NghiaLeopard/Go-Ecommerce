@@ -35,7 +35,7 @@ func (e *EmailSender) SenderEmail(to []string, subject string, text []byte, cc [
 	a.Subject = subject
 	a.Text = text
 
-	auth := smtp.PlainAuth("", e.AccountEmail, e.PasswordEmail, hostEmail)
+	auth := smtp.PlainAuth("", e.AccountEmail, e.PasswordEmail, addressEmail)
 
 	return a.Send(hostEmail, auth)
 }

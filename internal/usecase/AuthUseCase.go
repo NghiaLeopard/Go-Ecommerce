@@ -8,24 +8,26 @@ import (
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/gmail"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/utils"
 	"github.com/gin-gonic/gin"
 )
 
 type AuthUseCase struct {
-	DB     *db.Queries
-	Config config.Config
-	Token  token.Maker
+	DB          *db.Queries
+	Config      config.Config
+	Token       token.Maker
+	EmailSender gmail.Sender
 }
 
-func NewAuthUseCase(db *db.Queries, config config.Config, token token.Maker) IUseCase.IAuthUseCase {
-	return &AuthUseCase{DB: db, Config: config, Token: token}
+func NewAuthUseCase(db *db.Queries, config config.Config, token token.Maker, email gmail.Sender) IUseCase.IAuthUseCase {
+	return &AuthUseCase{DB: db, Config: config, Token: token, EmailSender: email}
 }
 
 // LoginUseCase implements IUseCase.IAuthUseCase.
 func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password string) (response.LoginResponse, error, int) {
-	user, err := a.DB.FindEmail(ctx, email)
+	user, err := a.DB.GetAllFieldUser(ctx, email)
 
 	fmt.Println(user)
 
@@ -107,7 +109,7 @@ func (a *AuthUseCase) RegisterUseCase(ctx *gin.Context, email string, password s
 func (a *AuthUseCase) ChangePasswordUseCase(ctx *gin.Context, currentPassword string, newPassword string) (error, int) {
 	payload := ctx.MustGet(middleware.AuthorizationKey).(*token.Payload)
 
-	user, err := a.DB.GetUser(ctx, int64(payload.Id))
+	user, err := a.DB.GetUserById(ctx, int64(payload.Id))
 
 	if err != nil {
 		return fmt.Errorf("get user db fail"), 500
@@ -145,7 +147,31 @@ func (a *AuthUseCase) LogoutUseCase(ctx *gin.Context) (error, int) {
 	return nil, 200
 }
 
+var subject = "Send link forgot password"
+
 // ForgotPasswordUseCase implements IUseCase.IAuthUseCase.
 func (a *AuthUseCase) ForgotPasswordUseCase(ctx *gin.Context, email string) (error, int) {
-	panic("unimplemented")
+	_, err := a.DB.GetUserByEmail(ctx, email)
+	fmt.Println(err, email)
+
+	if err != nil {
+		return fmt.Errorf("email is not exist"), 400
+	}
+
+	token, _, err := a.Token.CreateTokenPaseto(1, []string{}, a.Config.ForgotPasswordToken)
+
+	if err != nil {
+		return fmt.Errorf("email is not exist"), 400
+	}
+
+	textEmail := fmt.Sprintf("%s?%s", a.Config.AppUrlFE, token)
+
+	err = a.EmailSender.SenderEmail([]string{email}, subject, []byte(textEmail), nil, nil)
+	fmt.Println(err)
+
+	if err != nil {
+		return fmt.Errorf("send email fail"), 400
+	}
+
+	return nil, 200
 }

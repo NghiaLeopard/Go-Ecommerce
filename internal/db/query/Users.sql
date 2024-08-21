@@ -14,11 +14,15 @@ INSERT INTO "Users" (
 )
 RETURNING *;
 
--- name: GetUser :one
+-- name: GetUserById :one
 SELECT * FROM "Users"
 WHERE id = $1 LIMIT 1;
 
--- name: FindEmail :one
+-- name: GetUserByEmail :one
+SELECT * FROM "Users"
+WHERE email = $1 LIMIT 1;
+
+-- name: GetAllFieldUser :one
 SELECT "Users".*,"Role".*
 FROM "Users"
 JOIN "Role" ON "Role".id = "Users".role
