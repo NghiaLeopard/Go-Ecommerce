@@ -18,6 +18,11 @@ func initDB() {
 		Permission: []string{(config.CONFIG_PERMISSIONS["ADMIN"].(string))},
 	}
 
+	arg2 := db.CreateRoleParams{
+		Name:       "Basic",
+		Permission: []string{""},
+	}
+
 	configEnv1, err := config.LoadConfig(".")
 
 	if err != nil {
@@ -38,7 +43,13 @@ func initDB() {
 		log.Fatal("create role fail: ", err)
 	}
 
-	password,err := utils.HashPassword("1234567890@1n")
+	_, err = sqlcDB.CreateRole(context.Background(), arg2)
+
+	if err != nil {
+		log.Fatal("create role fail: ", err)
+	}
+
+	password, err := utils.HashPassword("1234567890@1n")
 
 	if err != nil {
 		log.Fatal("hash password password fail: ", err)

@@ -13,7 +13,7 @@ CREATE TABLE "Users" (
   "address" varchar,
   "avatar" varchar,
   "phoneNumber" bigint,
-  "role" bigint,
+  "role" bigint DEFAULT 2,
   "firstName" varchar,
   "lastName" varchar,
   "middleName" varchar,

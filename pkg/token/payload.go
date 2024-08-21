@@ -1,6 +1,8 @@
 package token
 
-import "time"
+import (
+	"time"
+)
 
 type Payload struct {
 	Id          int       `json:"id"`

@@ -27,9 +27,7 @@ func NewAuthUseCase(db *db.Queries, config config.Config, token token.Maker, ema
 
 // LoginUseCase implements IUseCase.IAuthUseCase.
 func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password string) (response.LoginResponse, error, int) {
-	user, err := a.DB.GetAllFieldUser(ctx, email)
-
-	fmt.Println(user)
+	user, err := a.DB.GetUserByEmail(ctx, email)
 
 	if err != nil {
 		return response.LoginResponse{}, fmt.Errorf("account is not exist: %w", err), 400
@@ -147,30 +145,61 @@ func (a *AuthUseCase) LogoutUseCase(ctx *gin.Context) (error, int) {
 	return nil, 200
 }
 
-var subject = "Send link forgot password"
-
 // ForgotPasswordUseCase implements IUseCase.IAuthUseCase.
 func (a *AuthUseCase) ForgotPasswordUseCase(ctx *gin.Context, email string) (error, int) {
-	_, err := a.DB.GetUserByEmail(ctx, email)
-	fmt.Println(err, email)
+	user, err := a.DB.GetUserByEmail(ctx, email)
 
 	if err != nil {
 		return fmt.Errorf("email is not exist"), 400
 	}
 
-	token, _, err := a.Token.CreateTokenPaseto(1, []string{}, a.Config.ForgotPasswordToken)
+	token, _, err := a.Token.CreateTokenPaseto(int(user.ID), []string{}, a.Config.ForgotPasswordToken)
 
 	if err != nil {
 		return fmt.Errorf("email is not exist"), 400
 	}
 
 	textEmail := fmt.Sprintf("%s?%s", a.Config.AppUrlFE, token)
+	var subject = "Send link forgot password"
 
 	err = a.EmailSender.SenderEmail([]string{email}, subject, []byte(textEmail), nil, nil)
-	fmt.Println(err)
 
 	if err != nil {
 		return fmt.Errorf("send email fail"), 400
+	}
+
+	return nil, 200
+}
+
+// ResetPasswordUseCase implements IUseCase.IAuthUseCase.
+func (a *AuthUseCase) ResetPasswordUseCase(ctx *gin.Context, newPassword string, secretKey string) (error, int) {
+	payload, err := a.Token.VerifyTokenPaseto(secretKey)
+
+	if err != nil {
+		return fmt.Errorf("token is invalid"), 400
+	}
+
+	user, err := a.DB.GetUserById(ctx, int64(payload.Id))
+
+	if err != nil {
+		return fmt.Errorf("query sql"), 500
+	}
+
+	hashPassword, err := utils.HashPassword(newPassword)
+
+	if err != nil {
+		return fmt.Errorf("err hash password"), 500
+	}
+
+	arg := db.UpdatePasswordUserParams{
+		Password: hashPassword,
+		ID:       user.ID,
+	}
+
+	err = a.DB.UpdatePasswordUser(ctx, arg)
+
+	if err != nil {
+		return fmt.Errorf("update err"), 500
 	}
 
 	return nil, 200

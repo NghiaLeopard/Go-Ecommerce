@@ -104,7 +104,7 @@ func (a *AuthHandler) ForgotPasswordUser(ctx *gin.Context) {
 		return
 	}
 
-	err,statusCode := a.AuthUseCase.ForgotPasswordUseCase(ctx,req.Email)
+	err, statusCode := a.AuthUseCase.ForgotPasswordUseCase(ctx, req.Email)
 
 	if err != nil {
 		response.ErrorResponse(ctx, err.Error(), statusCode)
@@ -112,4 +112,26 @@ func (a *AuthHandler) ForgotPasswordUser(ctx *gin.Context) {
 	}
 
 	response.SuccessResponse(ctx, "Send gmail", statusCode, "")
+}
+
+// ResetPasswordUser implements IHandler.IAuthHandler.
+func (a *AuthHandler) ResetPasswordUser(ctx *gin.Context) {
+	var res *IRequest.ResetPasswordRequest
+
+	err := ctx.ShouldBindJSON(&res)
+
+	if err != nil {
+		response.ErrorResponse(ctx, "value invalid", 400)
+		return
+	}
+
+	err, statusCode := a.AuthUseCase.ResetPasswordUseCase(ctx, res.NewPassword, res.SecretKey)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), statusCode)
+		return
+	}
+
+	response.SuccessResponse(ctx, "Reset password success", statusCode, "")
+
 }

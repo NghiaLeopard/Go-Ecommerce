@@ -17,16 +17,6 @@ const (
 
 func (c *middleware) AuthMiddleware(permission string, isAuthMe bool, isPublic bool) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		if isAuthMe {
-			ctx.Next()
-			return
-		}
-
-		if isPublic {
-			ctx.Next()
-			return
-		}
-
 		authorization := ctx.GetHeader(AuthorizationHeader)
 
 		if len(authorization) == 0 {
@@ -49,12 +39,14 @@ func (c *middleware) AuthMiddleware(permission string, isAuthMe bool, isPublic b
 		payload, err := c.Token.VerifyTokenPaseto(fields[1])
 
 		if err != nil {
-			response.ErrorResponse(ctx, "Internal server", 401)
+			response.ErrorResponse(ctx, "Verify token invalid", 401)
 			return
 		}
 
-		if slices.Contains(payload.Permissions, permission) || slices.Contains(payload.Permissions, config.CONFIG_PERMISSIONS["ADMIN"].(string)) {
+		if slices.Contains(payload.Permissions, permission) || slices.Contains(payload.Permissions, config.CONFIG_PERMISSIONS["ADMIN"].(string)) || isAuthMe {
 			ctx.Set(AuthorizationKey, payload)
+			ctx.Next()
+		} else if isPublic {
 			ctx.Next()
 		} else {
 			response.ErrorResponse(ctx, "unauthorized", 401)

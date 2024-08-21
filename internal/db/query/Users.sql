@@ -19,10 +19,6 @@ SELECT * FROM "Users"
 WHERE id = $1 LIMIT 1;
 
 -- name: GetUserByEmail :one
-SELECT * FROM "Users"
-WHERE email = $1 LIMIT 1;
-
--- name: GetAllFieldUser :one
 SELECT "Users".*,"Role".*
 FROM "Users"
 JOIN "Role" ON "Role".id = "Users".role
