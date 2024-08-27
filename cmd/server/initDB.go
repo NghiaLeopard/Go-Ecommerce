@@ -20,7 +20,7 @@ func initDB() {
 
 	arg2 := db.CreateRoleParams{
 		Name:       "Basic",
-		Permission: []string{""},
+		Permission: []string{},
 	}
 
 	configEnv1, err := config.LoadConfig(".")

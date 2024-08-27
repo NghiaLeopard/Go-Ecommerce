@@ -16,9 +16,8 @@ import (
 type UsersStatus string
 
 const (
+	UsersStatus0 UsersStatus = "0"
 	UsersStatus1 UsersStatus = "1"
-	UsersStatus2 UsersStatus = "2"
-	UsersStatus3 UsersStatus = "3"
 )
 
 func (e *UsersStatus) Scan(src interface{}) error {
@@ -56,6 +55,54 @@ func (ns NullUsersStatus) Value() (driver.Value, error) {
 	return string(ns.UsersStatus), nil
 }
 
+type UsersType string
+
+const (
+	UsersType1 UsersType = "1"
+	UsersType2 UsersType = "2"
+	UsersType3 UsersType = "3"
+)
+
+func (e *UsersType) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = UsersType(s)
+	case string:
+		*e = UsersType(s)
+	default:
+		return fmt.Errorf("unsupported scan type for UsersType: %T", src)
+	}
+	return nil
+}
+
+type NullUsersType struct {
+	UsersType UsersType `json:"users_type"`
+	Valid     bool      `json:"valid"` // Valid is true if UsersType is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullUsersType) Scan(value interface{}) error {
+	if value == nil {
+		ns.UsersType, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.UsersType.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullUsersType) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.UsersType), nil
+}
+
+type City struct {
+	ID   int64  `json:"id"`
+	Name string `json:"name"`
+}
+
 type Role struct {
 	ID         int64    `json:"id"`
 	Name       string   `json:"name"`
@@ -67,6 +114,7 @@ type User struct {
 	Email                string                `json:"email"`
 	Password             string                `json:"password"`
 	ResetToken           sql.NullString        `json:"resetToken"`
+	UserType             NullUsersType         `json:"userType"`
 	Status               NullUsersStatus       `json:"status"`
 	Address              sql.NullString        `json:"address"`
 	Avatar               sql.NullString        `json:"avatar"`
@@ -76,8 +124,9 @@ type User struct {
 	LastName             sql.NullString        `json:"lastName"`
 	MiddleName           sql.NullString        `json:"middleName"`
 	City                 sql.NullInt64         `json:"city"`
-	LikeProducts         sql.NullInt64         `json:"likeProducts"`
-	ViewedProducts       sql.NullInt64         `json:"viewedProducts"`
+	LikeProducts         []int64               `json:"likeProducts"`
+	ViewedProducts       []int64               `json:"viewedProducts"`
+	DeviceToken          []string              `json:"deviceToken"`
 	Addresses            pqtype.NullRawMessage `json:"addresses"`
 	ResetTokenExpiration sql.NullTime          `json:"resetTokenExpiration"`
 	CreateAt             time.Time             `json:"create_at"`

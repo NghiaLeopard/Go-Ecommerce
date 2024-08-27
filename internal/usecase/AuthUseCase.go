@@ -71,8 +71,8 @@ func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password stri
 			LastName:             user.LastName.String,
 			MiddleName:           user.MiddleName.String,
 			City:                 int(user.City.Int64),
-			LikeProducts:         int(user.LikeProducts.Int64),
-			ViewedProducts:       int(user.ViewedProducts.Int64),
+			LikeProducts:         user.LikeProducts,
+			ViewedProducts:       user.ViewedProducts,
 			ResetTokenExpiration: user.ResetTokenExpiration.Time,
 			Create_at:            user.CreateAt,
 		},
@@ -203,4 +203,37 @@ func (a *AuthUseCase) ResetPasswordUseCase(ctx *gin.Context, newPassword string,
 	}
 
 	return nil, 200
+}
+
+// GetAuthMeUserCase implements IUseCase.IAuthUseCase.
+func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (response.AuthMe, error, int) {
+	payload := ctx.MustGet(middleware.AuthorizationKey).(*token.Payload)
+
+	user, err := a.DB.GetUserById(ctx, int64(payload.Id))
+
+	if err != nil {
+		return response.AuthMe{}, fmt.Errorf("get auth me fail"), 500
+	}
+
+	data := response.AuthMe{
+		Id:      int(user.ID),
+		Email:   user.Email,
+		Address: user.Address.String,
+		Status:  user.Status.UsersStatus,
+		Role: response.IRoleResponse{
+			Id:         int(user.ID_2),
+			Name:       user.Name,
+			Permission: user.Permission,
+		},
+		FirstName:   user.FirstName.String,
+		LastName:    user.LastName.String,
+		MiddleName:  user.MiddleName.String,
+		City:        int(user.City.Int64),
+		PhoneNumber: int(user.PhoneNumber.Int64),
+		Avatar:      user.Avatar.String,
+		Addresses:   []response.IAddressesResponse{},
+		Create_at:   user.CreateAt,
+	}
+
+	return data, nil, 200
 }

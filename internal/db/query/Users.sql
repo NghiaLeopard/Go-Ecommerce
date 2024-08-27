@@ -8,15 +8,17 @@ RETURNING *;
 
 -- name: InitDefaultAdmin :one
 INSERT INTO "Users" (
-  email, password,role
+  email, password, role
 ) VALUES (
   $1, $2, $3
 )
 RETURNING *;
 
 -- name: GetUserById :one
-SELECT * FROM "Users"
-WHERE id = $1 LIMIT 1;
+SELECT "Users".*,"Role".*
+FROM "Users"
+JOIN "Role" ON "Role".id = "Users".role
+WHERE "Users".id = $1;
 
 -- name: GetUserByEmail :one
 SELECT "Users".*,"Role".*
@@ -27,6 +29,16 @@ WHERE "Users".email = $1;
 -- name: ListUsers :many
 SELECT * FROM "Users"
 ORDER BY create_at DESC;
+
+-- name: UpdateUser :one
+UPDATE "Users" SET "firstName" = $1,"lastName" = $2,"middleName" = $3, "phoneNumber" = $4,avatar = $5,address = $6,city = $7
+WHERE id = $8
+RETURNING *;
+
+-- name: SaveResetToken :one
+UPDATE "Users" SET "resetToken" = $1,"resetTokenExpiration" = $2
+WHERE id = $3
+RETURNING *;
 
 -- name: UpdatePasswordUser :exec
 UPDATE "Users" SET password = $1

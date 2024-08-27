@@ -15,8 +15,12 @@ import (
 	"github.com/google/wire"
 )
 
-func InitApi(sqlcDB *db.Queries, config config.Config, token token.Maker, gmail gmail.Sender) (*api.ServerHTTP, error) {
+func InitServer(sqlcDB *db.Queries, config config.Config) (*api.ServerHTTP, error) {
 	wire.Build(
+		token.NewPasetoMaker,
+		gmail.NewEmailSender,
+
+		// middleware
 		middleware.NewMiddleware,
 		// use case
 		usecase.NewAuthUseCase,

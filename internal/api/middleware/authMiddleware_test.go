@@ -152,7 +152,7 @@ func TestAuthMiddleware(t *testing.T) {
 		tc := testCase[i]
 		t.Run(tc.name, func(t *testing.T) {
 			router := gin.Default()
-			maker, err := token.NewPasetoMaker([]byte(utils.RandomString(32)))
+			maker, err := token.NewPasetoMaker(config.Config{Symmetric: utils.RandomString(32)})
 
 			require.NoError(t, err)
 

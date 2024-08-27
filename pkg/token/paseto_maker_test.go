@@ -4,18 +4,22 @@ import (
 	"testing"
 	"time"
 
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/utils"
 	"github.com/stretchr/testify/require"
 )
 
 func TestCreateTokenPaseto(t *testing.T) {
-	symmetricKey := utils.RandomString(32)
+	config, err := config.LoadConfig("../..")
+
+	require.NoError(t, err)
+
 	id := 1
 	duration := time.Minute * 60
 
 	permissions := []string{utils.RandomString(20)}
 
-	paseto, err := NewPasetoMaker([]byte(symmetricKey))
+	paseto, err := NewPasetoMaker(config)
 
 	require.NoError(t, err)
 
@@ -42,12 +46,15 @@ func TestCreateTokenPaseto(t *testing.T) {
 }
 
 func TestTokenExpire(t *testing.T) {
-	symmetricKey := utils.RandomString(32)
+	config, err := config.LoadConfig("../..")
+
+	require.NoError(t, err)
+
 	id := 1
 	duration := time.Minute * 60
 	permissions := []string{utils.RandomString(20)}
 
-	paseto, err := NewPasetoMaker([]byte(symmetricKey))
+	paseto, err := NewPasetoMaker(config)
 
 	require.NoError(t, err)
 

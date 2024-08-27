@@ -3,6 +3,7 @@ package gmail
 import (
 	"net/smtp"
 
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
 	"github.com/jordan-wright/email"
 )
 
@@ -21,8 +22,8 @@ var (
 	hostEmail    = "smtp.gmail.com:587"
 )
 
-func NewEmailSender(name string, accountEmail string, passwordEmail string) Sender {
-	return &EmailSender{Name: name, AccountEmail: accountEmail, PasswordEmail: passwordEmail}
+func NewEmailSender(config config.Config) Sender {
+	return &EmailSender{Name: config.NameEmail, AccountEmail: config.Account_email, PasswordEmail: config.Password_email}
 }
 
 // SenderEmail implements Sender.

@@ -135,3 +135,13 @@ func (a *AuthHandler) ResetPasswordUser(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Reset password success", statusCode, "")
 
 }
+
+func (a *AuthHandler) GetAuthMe(ctx *gin.Context) {
+	authMe, err, codeStatus := a.AuthUseCase.GetAuthMeUserCase(ctx)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+	}
+
+	response.SuccessResponse(ctx, "Get auth me success", codeStatus, authMe)
+}

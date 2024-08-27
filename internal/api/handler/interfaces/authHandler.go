@@ -9,4 +9,5 @@ type IAuthHandler interface {
 	ChangePasswordUser(ctx *gin.Context)
 	ForgotPasswordUser(ctx *gin.Context)
 	ResetPasswordUser(ctx *gin.Context)
+	GetAuthMe(ctx *gin.Context)
 }

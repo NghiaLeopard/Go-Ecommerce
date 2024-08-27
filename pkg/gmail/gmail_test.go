@@ -12,7 +12,7 @@ func TestEmailSender(t *testing.T) {
 
 	require.NoError(t, err)
 
-	sender := NewEmailSender("Nguyen Dai Nghia", config.Account_email, config.Password_email)
+	sender := NewEmailSender(config)
 
 	to := []string{"nghiabeo1605@gmail.com"}
 	subject := "Forgot-password"

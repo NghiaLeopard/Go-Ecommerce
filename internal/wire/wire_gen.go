@@ -19,9 +19,14 @@ import (
 
 // Injectors from wire.go:
 
-func InitApi(sqlcDB *db.Queries, config2 config.Config, token2 token.Maker, gmail2 gmail.Sender) (*api.ServerHTTP, error) {
-	middlewareMiddleware := middleware.NewMiddleware(token2)
-	iAuthUseCase := usecase.NewAuthUseCase(sqlcDB, config2, token2, gmail2)
+func InitServer(sqlcDB *db.Queries, config2 config.Config) (*api.ServerHTTP, error) {
+	maker, err := token.NewPasetoMaker(config2)
+	if err != nil {
+		return nil, err
+	}
+	middlewareMiddleware := middleware.NewMiddleware(maker)
+	sender := gmail.NewEmailSender(config2)
+	iAuthUseCase := usecase.NewAuthUseCase(sqlcDB, config2, maker, sender)
 	iAuthHandler := handler.NewAuthHandler(iAuthUseCase)
 	serverHTTP := api.NewServerHTTP(config2, middlewareMiddleware, iAuthHandler)
 	return serverHTTP, nil

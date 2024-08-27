@@ -1,7 +1,12 @@
-CREATE TYPE users_status AS ENUM (
+CREATE TYPE users_type AS ENUM (
   '1',
   '2',
   '3'
+);
+
+CREATE TYPE users_status AS ENUM (
+  '0',
+  '1'
 );
 
 CREATE TABLE "Users" (
@@ -9,7 +14,8 @@ CREATE TABLE "Users" (
   "email" varchar UNIQUE NOT NULL,
   "password" varchar NOT NULL,
   "resetToken" varchar,
-  "status" users_status DEFAULT '3',
+  "userType" users_type DEFAULT '3',
+  "status" users_status DEFAULT '1',
   "address" varchar,
   "avatar" varchar,
   "phoneNumber" bigint,
@@ -18,8 +24,9 @@ CREATE TABLE "Users" (
   "lastName" varchar,
   "middleName" varchar,
   "city" bigint,
-  "likeProducts" bigint,
-  "viewedProducts" bigint,
+  "likeProducts" bigint[],
+  "viewedProducts" bigint[],
+  "deviceToken" varchar[],
   "addresses" jsonb,
   "resetTokenExpiration" timestamptz,
   "create_at" timestamptz NOT NULL DEFAULT (now())

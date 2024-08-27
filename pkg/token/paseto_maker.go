@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
 	"github.com/aead/chacha20poly1305"
 	"github.com/o1egl/paseto"
 )
@@ -13,14 +14,14 @@ type PasetoMaker struct {
 	Paseto       *paseto.V2
 }
 
-func NewPasetoMaker(symmetricKey []byte) (Maker, error) {
+func NewPasetoMaker(config config.Config) (Maker, error) {
 
-	if len(symmetricKey) != chacha20poly1305.KeySize {
+	if len(config.Symmetric) != chacha20poly1305.KeySize {
 		return nil, fmt.Errorf("invalid key size: must be exactly %d characters", chacha20poly1305.KeySize)
 	}
 
 	return &PasetoMaker{
-		SymmetricKey: symmetricKey,
+		SymmetricKey: []byte(config.Symmetric),
 		Paseto:       paseto.NewV2(),
 	}, nil
 }

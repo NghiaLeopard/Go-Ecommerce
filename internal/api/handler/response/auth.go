@@ -35,11 +35,27 @@ type UserResponse struct {
 	LastName             string               `json:"lastName"`
 	MiddleName           string               `json:"middleName"`
 	City                 int                  `json:"city"`
-	LikeProducts         int                  `json:"likeProducts"`
-	ViewedProducts       int                  `json:"viewedProducts"`
+	LikeProducts         []int64              `json:"likeProducts"`
+	ViewedProducts       []int64              `json:"viewedProducts"`
 	Addresses            []IAddressesResponse `json:"addresses"`
 	ResetTokenExpiration time.Time            `json:"resetTokenExpiration"`
 	Create_at            time.Time            `json:"create_at"`
+}
+
+type AuthMe struct {
+	Id          int                  `json:"_id"`
+	Email       string               `json:"email"`
+	Status      db.UsersStatus       `json:"status"`
+	Address     string               `json:"address"`
+	Avatar      string               `json:"avatar"`
+	PhoneNumber int                  `json:"phoneNumber"`
+	Role        IRoleResponse        `json:"role"`
+	FirstName   string               `json:"firstName"`
+	LastName    string               `json:"lastName"`
+	MiddleName  string               `json:"middleName"`
+	City        int                  `json:"city"`
+	Addresses   []IAddressesResponse `json:"addresses"`
+	Create_at   time.Time            `json:"create_at"`
 }
 
 type LoginResponse struct {

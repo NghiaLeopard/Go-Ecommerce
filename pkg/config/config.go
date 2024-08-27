@@ -16,6 +16,7 @@ type Config struct {
 	ForgotPasswordToken time.Duration `mapstructure:"FORGOT_PASSWORD_TOKEN"`
 	Account_email       string        `mapstructure:"ACCOUNT_EMAIL"`
 	Password_email      string        `mapstructure:"PASSWORD_EMAIL"`
+	NameEmail           string        `mapstructure:"NAME_EMAIL"`
 	AppUrlFE            string        `mapstructure:"URL_FE_APP"`
 }
 
