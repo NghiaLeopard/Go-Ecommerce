@@ -18,6 +18,9 @@ type Config struct {
 	Password_email      string        `mapstructure:"PASSWORD_EMAIL"`
 	NameEmail           string        `mapstructure:"NAME_EMAIL"`
 	AppUrlFE            string        `mapstructure:"URL_FE_APP"`
+	MaxIdleTime         int           `mapstructure:"Max_IDLE_CONNS"`
+	MaxOpenConnect      int           `mapstructure:"MAX_OPEN_CONNECT"`
+	ConnMaxLifeTime     int           `mapstructure:"CONN_MAX_LIFE_TIMe"`
 }
 
 func LoadConfig(path string) (config Config, err error) {
