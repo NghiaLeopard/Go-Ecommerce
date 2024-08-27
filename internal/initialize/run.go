@@ -12,8 +12,10 @@ func Run() {
 	initLoadConfig()
 	initPostgresql()
 	initLogger()
+	initGmail()
 
 	global.Logger.Info("Config success", zap.String("Status", "Success"))
+	
 	server, err := wire.InitServer(global.DB, global.Config)
 
 	if err != nil {

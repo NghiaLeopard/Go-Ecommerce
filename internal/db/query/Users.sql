@@ -37,8 +37,7 @@ RETURNING *;
 
 -- name: SaveResetToken :one
 UPDATE "Users" SET "resetToken" = $1,"resetTokenExpiration" = $2
-WHERE id = $3
-RETURNING *;
+WHERE id = $3;
 
 -- name: UpdatePasswordUser :exec
 UPDATE "Users" SET password = $1
