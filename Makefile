@@ -8,16 +8,16 @@ dropdb:
 	docker exec -it DB_ECOMMERCE dropdb ECOMMERCE
 
 migrateup:
-	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/ECOMMERCE?sslmode=disable" -verbose up
+	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/DB_ECOMMERCE?sslmode=disable" -verbose up
 
 migratedown:
-	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/ECOMMERCE?sslmode=disable" -verbose down
+	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/DB_ECOMMERCE?sslmode=disable" -verbose down
 
 migrateup1:
-	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/ECOMMERCE?sslmode=disable" -verbose up 1
+	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/DB_ECOMMERCE?sslmode=disable" -verbose up 1
 
 migratedown1:
-	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/ECOMMERCE?sslmode=disable" -verbose down 1
+	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/DB_ECOMMERCE?sslmode=disable" -verbose down 1
 
 sqlc:
 	sqlc generate
