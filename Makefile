@@ -34,7 +34,10 @@ initDB:
 wire:
 	cd internal/wire && wire
 
+test:
+	go test -v -cover ./...
+
 mock:
 	mockgen -package mock -destination internal/db/mock/mock.go github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc Querier
 
-.PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc test server wire mock
+.PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc test server initDB wire mock
