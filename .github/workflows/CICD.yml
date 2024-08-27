@@ -45,3 +45,6 @@ jobs:
 
             - name: postgres
               run: make migrateup
+
+            - name: Test
+              run: go test -v -cover ./...

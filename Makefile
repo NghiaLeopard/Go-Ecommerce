@@ -22,6 +22,9 @@ migratedown1:
 sqlc:
 	sqlc generate
 
+test:
+	go test -v -cover ./...
+
 server:
 	go run ./cmd/server/main.go
 
@@ -30,9 +33,6 @@ initDB:
 
 wire:
 	cd internal/wire && wire
-
-test:
-	go test -v -cover ./...
 
 mock:
 	mockgen -package mock -destination internal/db/mock/mock.go github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc Querier
