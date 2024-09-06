@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/response"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
-	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/require"
 )
@@ -152,18 +152,15 @@ func TestAuthMiddleware(t *testing.T) {
 		tc := testCase[i]
 		t.Run(tc.name, func(t *testing.T) {
 			router := gin.Default()
-			maker, err := token.NewPasetoMaker(config.Config{Symmetric: utils.RandomString(32)})
 
-			require.NoError(t, err)
-
-			middleware := NewMiddleware(maker)
+			middleware := NewMiddleware()
 
 			recorder := httptest.NewRecorder()
 
 			request, err := http.NewRequest(http.MethodGet, "/auth", nil)
 			tc.caseGet(router, middleware)
 
-			tc.setupAuth(t, request, maker, AuthorizationHeader, AuthorizationType, 1, []string{config.CONFIG_PERMISSIONS["ADMIN"].(string)}, 10*time.Hour)
+			tc.setupAuth(t, request, global.Token, AuthorizationHeader, AuthorizationType, 1, []string{config.CONFIG_PERMISSIONS["ADMIN"].(string)}, 10*time.Hour)
 
 			require.NoError(t, err)
 

@@ -27,5 +27,4 @@ func UserRouter(api *gin.RouterGroup, middleware middleware.Middleware, authHand
 		}
 
 	}
-
 }

@@ -13,19 +13,17 @@ import (
 var testQuery *Queries
 var testDb *sql.DB
 
-
-
 func TestMain(m *testing.M) {
 	config, err := config.LoadConfig("..//..//..")
 
 	if err != nil {
-		log.Fatal("Connect fail: ",err)
+		log.Fatal("Connect fail: ", err)
 	}
 
-	testDb,err = sql.Open(config.DBDrive,config.DBSource)
+	testDb, err = sql.Open(config.DBDrive, config.DBSource)
 
 	if err != nil {
-		log.Fatal("Connect to database fail: ",err)
+		log.Fatal("Connect to database fail: ", err)
 	}
 
 	testQuery = New(testDb)
@@ -33,4 +31,3 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 
 }
-

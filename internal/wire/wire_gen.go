@@ -11,22 +11,17 @@ import (
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/middleware"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
-	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/gmail"
-	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
 )
 
 // Injectors from wire.go:
 
 func InitServer(sqlcDB *db.Queries, config2 config.Config) (*api.ServerHTTP, error) {
-	maker, err := token.NewPasetoMaker(config2)
-	if err != nil {
-		return nil, err
-	}
-	middlewareMiddleware := middleware.NewMiddleware(maker)
-	sender := gmail.NewEmailSender(config2)
-	iAuthUseCase := usecase.NewAuthUseCase(sqlcDB, config2, maker, sender)
+	middlewareMiddleware := middleware.NewMiddleware()
+	iAuth := repository.NewAuthRepository()
+	iAuthUseCase := usecase.NewAuthUseCase(iAuth)
 	iAuthHandler := handler.NewAuthHandler(iAuthUseCase)
 	serverHTTP := api.NewServerHTTP(config2, middlewareMiddleware, iAuthHandler)
 	return serverHTTP, nil

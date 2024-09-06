@@ -11,7 +11,7 @@ type IAuth interface {
 	GetUserById(ctx *gin.Context, id int64) (db.GetUserByIdRow, error)
 	GetUserByEmail(ctx *gin.Context, email string) (db.GetUserByEmailRow, error)
 	UpdateUser(ctx *gin.Context, arg db.UpdateUserParams) (db.User, error)
-	SaveResetToken(ctx *gin.Context, arg db.SaveResetTokenParams) (db.User, error)
+	SaveResetToken(ctx *gin.Context, arg db.SaveResetTokenParams) error
 	UpdatePasswordUser(ctx *gin.Context, arg db.UpdatePasswordUserParams) error
 	DeleteUser(ctx *gin.Context, id int64) error
 }

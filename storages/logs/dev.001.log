@@ -1,1 +1,7 @@
 {"level":"INFO","time":"2024-08-27T08:03:19.681+0700","caller":"initialize/run.go:16","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-08-27T17:32:39.628+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-08-27T17:32:39.645+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-08-27T17:32:39.649+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-08-27T17:34:59.816+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-08-27T17:34:59.818+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-08-27T17:34:59.857+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}

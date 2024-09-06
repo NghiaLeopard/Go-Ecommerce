@@ -12,7 +12,8 @@ type Querier interface {
 	CreateCity(ctx context.Context, name string) (City, error)
 	CreateRole(ctx context.Context, arg CreateRoleParams) (Role, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
-	DeleteCity(ctx context.Context, id int64) error
+	DeleteCityById(ctx context.Context, id int64) error
+	DeleteManyCityByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteRole(ctx context.Context, id int64) error
 	DeleteUser(ctx context.Context, id int64) error
 	GetCity(ctx context.Context, id int64) (City, error)
@@ -23,7 +24,7 @@ type Querier interface {
 	ListCity(ctx context.Context, arg ListCityParams) ([]City, error)
 	ListRole(ctx context.Context) ([]Role, error)
 	ListUsers(ctx context.Context) ([]User, error)
-	SaveResetToken(ctx context.Context, arg SaveResetTokenParams) (User, error)
+	SaveResetToken(ctx context.Context, arg SaveResetTokenParams) error
 	UpdateCity(ctx context.Context, arg UpdateCityParams) (City, error)
 	UpdatePasswordUser(ctx context.Context, arg UpdatePasswordUserParams) error
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error)

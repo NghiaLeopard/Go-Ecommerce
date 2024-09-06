@@ -4,6 +4,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/response"
 	"github.com/gin-gonic/gin"
@@ -42,7 +43,7 @@ func (c *middleware) AuthMiddleware(permission string, isAuthMe bool, isPublic b
 			return
 		}
 
-		payload, err := c.Token.VerifyTokenPaseto(fields[1])
+		payload, err := global.Token.VerifyTokenPaseto(fields[1])
 
 		if err != nil {
 			response.ErrorResponse(ctx, "Verify token invalid", 401)

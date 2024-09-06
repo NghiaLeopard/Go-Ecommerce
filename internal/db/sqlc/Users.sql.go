@@ -286,10 +286,9 @@ func (q *Queries) ListUsers(ctx context.Context) ([]User, error) {
 	return items, nil
 }
 
-const saveResetToken = `-- name: SaveResetToken :one
+const saveResetToken = `-- name: SaveResetToken :exec
 UPDATE "Users" SET "resetToken" = $1,"resetTokenExpiration" = $2
 WHERE id = $3
-RETURNING id, email, password, "resetToken", "userType", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", "deviceToken", addresses, "resetTokenExpiration", create_at
 `
 
 type SaveResetTokenParams struct {
@@ -298,32 +297,9 @@ type SaveResetTokenParams struct {
 	ID                   int64          `json:"id"`
 }
 
-func (q *Queries) SaveResetToken(ctx context.Context, arg SaveResetTokenParams) (User, error) {
-	row := q.db.QueryRowContext(ctx, saveResetToken, arg.ResetToken, arg.ResetTokenExpiration, arg.ID)
-	var i User
-	err := row.Scan(
-		&i.ID,
-		&i.Email,
-		&i.Password,
-		&i.ResetToken,
-		&i.UserType,
-		&i.Status,
-		&i.Address,
-		&i.Avatar,
-		&i.PhoneNumber,
-		&i.Role,
-		&i.FirstName,
-		&i.LastName,
-		&i.MiddleName,
-		&i.City,
-		pq.Array(&i.LikeProducts),
-		pq.Array(&i.ViewedProducts),
-		pq.Array(&i.DeviceToken),
-		&i.Addresses,
-		&i.ResetTokenExpiration,
-		&i.CreateAt,
-	)
-	return i, err
+func (q *Queries) SaveResetToken(ctx context.Context, arg SaveResetTokenParams) error {
+	_, err := q.db.ExecContext(ctx, saveResetToken, arg.ResetToken, arg.ResetTokenExpiration, arg.ID)
+	return err
 }
 
 const updatePasswordUser = `-- name: UpdatePasswordUser :exec

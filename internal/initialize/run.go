@@ -10,12 +10,13 @@ import (
 
 func Run() {
 	initLoadConfig()
-	initPostgresql()
 	initLogger()
+	initPostgresql()
 	initGmail()
+	initToken()
 
 	global.Logger.Info("Config success", zap.String("Status", "Success"))
-	
+
 	server, err := wire.InitServer(global.DB, global.Config)
 
 	if err != nil {

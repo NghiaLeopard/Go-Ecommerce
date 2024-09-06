@@ -35,7 +35,7 @@ UPDATE "Users" SET "firstName" = $1,"lastName" = $2,"middleName" = $3, "phoneNum
 WHERE id = $8
 RETURNING *;
 
--- name: SaveResetToken :one
+-- name: SaveResetToken :exec
 UPDATE "Users" SET "resetToken" = $1,"resetTokenExpiration" = $2
 WHERE id = $3;
 

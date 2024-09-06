@@ -8,6 +8,8 @@ package db
 import (
 	"context"
 	"database/sql"
+
+	"github.com/lib/pq"
 )
 
 const createCity = `-- name: CreateCity :one
@@ -26,13 +28,23 @@ func (q *Queries) CreateCity(ctx context.Context, name string) (City, error) {
 	return i, err
 }
 
-const deleteCity = `-- name: DeleteCity :exec
+const deleteCityById = `-- name: DeleteCityById :exec
 DELETE FROM "City"
 WHERE id = $1
 `
 
-func (q *Queries) DeleteCity(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteCity, id)
+func (q *Queries) DeleteCityById(ctx context.Context, id int64) error {
+	_, err := q.db.ExecContext(ctx, deleteCityById, id)
+	return err
+}
+
+const deleteManyCityByIds = `-- name: DeleteManyCityByIds :exec
+DELETE FROM "City"
+WHERE id = ANY($1::bigint[])
+`
+
+func (q *Queries) DeleteManyCityByIds(ctx context.Context, dollar_1 []int64) error {
+	_, err := q.db.ExecContext(ctx, deleteManyCityByIds, pq.Array(dollar_1))
 	return err
 }
 

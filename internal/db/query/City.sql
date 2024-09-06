@@ -22,6 +22,10 @@ UPDATE "City" SET name = $1
 WHERE id = $2
 RETURNING *;
 
--- name: DeleteCity :exec
+-- name: DeleteCityById :exec
 DELETE FROM "City"
 WHERE id = $1;
+
+-- name: DeleteManyCityByIds :exec
+DELETE FROM "City"
+WHERE id = ANY($1::bigint[]);
