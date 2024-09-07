@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
-	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/constant"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/response"
 	"github.com/gin-gonic/gin"
 )
@@ -21,42 +21,38 @@ func (c *middleware) AuthMiddleware(permission string, isAuthMe bool, isPublic b
 
 		if isPublic {
 			ctx.Next()
-			return
 		}
 
 		authorization := ctx.GetHeader(AuthorizationHeader)
 
 		if len(authorization) == 0 {
 			response.ErrorResponse(ctx, "please provide authorization", 401)
-			return
 		}
 
 		fields := strings.Fields(authorization)
 
 		if len(fields) < 2 {
 			response.ErrorResponse(ctx, "invalid format header", 401)
-			return
 		}
 
 		if fields[0] != AuthorizationType {
 			response.ErrorResponse(ctx, "invalid type header", 401)
-			return
+
 		}
 
 		payload, err := global.Token.VerifyTokenPaseto(fields[1])
 
 		if err != nil {
 			response.ErrorResponse(ctx, "Verify token invalid", 401)
-			return
 		}
 
-		if slices.Contains(payload.Permissions, permission) || slices.Contains(payload.Permissions, config.CONFIG_PERMISSIONS["ADMIN"].(string)) || isAuthMe {
+		if slices.Contains(payload.Permissions, permission) || slices.Contains(payload.Permissions, constant.CONFIG_PERMISSIONS["ADMIN"].(string)) || isAuthMe {
 			ctx.Set(AuthorizationKey, payload)
 			ctx.Next()
-			return
+			ctx.Abort()
 		} else {
 			response.ErrorResponse(ctx, "unauthorized", 401)
-			return
+			ctx.Abort()
 		}
 	}
 }

@@ -23,6 +23,9 @@ func InitServer(sqlcDB *db.Queries, config2 config.Config) (*api.ServerHTTP, err
 	iAuth := repository.NewAuthRepository()
 	iAuthUseCase := usecase.NewAuthUseCase(iAuth)
 	iAuthHandler := handler.NewAuthHandler(iAuthUseCase)
-	serverHTTP := api.NewServerHTTP(config2, middlewareMiddleware, iAuthHandler)
+	iCity := repository.NewCityRepository()
+	iCityUseCase := usecase.NewCityUseCase(iCity)
+	iCityHandler := handler.NewCityHandler(iCityUseCase)
+	serverHTTP := api.NewServerHTTP(config2, middlewareMiddleware, iAuthHandler, iCityHandler)
 	return serverHTTP, nil
 }

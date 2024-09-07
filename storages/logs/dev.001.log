@@ -5,3 +5,108 @@
 {"level":"INFO","time":"2024-08-27T17:34:59.816+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
 {"level":"INFO","time":"2024-08-27T17:34:59.818+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
 {"level":"INFO","time":"2024-08-27T17:34:59.857+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-06T16:51:29.910+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-06T16:51:29.913+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-06T16:51:29.913+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-06T16:54:33.353+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-06T16:54:33.365+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-06T16:54:33.366+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-06T16:56:20.127+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-06T16:56:20.160+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-06T16:56:20.160+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-06T16:57:16.659+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-06T16:57:16.663+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-06T16:57:16.664+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-06T16:59:01.569+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-06T16:59:01.572+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-06T16:59:01.572+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-06T17:05:11.058+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-06T17:05:11.087+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-06T17:05:11.088+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-06T17:05:54.307+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-06T17:05:54.312+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-06T17:05:54.312+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-06T17:10:16.826+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-06T17:10:16.831+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-06T17:10:16.831+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:00:23.463+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:00:23.467+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:00:23.507+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:01:17.365+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:01:17.369+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:01:17.369+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:02:50.070+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:02:50.073+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:02:50.073+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:03:36.932+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:03:36.935+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:03:36.935+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:06:06.771+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:06:06.774+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:06:06.774+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:12:12.651+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:12:12.692+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:12:12.692+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:19:41.775+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:19:41.805+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:19:41.806+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:20:22.666+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:20:22.718+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:20:22.730+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:24:41.340+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:24:41.732+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:24:41.732+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:34:25.462+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:34:25.542+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:34:25.543+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:39:45.562+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:39:45.881+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:39:45.881+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:50:53.620+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:50:53.757+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:50:53.757+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:55:15.247+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:55:15.252+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:55:15.252+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T09:55:36.259+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T09:55:36.261+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T09:55:36.261+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T10:07:26.478+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T10:07:26.481+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T10:07:26.481+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T10:08:45.874+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T10:08:46.051+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T10:08:46.051+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T10:17:20.486+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T10:17:20.488+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T10:17:20.488+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T10:18:51.404+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T10:18:51.408+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T10:18:51.408+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T10:20:00.962+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T10:20:00.964+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T10:20:00.964+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T10:23:26.673+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T10:23:26.709+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T10:23:26.709+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T10:24:52.682+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T10:24:52.691+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T10:24:52.693+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T14:25:48.385+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T14:25:48.389+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T14:25:48.389+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T14:27:20.751+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T14:27:20.754+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T14:27:20.754+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T16:15:51.483+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T16:15:51.516+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T16:15:51.516+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T16:18:52.654+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T16:18:52.712+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T16:18:52.713+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T16:24:42.907+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T16:24:42.915+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T16:24:42.915+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-07T16:24:54.760+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-07T16:24:54.768+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-07T16:24:54.769+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}

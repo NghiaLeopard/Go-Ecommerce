@@ -3,11 +3,11 @@ package response
 import "net/http"
 
 const (
-	INVALID        = 400
-	ALREADY_EXIST  = 409
 	GET_SUCCESS    = 200
 	ACTION_SUCCESS = 201
+	INVALID        = 400
 	UNAUTHORIZED   = 401
+	ALREADY_EXIST  = 409
 	INTERNAL_ERROR = 500
 )
 

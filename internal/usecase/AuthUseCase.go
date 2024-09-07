@@ -23,35 +23,35 @@ func NewAuthUseCase(authRepo IRepository.IAuth) IUseCase.IAuthUseCase {
 }
 
 // LoginUseCase implements IUseCase.IAuthUseCase.
-func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password string) (response.LoginResponse, error, int) {
+func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password string) (response.ILoginResponse, error, int) {
 	user, err := a.AuthRepo.GetUserByEmail(ctx, email)
 
 	if err != nil {
-		return response.LoginResponse{}, fmt.Errorf("account is not exist: %w", err), 400
+		return response.ILoginResponse{}, fmt.Errorf("account is not exist: %w", err), 400
 	}
 
 	err = utils.CheckPassword(user.Password, password)
 
 	if err != nil {
-		return response.LoginResponse{}, fmt.Errorf("password is not correct: %w", err), 400
+		return response.ILoginResponse{}, fmt.Errorf("password is not correct: %w", err), 400
 	}
 
 	accessToken, _, err := global.Token.CreateTokenPaseto(int(user.ID), user.Permission, global.Config.Access_token)
 
 	if err != nil {
-		return response.LoginResponse{}, fmt.Errorf("generate access token false: %w", err), 500
+		return response.ILoginResponse{}, fmt.Errorf("generate access token false: %w", err), 500
 	}
 
 	refreshToken, _, err := global.Token.CreateTokenPaseto(int(user.ID), user.Permission, global.Config.Refresh_token)
 
 	if err != nil {
-		return response.LoginResponse{}, fmt.Errorf("generate refresh token false: %w", err), 500
+		return response.ILoginResponse{}, fmt.Errorf("generate refresh token false: %w", err), 500
 	}
 
-	data := response.LoginResponse{
+	data := response.ILoginResponse{
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
-		User: response.UserResponse{
+		User: response.IUserResponse{
 			Id:          int(user.ID),
 			Email:       user.Email,
 			ResetToken:  "",
@@ -166,7 +166,7 @@ func (a *AuthUseCase) ForgotPasswordUseCase(ctx *gin.Context, email string) (err
 		// ResetToken: token,
 	}
 
-	global.DB.SaveResetToken(ctx,arg)
+	global.DB.SaveResetToken(ctx, arg)
 
 	if err != nil {
 		return fmt.Errorf("send email fail"), 400
@@ -210,16 +210,16 @@ func (a *AuthUseCase) ResetPasswordUseCase(ctx *gin.Context, newPassword string,
 }
 
 // GetAuthMeUserCase implements IUseCase.IAuthUseCase.
-func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (response.AuthMe, error, int) {
+func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (response.IAuthMe, error, int) {
 	payload := ctx.MustGet(middleware.AuthorizationKey).(*token.Payload)
 
 	user, err := a.AuthRepo.GetUserById(ctx, int64(payload.Id))
 
 	if err != nil {
-		return response.AuthMe{}, fmt.Errorf("get auth me fail"), 500
+		return response.IAuthMe{}, fmt.Errorf("get auth me fail"), 500
 	}
 
-	data := response.AuthMe{
+	data := response.IAuthMe{
 		Id:      int(user.ID),
 		Email:   user.Email,
 		Address: user.Address.String,

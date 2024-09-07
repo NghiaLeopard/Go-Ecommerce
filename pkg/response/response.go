@@ -1,6 +1,8 @@
 package response
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 type ResponseData struct {
 	Message   string      `json:"message"`
@@ -9,25 +11,28 @@ type ResponseData struct {
 	TypeError string      `json:"typeError"`
 }
 
-func SuccessResponse(ctx *gin.Context,message string, code int, data interface{}) {
+func SuccessResponse(ctx *gin.Context, message string, code int, data interface{}) {
 	var rsp = ResponseData{
-		Message: message,
-		Data: data,
-		Status: "Success",
+		Message:   message,
+		Data:      data,
+		Status:    "Success",
 		TypeError: httpResponse[code].Type,
 	}
-	
-	ctx.JSON(httpResponse[code].Status,rsp)
+
+	ctx.JSON(httpResponse[code].Status, rsp)
+
+	return
 }
 
-func ErrorResponse(ctx *gin.Context,message string, code int) {
+func ErrorResponse(ctx *gin.Context, message string, code int) {
 	var rsp = ResponseData{
-		Message: message,
-		Data: "",
-		Status: "Error",
+		Message:   message,
+		Data:      "",
+		Status:    "Error",
 		TypeError: httpResponse[code].Type,
 	}
-	
-	ctx.JSON(httpResponse[code].Status,rsp)
-}
 
+	ctx.JSON(httpResponse[code].Status, rsp)
+
+	return
+}

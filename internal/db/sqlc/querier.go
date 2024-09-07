@@ -16,7 +16,8 @@ type Querier interface {
 	DeleteManyCityByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteRole(ctx context.Context, id int64) error
 	DeleteUser(ctx context.Context, id int64) error
-	GetCity(ctx context.Context, id int64) (City, error)
+	GetCityById(ctx context.Context, id int64) (City, error)
+	GetCityByName(ctx context.Context, name string) (City, error)
 	GetRole(ctx context.Context, id int64) (Role, error)
 	GetUserByEmail(ctx context.Context, email string) (GetUserByEmailRow, error)
 	GetUserById(ctx context.Context, id int64) (GetUserByIdRow, error)

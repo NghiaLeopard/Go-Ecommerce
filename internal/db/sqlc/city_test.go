@@ -23,10 +23,19 @@ func TestCreateCity(t *testing.T) {
 	CreateCityUser(t)
 }
 
-func TestGetCity(t *testing.T) {
+func TestGetCityById(t *testing.T) {
 	city := CreateCityUser(t)
 
-	getCity, err := testQuery.GetCity(context.Background(), city.ID)
+	getCity, err := testQuery.GetCityById(context.Background(), city.ID)
+	require.NoError(t, err)
+	require.NotEmpty(t, getCity)
+	require.Equal(t, city.ID, getCity.ID)
+	require.Equal(t, city.Name, getCity.Name)
+}
+
+func TestGetCityByName(t *testing.T) {
+	city := CreateCityUser(t)
+	getCity, err := testQuery.GetCityByName(context.Background(), city.Name)
 	require.NoError(t, err)
 	require.NotEmpty(t, getCity)
 	require.Equal(t, city.ID, getCity.ID)

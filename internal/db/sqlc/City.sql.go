@@ -48,13 +48,25 @@ func (q *Queries) DeleteManyCityByIds(ctx context.Context, dollar_1 []int64) err
 	return err
 }
 
-const getCity = `-- name: GetCity :one
+const getCityById = `-- name: GetCityById :one
 SELECT id, name FROM "City"
 WHERE id = $1 LIMIT 1
 `
 
-func (q *Queries) GetCity(ctx context.Context, id int64) (City, error) {
-	row := q.db.QueryRowContext(ctx, getCity, id)
+func (q *Queries) GetCityById(ctx context.Context, id int64) (City, error) {
+	row := q.db.QueryRowContext(ctx, getCityById, id)
+	var i City
+	err := row.Scan(&i.ID, &i.Name)
+	return i, err
+}
+
+const getCityByName = `-- name: GetCityByName :one
+SELECT id, name FROM "City"
+WHERE name = $1 LIMIT 1
+`
+
+func (q *Queries) GetCityByName(ctx context.Context, name string) (City, error) {
+	row := q.db.QueryRowContext(ctx, getCityByName, name)
 	var i City
 	err := row.Scan(&i.ID, &i.Name)
 	return i, err
