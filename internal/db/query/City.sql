@@ -6,9 +6,13 @@ INSERT INTO "City" (
 )
 RETURNING *;
 
--- name: GetCity :one
+-- name: GetCityById :one
 SELECT * FROM "City"
 WHERE id = $1 LIMIT 1;
+
+-- name: GetCityByName :one
+SELECT * FROM "City"
+WHERE name = sqlc.arg(name) LIMIT 1;
 
 -- name: ListCity :many
 SELECT * FROM "City"

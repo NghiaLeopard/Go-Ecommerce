@@ -1,4 +1,4 @@
-package config
+package constant
 
 type TMapPermission map[string]interface{}
 

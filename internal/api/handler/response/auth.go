@@ -22,7 +22,7 @@ type IRoleResponse struct {
 	Permission []string `json:"permissions"`
 }
 
-type UserResponse struct {
+type IUserResponse struct {
 	Id                   int                  `json:"_id"`
 	Email                string               `json:"email"`
 	ResetToken           string               `json:"resetToken"`
@@ -42,7 +42,7 @@ type UserResponse struct {
 	Create_at            time.Time            `json:"create_at"`
 }
 
-type AuthMe struct {
+type IAuthMe struct {
 	Id          int                  `json:"_id"`
 	Email       string               `json:"email"`
 	Status      db.UsersStatus       `json:"status"`
@@ -58,8 +58,8 @@ type AuthMe struct {
 	Create_at   time.Time            `json:"create_at"`
 }
 
-type LoginResponse struct {
+type ILoginResponse struct {
 	AccessToken  string `json:"access_token"`
 	RefreshToken string `json:"refresh_token"`
-	User         UserResponse
+	User         IUserResponse
 }

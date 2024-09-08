@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"log"
 
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/constant"
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/utils"
@@ -15,7 +16,7 @@ func initDB() {
 
 	arg1 := db.CreateRoleParams{
 		Name:       "Admin",
-		Permission: []string{(config.CONFIG_PERMISSIONS["ADMIN"].(string))},
+		Permission: []string{(constant.CONFIG_PERMISSIONS["ADMIN"].(string))},
 	}
 
 	arg2 := db.CreateRoleParams{
