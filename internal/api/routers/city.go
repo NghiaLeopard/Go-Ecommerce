@@ -7,8 +7,9 @@ import (
 )
 
 func CityRouter(api *gin.RouterGroup, middleware middleware.Middleware, cityHandler IHandler.ICityHandler) {
-	city := api.Use(middleware.AuthMiddleware("CITY.CREATE", false, false))
+	apiCity := api.Group("/city")
 	{
-		city.POST("/city", cityHandler.CreateCity)
+		apiCity.POST("", middleware.AuthMiddleware("CITY.CREATE", false, false), cityHandler.CreateCity)
+		apiCity.GET("/:id", middleware.AuthMiddleware("1", true, false), cityHandler.GetCity)
 	}
 }

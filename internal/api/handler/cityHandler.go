@@ -34,3 +34,22 @@ func (c *CityHandler) CreateCity(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Create user success", codeStatus, city)
 
 }
+
+// CreateCity implements IHandler.ICityHandler.
+func (c *CityHandler) GetCity(ctx *gin.Context) {
+	var req IRequest.GetCity
+	if err := ctx.ShouldBindUri(&req); err != nil {
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	city, err, codeStatus := c.CityUseCase.GetCityUseCase(ctx, req.ID)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	response.SuccessResponse(ctx, "Get user success", codeStatus, city)
+
+}
