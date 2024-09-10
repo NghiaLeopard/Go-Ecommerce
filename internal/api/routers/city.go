@@ -11,5 +11,6 @@ func CityRouter(api *gin.RouterGroup, middleware middleware.Middleware, cityHand
 	{
 		apiCity.POST("", middleware.AuthMiddleware("CITY.CREATE", false, false), cityHandler.CreateCity)
 		apiCity.GET("/:id", middleware.AuthMiddleware("1", true, false), cityHandler.GetCity)
+		apiCity.PATCH("/:id", middleware.AuthMiddleware("1", true, false), cityHandler.UpdateCity)
 	}
 }

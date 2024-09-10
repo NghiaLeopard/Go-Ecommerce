@@ -183,3 +183,18 @@
 {"level":"INFO","time":"2024-09-09T15:11:39.826+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
 {"level":"INFO","time":"2024-09-09T15:11:39.826+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
 {"level":"ERROR","time":"2024-09-09T15:11:43.341+0700","caller":"middleware/authMiddleware.go:68","msg":"unauthorized","Status":"Error"}
+{"level":"INFO","time":"2024-09-09T15:19:00.038+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-09T15:19:00.040+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-09T15:19:00.040+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-09T15:22:13.167+0700","caller":"middleware/authMiddleware.go:54","msg":"Verify token invalid","Status":"Error"}
+{"level":"INFO","time":"2024-09-09T15:22:20.002+0700","caller":"usecase/AuthUseCase.go:83","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-09T15:22:20.005+0700","caller":"handler/authHandler.go:40","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-09T15:22:30.858+0700","caller":"usecase/CityUseCase.go:38","msg":"Create city","Status":"Error"}
+{"level":"INFO","time":"2024-09-10T13:37:16.903+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-10T13:37:17.054+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-10T13:37:17.059+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-10T13:41:16.836+0700","caller":"middleware/authMiddleware.go:31","msg":"please provide authorization","Status":"Error"}
+{"level":"INFO","time":"2024-09-10T13:41:24.552+0700","caller":"usecase/AuthUseCase.go:83","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-10T13:41:24.555+0700","caller":"handler/authHandler.go:40","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-10T13:41:50.161+0700","caller":"handler/cityHandler.go:56","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-10T13:42:23.481+0700","caller":"handler/cityHandler.go:83","msg":"get city","Status":"Error"}

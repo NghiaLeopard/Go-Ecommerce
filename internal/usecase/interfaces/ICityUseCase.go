@@ -8,4 +8,5 @@ import (
 type ICityUseCase interface {
 	CreateCityUseCase(ctx *gin.Context, name string) (response.ICityResponse, error, int)
 	GetCityUseCase(ctx *gin.Context, id int) (response.ICityResponse, error, int)
+	UpdateCityUseCase(ctx *gin.Context, id int,name string) (response.ICityResponse, error, int)
 }
