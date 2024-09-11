@@ -2,7 +2,7 @@ package IHandler
 
 import "github.com/gin-gonic/gin"
 
-type City interface {
+type Role interface {
 	CreateCity(ctx *gin.Context)
 	GetCity(ctx *gin.Context)
 	UpdateCity(ctx *gin.Context)

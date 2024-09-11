@@ -11,14 +11,13 @@ import (
 )
 
 type CityHandler struct {
-	CityUseCase IUseCase.ICityUseCase
+	CityUseCase IUseCase.City
 }
 
-func NewCityHandler(cityUseCase IUseCase.ICityUseCase) IHandler.ICityHandler {
+func NewCityHandler(cityUseCase IUseCase.City) IHandler.City {
 	return &CityHandler{CityUseCase: cityUseCase}
 }
 
-// CreateCity implements IHandler.ICityHandler.
 func (c *CityHandler) CreateCity(ctx *gin.Context) {
 	var req IRequest.CreateCity
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -67,7 +66,7 @@ func (c *CityHandler) UpdateCity(ctx *gin.Context) {
 		return
 	}
 
-	if err := ctx.ShouldBindJSON(&params); err != nil {
+	if err := ctx.ShouldBindJSON(&body); err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
 		return
@@ -82,5 +81,42 @@ func (c *CityHandler) UpdateCity(ctx *gin.Context) {
 
 	global.Logger.Error("get city", zap.String("Status", "Error"))
 	response.SuccessResponse(ctx, "Get city success", codeStatus, city)
+}
 
+func (c *CityHandler) DeleteCity(ctx *gin.Context) {
+	var req IRequest.DeleteCity
+	if err := ctx.ShouldBindUri(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	err, codeStatus := c.CityUseCase.DeleteCityUseCase(ctx, req.ID)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Error("get city", zap.String("Status", "Error"))
+	response.SuccessResponse(ctx, "Delete city success", codeStatus, "")
+}
+
+func (c *CityHandler) DeleteManyCity(ctx *gin.Context) {
+	var req IRequest.DeleteManyCity
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	err, codeStatus := c.CityUseCase.DeleteManyCityUseCase(ctx, req.ArrayId)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Error("get city", zap.String("Status", "Error"))
+	response.SuccessResponse(ctx, "Delete city success", codeStatus, "")
 }

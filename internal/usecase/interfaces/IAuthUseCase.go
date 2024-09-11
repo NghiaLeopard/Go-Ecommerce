@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type IAuthUseCase interface {
+type Auth interface {
 	LoginUseCase(ctx *gin.Context, email string, password string) (response.ILoginResponse, error, int)
 	RegisterUseCase(ctx *gin.Context, email string, password string) error
 	LogoutUseCase(ctx *gin.Context) (error, int)

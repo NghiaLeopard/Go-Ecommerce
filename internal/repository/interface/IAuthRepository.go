@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type IAuth interface {
+type Auth interface {
 	CreateUser(ctx *gin.Context, arg db.CreateUserParams) (db.User, error)
 	InitDefaultAdmin(ctx *gin.Context, arg db.InitDefaultAdminParams) (db.User, error)
 	GetUserById(ctx *gin.Context, id int64) (db.GetUserByIdRow, error)

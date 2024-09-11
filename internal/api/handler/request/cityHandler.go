@@ -8,6 +8,14 @@ type GetCity struct {
 	ID int `uri:"id" binding:"required,min=1"`
 }
 
+type DeleteCity struct {
+	ID int `uri:"id" binding:"required,min=1"`
+}
+
+type DeleteManyCity struct {
+	ArrayId []int `json:"arrayId" binding:"required,min=1"`
+}
+
 type GetParamsUpdateCity struct {
 	ID int `uri:"id" binding:"required,min=1"`
 }

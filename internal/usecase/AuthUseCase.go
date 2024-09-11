@@ -16,10 +16,10 @@ import (
 )
 
 type AuthUseCase struct {
-	AuthRepo IRepository.IAuth
+	AuthRepo IRepository.Auth
 }
 
-func NewAuthUseCase(authRepo IRepository.IAuth) IUseCase.IAuthUseCase {
+func NewAuthUseCase(authRepo IRepository.Auth) IUseCase.Auth {
 	return &AuthUseCase{AuthRepo: authRepo}
 }
 

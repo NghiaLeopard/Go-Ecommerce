@@ -11,14 +11,13 @@ import (
 )
 
 type AuthHandler struct {
-	AuthUseCase IUseCase.IAuthUseCase
+	AuthUseCase IUseCase.Auth
 }
 
-func NewAuthHandler(authUseCase IUseCase.IAuthUseCase) IHandler.IAuthHandler {
+func NewAuthHandler(authUseCase IUseCase.Auth) IHandler.Auth {
 	return &AuthHandler{AuthUseCase: authUseCase}
 }
 
-// LoginUser implements IHandler.IAuthHandler.
 func (a *AuthHandler) LoginUser(ctx *gin.Context) {
 	var req *IRequest.RegisterRequest
 
@@ -41,7 +40,6 @@ func (a *AuthHandler) LoginUser(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Login success", 201, user)
 }
 
-// SignUpUser implements IHandler.IAuthHandler.
 func (a *AuthHandler) SignUpUser(ctx *gin.Context) {
 	var req *IRequest.RegisterRequest
 
@@ -64,7 +62,6 @@ func (a *AuthHandler) SignUpUser(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Register success", 201, "")
 }
 
-// LogoutUser implements IHandler.IAuthHandler.
 func (a *AuthHandler) LogoutUser(ctx *gin.Context) {
 	err, statusCode := a.AuthUseCase.LogoutUseCase(ctx)
 
@@ -77,7 +74,6 @@ func (a *AuthHandler) LogoutUser(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Logout success", statusCode, "")
 }
 
-// ChangePasswordUser implements IHandler.IAuthHandler.
 func (a *AuthHandler) ChangePasswordUser(ctx *gin.Context) {
 	var req *IRequest.ChangePasswordRequest
 
@@ -100,7 +96,6 @@ func (a *AuthHandler) ChangePasswordUser(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "change password success", statusCode, "")
 }
 
-// ForgotPasswordUser implements IHandler.IAuthHandler.
 func (a *AuthHandler) ForgotPasswordUser(ctx *gin.Context) {
 	var req *IRequest.ForgotPasswordRequest
 
@@ -123,7 +118,6 @@ func (a *AuthHandler) ForgotPasswordUser(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Send gmail", statusCode, "")
 }
 
-// ResetPasswordUser implements IHandler.IAuthHandler.
 func (a *AuthHandler) ResetPasswordUser(ctx *gin.Context) {
 	var res *IRequest.ResetPasswordRequest
 

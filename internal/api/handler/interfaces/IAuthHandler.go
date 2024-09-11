@@ -2,7 +2,7 @@ package IHandler
 
 import "github.com/gin-gonic/gin"
 
-type IAuthHandler interface {
+type Auth interface {
 	LoginUser(ctx *gin.Context)
 	SignUpUser(ctx *gin.Context)
 	LogoutUser(ctx *gin.Context)

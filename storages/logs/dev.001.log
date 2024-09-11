@@ -198,3 +198,30 @@
 {"level":"INFO","time":"2024-09-10T13:41:24.555+0700","caller":"handler/authHandler.go:40","msg":"Login","Status":"Success"}
 {"level":"ERROR","time":"2024-09-10T13:41:50.161+0700","caller":"handler/cityHandler.go:56","msg":"get city","Status":"Error"}
 {"level":"ERROR","time":"2024-09-10T13:42:23.481+0700","caller":"handler/cityHandler.go:83","msg":"get city","Status":"Error"}
+{"level":"INFO","time":"2024-09-10T16:32:23.247+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-10T16:32:23.315+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-10T16:32:23.316+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-10T16:36:50.818+0700","caller":"handler/cityHandler.go:103","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-10T16:38:02.578+0700","caller":"handler/cityHandler.go:103","msg":"get city","Status":"Error"}
+{"level":"INFO","time":"2024-09-10T16:38:59.564+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-10T16:38:59.583+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-10T16:38:59.584+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-10T16:39:03.451+0700","caller":"handler/cityHandler.go:103","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-10T16:39:12.458+0700","caller":"handler/cityHandler.go:76","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-10T16:41:12.467+0700","caller":"handler/cityHandler.go:76","msg":"get city","Status":"Error"}
+{"level":"INFO","time":"2024-09-10T16:41:20.208+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-10T16:41:20.210+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-10T16:41:20.210+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-10T16:41:33.292+0700","caller":"handler/cityHandler.go:76","msg":"get city","Status":"Error"}
+{"level":"INFO","time":"2024-09-11T07:53:02.884+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T07:53:02.888+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T07:53:02.888+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-11T07:54:31.276+0700","caller":"handler/cityHandler.go:108","msg":"Key: 'DeleteManyCity.ArrayId' Error:Field validation for 'ArrayId' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-11T07:55:37.087+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T07:55:37.089+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T07:55:37.089+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-11T07:55:40.420+0700","caller":"handler/cityHandler.go:108","msg":"Key: 'DeleteManyCity.ArrayId' Error:Field validation for 'ArrayId' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-11T07:56:01.485+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T07:56:01.489+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T07:56:01.489+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-11T07:56:06.524+0700","caller":"handler/cityHandler.go:120","msg":"get city","Status":"Error"}
