@@ -35,8 +35,23 @@ func (m *MockQuerier) EXPECT() *MockQuerierMockRecorder {
 	return m.recorder
 }
 
+// CreateCity mocks base method.
+func (m *MockQuerier) CreateCity(arg0 context.Context, arg1 string) (db.City, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateCity", arg0, arg1)
+	ret0, _ := ret[0].(db.City)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateCity indicates an expected call of CreateCity.
+func (mr *MockQuerierMockRecorder) CreateCity(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateCity", reflect.TypeOf((*MockQuerier)(nil).CreateCity), arg0, arg1)
+}
+
 // CreateRole mocks base method.
-func (m *MockQuerier) CreateRole(arg0 context.Context, arg1 db.CreateRoleParams) (db.Role, error) {
+func (m *MockQuerier) CreateRole(arg0 context.Context, arg1 string) (db.Role, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateRole", arg0, arg1)
 	ret0, _ := ret[0].(db.Role)
@@ -48,6 +63,21 @@ func (m *MockQuerier) CreateRole(arg0 context.Context, arg1 db.CreateRoleParams)
 func (mr *MockQuerierMockRecorder) CreateRole(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateRole", reflect.TypeOf((*MockQuerier)(nil).CreateRole), arg0, arg1)
+}
+
+// CreateRoleByDefault mocks base method.
+func (m *MockQuerier) CreateRoleByDefault(arg0 context.Context, arg1 db.CreateRoleByDefaultParams) (db.Role, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateRoleByDefault", arg0, arg1)
+	ret0, _ := ret[0].(db.Role)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateRoleByDefault indicates an expected call of CreateRoleByDefault.
+func (mr *MockQuerierMockRecorder) CreateRoleByDefault(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateRoleByDefault", reflect.TypeOf((*MockQuerier)(nil).CreateRoleByDefault), arg0, arg1)
 }
 
 // CreateUser mocks base method.
@@ -65,18 +95,60 @@ func (mr *MockQuerierMockRecorder) CreateUser(arg0, arg1 interface{}) *gomock.Ca
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockQuerier)(nil).CreateUser), arg0, arg1)
 }
 
-// DeleteRole mocks base method.
-func (m *MockQuerier) DeleteRole(arg0 context.Context, arg1 int64) error {
+// DeleteCityById mocks base method.
+func (m *MockQuerier) DeleteCityById(arg0 context.Context, arg1 int64) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteRole", arg0, arg1)
+	ret := m.ctrl.Call(m, "DeleteCityById", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// DeleteRole indicates an expected call of DeleteRole.
-func (mr *MockQuerierMockRecorder) DeleteRole(arg0, arg1 interface{}) *gomock.Call {
+// DeleteCityById indicates an expected call of DeleteCityById.
+func (mr *MockQuerierMockRecorder) DeleteCityById(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteRole", reflect.TypeOf((*MockQuerier)(nil).DeleteRole), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteCityById", reflect.TypeOf((*MockQuerier)(nil).DeleteCityById), arg0, arg1)
+}
+
+// DeleteManyCityByIds mocks base method.
+func (m *MockQuerier) DeleteManyCityByIds(arg0 context.Context, arg1 []int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteManyCityByIds", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteManyCityByIds indicates an expected call of DeleteManyCityByIds.
+func (mr *MockQuerierMockRecorder) DeleteManyCityByIds(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteManyCityByIds", reflect.TypeOf((*MockQuerier)(nil).DeleteManyCityByIds), arg0, arg1)
+}
+
+// DeleteManyRolesByIds mocks base method.
+func (m *MockQuerier) DeleteManyRolesByIds(arg0 context.Context, arg1 []int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteManyRolesByIds", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteManyRolesByIds indicates an expected call of DeleteManyRolesByIds.
+func (mr *MockQuerierMockRecorder) DeleteManyRolesByIds(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteManyRolesByIds", reflect.TypeOf((*MockQuerier)(nil).DeleteManyRolesByIds), arg0, arg1)
+}
+
+// DeleteRoleById mocks base method.
+func (m *MockQuerier) DeleteRoleById(arg0 context.Context, arg1 int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteRoleById", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteRoleById indicates an expected call of DeleteRoleById.
+func (mr *MockQuerierMockRecorder) DeleteRoleById(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteRoleById", reflect.TypeOf((*MockQuerier)(nil).DeleteRoleById), arg0, arg1)
 }
 
 // DeleteUser mocks base method.
@@ -93,19 +165,64 @@ func (mr *MockQuerierMockRecorder) DeleteUser(arg0, arg1 interface{}) *gomock.Ca
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUser", reflect.TypeOf((*MockQuerier)(nil).DeleteUser), arg0, arg1)
 }
 
-// GetRole mocks base method.
-func (m *MockQuerier) GetRole(arg0 context.Context, arg1 int64) (db.Role, error) {
+// GetCityById mocks base method.
+func (m *MockQuerier) GetCityById(arg0 context.Context, arg1 int64) (db.City, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetRole", arg0, arg1)
+	ret := m.ctrl.Call(m, "GetCityById", arg0, arg1)
+	ret0, _ := ret[0].(db.City)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetCityById indicates an expected call of GetCityById.
+func (mr *MockQuerierMockRecorder) GetCityById(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetCityById", reflect.TypeOf((*MockQuerier)(nil).GetCityById), arg0, arg1)
+}
+
+// GetCityByName mocks base method.
+func (m *MockQuerier) GetCityByName(arg0 context.Context, arg1 string) (db.City, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetCityByName", arg0, arg1)
+	ret0, _ := ret[0].(db.City)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetCityByName indicates an expected call of GetCityByName.
+func (mr *MockQuerierMockRecorder) GetCityByName(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetCityByName", reflect.TypeOf((*MockQuerier)(nil).GetCityByName), arg0, arg1)
+}
+
+// GetRoleById mocks base method.
+func (m *MockQuerier) GetRoleById(arg0 context.Context, arg1 int64) (db.Role, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetRoleById", arg0, arg1)
 	ret0, _ := ret[0].(db.Role)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetRole indicates an expected call of GetRole.
-func (mr *MockQuerierMockRecorder) GetRole(arg0, arg1 interface{}) *gomock.Call {
+// GetRoleById indicates an expected call of GetRoleById.
+func (mr *MockQuerierMockRecorder) GetRoleById(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRole", reflect.TypeOf((*MockQuerier)(nil).GetRole), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRoleById", reflect.TypeOf((*MockQuerier)(nil).GetRoleById), arg0, arg1)
+}
+
+// GetRoleByName mocks base method.
+func (m *MockQuerier) GetRoleByName(arg0 context.Context, arg1 string) (db.Role, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetRoleByName", arg0, arg1)
+	ret0, _ := ret[0].(db.Role)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetRoleByName indicates an expected call of GetRoleByName.
+func (mr *MockQuerierMockRecorder) GetRoleByName(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRoleByName", reflect.TypeOf((*MockQuerier)(nil).GetRoleByName), arg0, arg1)
 }
 
 // GetUserByEmail mocks base method.
@@ -124,10 +241,10 @@ func (mr *MockQuerierMockRecorder) GetUserByEmail(arg0, arg1 interface{}) *gomoc
 }
 
 // GetUserById mocks base method.
-func (m *MockQuerier) GetUserById(arg0 context.Context, arg1 int64) (db.User, error) {
+func (m *MockQuerier) GetUserById(arg0 context.Context, arg1 int64) (db.GetUserByIdRow, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetUserById", arg0, arg1)
-	ret0, _ := ret[0].(db.User)
+	ret0, _ := ret[0].(db.GetUserByIdRow)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -151,6 +268,21 @@ func (m *MockQuerier) InitDefaultAdmin(arg0 context.Context, arg1 db.InitDefault
 func (mr *MockQuerierMockRecorder) InitDefaultAdmin(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "InitDefaultAdmin", reflect.TypeOf((*MockQuerier)(nil).InitDefaultAdmin), arg0, arg1)
+}
+
+// ListCity mocks base method.
+func (m *MockQuerier) ListCity(arg0 context.Context, arg1 db.ListCityParams) ([]db.City, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListCity", arg0, arg1)
+	ret0, _ := ret[0].([]db.City)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListCity indicates an expected call of ListCity.
+func (mr *MockQuerierMockRecorder) ListCity(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListCity", reflect.TypeOf((*MockQuerier)(nil).ListCity), arg0, arg1)
 }
 
 // ListRole mocks base method.
@@ -183,6 +315,35 @@ func (mr *MockQuerierMockRecorder) ListUsers(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUsers", reflect.TypeOf((*MockQuerier)(nil).ListUsers), arg0)
 }
 
+// SaveResetToken mocks base method.
+func (m *MockQuerier) SaveResetToken(arg0 context.Context, arg1 db.SaveResetTokenParams) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SaveResetToken", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// SaveResetToken indicates an expected call of SaveResetToken.
+func (mr *MockQuerierMockRecorder) SaveResetToken(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SaveResetToken", reflect.TypeOf((*MockQuerier)(nil).SaveResetToken), arg0, arg1)
+}
+
+// UpdateCity mocks base method.
+func (m *MockQuerier) UpdateCity(arg0 context.Context, arg1 db.UpdateCityParams) (db.City, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateCity", arg0, arg1)
+	ret0, _ := ret[0].(db.City)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateCity indicates an expected call of UpdateCity.
+func (mr *MockQuerierMockRecorder) UpdateCity(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCity", reflect.TypeOf((*MockQuerier)(nil).UpdateCity), arg0, arg1)
+}
+
 // UpdatePasswordUser mocks base method.
 func (m *MockQuerier) UpdatePasswordUser(arg0 context.Context, arg1 db.UpdatePasswordUserParams) error {
 	m.ctrl.T.Helper()
@@ -195,4 +356,34 @@ func (m *MockQuerier) UpdatePasswordUser(arg0 context.Context, arg1 db.UpdatePas
 func (mr *MockQuerierMockRecorder) UpdatePasswordUser(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdatePasswordUser", reflect.TypeOf((*MockQuerier)(nil).UpdatePasswordUser), arg0, arg1)
+}
+
+// UpdateRole mocks base method.
+func (m *MockQuerier) UpdateRole(arg0 context.Context, arg1 db.UpdateRoleParams) (db.Role, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateRole", arg0, arg1)
+	ret0, _ := ret[0].(db.Role)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateRole indicates an expected call of UpdateRole.
+func (mr *MockQuerierMockRecorder) UpdateRole(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateRole", reflect.TypeOf((*MockQuerier)(nil).UpdateRole), arg0, arg1)
+}
+
+// UpdateUser mocks base method.
+func (m *MockQuerier) UpdateUser(arg0 context.Context, arg1 db.UpdateUserParams) (db.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateUser", arg0, arg1)
+	ret0, _ := ret[0].(db.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateUser indicates an expected call of UpdateUser.
+func (mr *MockQuerierMockRecorder) UpdateUser(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUser", reflect.TypeOf((*MockQuerier)(nil).UpdateUser), arg0, arg1)
 }

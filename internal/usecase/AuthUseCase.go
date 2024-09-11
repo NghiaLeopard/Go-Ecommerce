@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
-	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
+	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/middleware"
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
@@ -24,48 +24,48 @@ func NewAuthUseCase(authRepo IRepository.Auth) IUseCase.Auth {
 }
 
 // LoginUseCase implements IUseCase.IAuthUseCase.
-func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password string) (response.ILoginResponse, error, int) {
+func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password string) (IResponse.Login, error, int) {
 	user, err := a.AuthRepo.GetUserByEmail(ctx, email)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return response.ILoginResponse{}, fmt.Errorf("account is not exist: %w", err), 400
+		return IResponse.Login{}, fmt.Errorf("account is not exist: %w", err), 400
 	}
 
 	err = utils.CheckPassword(user.Password, password)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return response.ILoginResponse{}, fmt.Errorf("password is not correct: %w", err), 400
+		return IResponse.Login{}, fmt.Errorf("password is not correct: %w", err), 400
 	}
 
 	accessToken, _, err := global.Token.CreateTokenPaseto(int(user.ID), user.Permission, global.Config.Access_token)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return response.ILoginResponse{}, fmt.Errorf("generate access token false: %w", err), 500
+		return IResponse.Login{}, fmt.Errorf("generate access token false: %w", err), 500
 	}
 
 	refreshToken, _, err := global.Token.CreateTokenPaseto(int(user.ID), user.Permission, global.Config.Refresh_token)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return response.ILoginResponse{}, fmt.Errorf("generate refresh token false: %w", err), 500
+		return IResponse.Login{}, fmt.Errorf("generate refresh token false: %w", err), 500
 	}
 
-	data := response.ILoginResponse{
+	data := IResponse.Login{
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
-		User: response.IUserResponse{
-			Id:          int(user.ID),
+		User: IResponse.User{
+			Id:          user.ID,
 			Email:       user.Email,
 			ResetToken:  "",
 			Address:     user.Address.String,
 			Status:      user.Status.UsersStatus,
 			Avatar:      user.Avatar.String,
 			PhoneNumber: int(user.PhoneNumber.Int64),
-			Role: response.IRoleResponse{
-				Id:         int(user.ID_2),
+			Role: IResponse.Role{
+				Id:         user.ID_2,
 				Name:       user.Name,
 				Permission: user.Permission,
 			},
@@ -233,23 +233,23 @@ func (a *AuthUseCase) ResetPasswordUseCase(ctx *gin.Context, newPassword string,
 }
 
 // GetAuthMeUserCase implements IUseCase.IAuthUseCase.
-func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (response.IAuthMe, error, int) {
+func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (IResponse.AuthMe, error, int) {
 	payload := ctx.MustGet(middleware.AuthorizationKey).(*token.Payload)
 
 	user, err := a.AuthRepo.GetUserById(ctx, int64(payload.Id))
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return response.IAuthMe{}, fmt.Errorf("get auth me fail"), 500
+		return IResponse.AuthMe{}, fmt.Errorf("get auth me fail"), 500
 	}
 
-	data := response.IAuthMe{
-		Id:      int(user.ID),
+	data := IResponse.AuthMe{
+		Id:      user.ID,
 		Email:   user.Email,
 		Address: user.Address.String,
 		Status:  user.Status.UsersStatus,
-		Role: response.IRoleResponse{
-			Id:         int(user.ID_2),
+		Role: IResponse.Role{
+			Id:         user.ID_2,
 			Name:       user.Name,
 			Permission: user.Permission,
 		},
@@ -259,7 +259,7 @@ func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (response.IAuthMe, err
 		City:        int(user.City.Int64),
 		PhoneNumber: int(user.PhoneNumber.Int64),
 		Avatar:      user.Avatar.String,
-		Addresses:   []response.IAddressesResponse{},
+		Addresses:   []IResponse.Addresses{},
 		Create_at:   user.CreateAt,
 	}
 

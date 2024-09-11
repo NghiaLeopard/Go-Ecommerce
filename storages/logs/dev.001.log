@@ -225,3 +225,53 @@
 {"level":"INFO","time":"2024-09-11T07:56:01.489+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
 {"level":"INFO","time":"2024-09-11T07:56:01.489+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
 {"level":"ERROR","time":"2024-09-11T07:56:06.524+0700","caller":"handler/cityHandler.go:120","msg":"get city","Status":"Error"}
+{"level":"INFO","time":"2024-09-11T15:28:20.319+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T15:28:20.370+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T15:28:20.371+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-11T15:31:03.441+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T15:31:03.445+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T15:31:03.446+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-11T15:31:09.264+0700","caller":"usecase/AuthUseCase.go:83","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-11T15:31:09.320+0700","caller":"handler/authHandler.go:39","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-11T15:31:50.359+0700","caller":"usecase/RoleUseCase.go:29","msg":"sql: no rows in result set","Status":"Error"}
+{"level":"INFO","time":"2024-09-11T15:57:57.261+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T15:57:57.266+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T15:57:57.267+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-11T15:58:14.583+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T15:58:14.587+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T15:58:14.587+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-11T15:58:23.329+0700","caller":"usecase/RoleUseCase.go:29","msg":"sql: no rows in result set","Status":"Error"}
+{"level":"INFO","time":"2024-09-11T15:59:51.147+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T15:59:51.149+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T15:59:51.149+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-11T15:59:59.762+0700","caller":"usecase/RoleUseCase.go:29","msg":"sql: no rows in result set","Status":"Error"}
+{"level":"INFO","time":"2024-09-11T16:00:32.446+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T16:00:32.451+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T16:00:32.452+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-11T16:00:43.190+0700","caller":"usecase/RoleUseCase.go:29","msg":"sql: no rows in result set","Status":"Error"}
+{"level":"INFO","time":"2024-09-11T16:01:47.588+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T16:01:47.593+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T16:01:47.593+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-11T16:01:58.014+0700","caller":"usecase/RoleUseCase.go:29","msg":"sql: no rows in result set","Status":"Error"}
+{"level":"INFO","time":"2024-09-11T16:02:36.616+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T16:02:36.628+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T16:02:36.630+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-11T16:03:05.839+0700","caller":"usecase/RoleUseCase.go:29","msg":"sql: no rows in result set","Status":"Error"}
+{"level":"ERROR","time":"2024-09-11T16:03:36.540+0700","caller":"usecase/RoleUseCase.go:29","msg":"sql: no rows in result set","Status":"Error"}
+{"level":"INFO","time":"2024-09-11T16:05:45.948+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T16:05:45.951+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T16:05:45.951+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-11T16:05:48.957+0700","caller":"usecase/RoleUseCase.go:29","msg":"sql: no rows in result set","Status":"Error"}
+{"level":"INFO","time":"2024-09-11T16:07:04.270+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T16:07:04.339+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T16:07:04.343+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-11T16:07:46.624+0700","caller":"usecase/RoleUseCase.go:41","msg":"Create ","Status":"Error"}
+{"level":"ERROR","time":"2024-09-11T16:07:46.633+0700","caller":"handler/roleHandler.go:36","msg":"create role","Status":"Error"}
+{"level":"INFO","time":"2024-09-11T16:09:22.550+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T16:09:22.553+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T16:09:22.554+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-11T16:09:25.839+0700","caller":"usecase/RoleUseCase.go:40","msg":"Create ","Status":"Error"}
+{"level":"ERROR","time":"2024-09-11T16:09:25.842+0700","caller":"handler/roleHandler.go:36","msg":"create role","Status":"Error"}
+{"level":"INFO","time":"2024-09-11T16:10:49.668+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-11T16:10:49.675+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-11T16:10:49.675+0700","caller":"initialize/run.go:18","msg":"Config success","Status":"Success"}

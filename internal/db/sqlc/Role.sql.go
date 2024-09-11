@@ -13,6 +13,22 @@ import (
 
 const createRole = `-- name: CreateRole :one
 INSERT INTO "Role" (
+  name
+) VALUES (
+  $1
+)
+RETURNING id, name, permission
+`
+
+func (q *Queries) CreateRole(ctx context.Context, name string) (Role, error) {
+	row := q.db.QueryRowContext(ctx, createRole, name)
+	var i Role
+	err := row.Scan(&i.ID, &i.Name, pq.Array(&i.Permission))
+	return i, err
+}
+
+const createRoleByDefault = `-- name: CreateRoleByDefault :one
+INSERT INTO "Role" (
   name, permission
 ) VALUES (
   $1, $2
@@ -20,13 +36,13 @@ INSERT INTO "Role" (
 RETURNING id, name, permission
 `
 
-type CreateRoleParams struct {
+type CreateRoleByDefaultParams struct {
 	Name       string   `json:"name"`
 	Permission []string `json:"permission"`
 }
 
-func (q *Queries) CreateRole(ctx context.Context, arg CreateRoleParams) (Role, error) {
-	row := q.db.QueryRowContext(ctx, createRole, arg.Name, pq.Array(arg.Permission))
+func (q *Queries) CreateRoleByDefault(ctx context.Context, arg CreateRoleByDefaultParams) (Role, error) {
+	row := q.db.QueryRowContext(ctx, createRoleByDefault, arg.Name, pq.Array(arg.Permission))
 	var i Role
 	err := row.Scan(&i.ID, &i.Name, pq.Array(&i.Permission))
 	return i, err

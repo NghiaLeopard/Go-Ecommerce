@@ -1,8 +1,16 @@
--- name: CreateRole :one
+-- name: CreateRoleByDefault :one
 INSERT INTO "Role" (
   name, permission
 ) VALUES (
   $1, $2
+)
+RETURNING *;
+
+-- name: CreateRole :one
+INSERT INTO "Role" (
+  name
+) VALUES (
+  $1
 )
 RETURNING *;
 

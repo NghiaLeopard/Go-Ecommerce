@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"slices"
 	"strings"
 
@@ -56,9 +55,6 @@ func (c *middleware) AuthMiddleware(permission string, isAuthMe bool, isPublic b
 			ctx.Abort()
 			return
 		}
-
-		fmt.Println(isAuthMe)
-		fmt.Println(permission)
 
 		if slices.Contains(payload.Permissions, permission) || slices.Contains(payload.Permissions, constant.CONFIG_PERMISSIONS["ADMIN"].(string)) || isAuthMe {
 			ctx.Set(AuthorizationKey, payload)
