@@ -31,7 +31,7 @@ func TestCreateRole(t *testing.T) {
 func TestGetRole(t *testing.T) {
 	role := CreateRoleUser(t)
 
-	getRole, err := testQuery.GetRole(context.Background(), role.ID)
+	getRole, err := testQuery.GetRoleById(context.Background(), role.ID)
 	require.NoError(t, err)
 	require.NotEmpty(t, role)
 	require.Equal(t, role.ID, getRole.ID)
@@ -41,7 +41,7 @@ func TestGetRole(t *testing.T) {
 
 func TestDeleteRow(t *testing.T) {
 	role := CreateRoleUser(t)
-	err := testQuery.DeleteRole(context.Background(), role.ID)
+	err := testQuery.DeleteRoleById(context.Background(), role.ID)
 
 	require.NoError(t, err)
 }

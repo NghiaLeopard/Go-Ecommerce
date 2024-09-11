@@ -12,13 +12,14 @@ import (
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/utils"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type AuthUseCase struct {
-	AuthRepo IRepository.IAuth
+	AuthRepo IRepository.Auth
 }
 
-func NewAuthUseCase(authRepo IRepository.IAuth) IUseCase.IAuthUseCase {
+func NewAuthUseCase(authRepo IRepository.Auth) IUseCase.Auth {
 	return &AuthUseCase{AuthRepo: authRepo}
 }
 
@@ -27,24 +28,28 @@ func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password stri
 	user, err := a.AuthRepo.GetUserByEmail(ctx, email)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return response.ILoginResponse{}, fmt.Errorf("account is not exist: %w", err), 400
 	}
 
 	err = utils.CheckPassword(user.Password, password)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return response.ILoginResponse{}, fmt.Errorf("password is not correct: %w", err), 400
 	}
 
 	accessToken, _, err := global.Token.CreateTokenPaseto(int(user.ID), user.Permission, global.Config.Access_token)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return response.ILoginResponse{}, fmt.Errorf("generate access token false: %w", err), 500
 	}
 
 	refreshToken, _, err := global.Token.CreateTokenPaseto(int(user.ID), user.Permission, global.Config.Refresh_token)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return response.ILoginResponse{}, fmt.Errorf("generate refresh token false: %w", err), 500
 	}
 
@@ -75,6 +80,7 @@ func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password stri
 		},
 	}
 
+	global.Logger.Info("Login", zap.String("Status", "success"))
 	return data, nil, 0
 }
 
@@ -83,6 +89,7 @@ func (a *AuthUseCase) RegisterUseCase(ctx *gin.Context, email string, password s
 	hashPassword, err := utils.HashPassword(password)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("hash password fail: %w", err)
 	}
 
@@ -94,9 +101,11 @@ func (a *AuthUseCase) RegisterUseCase(ctx *gin.Context, email string, password s
 	_, err = a.AuthRepo.CreateUser(ctx, arg)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("create user fail: %w", err)
 	}
 
+	global.Logger.Info("Register", zap.String("Status", "success"))
 	return nil
 }
 
@@ -107,18 +116,21 @@ func (a *AuthUseCase) ChangePasswordUseCase(ctx *gin.Context, currentPassword st
 	user, err := a.AuthRepo.GetUserById(ctx, int64(payload.Id))
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("get user db fail"), 500
 	}
 
 	err = utils.CheckPassword(user.Password, currentPassword)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("password is not correct"), 400
 	}
 
 	hashNewPassword, err := utils.HashPassword(newPassword)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("hash password fail"), 500
 	}
 
@@ -130,9 +142,11 @@ func (a *AuthUseCase) ChangePasswordUseCase(ctx *gin.Context, currentPassword st
 	err = a.AuthRepo.UpdatePasswordUser(ctx, arg)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("update user fail"), 500
 	}
 
+	global.Logger.Info("Change password", zap.String("Status", "success"))
 	return nil, 200
 }
 
@@ -147,12 +161,14 @@ func (a *AuthUseCase) ForgotPasswordUseCase(ctx *gin.Context, email string) (err
 	user, err := a.AuthRepo.GetUserByEmail(ctx, email)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("email is not exist"), 400
 	}
 
 	token, _, err := global.Token.CreateTokenPaseto(int(user.ID), []string{}, global.Config.ForgotPasswordToken)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("email is not exist"), 400
 	}
 
@@ -169,9 +185,11 @@ func (a *AuthUseCase) ForgotPasswordUseCase(ctx *gin.Context, email string) (err
 	global.DB.SaveResetToken(ctx, arg)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("send email fail"), 400
 	}
 
+	global.Logger.Info("Forgot password", zap.String("Status", "success"))
 	return nil, 200
 }
 
@@ -180,18 +198,21 @@ func (a *AuthUseCase) ResetPasswordUseCase(ctx *gin.Context, newPassword string,
 	payload, err := global.Token.VerifyTokenPaseto(secretKey)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("token is invalid"), 400
 	}
 
 	user, err := a.AuthRepo.GetUserById(ctx, int64(payload.Id))
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("query sql"), 500
 	}
 
 	hashPassword, err := utils.HashPassword(newPassword)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("err hash password"), 500
 	}
 
@@ -203,9 +224,11 @@ func (a *AuthUseCase) ResetPasswordUseCase(ctx *gin.Context, newPassword string,
 	err = a.AuthRepo.UpdatePasswordUser(ctx, arg)
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("update err"), 500
 	}
 
+	global.Logger.Info("Reset password", zap.String("Status", "success"))
 	return nil, 200
 }
 
@@ -216,6 +239,7 @@ func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (response.IAuthMe, err
 	user, err := a.AuthRepo.GetUserById(ctx, int64(payload.Id))
 
 	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return response.IAuthMe{}, fmt.Errorf("get auth me fail"), 500
 	}
 
@@ -239,5 +263,6 @@ func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (response.IAuthMe, err
 		Create_at:   user.CreateAt,
 	}
 
+	global.Logger.Info("get auth me", zap.String("Status", "success"))
 	return data, nil, 200
 }

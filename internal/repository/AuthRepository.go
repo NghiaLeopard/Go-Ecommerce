@@ -10,7 +10,7 @@ import (
 type AuthRepository struct {
 }
 
-func NewAuthRepository() IRepository.IAuth {
+func NewAuthRepository() IRepository.Auth {
 	return &AuthRepository{}
 }
 

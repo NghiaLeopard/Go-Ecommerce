@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func UserRouter(api *gin.RouterGroup, middleware middleware.Middleware, authHandler IHandler.IAuthHandler) {
+func UserRouter(api *gin.RouterGroup, middleware middleware.Middleware, authHandler IHandler.Auth) {
 	auth := api.Group("/auth")
 	{
 		auth.POST("/register", authHandler.SignUpUser)
@@ -23,8 +23,6 @@ func UserRouter(api *gin.RouterGroup, middleware middleware.Middleware, authHand
 		{
 			authMe.PATCH("/change-password", authHandler.ChangePasswordUser)
 			authMe.GET("me", authHandler.GetAuthMe)
-
 		}
-
 	}
 }

@@ -32,23 +32,45 @@ func (q *Queries) CreateRole(ctx context.Context, arg CreateRoleParams) (Role, e
 	return i, err
 }
 
-const deleteRole = `-- name: DeleteRole :exec
+const deleteManyRolesByIds = `-- name: DeleteManyRolesByIds :exec
+DELETE FROM "Role"
+WHERE id = ANY($1::bigint[])
+`
+
+func (q *Queries) DeleteManyRolesByIds(ctx context.Context, dollar_1 []int64) error {
+	_, err := q.db.ExecContext(ctx, deleteManyRolesByIds, pq.Array(dollar_1))
+	return err
+}
+
+const deleteRoleById = `-- name: DeleteRoleById :exec
 DELETE FROM "Role"
 WHERE id = $1
 `
 
-func (q *Queries) DeleteRole(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteRole, id)
+func (q *Queries) DeleteRoleById(ctx context.Context, id int64) error {
+	_, err := q.db.ExecContext(ctx, deleteRoleById, id)
 	return err
 }
 
-const getRole = `-- name: GetRole :one
+const getRoleById = `-- name: GetRoleById :one
 SELECT id, name, permission FROM "Role"
 WHERE id = $1 LIMIT 1
 `
 
-func (q *Queries) GetRole(ctx context.Context, id int64) (Role, error) {
-	row := q.db.QueryRowContext(ctx, getRole, id)
+func (q *Queries) GetRoleById(ctx context.Context, id int64) (Role, error) {
+	row := q.db.QueryRowContext(ctx, getRoleById, id)
+	var i Role
+	err := row.Scan(&i.ID, &i.Name, pq.Array(&i.Permission))
+	return i, err
+}
+
+const getRoleByName = `-- name: GetRoleByName :one
+SELECT id, name, permission FROM "Role"
+WHERE name = $1 LIMIT 1
+`
+
+func (q *Queries) GetRoleByName(ctx context.Context, name string) (Role, error) {
+	row := q.db.QueryRowContext(ctx, getRoleByName, name)
 	var i Role
 	err := row.Scan(&i.ID, &i.Name, pq.Array(&i.Permission))
 	return i, err
@@ -79,4 +101,23 @@ func (q *Queries) ListRole(ctx context.Context) ([]Role, error) {
 		return nil, err
 	}
 	return items, nil
+}
+
+const updateRole = `-- name: UpdateRole :one
+UPDATE "Role" SET name = $1,permission = $2
+WHERE id = $3
+RETURNING id, name, permission
+`
+
+type UpdateRoleParams struct {
+	Name       string   `json:"name"`
+	Permission []string `json:"permission"`
+	ID         int64    `json:"id"`
+}
+
+func (q *Queries) UpdateRole(ctx context.Context, arg UpdateRoleParams) (Role, error) {
+	row := q.db.QueryRowContext(ctx, updateRole, arg.Name, pq.Array(arg.Permission), arg.ID)
+	var i Role
+	err := row.Scan(&i.ID, &i.Name, pq.Array(&i.Permission))
+	return i, err
 }

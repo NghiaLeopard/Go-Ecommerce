@@ -20,8 +20,6 @@ func SuccessResponse(ctx *gin.Context, message string, code int, data interface{
 	}
 
 	ctx.JSON(httpResponse[code].Status, rsp)
-
-	return
 }
 
 func ErrorResponse(ctx *gin.Context, message string, code int) {
@@ -33,6 +31,4 @@ func ErrorResponse(ctx *gin.Context, message string, code int) {
 	}
 
 	ctx.JSON(httpResponse[code].Status, rsp)
-
-	return
 }
