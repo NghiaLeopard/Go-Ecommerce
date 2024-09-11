@@ -9,12 +9,12 @@ import (
 )
 
 func CreateRoleUser(t *testing.T) Role {
-	arg := CreateRoleParams{
+	arg := CreateRoleByDefaultParams{
 		Name:       utils.RandomString(10),
 		Permission: []string{},
 	}
 
-	role, err := testQuery.CreateRole(context.Background(), arg)
+	role, err := testQuery.CreateRoleByDefault(context.Background(), arg)
 
 	require.NoError(t, err)
 	require.NotZero(t, role.ID)

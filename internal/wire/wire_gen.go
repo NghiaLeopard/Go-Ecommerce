@@ -20,12 +20,15 @@ import (
 
 func InitServer(sqlcDB *db.Queries, config2 config.Config) (*api.ServerHTTP, error) {
 	middlewareMiddleware := middleware.NewMiddleware()
-	iAuth := repository.NewAuthRepository()
-	iAuthUseCase := usecase.NewAuthUseCase(iAuth)
-	iAuthHandler := handler.NewAuthHandler(iAuthUseCase)
-	iCity := repository.NewCityRepository()
-	iCityUseCase := usecase.NewCityUseCase(iCity)
-	iCityHandler := handler.NewCityHandler(iCityUseCase)
-	serverHTTP := api.NewServerHTTP(config2, middlewareMiddleware, iAuthHandler, iCityHandler)
+	auth := repository.NewAuthRepository()
+	iUseCaseAuth := usecase.NewAuthUseCase(auth)
+	iHandlerAuth := handler.NewAuthHandler(iUseCaseAuth)
+	city := repository.NewCityRepository()
+	iUseCaseCity := usecase.NewCityUseCase(city)
+	iHandlerCity := handler.NewCityHandler(iUseCaseCity)
+	role := repository.NewRoleRepository()
+	iUseCaseRole := usecase.NewRoleUseCase(role)
+	iHandlerRole := handler.NewRoleHandler(iUseCaseRole)
+	serverHTTP := api.NewServerHTTP(config2, middlewareMiddleware, iHandlerAuth, iHandlerCity, iHandlerRole)
 	return serverHTTP, nil
 }

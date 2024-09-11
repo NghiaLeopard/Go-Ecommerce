@@ -1,10 +1,10 @@
 package IUseCase
 
 import (
-	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
+	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
 	"github.com/gin-gonic/gin"
 )
 
 type Role interface {
-	CreateCity(ctx *gin.Context,name string,permission []string) (db.Role,error,int)
+	CreateRole(ctx *gin.Context, name string) (IResponse.Role, error, int)
 }

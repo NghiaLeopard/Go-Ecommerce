@@ -1,10 +1,11 @@
 package usecase
 
 import (
+	"database/sql"
 	"fmt"
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
-	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
+	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
 	"github.com/gin-gonic/gin"
@@ -19,60 +20,60 @@ func NewCityUseCase(cityRepo IRepository.City) IUseCase.City {
 	return &CityUseCase{CityRepo: cityRepo}
 }
 
-func (c *CityUseCase) CreateCityUseCase(ctx *gin.Context, name string) (response.ICityResponse, error, int) {
+func (c *CityUseCase) CreateCityUseCase(ctx *gin.Context, name string) (IResponse.City, error, int) {
 	_, err := c.CityRepo.GetCityByName(ctx, name)
 
-	if err == nil {
-		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return response.ICityResponse{}, fmt.Errorf("city is not exist"), 409
+	if err != sql.ErrNoRows {
+		global.Logger.Error("city is not exist", zap.String("Status", "Error"))
+		return IResponse.City{}, fmt.Errorf("city is not exist"), 409
 	}
 
 	city, err := global.DB.CreateCity(ctx, name)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return response.ICityResponse{}, err, 401
+		return IResponse.City{}, err, 401
 	}
 
 	global.Logger.Info("Create city", zap.String("Status", "Error"))
-	return response.ICityResponse{
+	return IResponse.City{
 		Id:   city.ID,
 		Name: city.Name,
 	}, nil, 201
 }
 
-func (c *CityUseCase) GetCityUseCase(ctx *gin.Context, id int) (response.ICityResponse, error, int) {
+func (c *CityUseCase) GetCityUseCase(ctx *gin.Context, id int) (IResponse.City, error, int) {
 	city, err := c.CityRepo.GetCityById(ctx, int64(id))
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return response.ICityResponse{}, fmt.Errorf("get city is not exist"), 401
+		return IResponse.City{}, fmt.Errorf("get city is not exist"), 401
 	}
 
-	return response.ICityResponse{
+	return IResponse.City{
 		Id:   city.ID,
 		Name: city.Name,
 	}, nil, 200
 }
 
-func (c *CityUseCase) UpdateCityUseCase(ctx *gin.Context, id int, name string) (response.ICityResponse, error, int) {
+func (c *CityUseCase) UpdateCityUseCase(ctx *gin.Context, id int, name string) (IResponse.City, error, int) {
 	idInt64 := int64(id)
 
 	_, err := global.DB.GetCityById(ctx, idInt64)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return response.ICityResponse{}, fmt.Errorf("city is not exist"), 401
+		return IResponse.City{}, fmt.Errorf("city is not exist"), 401
 	}
 
 	city, err := c.CityRepo.UpdateCity(ctx, idInt64, name)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return response.ICityResponse{}, fmt.Errorf("update city is fail"), 401
+		return IResponse.City{}, fmt.Errorf("update city is fail"), 401
 	}
 
-	res := response.ICityResponse{
+	res := IResponse.City{
 		Id:   city.ID,
 		Name: city.Name,
 	}

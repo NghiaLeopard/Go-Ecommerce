@@ -1,4 +1,4 @@
-package response
+package IResponse
 
 import (
 	"time"
@@ -6,7 +6,7 @@ import (
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 )
 
-type IAddressesResponse struct {
+type Addresses struct {
 	Address     string `json:"address"`
 	City        string `json:"city"`
 	PhoneNumber string `json:"phoneNumber"`
@@ -16,50 +16,44 @@ type IAddressesResponse struct {
 	IsDefault   bool   `json:"isDefault"`
 }
 
-type IRoleResponse struct {
-	Id         int      `json:"_id"`
-	Name       string   `json:"name"`
-	Permission []string `json:"permissions"`
+type User struct {
+	Id                   int64          `json:"_id"`
+	Email                string         `json:"email"`
+	ResetToken           string         `json:"resetToken"`
+	Status               db.UsersStatus `json:"status"`
+	Address              string         `json:"address"`
+	Avatar               string         `json:"avatar"`
+	PhoneNumber          int            `json:"phoneNumber"`
+	Role                 Role           `json:"role"`
+	FirstName            string         `json:"firstName"`
+	LastName             string         `json:"lastName"`
+	MiddleName           string         `json:"middleName"`
+	City                 int            `json:"city"`
+	LikeProducts         []int64        `json:"likeProducts"`
+	ViewedProducts       []int64        `json:"viewedProducts"`
+	Addresses            []Addresses    `json:"addresses"`
+	ResetTokenExpiration time.Time      `json:"resetTokenExpiration"`
+	Create_at            time.Time      `json:"create_at"`
 }
 
-type IUserResponse struct {
-	Id                   int                  `json:"_id"`
-	Email                string               `json:"email"`
-	ResetToken           string               `json:"resetToken"`
-	Status               db.UsersStatus       `json:"status"`
-	Address              string               `json:"address"`
-	Avatar               string               `json:"avatar"`
-	PhoneNumber          int                  `json:"phoneNumber"`
-	Role                 IRoleResponse        `json:"role"`
-	FirstName            string               `json:"firstName"`
-	LastName             string               `json:"lastName"`
-	MiddleName           string               `json:"middleName"`
-	City                 int                  `json:"city"`
-	LikeProducts         []int64              `json:"likeProducts"`
-	ViewedProducts       []int64              `json:"viewedProducts"`
-	Addresses            []IAddressesResponse `json:"addresses"`
-	ResetTokenExpiration time.Time            `json:"resetTokenExpiration"`
-	Create_at            time.Time            `json:"create_at"`
+type AuthMe struct {
+	Id          int64          `json:"_id"`
+	Email       string         `json:"email"`
+	Status      db.UsersStatus `json:"status"`
+	Address     string         `json:"address"`
+	Avatar      string         `json:"avatar"`
+	PhoneNumber int            `json:"phoneNumber"`
+	Role        Role           `json:"role"`
+	FirstName   string         `json:"firstName"`
+	LastName    string         `json:"lastName"`
+	MiddleName  string         `json:"middleName"`
+	City        int            `json:"city"`
+	Addresses   []Addresses    `json:"addresses"`
+	Create_at   time.Time      `json:"create_at"`
 }
 
-type IAuthMe struct {
-	Id          int                  `json:"_id"`
-	Email       string               `json:"email"`
-	Status      db.UsersStatus       `json:"status"`
-	Address     string               `json:"address"`
-	Avatar      string               `json:"avatar"`
-	PhoneNumber int                  `json:"phoneNumber"`
-	Role        IRoleResponse        `json:"role"`
-	FirstName   string               `json:"firstName"`
-	LastName    string               `json:"lastName"`
-	MiddleName  string               `json:"middleName"`
-	City        int                  `json:"city"`
-	Addresses   []IAddressesResponse `json:"addresses"`
-	Create_at   time.Time            `json:"create_at"`
-}
-
-type ILoginResponse struct {
+type Login struct {
 	AccessToken  string `json:"access_token"`
 	RefreshToken string `json:"refresh_token"`
-	User         IUserResponse
+	User         User
 }

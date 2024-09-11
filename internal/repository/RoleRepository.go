@@ -13,13 +13,9 @@ func NewRoleRepository() IRepository.Role {
 	return &RoleRepository{}
 }
 
-func (r *RoleRepository) CreateRole(ctx *gin.Context, name string, permission []string) (role db.Role, err error) {
-	arg := db.CreateRoleParams{
-		Name:       name,
-		Permission: permission,
-	}
+func (r *RoleRepository) CreateRole(ctx *gin.Context, name string) (role db.Role, err error) {
 
-	role, err = global.DB.CreateRole(ctx, arg)
+	role, err = global.DB.CreateRole(ctx, name)
 
 	return
 }

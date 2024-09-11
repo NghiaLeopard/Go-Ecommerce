@@ -10,7 +10,8 @@ import (
 
 type Querier interface {
 	CreateCity(ctx context.Context, name string) (City, error)
-	CreateRole(ctx context.Context, arg CreateRoleParams) (Role, error)
+	CreateRole(ctx context.Context, name string) (Role, error)
+	CreateRoleByDefault(ctx context.Context, arg CreateRoleByDefaultParams) (Role, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteCityById(ctx context.Context, id int64) error
 	DeleteManyCityByIds(ctx context.Context, dollar_1 []int64) error

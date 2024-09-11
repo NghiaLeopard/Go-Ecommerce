@@ -14,12 +14,12 @@ import (
 
 func initDB() {
 
-	arg1 := db.CreateRoleParams{
+	arg1 := db.CreateRoleByDefaultParams{
 		Name:       "Admin",
 		Permission: []string{(constant.CONFIG_PERMISSIONS["ADMIN"].(string))},
 	}
 
-	arg2 := db.CreateRoleParams{
+	arg2 := db.CreateRoleByDefaultParams{
 		Name:       "Basic",
 		Permission: []string{},
 	}
@@ -38,13 +38,13 @@ func initDB() {
 
 	sqlcDB := db.New(sqlDb)
 
-	role, err := sqlcDB.CreateRole(context.Background(), arg1)
+	role, err := sqlcDB.CreateRoleByDefault(context.Background(), arg1)
 
 	if err != nil {
 		log.Fatal("create role fail: ", err)
 	}
 
-	_, err = sqlcDB.CreateRole(context.Background(), arg2)
+	_, err = sqlcDB.CreateRoleByDefault(context.Background(), arg2)
 
 	if err != nil {
 		log.Fatal("create role fail: ", err)
