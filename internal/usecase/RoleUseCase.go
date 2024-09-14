@@ -74,20 +74,41 @@ func (c *RoleUseCase) UpdateRoleUseCase(ctx *gin.Context, id int, name string, p
 		global.Logger.Error("role admin or basic don't remove!!", zap.String("Status", "Error"))
 		return IResponse.Role{}, fmt.Errorf("ArrayID is empty"), 401
 	}
+	if len(permission) == 0 {
+		role, err = c.RoleRepo.UpdateRole(ctx, idInt64, name, role.Permission)
 
-	role, err = c.RoleRepo.UpdateRole(ctx, idInt64, name, permission)
+		if err != nil {
+			global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+			return IResponse.Role{}, fmt.Errorf("update Role is fail"), 401
+		}
 
-	if err != nil {
-		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return IResponse.Role{}, fmt.Errorf("update Role is fail"), 401
+		res := IResponse.Role{
+			Id:         role.ID,
+			Name:       role.Name,
+			Permission: role.Permission,
+		}
+
+		return res, nil, 200
 	}
 
-	res := IResponse.Role{
-		Id:   role.ID,
-		Name: role.Name,
+	if name == "" {
+		role, err = c.RoleRepo.UpdateRole(ctx, idInt64, role.Name, permission)
+
+		if err != nil {
+			global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+			return IResponse.Role{}, fmt.Errorf("update Role is fail"), 401
+		}
+
+		res := IResponse.Role{
+			Id:         role.ID,
+			Name:       role.Name,
+			Permission: role.Permission,
+		}
+
+		return res, nil, 200
 	}
 
-	return res, nil, 200
+	return IResponse.Role{}, fmt.Errorf("update Role is fail"), 500
 }
 
 func (c *RoleUseCase) DeleteRoleUseCase(ctx *gin.Context, id int) (error, int) {

@@ -13,7 +13,7 @@ type DeleteRole struct {
 }
 
 type DeleteManyRole struct {
-	ArrayId []int `json:"arrayId" binding:"required,min=1"`
+	ArrayId []int `json:"arrayId" binding:"required"`
 }
 
 type GetParamsUpdateRole struct {
@@ -21,6 +21,6 @@ type GetParamsUpdateRole struct {
 }
 
 type GetBodyUpdateRole struct {
-	Name       string   `json:"name" binding:"required"`
-	Permission []string `json:"permission" binding:"required"`
+	Name       string   `json:"name" `
+	Permission []string `json:"permission"`
 }
