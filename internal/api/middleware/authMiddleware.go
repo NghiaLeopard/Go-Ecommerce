@@ -51,7 +51,7 @@ func (c *middleware) AuthMiddleware(permission string, isAuthMe bool, isPublic b
 
 		if err != nil {
 			global.Logger.Error("Verify token invalid", zap.String("Status", "Error"))
-			response.ErrorResponse(ctx, "Verify token invalid", 401)
+			response.ErrorResponse(ctx, err.Error(), 401)
 			ctx.Abort()
 			return
 		}

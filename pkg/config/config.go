@@ -20,7 +20,11 @@ type Config struct {
 	AppUrlFE            string        `mapstructure:"URL_FE_APP"`
 	MaxIdleTime         int           `mapstructure:"Max_IDLE_CONNS"`
 	MaxOpenConnect      int           `mapstructure:"MAX_OPEN_CONNECT"`
-	ConnMaxLifeTime     int           `mapstructure:"CONN_MAX_LIFE_TIMe"`
+	ConnMaxLifeTime     int           `mapstructure:"CONN_MAX_LIFE_TIME"`
+	HostRedis           string        `mapstructure:"HOST_REDIS"`
+	PortRedis           string        `mapstructure:"PORT_REDIS"`
+	PasswordRedis       string        `mapstructure:"PASSWORD_REDIS"`
+	DbRedis             int           `mapstructure:"DB_REDIS"`
 }
 
 func LoadConfig(path string) (config Config, err error) {

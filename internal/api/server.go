@@ -1,11 +1,14 @@
 package api
 
 import (
+	_ "github.com/NghiaLeopard/Go-Ecommerce-Backend/docs"
 	IHandler "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/interfaces"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/middleware"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/routers"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 type ServerHTTP struct {
@@ -15,6 +18,8 @@ type ServerHTTP struct {
 
 func NewServerHTTP(config config.Config, middleware middleware.Middleware, authHandler IHandler.Auth, cityHandler IHandler.City, roleHandler IHandler.Role) *ServerHTTP {
 	engine := gin.Default()
+
+	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	api := engine.Group("/api")
 

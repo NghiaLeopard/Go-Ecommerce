@@ -21,5 +21,5 @@ type GetParamsUpdateCity struct {
 }
 
 type GetBodyUpdateCity struct {
-	Name string `uri:"name" binding:"required,min=1"`
+	Name string `json:"name" binding:"required,min=1"`
 }
