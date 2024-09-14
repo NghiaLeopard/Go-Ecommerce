@@ -21,5 +21,6 @@ type GetParamsUpdateRole struct {
 }
 
 type GetBodyUpdateRole struct {
-	Name string `uri:"name" binding:"required,min=1"`
+	Name       string   `json:"name" binding:"required"`
+	Permission []string `json:"permission" binding:"required"`
 }

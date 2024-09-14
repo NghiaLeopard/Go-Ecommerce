@@ -12,6 +12,7 @@ func Run() {
 	initLoadConfig()
 	initLogger()
 	initPostgresql()
+	initRedis()
 	initGmail()
 	initToken()
 

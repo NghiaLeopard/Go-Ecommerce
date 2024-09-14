@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"fmt"
+
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IHandler "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/interfaces"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
@@ -10,15 +12,15 @@ import (
 	"go.uber.org/zap"
 )
 
-func NewRoleHandler(roleUseCase IUseCase.Role) IHandler.Role {
-	return &Role{RoleUseCase: roleUseCase}
-}
-
-type Role struct {
+type RoleHandler struct {
 	RoleUseCase IUseCase.Role
 }
 
-func (r *Role) CreateRole(ctx *gin.Context) {
+func NewRoleHandler(roleUseCase IUseCase.Role) IHandler.Role {
+	return &RoleHandler{RoleUseCase: roleUseCase}
+}
+
+func (r *RoleHandler) CreateRole(ctx *gin.Context) {
 	var req IRequest.CreateRole
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
@@ -26,7 +28,7 @@ func (r *Role) CreateRole(ctx *gin.Context) {
 		return
 	}
 
-	city, err, codeStatus := r.RoleUseCase.CreateRole(ctx, req.Name)
+	Role, err, codeStatus := r.RoleUseCase.CreateRole(ctx, req.Name)
 
 	if err != nil {
 		response.ErrorResponse(ctx, err.Error(), codeStatus)
@@ -34,21 +36,91 @@ func (r *Role) CreateRole(ctx *gin.Context) {
 	}
 
 	global.Logger.Error("create role", zap.String("Status", "Error"))
-	response.SuccessResponse(ctx, "Create role success", codeStatus, city)
+	response.SuccessResponse(ctx, "Create role success", codeStatus, Role)
 }
 
-func (r *Role) DeleteManyRole(ctx *gin.Context) {
+func (c *RoleHandler) GetRole(ctx *gin.Context) {
+	var req IRequest.GetRole
+	if err := ctx.ShouldBindUri(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	fmt.Println(req.ID)
+
+	role, err, codeStatus := c.RoleUseCase.GetRoleUseCase(ctx, req.ID)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Error("get Role", zap.String("Status", "Error"))
+	response.SuccessResponse(ctx, "Get Role success", codeStatus, role)
 
 }
 
-func (r *Role) DeleteRole(ctx *gin.Context) {
+func (c *RoleHandler) UpdateRole(ctx *gin.Context) {
+	var params IRequest.GetParamsUpdateRole
+	var body IRequest.GetBodyUpdateRole
+	if err := ctx.ShouldBindUri(&params); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
 
+	if err := ctx.ShouldBindJSON(&body); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	Role, err, codeStatus := c.RoleUseCase.UpdateRoleUseCase(ctx, params.ID, body.Name, body.Permission)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Error("get Role", zap.String("Status", "Error"))
+	response.SuccessResponse(ctx, "Get Role success", codeStatus, Role)
 }
 
-func (r *Role) GetRole(ctx *gin.Context) {
+func (c *RoleHandler) DeleteRole(ctx *gin.Context) {
+	var req IRequest.DeleteRole
+	if err := ctx.ShouldBindUri(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
 
+	err, codeStatus := c.RoleUseCase.DeleteRoleUseCase(ctx, req.ID)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Error("get Role", zap.String("Status", "Error"))
+	response.SuccessResponse(ctx, "Delete Role success", codeStatus, "")
 }
 
-func (r *Role) UpdateRole(ctx *gin.Context) {
+func (c *RoleHandler) DeleteManyRole(ctx *gin.Context) {
+	var req IRequest.DeleteManyRole
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
 
+	err, codeStatus := c.RoleUseCase.DeleteManyRoleUseCase(ctx, req.ArrayId)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Error("get Role", zap.String("Status", "Error"))
+	response.SuccessResponse(ctx, "Delete Role success", codeStatus, "")
 }

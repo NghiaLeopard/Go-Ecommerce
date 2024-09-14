@@ -43,6 +43,7 @@ func (c *CityUseCase) CreateCityUseCase(ctx *gin.Context, name string) (IRespons
 }
 
 func (c *CityUseCase) GetCityUseCase(ctx *gin.Context, id int) (IResponse.City, error, int) {
+
 	city, err := c.CityRepo.GetCityById(ctx, int64(id))
 
 	if err != nil {
