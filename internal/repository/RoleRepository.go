@@ -43,14 +43,14 @@ func (r *RoleRepository) UpdateRole(ctx *gin.Context, id int64, name string, per
 	return role, err
 }
 
-func (r *RoleRepository) DeleteManyRole(ctx *gin.Context, arrayId []int64) error {
-	err := global.DB.DeleteManyRolesByIds(ctx, arrayId)
+func (r *RoleRepository) DeleteRole(ctx *gin.Context, id int64) error {
+	err := global.DB.DeleteRoleById(ctx, id)
 
 	return err
 }
 
-func (r *RoleRepository) DeleteRole(ctx *gin.Context, id int64) error {
-	err := global.DB.DeleteRoleById(ctx, id)
+func (r *RoleRepository) DeleteManyRole(ctx *gin.Context, arrayId []int64) error {
+	err := global.DB.DeleteManyRolesByIds(ctx, arrayId)
 
 	return err
 }

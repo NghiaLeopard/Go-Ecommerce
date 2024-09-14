@@ -353,3 +353,61 @@
 {"level":"INFO","time":"2024-09-14T14:28:30.775+0700","caller":"usecase/AuthUseCase.go:83","msg":"Login","Status":"success"}
 {"level":"INFO","time":"2024-09-14T14:28:30.779+0700","caller":"handler/authHandler.go:39","msg":"Login","Status":"Success"}
 {"level":"ERROR","time":"2024-09-14T14:28:42.245+0700","caller":"handler/roleHandler.go:59","msg":"get Role","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T14:34:42.794+0700","caller":"middleware/authMiddleware.go:53","msg":"Verify token invalid","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T14:39:39.676+0700","caller":"middleware/authMiddleware.go:53","msg":"Verify token invalid","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T14:40:09.944+0700","caller":"handler/roleHandler.go:59","msg":"get Role","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T14:40:16.393+0700","caller":"handler/cityHandler.go:101","msg":"get city","Status":"Error"}
+{"level":"INFO","time":"2024-09-14T14:41:32.318+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-14T14:41:32.347+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-14T14:41:32.347+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-14T14:41:32.348+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-14T14:42:30.030+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-14T14:42:30.054+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-14T14:42:30.055+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-14T14:42:30.055+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-14T14:43:48.206+0700","caller":"handler/roleHandler.go:59","msg":"get Role","Status":"Error"}
+{"level":"INFO","time":"2024-09-14T14:43:53.240+0700","caller":"usecase/RoleUseCase.go:44","msg":"Create ","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T14:43:53.241+0700","caller":"handler/roleHandler.go:38","msg":"create role","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T14:45:14.570+0700","caller":"handler/cityHandler.go:101","msg":"get city","Status":"Error"}
+{"level":"INFO","time":"2024-09-14T14:46:22.668+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-14T14:46:22.798+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-14T14:46:22.803+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-14T14:46:22.809+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-14T14:46:25.588+0700","caller":"handler/cityHandler.go:101","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T14:47:03.087+0700","caller":"handler/roleHandler.go:105","msg":"get Role","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T14:47:38.668+0700","caller":"handler/roleHandler.go:105","msg":"get Role","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T14:47:43.320+0700","caller":"handler/roleHandler.go:105","msg":"get Role","Status":"Error"}
+{"level":"INFO","time":"2024-09-14T14:57:07.013+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-14T14:57:07.183+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-14T14:57:07.184+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-14T14:57:07.226+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-14T14:58:46.063+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-14T14:58:46.122+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-14T14:58:46.123+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-14T14:58:46.123+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-14T14:59:31.234+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-14T14:59:31.262+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-14T14:59:31.262+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-14T14:59:31.262+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-14T15:00:34.431+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-14T15:00:34.479+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-14T15:00:34.480+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-14T15:00:34.480+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-14T15:00:36.817+0700","caller":"usecase/RoleUseCase.go:31","msg":"role is exist","Status":"Error"}
+{"level":"INFO","time":"2024-09-14T15:01:29.592+0700","caller":"usecase/RoleUseCase.go:43","msg":"Create ","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T15:01:29.603+0700","caller":"handler/roleHandler.go:38","msg":"create role","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T15:03:17.737+0700","caller":"handler/roleHandler.go:124","msg":"get Role","Status":"Error"}
+{"level":"INFO","time":"2024-09-14T15:49:22.124+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-14T15:49:22.253+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-14T15:49:22.254+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-14T15:49:22.254+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-14T15:49:44.866+0700","caller":"usecase/RoleUseCase.go:41","msg":"Create ","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T15:49:44.874+0700","caller":"handler/roleHandler.go:38","msg":"create role","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T15:50:12.938+0700","caller":"middleware/authMiddleware.go:53","msg":"Verify token invalid","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T15:50:27.042+0700","caller":"handler/roleHandler.go:86","msg":"get Role","Status":"Error"}
+{"level":"ERROR","time":"2024-09-14T15:51:51.382+0700","caller":"handler/roleHandler.go:74","msg":"Key: 'GetBodyUpdateRole.Name' Error:Field validation for 'Name' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-14T15:54:18.383+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-14T15:54:18.417+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-14T15:54:18.417+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-14T15:54:18.417+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-14T15:54:22.604+0700","caller":"handler/roleHandler.go:86","msg":"get Role","Status":"Error"}
