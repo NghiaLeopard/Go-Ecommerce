@@ -1,7 +1,6 @@
 package usecase
 
 import (
-	"database/sql"
 	"fmt"
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
@@ -23,9 +22,9 @@ func NewCityUseCase(cityRepo IRepository.City) IUseCase.City {
 func (c *CityUseCase) CreateCityUseCase(ctx *gin.Context, name string) (IResponse.City, error, int) {
 	_, err := c.CityRepo.GetCityByName(ctx, name)
 
-	if err != sql.ErrNoRows {
-		global.Logger.Error("city is not exist", zap.String("Status", "Error"))
-		return IResponse.City{}, fmt.Errorf("city is not exist"), 409
+	if err == nil {
+		global.Logger.Error("city is  exist", zap.String("Status", "Error"))
+		return IResponse.City{}, fmt.Errorf("city is  exist"), 409
 	}
 
 	city, err := global.DB.CreateCity(ctx, name)

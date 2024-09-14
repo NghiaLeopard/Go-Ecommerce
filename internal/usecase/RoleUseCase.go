@@ -1,7 +1,6 @@
 package usecase
 
 import (
-	"database/sql"
 	"fmt"
 	"slices"
 
@@ -27,9 +26,9 @@ func NewRoleUseCase(roleRepo IRepository.Role) IUseCase.Role {
 func (c *RoleUseCase) CreateRole(ctx *gin.Context, name string) (IResponse.Role, error, int) {
 	_, err := c.RoleRepo.GetRoleByName(ctx, name)
 
-	if err != sql.ErrNoRows {
-		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return IResponse.Role{}, fmt.Errorf("role is  exist"), 409
+	if err == nil {
+		global.Logger.Error("role is exist", zap.String("Status", "Error"))
+		return IResponse.Role{}, fmt.Errorf("role is exist"), 409
 	}
 
 	role, err := global.DB.CreateRole(ctx, name)
