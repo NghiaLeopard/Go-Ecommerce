@@ -99,14 +99,18 @@ func (ns NullUsersType) Value() (driver.Value, error) {
 }
 
 type City struct {
-	ID   int64  `json:"id"`
-	Name string `json:"name"`
+	ID       int64     `json:"id"`
+	Name     string    `json:"name"`
+	CreateAt time.Time `json:"create_at"`
+	UpdateAt time.Time `json:"update_at"`
 }
 
 type Role struct {
-	ID         int64    `json:"id"`
-	Name       string   `json:"name"`
-	Permission []string `json:"permission"`
+	ID         int64     `json:"id"`
+	Name       string    `json:"name"`
+	Permission []string  `json:"permission"`
+	CreateAt   time.Time `json:"create_at"`
+	UpdateAt   time.Time `json:"update_at"`
 }
 
 type User struct {

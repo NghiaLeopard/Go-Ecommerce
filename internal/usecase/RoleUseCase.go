@@ -108,7 +108,20 @@ func (c *RoleUseCase) UpdateRoleUseCase(ctx *gin.Context, id int, name string, p
 		return res, nil, 200
 	}
 
-	return IResponse.Role{}, fmt.Errorf("update Role is fail"), 500
+	role, err = c.RoleRepo.UpdateRole(ctx, idInt64, name, permission)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.Role{}, fmt.Errorf("update Role is fail"), 401
+	}
+
+	res := IResponse.Role{
+		Id:         role.ID,
+		Name:       role.Name,
+		Permission: role.Permission,
+	}
+
+	return res, nil, 200
 }
 
 func (c *RoleUseCase) DeleteRoleUseCase(ctx *gin.Context, id int) (error, int) {

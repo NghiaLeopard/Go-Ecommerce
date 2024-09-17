@@ -17,13 +17,19 @@ INSERT INTO "Role" (
 ) VALUES (
   $1
 )
-RETURNING id, name, permission
+RETURNING id, name, permission, create_at, update_at
 `
 
 func (q *Queries) CreateRole(ctx context.Context, name string) (Role, error) {
 	row := q.db.QueryRowContext(ctx, createRole, name)
 	var i Role
-	err := row.Scan(&i.ID, &i.Name, pq.Array(&i.Permission))
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		pq.Array(&i.Permission),
+		&i.CreateAt,
+		&i.UpdateAt,
+	)
 	return i, err
 }
 
@@ -33,7 +39,7 @@ INSERT INTO "Role" (
 ) VALUES (
   $1, $2
 )
-RETURNING id, name, permission
+RETURNING id, name, permission, create_at, update_at
 `
 
 type CreateRoleByDefaultParams struct {
@@ -44,7 +50,13 @@ type CreateRoleByDefaultParams struct {
 func (q *Queries) CreateRoleByDefault(ctx context.Context, arg CreateRoleByDefaultParams) (Role, error) {
 	row := q.db.QueryRowContext(ctx, createRoleByDefault, arg.Name, pq.Array(arg.Permission))
 	var i Role
-	err := row.Scan(&i.ID, &i.Name, pq.Array(&i.Permission))
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		pq.Array(&i.Permission),
+		&i.CreateAt,
+		&i.UpdateAt,
+	)
 	return i, err
 }
 
@@ -69,31 +81,43 @@ func (q *Queries) DeleteRoleById(ctx context.Context, id int64) error {
 }
 
 const getRoleById = `-- name: GetRoleById :one
-SELECT id, name, permission FROM "Role"
+SELECT id, name, permission, create_at, update_at FROM "Role"
 WHERE id = $1 LIMIT 1
 `
 
 func (q *Queries) GetRoleById(ctx context.Context, id int64) (Role, error) {
 	row := q.db.QueryRowContext(ctx, getRoleById, id)
 	var i Role
-	err := row.Scan(&i.ID, &i.Name, pq.Array(&i.Permission))
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		pq.Array(&i.Permission),
+		&i.CreateAt,
+		&i.UpdateAt,
+	)
 	return i, err
 }
 
 const getRoleByName = `-- name: GetRoleByName :one
-SELECT id, name, permission FROM "Role"
+SELECT id, name, permission, create_at, update_at FROM "Role"
 WHERE name = $1 LIMIT 1
 `
 
 func (q *Queries) GetRoleByName(ctx context.Context, name string) (Role, error) {
 	row := q.db.QueryRowContext(ctx, getRoleByName, name)
 	var i Role
-	err := row.Scan(&i.ID, &i.Name, pq.Array(&i.Permission))
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		pq.Array(&i.Permission),
+		&i.CreateAt,
+		&i.UpdateAt,
+	)
 	return i, err
 }
 
 const listRole = `-- name: ListRole :many
-SELECT id, name, permission FROM "Role"
+SELECT id, name, permission, create_at, update_at FROM "Role"
 `
 
 func (q *Queries) ListRole(ctx context.Context) ([]Role, error) {
@@ -105,7 +129,13 @@ func (q *Queries) ListRole(ctx context.Context) ([]Role, error) {
 	items := []Role{}
 	for rows.Next() {
 		var i Role
-		if err := rows.Scan(&i.ID, &i.Name, pq.Array(&i.Permission)); err != nil {
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			pq.Array(&i.Permission),
+			&i.CreateAt,
+			&i.UpdateAt,
+		); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
@@ -120,9 +150,9 @@ func (q *Queries) ListRole(ctx context.Context) ([]Role, error) {
 }
 
 const updateRole = `-- name: UpdateRole :one
-UPDATE "Role" SET name = $1,permission = $2
+UPDATE "Role" SET name = $1,permission = $2,update_at = NOW()
 WHERE id = $3
-RETURNING id, name, permission
+RETURNING id, name, permission, create_at, update_at
 `
 
 type UpdateRoleParams struct {
@@ -134,6 +164,12 @@ type UpdateRoleParams struct {
 func (q *Queries) UpdateRole(ctx context.Context, arg UpdateRoleParams) (Role, error) {
 	row := q.db.QueryRowContext(ctx, updateRole, arg.Name, pq.Array(arg.Permission), arg.ID)
 	var i Role
-	err := row.Scan(&i.ID, &i.Name, pq.Array(&i.Permission))
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		pq.Array(&i.Permission),
+		&i.CreateAt,
+		&i.UpdateAt,
+	)
 	return i, err
 }
