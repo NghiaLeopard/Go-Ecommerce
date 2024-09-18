@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS "Users";
 
-DROP TYPE users_type;
-DROP TYPE users_status;
+DROP TYPE IF EXISTS users_type;
+DROP TYPE IF EXISTS users_status;
 

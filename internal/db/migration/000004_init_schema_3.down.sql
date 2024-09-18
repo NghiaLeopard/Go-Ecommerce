@@ -1,3 +1,3 @@
-DROP TABLE IF EXISTS Product;
+DROP TABLE IF EXISTS "Product";
 
-DROP TYPE product_status;
+DROP TYPE IF EXISTS product_status;

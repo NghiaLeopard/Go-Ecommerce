@@ -29,6 +29,9 @@ func InitServer(sqlcDB *db.Queries, config2 config.Config) (*api.ServerHTTP, err
 	role := repository.NewRoleRepository()
 	iUseCaseRole := usecase.NewRoleUseCase(role)
 	iHandlerRole := handler.NewRoleHandler(iUseCaseRole)
-	serverHTTP := api.NewServerHTTP(config2, middlewareMiddleware, iHandlerAuth, iHandlerCity, iHandlerRole)
+	productType := repository.NewProductTypeRepository()
+	iUseCaseProductType := usecase.NewProductTypeUseCase(productType)
+	iHandlerProductType := handler.NewProductTypeHandler(iUseCaseProductType)
+	serverHTTP := api.NewServerHTTP(config2, middlewareMiddleware, iHandlerAuth, iHandlerCity, iHandlerRole, iHandlerProductType)
 	return serverHTTP, nil
 }

@@ -10,27 +10,34 @@ import (
 
 type Querier interface {
 	CreateCity(ctx context.Context, name string) (City, error)
+	CreateProductType(ctx context.Context, arg CreateProductTypeParams) (ProductType, error)
 	CreateRole(ctx context.Context, name string) (Role, error)
 	CreateRoleByDefault(ctx context.Context, arg CreateRoleByDefaultParams) (Role, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteCityById(ctx context.Context, id int64) error
 	DeleteManyCityByIds(ctx context.Context, dollar_1 []int64) error
+	DeleteManyProductTypesByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteManyRolesByIds(ctx context.Context, dollar_1 []int64) error
+	DeleteProductTypeById(ctx context.Context, id int64) error
 	DeleteRoleById(ctx context.Context, id int64) error
 	DeleteUser(ctx context.Context, id int64) error
 	GetCityById(ctx context.Context, id int64) (City, error)
 	GetCityByName(ctx context.Context, name string) (City, error)
+	GetProductTypeById(ctx context.Context, id int64) (ProductType, error)
+	GetProductTypeByName(ctx context.Context, name string) (ProductType, error)
 	GetRoleById(ctx context.Context, id int64) (Role, error)
 	GetRoleByName(ctx context.Context, name string) (Role, error)
 	GetUserByEmail(ctx context.Context, email string) (GetUserByEmailRow, error)
 	GetUserById(ctx context.Context, id int64) (GetUserByIdRow, error)
 	InitDefaultAdmin(ctx context.Context, arg InitDefaultAdminParams) (User, error)
 	ListCity(ctx context.Context, arg ListCityParams) ([]City, error)
+	ListProductType(ctx context.Context) ([]ProductType, error)
 	ListRole(ctx context.Context) ([]Role, error)
 	ListUsers(ctx context.Context) ([]User, error)
 	SaveResetToken(ctx context.Context, arg SaveResetTokenParams) error
 	UpdateCity(ctx context.Context, arg UpdateCityParams) (City, error)
 	UpdatePasswordUser(ctx context.Context, arg UpdatePasswordUserParams) error
+	UpdateProductType(ctx context.Context, arg UpdateProductTypeParams) (ProductType, error)
 	UpdateRole(ctx context.Context, arg UpdateRoleParams) (Role, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error)
 }

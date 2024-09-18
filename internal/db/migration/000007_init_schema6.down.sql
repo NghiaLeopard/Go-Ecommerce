@@ -1,0 +1,3 @@
+ALTER TABLE IF EXISTS "Product" DROP CONSTRAINT IF EXISTS "fk_ProductType";
+
+DROP TABLE "Product_Type";

@@ -6,6 +6,6 @@ CREATE TABLE "Role" (
     "update_at"timestamptz NOT NULL DEFAULT('0001-01-01 00:00:00Z')
 );
 
-ALTER TABLE "Users" ADD CONSTRAINT "Fk_UserRole" FOREIGN KEY ("role") REFERENCES "Role"("id");
+ALTER TABLE "Users" ADD CONSTRAINT "fk_UserRole" FOREIGN KEY ("role") REFERENCES "Role"("id");
 
 
