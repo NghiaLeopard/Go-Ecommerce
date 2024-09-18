@@ -23,16 +23,19 @@ func InitServer(sqlcDB *db.Queries, config config.Config) (*api.ServerHTTP, erro
 		repository.NewAuthRepository,
 		repository.NewCityRepository,
 		repository.NewRoleRepository,
+		repository.NewProductTypeRepository,
 
 		// use case
 		usecase.NewAuthUseCase,
 		usecase.NewCityUseCase,
 		usecase.NewRoleUseCase,
+		usecase.NewProductTypeUseCase,
 
 		// handler
 		handler.NewAuthHandler,
 		handler.NewCityHandler,
 		handler.NewRoleHandler,
+		handler.NewProductTypeHandler,
 
 		api.NewServerHTTP,
 	)

@@ -26,7 +26,7 @@ WHERE name = $1 LIMIT 1;
 SELECT * FROM "Role";
 
 -- name: UpdateRole :one
-UPDATE "Role" SET name = $1,permission = $2
+UPDATE "Role" SET name = $1,permission = $2,update_at = NOW()
 WHERE id = $3
 RETURNING *;
 

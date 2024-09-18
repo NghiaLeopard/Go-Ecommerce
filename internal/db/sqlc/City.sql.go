@@ -18,13 +18,18 @@ INSERT INTO "City" (
 ) VALUES (
   $1
 )
-RETURNING id, name
+RETURNING id, name, create_at, update_at
 `
 
 func (q *Queries) CreateCity(ctx context.Context, name string) (City, error) {
 	row := q.db.QueryRowContext(ctx, createCity, name)
 	var i City
-	err := row.Scan(&i.ID, &i.Name)
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.CreateAt,
+		&i.UpdateAt,
+	)
 	return i, err
 }
 
@@ -49,31 +54,41 @@ func (q *Queries) DeleteManyCityByIds(ctx context.Context, dollar_1 []int64) err
 }
 
 const getCityById = `-- name: GetCityById :one
-SELECT id, name FROM "City"
+SELECT id, name, create_at, update_at FROM "City"
 WHERE id = $1 LIMIT 1
 `
 
 func (q *Queries) GetCityById(ctx context.Context, id int64) (City, error) {
 	row := q.db.QueryRowContext(ctx, getCityById, id)
 	var i City
-	err := row.Scan(&i.ID, &i.Name)
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.CreateAt,
+		&i.UpdateAt,
+	)
 	return i, err
 }
 
 const getCityByName = `-- name: GetCityByName :one
-SELECT id, name FROM "City"
+SELECT id, name, create_at, update_at FROM "City"
 WHERE name = $1 LIMIT 1
 `
 
 func (q *Queries) GetCityByName(ctx context.Context, name string) (City, error) {
 	row := q.db.QueryRowContext(ctx, getCityByName, name)
 	var i City
-	err := row.Scan(&i.ID, &i.Name)
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.CreateAt,
+		&i.UpdateAt,
+	)
 	return i, err
 }
 
 const listCity = `-- name: ListCity :many
-SELECT id, name FROM "City"
+SELECT id, name, create_at, update_at FROM "City"
 WHERE name ILIKE '%' || $1 || '%'
 ORDER BY $2
 LIMIT $3
@@ -101,7 +116,12 @@ func (q *Queries) ListCity(ctx context.Context, arg ListCityParams) ([]City, err
 	items := []City{}
 	for rows.Next() {
 		var i City
-		if err := rows.Scan(&i.ID, &i.Name); err != nil {
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.CreateAt,
+			&i.UpdateAt,
+		); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
@@ -116,9 +136,9 @@ func (q *Queries) ListCity(ctx context.Context, arg ListCityParams) ([]City, err
 }
 
 const updateCity = `-- name: UpdateCity :one
-UPDATE "City" SET name = $1
+UPDATE "City" SET name = $1,update_at = NOW()
 WHERE id = $2
-RETURNING id, name
+RETURNING id, name, create_at, update_at
 `
 
 type UpdateCityParams struct {
@@ -129,6 +149,11 @@ type UpdateCityParams struct {
 func (q *Queries) UpdateCity(ctx context.Context, arg UpdateCityParams) (City, error) {
 	row := q.db.QueryRowContext(ctx, updateCity, arg.Name, arg.ID)
 	var i City
-	err := row.Scan(&i.ID, &i.Name)
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.CreateAt,
+		&i.UpdateAt,
+	)
 	return i, err
 }

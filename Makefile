@@ -1,3 +1,5 @@
+DB_URL=postgresql://root:secret@localhost:5432/ECOMMERCE?sslmode=disable
+
 postgres:
 	docker run --name DB_ECOMMERCE -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:16-alpine
 
@@ -8,16 +10,16 @@ dropdb:
 	docker exec -it DB_ECOMMERCE dropdb ECOMMERCE
 
 migrateup:
-	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/DB_ECOMMERCE?sslmode=disable" -verbose up
+	migrate -path internal/db/migration -database "$(DB_URL)" -verbose up
 
 migratedown:
-	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/DB_ECOMMERCE?sslmode=disable" -verbose down
+	migrate -path internal/db/migration -database "$(DB_URL)" -verbose down
 
 migrateup1:
-	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/DB_ECOMMERCE?sslmode=disable" -verbose up 1
+	migrate -path internal/db/migration -database "$(DB_URL)" -verbose up 1
 
 migratedown1:
-	migrate -path internal/db/migration -database "postgresql://root:0945639220Beo@localhost:5432/DB_ECOMMERCE?sslmode=disable" -verbose down 1
+	migrate -path internal/db/migration -database "$(DB_URL)" -verbose down 1
 
 sqlc:
 	sqlc generate

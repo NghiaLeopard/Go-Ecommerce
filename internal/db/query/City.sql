@@ -22,7 +22,7 @@ LIMIT $3
 OFFSET $4;
 
 -- name: UpdateCity :one
-UPDATE "City" SET name = $1
+UPDATE "City" SET name = $1,update_at = NOW()
 WHERE id = $2
 RETURNING *;
 

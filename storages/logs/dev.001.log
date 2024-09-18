@@ -411,3 +411,28 @@
 {"level":"INFO","time":"2024-09-14T15:54:18.417+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
 {"level":"INFO","time":"2024-09-14T15:54:18.417+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
 {"level":"ERROR","time":"2024-09-14T15:54:22.604+0700","caller":"handler/roleHandler.go:86","msg":"get Role","Status":"Error"}
+{"level":"INFO","time":"2024-09-18T08:31:49.996+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"ERROR","time":"2024-09-18T08:31:50.478+0700","caller":"initialize/postgresql.go:14","msg":"initialization redis err","error":"dial tcp 127.0.0.1:6379: connect: connection refused"}
+{"level":"INFO","time":"2024-09-18T08:33:17.237+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-18T08:33:17.240+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-18T08:33:17.240+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-18T08:33:28.600+0700","caller":"usecase/AuthUseCase.go:83","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-18T08:33:28.605+0700","caller":"handler/authHandler.go:39","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-18T08:33:48.687+0700","caller":"handler/productTypeHandler.go:26","msg":"Key: 'CreateProductType.Name' Error:Field validation for 'Name' failed on the 'required' tag\nKey: 'CreateProductType.Slug' Error:Field validation for 'Slug' failed on the 'required' tag","Status":"Error"}
+{"level":"ERROR","time":"2024-09-18T08:34:14.649+0700","caller":"handler/productTypeHandler.go:26","msg":"Key: 'CreateProductType.Name' Error:Field validation for 'Name' failed on the 'required' tag\nKey: 'CreateProductType.Slug' Error:Field validation for 'Slug' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-18T08:35:14.077+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-18T08:35:14.080+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-18T08:35:14.080+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-18T08:35:18.360+0700","caller":"usecase/ProductTypeUseCase.go:39","msg":"Create ","Status":"Error"}
+{"level":"ERROR","time":"2024-09-18T08:35:18.360+0700","caller":"handler/productTypeHandler.go:38","msg":"create ProductType","Status":"Error"}
+{"level":"INFO","time":"2024-09-18T08:43:15.302+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-18T08:43:15.304+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-18T08:43:15.304+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-18T08:43:18.965+0700","caller":"usecase/ProductTypeUseCase.go:39","msg":"Create ","Status":"Error"}
+{"level":"ERROR","time":"2024-09-18T08:43:18.965+0700","caller":"handler/productTypeHandler.go:38","msg":"create ProductType","Status":"Error"}
+{"level":"ERROR","time":"2024-09-18T08:44:25.908+0700","caller":"handler/productTypeHandler.go:59","msg":"get ProductType","Status":"Error"}
+{"level":"ERROR","time":"2024-09-18T08:44:37.247+0700","caller":"handler/productTypeHandler.go:59","msg":"get ProductType","Status":"Error"}
+{"level":"INFO","time":"2024-09-18T08:54:17.681+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-18T08:54:17.683+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-18T08:54:17.683+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-18T08:54:22.155+0700","caller":"handler/productTypeHandler.go:59","msg":"get ProductType","Status":"Error"}

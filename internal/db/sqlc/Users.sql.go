@@ -67,7 +67,7 @@ func (q *Queries) DeleteUser(ctx context.Context, id int64) error {
 }
 
 const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT "Users".id, "Users".email, "Users".password, "Users"."resetToken", "Users"."userType", "Users".status, "Users".address, "Users".avatar, "Users"."phoneNumber", "Users".role, "Users"."firstName", "Users"."lastName", "Users"."middleName", "Users".city, "Users"."likeProducts", "Users"."viewedProducts", "Users"."deviceToken", "Users".addresses, "Users"."resetTokenExpiration", "Users".create_at,"Role".id, "Role".name, "Role".permission
+SELECT "Users".id, "Users".email, "Users".password, "Users"."resetToken", "Users"."userType", "Users".status, "Users".address, "Users".avatar, "Users"."phoneNumber", "Users".role, "Users"."firstName", "Users"."lastName", "Users"."middleName", "Users".city, "Users"."likeProducts", "Users"."viewedProducts", "Users"."deviceToken", "Users".addresses, "Users"."resetTokenExpiration", "Users".create_at,"Role".id, "Role".name, "Role".permission, "Role".create_at, "Role".update_at
 FROM "Users"
 JOIN "Role" ON "Role".id = "Users".role
 WHERE "Users".email = $1
@@ -97,6 +97,8 @@ type GetUserByEmailRow struct {
 	ID_2                 int64                 `json:"id_2"`
 	Name                 string                `json:"name"`
 	Permission           []string              `json:"permission"`
+	CreateAt_2           time.Time             `json:"create_at_2"`
+	UpdateAt             time.Time             `json:"update_at"`
 }
 
 func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEmailRow, error) {
@@ -126,12 +128,14 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 		&i.ID_2,
 		&i.Name,
 		pq.Array(&i.Permission),
+		&i.CreateAt_2,
+		&i.UpdateAt,
 	)
 	return i, err
 }
 
 const getUserById = `-- name: GetUserById :one
-SELECT "Users".id, "Users".email, "Users".password, "Users"."resetToken", "Users"."userType", "Users".status, "Users".address, "Users".avatar, "Users"."phoneNumber", "Users".role, "Users"."firstName", "Users"."lastName", "Users"."middleName", "Users".city, "Users"."likeProducts", "Users"."viewedProducts", "Users"."deviceToken", "Users".addresses, "Users"."resetTokenExpiration", "Users".create_at,"Role".id, "Role".name, "Role".permission
+SELECT "Users".id, "Users".email, "Users".password, "Users"."resetToken", "Users"."userType", "Users".status, "Users".address, "Users".avatar, "Users"."phoneNumber", "Users".role, "Users"."firstName", "Users"."lastName", "Users"."middleName", "Users".city, "Users"."likeProducts", "Users"."viewedProducts", "Users"."deviceToken", "Users".addresses, "Users"."resetTokenExpiration", "Users".create_at,"Role".id, "Role".name, "Role".permission, "Role".create_at, "Role".update_at
 FROM "Users"
 JOIN "Role" ON "Role".id = "Users".role
 WHERE "Users".id = $1
@@ -161,6 +165,8 @@ type GetUserByIdRow struct {
 	ID_2                 int64                 `json:"id_2"`
 	Name                 string                `json:"name"`
 	Permission           []string              `json:"permission"`
+	CreateAt_2           time.Time             `json:"create_at_2"`
+	UpdateAt             time.Time             `json:"update_at"`
 }
 
 func (q *Queries) GetUserById(ctx context.Context, id int64) (GetUserByIdRow, error) {
@@ -190,6 +196,8 @@ func (q *Queries) GetUserById(ctx context.Context, id int64) (GetUserByIdRow, er
 		&i.ID_2,
 		&i.Name,
 		pq.Array(&i.Permission),
+		&i.CreateAt_2,
+		&i.UpdateAt,
 	)
 	return i, err
 }
