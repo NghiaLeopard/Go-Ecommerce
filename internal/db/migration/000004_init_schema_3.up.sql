@@ -18,5 +18,6 @@ CREATE TABLE "Product" (
     "slug" varchar NOT NULL,
     "views" integer DEFAULT 0,
     "price" integer NOT NULL,
-    "location" varchar NOT NULL
+    "location" varchar NOT NULL,
+    "create_at" timestamptz NOT NULL DEFAULT (now())
 )

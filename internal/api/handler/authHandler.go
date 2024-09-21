@@ -18,6 +18,14 @@ func NewAuthHandler(authUseCase IUseCase.Auth) IHandler.Auth {
 	return &AuthHandler{AuthUseCase: authUseCase}
 }
 
+// LoginUser 		godoc
+// @Summary 		Login accounts
+// @Description 	Login account
+// @Param 			tags body IRequest.LoginRequest true "Login user"
+// @Produce 		application/json
+// @Tags 			Auth
+// @Success 		200 {object} IResponse.Login{}
+// @Router 			/api/auth/login [post]
 func (a *AuthHandler) LoginUser(ctx *gin.Context) {
 	var req *IRequest.RegisterRequest
 
@@ -146,8 +154,21 @@ func (a *AuthHandler) GetAuthMe(ctx *gin.Context) {
 
 	if err != nil {
 		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
 	}
 
 	global.Logger.Info("Get auth", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Get auth me success", codeStatus, authMe)
+}
+
+func (a *AuthHandler) RefreshToken(ctx *gin.Context) {
+	data, err, codeStatus := a.AuthUseCase.RefreshTokenUseCase(ctx)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Info("Get auth", zap.String("Status", "Success"))
+	response.SuccessResponse(ctx, "get access token success", codeStatus, data)
 }

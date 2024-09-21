@@ -12,13 +12,13 @@ func Run() {
 	initLoadConfig()
 	initLogger()
 	initPostgresql()
-	// initRedis()
+	initRedis()
 	initGmail()
 	initToken()
 
 	global.Logger.Info("Config success", zap.String("Status", "Success"))
 
-	server, err := wire.InitServer(global.DB, global.Config)
+	server, err := wire.InitServer(global.DB, global.Config, global.Rdb)
 
 	if err != nil {
 		log.Fatal("Run server fail: ", err)

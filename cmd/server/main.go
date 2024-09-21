@@ -17,6 +17,10 @@ import (
 // @externalDocs.description  OpenAPI
 // @externalDocs.url          https://swagger.io/resources/open-api/
 
+// @securityDefinitions.apikey AccessToken
+// @in header
+// @name Authorization
+
 func main() {
 	initialize.Run()
 }

@@ -14,14 +14,16 @@ import (
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
+	"github.com/redis/go-redis/v9"
 )
 
 // Injectors from wire.go:
 
-func InitServer(sqlcDB *db.Queries, config2 config.Config) (*api.ServerHTTP, error) {
+func InitServer(sqlcDB *db.Queries, config2 config.Config, redis2 *redis.Client) (*api.ServerHTTP, error) {
 	middlewareMiddleware := middleware.NewMiddleware()
 	auth := repository.NewAuthRepository()
-	iUseCaseAuth := usecase.NewAuthUseCase(auth)
+	redisToken := repository.NewRedisTokenRepository(redis2)
+	iUseCaseAuth := usecase.NewAuthUseCase(auth, redisToken)
 	iHandlerAuth := handler.NewAuthHandler(iUseCaseAuth)
 	city := repository.NewCityRepository()
 	iUseCaseCity := usecase.NewCityUseCase(city)

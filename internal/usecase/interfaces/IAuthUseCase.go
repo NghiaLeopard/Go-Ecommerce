@@ -13,4 +13,5 @@ type Auth interface {
 	ForgotPasswordUseCase(ctx *gin.Context, email string) (error, int)
 	ResetPasswordUseCase(ctx *gin.Context, newPassword string, secretKey string) (error, int)
 	GetAuthMeUserCase(ctx *gin.Context) (IResponse.AuthMe, error, int)
+	RefreshTokenUseCase(ctx *gin.Context) (IResponse.GetAccessToken, error, int)
 }

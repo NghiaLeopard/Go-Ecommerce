@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
@@ -15,15 +16,61 @@ import (
 	"go.uber.org/zap"
 )
 
+const (
+	AuthorizationHeader = "authorization"
+	AuthorizationType   = "Bearer"
+)
+
 type AuthUseCase struct {
-	AuthRepo IRepository.Auth
+	AuthRepo       IRepository.Auth
+	RedisTokenRepo IRepository.RedisToken
 }
 
-func NewAuthUseCase(authRepo IRepository.Auth) IUseCase.Auth {
-	return &AuthUseCase{AuthRepo: authRepo}
+func NewAuthUseCase(authRepo IRepository.Auth, redisToken IRepository.RedisToken) IUseCase.Auth {
+	return &AuthUseCase{AuthRepo: authRepo, RedisTokenRepo: redisToken}
 }
 
-// LoginUseCase implements IUseCase.IAuthUseCase.
+func (a *AuthUseCase) RefreshTokenUseCase(ctx *gin.Context) (IResponse.GetAccessToken, error, int) {
+	authorization := ctx.GetHeader(AuthorizationHeader)
+
+	if len(authorization) == 0 {
+		global.Logger.Error("please provide authorization", zap.String("Status", "Error"))
+		return IResponse.GetAccessToken{}, fmt.Errorf("please provide authorization"), 401
+	}
+
+	fields := strings.Fields(authorization)
+
+	if len(fields) < 2 {
+		global.Logger.Error("invalid format header", zap.String("Status", "Error"))
+		return IResponse.GetAccessToken{}, fmt.Errorf("invalid format header"), 401
+
+	}
+
+	if fields[0] != AuthorizationType {
+		global.Logger.Error("invalid type header", zap.String("Status", "Error"))
+		return IResponse.GetAccessToken{}, fmt.Errorf("invalid type header"), 401
+
+	}
+
+	payload, err := global.Token.VerifyTokenPaseto(fields[1])
+
+	if err != nil {
+		global.Logger.Error("Verify token invalid", zap.String("Status", "Error"))
+		return IResponse.GetAccessToken{}, fmt.Errorf(err.Error()), 401
+	}
+
+	accessToken, _, err := global.Token.CreateTokenPaseto(int(payload.Id), payload.Permissions, global.Config.Access_token)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.GetAccessToken{}, fmt.Errorf("generate access token false: %w", err), 500
+	}
+
+	return IResponse.GetAccessToken{
+		AccessToken: accessToken,
+	}, nil, 201
+}
+
 func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password string) (IResponse.Login, error, int) {
 	user, err := a.AuthRepo.GetUserByEmail(ctx, email)
 
@@ -53,13 +100,19 @@ func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password stri
 		return IResponse.Login{}, fmt.Errorf("generate refresh token false: %w", err), 500
 	}
 
+	err = a.RedisTokenRepo.SetRefreshToken(ctx, user.ID, refreshToken, 0)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.Login{}, fmt.Errorf("set redis refresh token false: %w", err), 500
+	}
+
 	data := IResponse.Login{
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
 		User: IResponse.User{
 			Id:          user.ID,
 			Email:       user.Email,
-			ResetToken:  "",
 			Address:     user.Address.String,
 			Status:      user.Status.UsersStatus,
 			Avatar:      user.Avatar.String,
@@ -69,14 +122,13 @@ func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password stri
 				Name:       user.Name,
 				Permission: user.Permission,
 			},
-			FirstName:            user.FirstName.String,
-			LastName:             user.LastName.String,
-			MiddleName:           user.MiddleName.String,
-			City:                 int(user.City.Int64),
-			LikeProducts:         user.LikeProducts,
-			ViewedProducts:       user.ViewedProducts,
-			ResetTokenExpiration: user.ResetTokenExpiration.Time,
-			Create_at:            user.CreateAt,
+			FirstName:      user.FirstName.String,
+			LastName:       user.LastName.String,
+			MiddleName:     user.MiddleName.String,
+			City:           int(user.City.Int64),
+			LikeProducts:   user.LikeProducts,
+			ViewedProducts: user.ViewedProducts,
+			Create_at:      user.CreateAt,
 		},
 	}
 
@@ -84,7 +136,6 @@ func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password stri
 	return data, nil, 0
 }
 
-// RegisterUseCase implements IUseCase.IAuthUseCase.
 func (a *AuthUseCase) RegisterUseCase(ctx *gin.Context, email string, password string) error {
 	hashPassword, err := utils.HashPassword(password)
 
@@ -109,7 +160,6 @@ func (a *AuthUseCase) RegisterUseCase(ctx *gin.Context, email string, password s
 	return nil
 }
 
-// ChangePasswordUseCase implements IUseCase.IAuthUseCase.
 func (a *AuthUseCase) ChangePasswordUseCase(ctx *gin.Context, currentPassword string, newPassword string) (error, int) {
 	payload := ctx.MustGet(middleware.AuthorizationKey).(*token.Payload)
 
@@ -150,13 +200,11 @@ func (a *AuthUseCase) ChangePasswordUseCase(ctx *gin.Context, currentPassword st
 	return nil, 200
 }
 
-// LogoutUseCase implements IUseCase.IAuthUseCase.
 func (a *AuthUseCase) LogoutUseCase(ctx *gin.Context) (error, int) {
 	// TODO: blackList
 	return nil, 200
 }
 
-// ForgotPasswordUseCase implements IUseCase.IAuthUseCase.
 func (a *AuthUseCase) ForgotPasswordUseCase(ctx *gin.Context, email string) (error, int) {
 	user, err := a.AuthRepo.GetUserByEmail(ctx, email)
 
@@ -177,13 +225,6 @@ func (a *AuthUseCase) ForgotPasswordUseCase(ctx *gin.Context, email string) (err
 
 	err = global.Gmail.SenderEmail([]string{email}, subject, []byte(textEmail), nil, nil)
 
-	arg := db.SaveResetTokenParams{
-		ID: user.ID,
-		// ResetToken: token,
-	}
-
-	global.DB.SaveResetToken(ctx, arg)
-
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("send email fail"), 400
@@ -193,7 +234,6 @@ func (a *AuthUseCase) ForgotPasswordUseCase(ctx *gin.Context, email string) (err
 	return nil, 200
 }
 
-// ResetPasswordUseCase implements IUseCase.IAuthUseCase.
 func (a *AuthUseCase) ResetPasswordUseCase(ctx *gin.Context, newPassword string, secretKey string) (error, int) {
 	payload, err := global.Token.VerifyTokenPaseto(secretKey)
 
@@ -232,7 +272,6 @@ func (a *AuthUseCase) ResetPasswordUseCase(ctx *gin.Context, newPassword string,
 	return nil, 200
 }
 
-// GetAuthMeUserCase implements IUseCase.IAuthUseCase.
 func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (IResponse.AuthMe, error, int) {
 	payload := ctx.MustGet(middleware.AuthorizationKey).(*token.Payload)
 

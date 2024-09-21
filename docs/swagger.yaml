@@ -1,4 +1,104 @@
 basePath: /api
+definitions:
+  IRequest.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 6
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  IResponse.Addresses:
+    properties:
+      address:
+        type: string
+      city:
+        type: string
+      firstName:
+        type: string
+      isDefault:
+        type: boolean
+      lastName:
+        type: string
+      middleName:
+        type: string
+      phoneNumber:
+        type: string
+    type: object
+  IResponse.Login:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+      user:
+        $ref: '#/definitions/IResponse.User'
+    type: object
+  IResponse.Role:
+    properties:
+      _id:
+        type: integer
+      name:
+        type: string
+      permissions:
+        items:
+          type: string
+        type: array
+    type: object
+  IResponse.User:
+    properties:
+      _id:
+        type: integer
+      address:
+        type: string
+      addresses:
+        items:
+          $ref: '#/definitions/IResponse.Addresses'
+        type: array
+      avatar:
+        type: string
+      city:
+        type: integer
+      create_at:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      likeProducts:
+        items:
+          type: integer
+        type: array
+      middleName:
+        type: string
+      phoneNumber:
+        type: integer
+      resetToken:
+        type: string
+      resetTokenExpiration:
+        type: string
+      role:
+        $ref: '#/definitions/IResponse.Role'
+      status:
+        $ref: '#/definitions/db.UsersStatus'
+      viewedProducts:
+        items:
+          type: integer
+        type: array
+    type: object
+  db.UsersStatus:
+    enum:
+    - "0"
+    - "1"
+    type: string
+    x-enum-varnames:
+    - UsersStatus0
+    - UsersStatus1
 externalDocs:
   description: OpenAPI
   url: https://swagger.io/resources/open-api/
@@ -10,5 +110,30 @@ info:
     url: https://www.facebook.com/shy.leopard.beo
   description: This is a server ecommerce.
   title: Swagger Golang Ecommerce
-paths: {}
+paths:
+  /api/auth/login:
+    post:
+      description: Login account
+      parameters:
+      - description: Login user
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.Login'
+      summary: Login accounts
+      tags:
+      - Auth
+securityDefinitions:
+  AccessToken:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

@@ -34,7 +34,6 @@ type Querier interface {
 	ListProductType(ctx context.Context) ([]ProductType, error)
 	ListRole(ctx context.Context) ([]Role, error)
 	ListUsers(ctx context.Context) ([]User, error)
-	SaveResetToken(ctx context.Context, arg SaveResetTokenParams) error
 	UpdateCity(ctx context.Context, arg UpdateCityParams) (City, error)
 	UpdatePasswordUser(ctx context.Context, arg UpdatePasswordUserParams) error
 	UpdateProductType(ctx context.Context, arg UpdateProductTypeParams) (ProductType, error)

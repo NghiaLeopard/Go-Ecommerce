@@ -12,6 +12,7 @@ func UserRouter(api *gin.RouterGroup, middleware middleware.Middleware, authHand
 		auth.POST("/register", authHandler.SignUpUser)
 		auth.POST("/login", authHandler.LoginUser)
 		auth.POST("/logout", authHandler.LogoutUser)
+		auth.POST("/refresh-token", authHandler.RefreshToken)
 
 		authMePublic := auth.Use(middleware.AuthMiddleware("1", true, true))
 		{

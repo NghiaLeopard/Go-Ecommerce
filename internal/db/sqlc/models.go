@@ -163,6 +163,7 @@ type Product struct {
 	Views             sql.NullInt32     `json:"views"`
 	Price             int32             `json:"price"`
 	Location          string            `json:"location"`
+	CreateAt          time.Time         `json:"create_at"`
 }
 
 type ProductLiked struct {
@@ -194,24 +195,22 @@ type Role struct {
 }
 
 type User struct {
-	ID                   int64                 `json:"id"`
-	Email                string                `json:"email"`
-	Password             string                `json:"password"`
-	ResetToken           sql.NullString        `json:"resetToken"`
-	UserType             NullUsersType         `json:"userType"`
-	Status               NullUsersStatus       `json:"status"`
-	Address              sql.NullString        `json:"address"`
-	Avatar               sql.NullString        `json:"avatar"`
-	PhoneNumber          sql.NullInt64         `json:"phoneNumber"`
-	Role                 sql.NullInt64         `json:"role"`
-	FirstName            sql.NullString        `json:"firstName"`
-	LastName             sql.NullString        `json:"lastName"`
-	MiddleName           sql.NullString        `json:"middleName"`
-	City                 sql.NullInt64         `json:"city"`
-	LikeProducts         []int64               `json:"likeProducts"`
-	ViewedProducts       []int64               `json:"viewedProducts"`
-	DeviceToken          []string              `json:"deviceToken"`
-	Addresses            pqtype.NullRawMessage `json:"addresses"`
-	ResetTokenExpiration sql.NullTime          `json:"resetTokenExpiration"`
-	CreateAt             time.Time             `json:"create_at"`
+	ID             int64                 `json:"id"`
+	Email          string                `json:"email"`
+	Password       string                `json:"password"`
+	UserType       NullUsersType         `json:"userType"`
+	Status         NullUsersStatus       `json:"status"`
+	Address        sql.NullString        `json:"address"`
+	Avatar         sql.NullString        `json:"avatar"`
+	PhoneNumber    sql.NullInt64         `json:"phoneNumber"`
+	Role           sql.NullInt64         `json:"role"`
+	FirstName      sql.NullString        `json:"firstName"`
+	LastName       sql.NullString        `json:"lastName"`
+	MiddleName     sql.NullString        `json:"middleName"`
+	City           sql.NullInt64         `json:"city"`
+	LikeProducts   []int64               `json:"likeProducts"`
+	ViewedProducts []int64               `json:"viewedProducts"`
+	DeviceToken    []string              `json:"deviceToken"`
+	Addresses      pqtype.NullRawMessage `json:"addresses"`
+	CreateAt       time.Time             `json:"create_at"`
 }
