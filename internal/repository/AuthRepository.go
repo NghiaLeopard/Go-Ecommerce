@@ -49,13 +49,6 @@ func (a *AuthRepository) InitDefaultAdmin(ctx *gin.Context, arg db.InitDefaultAd
 	return
 }
 
-// SaveResetToken implements IRepository.IAuth.
-func (a *AuthRepository) SaveResetToken(ctx *gin.Context, arg db.SaveResetTokenParams) (err error) {
-	err = global.DB.SaveResetToken(ctx, arg)
-
-	return
-}
-
 // UpdatePasswordUser implements IRepository.IAuth.
 func (a *AuthRepository) UpdatePasswordUser(ctx *gin.Context, arg db.UpdatePasswordUserParams) (err error) {
 	err = global.DB.UpdatePasswordUser(ctx, arg)

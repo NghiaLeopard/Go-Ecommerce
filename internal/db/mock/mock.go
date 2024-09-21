@@ -50,6 +50,21 @@ func (mr *MockQuerierMockRecorder) CreateCity(arg0, arg1 interface{}) *gomock.Ca
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateCity", reflect.TypeOf((*MockQuerier)(nil).CreateCity), arg0, arg1)
 }
 
+// CreateProductType mocks base method.
+func (m *MockQuerier) CreateProductType(arg0 context.Context, arg1 db.CreateProductTypeParams) (db.ProductType, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateProductType", arg0, arg1)
+	ret0, _ := ret[0].(db.ProductType)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateProductType indicates an expected call of CreateProductType.
+func (mr *MockQuerierMockRecorder) CreateProductType(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateProductType", reflect.TypeOf((*MockQuerier)(nil).CreateProductType), arg0, arg1)
+}
+
 // CreateRole mocks base method.
 func (m *MockQuerier) CreateRole(arg0 context.Context, arg1 string) (db.Role, error) {
 	m.ctrl.T.Helper()
@@ -123,6 +138,20 @@ func (mr *MockQuerierMockRecorder) DeleteManyCityByIds(arg0, arg1 interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteManyCityByIds", reflect.TypeOf((*MockQuerier)(nil).DeleteManyCityByIds), arg0, arg1)
 }
 
+// DeleteManyProductTypesByIds mocks base method.
+func (m *MockQuerier) DeleteManyProductTypesByIds(arg0 context.Context, arg1 []int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteManyProductTypesByIds", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteManyProductTypesByIds indicates an expected call of DeleteManyProductTypesByIds.
+func (mr *MockQuerierMockRecorder) DeleteManyProductTypesByIds(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteManyProductTypesByIds", reflect.TypeOf((*MockQuerier)(nil).DeleteManyProductTypesByIds), arg0, arg1)
+}
+
 // DeleteManyRolesByIds mocks base method.
 func (m *MockQuerier) DeleteManyRolesByIds(arg0 context.Context, arg1 []int64) error {
 	m.ctrl.T.Helper()
@@ -135,6 +164,20 @@ func (m *MockQuerier) DeleteManyRolesByIds(arg0 context.Context, arg1 []int64) e
 func (mr *MockQuerierMockRecorder) DeleteManyRolesByIds(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteManyRolesByIds", reflect.TypeOf((*MockQuerier)(nil).DeleteManyRolesByIds), arg0, arg1)
+}
+
+// DeleteProductTypeById mocks base method.
+func (m *MockQuerier) DeleteProductTypeById(arg0 context.Context, arg1 int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteProductTypeById", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteProductTypeById indicates an expected call of DeleteProductTypeById.
+func (mr *MockQuerierMockRecorder) DeleteProductTypeById(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteProductTypeById", reflect.TypeOf((*MockQuerier)(nil).DeleteProductTypeById), arg0, arg1)
 }
 
 // DeleteRoleById mocks base method.
@@ -193,6 +236,36 @@ func (m *MockQuerier) GetCityByName(arg0 context.Context, arg1 string) (db.City,
 func (mr *MockQuerierMockRecorder) GetCityByName(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetCityByName", reflect.TypeOf((*MockQuerier)(nil).GetCityByName), arg0, arg1)
+}
+
+// GetProductTypeById mocks base method.
+func (m *MockQuerier) GetProductTypeById(arg0 context.Context, arg1 int64) (db.ProductType, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetProductTypeById", arg0, arg1)
+	ret0, _ := ret[0].(db.ProductType)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetProductTypeById indicates an expected call of GetProductTypeById.
+func (mr *MockQuerierMockRecorder) GetProductTypeById(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetProductTypeById", reflect.TypeOf((*MockQuerier)(nil).GetProductTypeById), arg0, arg1)
+}
+
+// GetProductTypeByName mocks base method.
+func (m *MockQuerier) GetProductTypeByName(arg0 context.Context, arg1 string) (db.ProductType, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetProductTypeByName", arg0, arg1)
+	ret0, _ := ret[0].(db.ProductType)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetProductTypeByName indicates an expected call of GetProductTypeByName.
+func (mr *MockQuerierMockRecorder) GetProductTypeByName(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetProductTypeByName", reflect.TypeOf((*MockQuerier)(nil).GetProductTypeByName), arg0, arg1)
 }
 
 // GetRoleById mocks base method.
@@ -285,6 +358,21 @@ func (mr *MockQuerierMockRecorder) ListCity(arg0, arg1 interface{}) *gomock.Call
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListCity", reflect.TypeOf((*MockQuerier)(nil).ListCity), arg0, arg1)
 }
 
+// ListProductType mocks base method.
+func (m *MockQuerier) ListProductType(arg0 context.Context) ([]db.ProductType, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListProductType", arg0)
+	ret0, _ := ret[0].([]db.ProductType)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListProductType indicates an expected call of ListProductType.
+func (mr *MockQuerierMockRecorder) ListProductType(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListProductType", reflect.TypeOf((*MockQuerier)(nil).ListProductType), arg0)
+}
+
 // ListRole mocks base method.
 func (m *MockQuerier) ListRole(arg0 context.Context) ([]db.Role, error) {
 	m.ctrl.T.Helper()
@@ -315,20 +403,6 @@ func (mr *MockQuerierMockRecorder) ListUsers(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUsers", reflect.TypeOf((*MockQuerier)(nil).ListUsers), arg0)
 }
 
-// SaveResetToken mocks base method.
-func (m *MockQuerier) SaveResetToken(arg0 context.Context, arg1 db.SaveResetTokenParams) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SaveResetToken", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// SaveResetToken indicates an expected call of SaveResetToken.
-func (mr *MockQuerierMockRecorder) SaveResetToken(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SaveResetToken", reflect.TypeOf((*MockQuerier)(nil).SaveResetToken), arg0, arg1)
-}
-
 // UpdateCity mocks base method.
 func (m *MockQuerier) UpdateCity(arg0 context.Context, arg1 db.UpdateCityParams) (db.City, error) {
 	m.ctrl.T.Helper()
@@ -356,6 +430,21 @@ func (m *MockQuerier) UpdatePasswordUser(arg0 context.Context, arg1 db.UpdatePas
 func (mr *MockQuerierMockRecorder) UpdatePasswordUser(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdatePasswordUser", reflect.TypeOf((*MockQuerier)(nil).UpdatePasswordUser), arg0, arg1)
+}
+
+// UpdateProductType mocks base method.
+func (m *MockQuerier) UpdateProductType(arg0 context.Context, arg1 db.UpdateProductTypeParams) (db.ProductType, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateProductType", arg0, arg1)
+	ret0, _ := ret[0].(db.ProductType)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateProductType indicates an expected call of UpdateProductType.
+func (mr *MockQuerierMockRecorder) UpdateProductType(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateProductType", reflect.TypeOf((*MockQuerier)(nil).UpdateProductType), arg0, arg1)
 }
 
 // UpdateRole mocks base method.

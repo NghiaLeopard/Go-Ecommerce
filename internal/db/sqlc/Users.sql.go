@@ -20,7 +20,7 @@ INSERT INTO "Users" (
 ) VALUES (
   $1, $2
 )
-RETURNING id, email, password, "resetToken", "userType", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", "deviceToken", addresses, "resetTokenExpiration", create_at
+RETURNING id, email, password, "userType", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", "deviceToken", addresses, create_at
 `
 
 type CreateUserParams struct {
@@ -35,7 +35,6 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		&i.ID,
 		&i.Email,
 		&i.Password,
-		&i.ResetToken,
 		&i.UserType,
 		&i.Status,
 		&i.Address,
@@ -50,7 +49,6 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		pq.Array(&i.ViewedProducts),
 		pq.Array(&i.DeviceToken),
 		&i.Addresses,
-		&i.ResetTokenExpiration,
 		&i.CreateAt,
 	)
 	return i, err
@@ -67,38 +65,36 @@ func (q *Queries) DeleteUser(ctx context.Context, id int64) error {
 }
 
 const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT "Users".id, "Users".email, "Users".password, "Users"."resetToken", "Users"."userType", "Users".status, "Users".address, "Users".avatar, "Users"."phoneNumber", "Users".role, "Users"."firstName", "Users"."lastName", "Users"."middleName", "Users".city, "Users"."likeProducts", "Users"."viewedProducts", "Users"."deviceToken", "Users".addresses, "Users"."resetTokenExpiration", "Users".create_at,"Role".id, "Role".name, "Role".permission, "Role".create_at, "Role".update_at
+SELECT "Users".id, "Users".email, "Users".password, "Users"."userType", "Users".status, "Users".address, "Users".avatar, "Users"."phoneNumber", "Users".role, "Users"."firstName", "Users"."lastName", "Users"."middleName", "Users".city, "Users"."likeProducts", "Users"."viewedProducts", "Users"."deviceToken", "Users".addresses, "Users".create_at,"Role".id, "Role".name, "Role".permission, "Role".create_at, "Role".update_at
 FROM "Users"
 JOIN "Role" ON "Role".id = "Users".role
 WHERE "Users".email = $1
 `
 
 type GetUserByEmailRow struct {
-	ID                   int64                 `json:"id"`
-	Email                string                `json:"email"`
-	Password             string                `json:"password"`
-	ResetToken           sql.NullString        `json:"resetToken"`
-	UserType             NullUsersType         `json:"userType"`
-	Status               NullUsersStatus       `json:"status"`
-	Address              sql.NullString        `json:"address"`
-	Avatar               sql.NullString        `json:"avatar"`
-	PhoneNumber          sql.NullInt64         `json:"phoneNumber"`
-	Role                 sql.NullInt64         `json:"role"`
-	FirstName            sql.NullString        `json:"firstName"`
-	LastName             sql.NullString        `json:"lastName"`
-	MiddleName           sql.NullString        `json:"middleName"`
-	City                 sql.NullInt64         `json:"city"`
-	LikeProducts         []int64               `json:"likeProducts"`
-	ViewedProducts       []int64               `json:"viewedProducts"`
-	DeviceToken          []string              `json:"deviceToken"`
-	Addresses            pqtype.NullRawMessage `json:"addresses"`
-	ResetTokenExpiration sql.NullTime          `json:"resetTokenExpiration"`
-	CreateAt             time.Time             `json:"create_at"`
-	ID_2                 int64                 `json:"id_2"`
-	Name                 string                `json:"name"`
-	Permission           []string              `json:"permission"`
-	CreateAt_2           time.Time             `json:"create_at_2"`
-	UpdateAt             time.Time             `json:"update_at"`
+	ID             int64                 `json:"id"`
+	Email          string                `json:"email"`
+	Password       string                `json:"password"`
+	UserType       NullUsersType         `json:"userType"`
+	Status         NullUsersStatus       `json:"status"`
+	Address        sql.NullString        `json:"address"`
+	Avatar         sql.NullString        `json:"avatar"`
+	PhoneNumber    sql.NullInt64         `json:"phoneNumber"`
+	Role           sql.NullInt64         `json:"role"`
+	FirstName      sql.NullString        `json:"firstName"`
+	LastName       sql.NullString        `json:"lastName"`
+	MiddleName     sql.NullString        `json:"middleName"`
+	City           sql.NullInt64         `json:"city"`
+	LikeProducts   []int64               `json:"likeProducts"`
+	ViewedProducts []int64               `json:"viewedProducts"`
+	DeviceToken    []string              `json:"deviceToken"`
+	Addresses      pqtype.NullRawMessage `json:"addresses"`
+	CreateAt       time.Time             `json:"create_at"`
+	ID_2           int64                 `json:"id_2"`
+	Name           string                `json:"name"`
+	Permission     []string              `json:"permission"`
+	CreateAt_2     time.Time             `json:"create_at_2"`
+	UpdateAt       time.Time             `json:"update_at"`
 }
 
 func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEmailRow, error) {
@@ -108,7 +104,6 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 		&i.ID,
 		&i.Email,
 		&i.Password,
-		&i.ResetToken,
 		&i.UserType,
 		&i.Status,
 		&i.Address,
@@ -123,7 +118,6 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 		pq.Array(&i.ViewedProducts),
 		pq.Array(&i.DeviceToken),
 		&i.Addresses,
-		&i.ResetTokenExpiration,
 		&i.CreateAt,
 		&i.ID_2,
 		&i.Name,
@@ -135,38 +129,36 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 }
 
 const getUserById = `-- name: GetUserById :one
-SELECT "Users".id, "Users".email, "Users".password, "Users"."resetToken", "Users"."userType", "Users".status, "Users".address, "Users".avatar, "Users"."phoneNumber", "Users".role, "Users"."firstName", "Users"."lastName", "Users"."middleName", "Users".city, "Users"."likeProducts", "Users"."viewedProducts", "Users"."deviceToken", "Users".addresses, "Users"."resetTokenExpiration", "Users".create_at,"Role".id, "Role".name, "Role".permission, "Role".create_at, "Role".update_at
+SELECT "Users".id, "Users".email, "Users".password, "Users"."userType", "Users".status, "Users".address, "Users".avatar, "Users"."phoneNumber", "Users".role, "Users"."firstName", "Users"."lastName", "Users"."middleName", "Users".city, "Users"."likeProducts", "Users"."viewedProducts", "Users"."deviceToken", "Users".addresses, "Users".create_at,"Role".id, "Role".name, "Role".permission, "Role".create_at, "Role".update_at
 FROM "Users"
 JOIN "Role" ON "Role".id = "Users".role
 WHERE "Users".id = $1
 `
 
 type GetUserByIdRow struct {
-	ID                   int64                 `json:"id"`
-	Email                string                `json:"email"`
-	Password             string                `json:"password"`
-	ResetToken           sql.NullString        `json:"resetToken"`
-	UserType             NullUsersType         `json:"userType"`
-	Status               NullUsersStatus       `json:"status"`
-	Address              sql.NullString        `json:"address"`
-	Avatar               sql.NullString        `json:"avatar"`
-	PhoneNumber          sql.NullInt64         `json:"phoneNumber"`
-	Role                 sql.NullInt64         `json:"role"`
-	FirstName            sql.NullString        `json:"firstName"`
-	LastName             sql.NullString        `json:"lastName"`
-	MiddleName           sql.NullString        `json:"middleName"`
-	City                 sql.NullInt64         `json:"city"`
-	LikeProducts         []int64               `json:"likeProducts"`
-	ViewedProducts       []int64               `json:"viewedProducts"`
-	DeviceToken          []string              `json:"deviceToken"`
-	Addresses            pqtype.NullRawMessage `json:"addresses"`
-	ResetTokenExpiration sql.NullTime          `json:"resetTokenExpiration"`
-	CreateAt             time.Time             `json:"create_at"`
-	ID_2                 int64                 `json:"id_2"`
-	Name                 string                `json:"name"`
-	Permission           []string              `json:"permission"`
-	CreateAt_2           time.Time             `json:"create_at_2"`
-	UpdateAt             time.Time             `json:"update_at"`
+	ID             int64                 `json:"id"`
+	Email          string                `json:"email"`
+	Password       string                `json:"password"`
+	UserType       NullUsersType         `json:"userType"`
+	Status         NullUsersStatus       `json:"status"`
+	Address        sql.NullString        `json:"address"`
+	Avatar         sql.NullString        `json:"avatar"`
+	PhoneNumber    sql.NullInt64         `json:"phoneNumber"`
+	Role           sql.NullInt64         `json:"role"`
+	FirstName      sql.NullString        `json:"firstName"`
+	LastName       sql.NullString        `json:"lastName"`
+	MiddleName     sql.NullString        `json:"middleName"`
+	City           sql.NullInt64         `json:"city"`
+	LikeProducts   []int64               `json:"likeProducts"`
+	ViewedProducts []int64               `json:"viewedProducts"`
+	DeviceToken    []string              `json:"deviceToken"`
+	Addresses      pqtype.NullRawMessage `json:"addresses"`
+	CreateAt       time.Time             `json:"create_at"`
+	ID_2           int64                 `json:"id_2"`
+	Name           string                `json:"name"`
+	Permission     []string              `json:"permission"`
+	CreateAt_2     time.Time             `json:"create_at_2"`
+	UpdateAt       time.Time             `json:"update_at"`
 }
 
 func (q *Queries) GetUserById(ctx context.Context, id int64) (GetUserByIdRow, error) {
@@ -176,7 +168,6 @@ func (q *Queries) GetUserById(ctx context.Context, id int64) (GetUserByIdRow, er
 		&i.ID,
 		&i.Email,
 		&i.Password,
-		&i.ResetToken,
 		&i.UserType,
 		&i.Status,
 		&i.Address,
@@ -191,7 +182,6 @@ func (q *Queries) GetUserById(ctx context.Context, id int64) (GetUserByIdRow, er
 		pq.Array(&i.ViewedProducts),
 		pq.Array(&i.DeviceToken),
 		&i.Addresses,
-		&i.ResetTokenExpiration,
 		&i.CreateAt,
 		&i.ID_2,
 		&i.Name,
@@ -208,7 +198,7 @@ INSERT INTO "Users" (
 ) VALUES (
   $1, $2, $3
 )
-RETURNING id, email, password, "resetToken", "userType", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", "deviceToken", addresses, "resetTokenExpiration", create_at
+RETURNING id, email, password, "userType", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", "deviceToken", addresses, create_at
 `
 
 type InitDefaultAdminParams struct {
@@ -224,7 +214,6 @@ func (q *Queries) InitDefaultAdmin(ctx context.Context, arg InitDefaultAdminPara
 		&i.ID,
 		&i.Email,
 		&i.Password,
-		&i.ResetToken,
 		&i.UserType,
 		&i.Status,
 		&i.Address,
@@ -239,14 +228,13 @@ func (q *Queries) InitDefaultAdmin(ctx context.Context, arg InitDefaultAdminPara
 		pq.Array(&i.ViewedProducts),
 		pq.Array(&i.DeviceToken),
 		&i.Addresses,
-		&i.ResetTokenExpiration,
 		&i.CreateAt,
 	)
 	return i, err
 }
 
 const listUsers = `-- name: ListUsers :many
-SELECT id, email, password, "resetToken", "userType", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", "deviceToken", addresses, "resetTokenExpiration", create_at FROM "Users"
+SELECT id, email, password, "userType", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", "deviceToken", addresses, create_at FROM "Users"
 ORDER BY create_at DESC
 `
 
@@ -263,7 +251,6 @@ func (q *Queries) ListUsers(ctx context.Context) ([]User, error) {
 			&i.ID,
 			&i.Email,
 			&i.Password,
-			&i.ResetToken,
 			&i.UserType,
 			&i.Status,
 			&i.Address,
@@ -278,7 +265,6 @@ func (q *Queries) ListUsers(ctx context.Context) ([]User, error) {
 			pq.Array(&i.ViewedProducts),
 			pq.Array(&i.DeviceToken),
 			&i.Addresses,
-			&i.ResetTokenExpiration,
 			&i.CreateAt,
 		); err != nil {
 			return nil, err
@@ -292,22 +278,6 @@ func (q *Queries) ListUsers(ctx context.Context) ([]User, error) {
 		return nil, err
 	}
 	return items, nil
-}
-
-const saveResetToken = `-- name: SaveResetToken :exec
-UPDATE "Users" SET "resetToken" = $1,"resetTokenExpiration" = $2
-WHERE id = $3
-`
-
-type SaveResetTokenParams struct {
-	ResetToken           sql.NullString `json:"resetToken"`
-	ResetTokenExpiration sql.NullTime   `json:"resetTokenExpiration"`
-	ID                   int64          `json:"id"`
-}
-
-func (q *Queries) SaveResetToken(ctx context.Context, arg SaveResetTokenParams) error {
-	_, err := q.db.ExecContext(ctx, saveResetToken, arg.ResetToken, arg.ResetTokenExpiration, arg.ID)
-	return err
 }
 
 const updatePasswordUser = `-- name: UpdatePasswordUser :exec
@@ -328,7 +298,7 @@ func (q *Queries) UpdatePasswordUser(ctx context.Context, arg UpdatePasswordUser
 const updateUser = `-- name: UpdateUser :one
 UPDATE "Users" SET "firstName" = $1,"lastName" = $2,"middleName" = $3, "phoneNumber" = $4,avatar = $5,address = $6,city = $7
 WHERE id = $8
-RETURNING id, email, password, "resetToken", "userType", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", "deviceToken", addresses, "resetTokenExpiration", create_at
+RETURNING id, email, password, "userType", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", "deviceToken", addresses, create_at
 `
 
 type UpdateUserParams struct {
@@ -358,7 +328,6 @@ func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, e
 		&i.ID,
 		&i.Email,
 		&i.Password,
-		&i.ResetToken,
 		&i.UserType,
 		&i.Status,
 		&i.Address,
@@ -373,7 +342,6 @@ func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, e
 		pq.Array(&i.ViewedProducts),
 		pq.Array(&i.DeviceToken),
 		&i.Addresses,
-		&i.ResetTokenExpiration,
 		&i.CreateAt,
 	)
 	return i, err

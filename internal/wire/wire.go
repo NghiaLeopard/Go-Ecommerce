@@ -12,14 +12,16 @@ import (
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
 	"github.com/google/wire"
+	"github.com/redis/go-redis/v9"
 )
 
-func InitServer(sqlcDB *db.Queries, config config.Config) (*api.ServerHTTP, error) {
+func InitServer(sqlcDB *db.Queries, config config.Config, redis *redis.Client) (*api.ServerHTTP, error) {
 	wire.Build(
 		// middleware
 		middleware.NewMiddleware,
 
 		// repository
+		repository.NewRedisTokenRepository,
 		repository.NewAuthRepository,
 		repository.NewCityRepository,
 		repository.NewRoleRepository,

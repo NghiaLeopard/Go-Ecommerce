@@ -13,7 +13,6 @@ CREATE TABLE "Users" (
   "id" bigserial PRIMARY KEY,
   "email" varchar UNIQUE NOT NULL,
   "password" varchar NOT NULL,
-  "resetToken" varchar,
   "userType" users_type DEFAULT '3',
   "status" users_status DEFAULT '1',
   "address" varchar,
@@ -28,6 +27,5 @@ CREATE TABLE "Users" (
   "viewedProducts" bigint[],
   "deviceToken" varchar[],
   "addresses" jsonb,
-  "resetTokenExpiration" timestamptz,
   "create_at" timestamptz NOT NULL DEFAULT (now())
 );

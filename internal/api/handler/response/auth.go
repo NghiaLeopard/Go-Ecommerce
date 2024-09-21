@@ -57,3 +57,7 @@ type Login struct {
 	RefreshToken string `json:"refresh_token"`
 	User         User
 }
+
+type GetAccessToken struct {
+	AccessToken string `json:"access_token"`
+}

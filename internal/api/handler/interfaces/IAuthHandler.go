@@ -10,4 +10,5 @@ type Auth interface {
 	ForgotPasswordUser(ctx *gin.Context)
 	ResetPasswordUser(ctx *gin.Context)
 	GetAuthMe(ctx *gin.Context)
+	RefreshToken(ctx *gin.Context)
 }
