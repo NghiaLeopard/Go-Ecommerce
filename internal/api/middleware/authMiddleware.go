@@ -47,6 +47,15 @@ func (c *middleware) AuthMiddleware(permission string, isAuthMe bool, isPublic b
 			return
 		}
 
+		err := c.Redis.CheckBlackListToken(ctx, fields[1])
+
+		if err != nil {
+			global.Logger.Error("Token in blacklist", zap.String("Status", "Error"))
+			response.ErrorResponse(ctx, "Token in blacklist", 401)
+			ctx.Abort()
+			return
+		}
+
 		payload, err := global.Token.VerifyTokenPaseto(fields[1])
 
 		if err != nil {

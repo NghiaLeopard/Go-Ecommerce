@@ -682,3 +682,33 @@
 {"level":"INFO","time":"2024-09-21T17:05:21.042+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
 {"level":"INFO","time":"2024-09-21T17:05:21.042+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
 {"level":"INFO","time":"2024-09-21T17:05:23.408+0700","caller":"handler/authHandler.go:172","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T07:36:06.898+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-22T07:36:07.136+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-22T07:36:07.139+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-22T07:36:07.140+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T07:36:14.401+0700","caller":"usecase/AuthUseCase.go:142","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-22T07:36:14.407+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T07:36:27.800+0700","caller":"handler/authHandler.go:172","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T07:44:32.607+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-22T07:44:32.641+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-22T07:44:32.641+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-22T07:44:32.641+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T07:44:39.863+0700","caller":"usecase/AuthUseCase.go:142","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-22T07:44:39.864+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-22T07:44:54.998+0700","caller":"repository/RedisTokenRepository.go:60","msg":"could not find refresh token to redis","error":"redis: nil"}
+{"level":"ERROR","time":"2024-09-22T07:44:55.000+0700","caller":"usecase/AuthUseCase.go:65","msg":"Refresh token is invalid","Status":"Error"}
+{"level":"INFO","time":"2024-09-22T07:45:27.476+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-22T07:45:27.500+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-22T07:45:27.501+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-22T07:45:27.501+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T07:45:29.974+0700","caller":"handler/authHandler.go:172","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T08:20:37.745+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-22T08:20:38.043+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-22T08:20:38.051+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-22T08:20:38.051+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T08:22:19.723+0700","caller":"usecase/AuthUseCase.go:142","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-22T08:22:19.726+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T08:22:47.536+0700","caller":"handler/authHandler.go:81","msg":"Logout","Status":"Success"}
+{"level":"ERROR","time":"2024-09-22T08:23:37.996+0700","caller":"repository/RedisTokenRepository.go:88","msg":"access token have blacklist"}
+{"level":"ERROR","time":"2024-09-22T08:23:38.018+0700","caller":"middleware/authMiddleware.go:53","msg":"Token in blacklist","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T08:23:38.090+0700","caller":"handler/cityHandler.go:55","msg":"get city","Status":"Error"}

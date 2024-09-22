@@ -18,10 +18,10 @@ import (
 func InitServer(sqlcDB *db.Queries, config config.Config, redis *redis.Client) (*api.ServerHTTP, error) {
 	wire.Build(
 		// middleware
+		repository.NewRedisTokenRepository,
 		middleware.NewMiddleware,
 
 		// repository
-		repository.NewRedisTokenRepository,
 		repository.NewAuthRepository,
 		repository.NewCityRepository,
 		repository.NewRoleRepository,

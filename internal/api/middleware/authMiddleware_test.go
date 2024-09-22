@@ -9,6 +9,7 @@ import (
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/constant"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/response"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
 	"github.com/gin-gonic/gin"
@@ -153,7 +154,9 @@ func TestAuthMiddleware(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			router := gin.Default()
 
-			middleware := NewMiddleware()
+			redisRepo := repository.NewRedisTokenRepository(global.Rdb)
+			
+			middleware := NewMiddleware(redisRepo)
 
 			recorder := httptest.NewRecorder()
 
