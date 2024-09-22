@@ -16,7 +16,7 @@ jobs:
                 image: postgres:16
                 env:
                     POSTGRES_USER: root
-                    POSTGRES_PASSWORD: 0945639220Beo
+                    POSTGRES_PASSWORD: secret
                     POSTGRES_DB: DB_ECOMMERCE
                     # Check run success or fail
                 options: >-
