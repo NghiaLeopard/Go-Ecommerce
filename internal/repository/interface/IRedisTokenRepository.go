@@ -12,4 +12,6 @@ type RedisToken interface {
 	CheckRefreshToken(ctx *gin.Context, userId int64, token string) error
 	BlackListToken(ctx *gin.Context, accessToken string) error
 	CheckBlackListToken(ctx *gin.Context, accessToken string) error
+	SetResetToken(ctx *gin.Context, userID int64, token string, expiration time.Duration) error
+	CheckResetToken(ctx *gin.Context, userID int64, tokenID string) error
 }

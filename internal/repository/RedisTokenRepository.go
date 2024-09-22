@@ -68,6 +68,35 @@ func (r *RedisTokenRepository) CheckRefreshToken(ctx *gin.Context, userID int64,
 	return nil
 }
 
+func (r *RedisTokenRepository) SetResetToken(ctx *gin.Context, userID int64, token string, expiration time.Duration) error {
+	key := fmt.Sprintf("%d:resetToken", userID)
+
+	if err := r.Redis.Set(ctx, key, token, expiration).Err(); err != nil {
+		global.Logger.Error("could not set reset token to redis", zap.Error(err))
+		return fmt.Errorf("could not set reset token to redis for userID: %d: %v", userID, err)
+	}
+
+	return nil
+}
+
+func (r *RedisTokenRepository) CheckResetToken(ctx *gin.Context, userID int64, tokenID string) error {
+	key := fmt.Sprintf("%d:resetToken", userID)
+
+	result := r.Redis.Get(ctx, key)
+
+	if result.Err() != nil {
+		global.Logger.Error("token is expire", zap.Error(result.Err()))
+		return fmt.Errorf("token is expire")
+	}
+
+	if result.Val() != tokenID {
+		global.Logger.Error("reset token is invalid", zap.Error(result.Err()))
+		return fmt.Errorf("reset token is invalid")
+	}
+
+	return nil
+}
+
 func (r *RedisTokenRepository) BlackListToken(ctx *gin.Context, accessToken string) error {
 	if err := r.Redis.SAdd(ctx, "blacklist", accessToken).Err(); err != nil {
 		global.Logger.Error("could not set access token to blacklist redis", zap.Error(err))

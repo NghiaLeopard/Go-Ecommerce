@@ -712,3 +712,35 @@
 {"level":"ERROR","time":"2024-09-22T08:23:37.996+0700","caller":"repository/RedisTokenRepository.go:88","msg":"access token have blacklist"}
 {"level":"ERROR","time":"2024-09-22T08:23:38.018+0700","caller":"middleware/authMiddleware.go:53","msg":"Token in blacklist","Status":"Error"}
 {"level":"ERROR","time":"2024-09-22T08:23:38.090+0700","caller":"handler/cityHandler.go:55","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T09:03:24.588+0700","caller":"repository/RedisTokenRepository.go:59","msg":"could not find refresh token to redis","error":"redis: nil"}
+{"level":"ERROR","time":"2024-09-22T09:03:24.963+0700","caller":"usecase/AuthUseCase.go:65","msg":"Refresh token is invalid","Status":"Error"}
+{"level":"INFO","time":"2024-09-22T09:03:37.530+0700","caller":"usecase/AuthUseCase.go:142","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-22T09:03:37.532+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T09:03:50.478+0700","caller":"handler/authHandler.go:172","msg":"Get auth","Status":"Success"}
+{"level":"ERROR","time":"2024-09-22T09:03:54.071+0700","caller":"usecase/AuthUseCase.go:58","msg":"Verify token invalid","Status":"Error"}
+{"level":"INFO","time":"2024-09-22T09:16:02.705+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-22T09:16:02.724+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-22T09:16:02.724+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-22T09:16:02.724+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T09:16:22.843+0700","caller":"usecase/AuthUseCase.go:166","msg":"Register","Status":"success"}
+{"level":"INFO","time":"2024-09-22T09:16:22.848+0700","caller":"handler/authHandler.go:69","msg":"Register","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T09:16:33.765+0700","caller":"usecase/AuthUseCase.go:288","msg":"Forgot password","Status":"success"}
+{"level":"INFO","time":"2024-09-22T09:16:33.766+0700","caller":"handler/authHandler.go:125","msg":"Forgot password","Status":"Success"}
+{"level":"ERROR","time":"2024-09-22T09:17:15.365+0700","caller":"repository/RedisTokenRepository.go:59","msg":"could not find refresh token to redis","error":"redis: nil"}
+{"level":"ERROR","time":"2024-09-22T09:17:15.371+0700","caller":"usecase/AuthUseCase.go:303","msg":"could not find refresh token to redis for userID: 2: redis: nil","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T09:17:15.371+0700","caller":"handler/authHandler.go:143","msg":"token false","Status":"Error"}
+{"level":"INFO","time":"2024-09-22T09:20:08.827+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-22T09:20:08.875+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-22T09:20:08.877+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-22T09:20:08.878+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-22T09:20:11.738+0700","caller":"repository/RedisTokenRepository.go:59","msg":"could not find refresh token to redis","error":"redis: nil"}
+{"level":"ERROR","time":"2024-09-22T09:20:11.740+0700","caller":"usecase/AuthUseCase.go:303","msg":"could not find refresh token to redis for userID: 2: redis: nil","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T09:20:11.740+0700","caller":"handler/authHandler.go:143","msg":"token false","Status":"Error"}
+{"level":"INFO","time":"2024-09-22T09:21:10.368+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-22T09:21:10.402+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-22T09:21:10.403+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-22T09:21:10.403+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T09:21:12.661+0700","caller":"usecase/AuthUseCase.go:333","msg":"Reset password","Status":"success"}
+{"level":"INFO","time":"2024-09-22T09:21:12.663+0700","caller":"handler/authHandler.go:148","msg":"Reset password","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T09:21:30.294+0700","caller":"usecase/AuthUseCase.go:288","msg":"Forgot password","Status":"success"}
+{"level":"INFO","time":"2024-09-22T09:21:30.297+0700","caller":"handler/authHandler.go:125","msg":"Forgot password","Status":"Success"}
