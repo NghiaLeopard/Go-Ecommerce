@@ -278,6 +278,13 @@ func (a *AuthUseCase) ForgotPasswordUseCase(ctx *gin.Context, email string) (err
 		return fmt.Errorf("send email fail"), 400
 	}
 
+	err = a.RedisTokenRepo.SetResetToken(ctx, user.ID, token, global.Config.ForgotPasswordToken)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return fmt.Errorf("save reset token false"), 400
+	}
+
 	global.Logger.Info("Forgot password", zap.String("Status", "success"))
 	return nil, 200
 }
@@ -288,6 +295,13 @@ func (a *AuthUseCase) ResetPasswordUseCase(ctx *gin.Context, newPassword string,
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return fmt.Errorf("token is invalid"), 400
+	}
+
+	err = a.RedisTokenRepo.CheckResetToken(ctx, int64(payload.Id), secretKey)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return fmt.Errorf(err.Error()), 400
 	}
 
 	user, err := a.AuthRepo.GetUserById(ctx, int64(payload.Id))
