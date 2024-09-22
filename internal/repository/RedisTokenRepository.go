@@ -21,11 +21,10 @@ func NewRedisTokenRepository(redis *redis.Client) IRepository.RedisToken {
 	}
 }
 
-func (r *RedisTokenRepository) SetRefreshToken(ctx *gin.Context, userID int64, tokenID string, expiration time.Duration) error {
-	key := fmt.Sprintf("%d:refreshToken:%s", userID, tokenID)
-	fmt.Println(key)
+func (r *RedisTokenRepository) SetRefreshToken(ctx *gin.Context, userID int64, token string, expiration time.Duration) error {
+	key := fmt.Sprintf("%d:refreshToken", userID)
 
-	if err := r.Redis.Set(ctx, key, 0, expiration).Err(); err != nil {
+	if err := r.Redis.Set(ctx, key, token, expiration).Err(); err != nil {
 		global.Logger.Error("could not set refresh token to redis", zap.Error(err))
 		return fmt.Errorf("could not set refresh token to redis for userID: %d: %v", userID, err)
 	}
@@ -33,8 +32,8 @@ func (r *RedisTokenRepository) SetRefreshToken(ctx *gin.Context, userID int64, t
 	return nil
 }
 
-func (r *RedisTokenRepository) DeleteRefreshToken(ctx *gin.Context, userID int64, tokenID string) error {
-	key := fmt.Sprintf("%d:refreshToken:%s", userID, tokenID)
+func (r *RedisTokenRepository) DeleteRefreshToken(ctx *gin.Context, userID int64) error {
+	key := fmt.Sprintf("%d:refreshToken", userID)
 
 	result := r.Redis.Del(ctx, key)
 
@@ -45,26 +44,52 @@ func (r *RedisTokenRepository) DeleteRefreshToken(ctx *gin.Context, userID int64
 
 	if result.Val() < 1 {
 		global.Logger.Error("refresh token is not exist", zap.Error(result.Err()))
-		return fmt.Errorf("refresh token to redis for userID/tokenID: %d/%s does not exist", userID, tokenID)
+		return fmt.Errorf("refresh token to redis for userID/tokenID: %d does not exist", userID)
 	}
 
 	return nil
 }
 
 func (r *RedisTokenRepository) CheckRefreshToken(ctx *gin.Context, userID int64, tokenID string) error {
-	key := fmt.Sprintf("%d:refreshToken:%s", userID, tokenID)
+	key := fmt.Sprintf("%d:refreshToken", userID)
 
-	result := r.Redis.Exists(ctx, key)
+	result := r.Redis.Get(ctx, key)
 
 	if result.Err() != nil {
 		global.Logger.Error("could not find refresh token to redis", zap.Error(result.Err()))
 		return fmt.Errorf("could not find refresh token to redis for userID: %d: %v", userID, result.Err())
 	}
 
-	if result.Val() < 1 {
-		global.Logger.Error("refresh token is not exist", zap.Error(result.Err()))
-		return fmt.Errorf("refresh token to redis for userID/tokenID: %d/%s does not exist", userID, tokenID)
+	if result.Val() != tokenID {
+		global.Logger.Error("refresh token is invalid", zap.Error(result.Err()))
+		return fmt.Errorf("refresh token is invalid")
 	}
+
+	return nil
+}
+
+func (r *RedisTokenRepository) BlackListToken(ctx *gin.Context, accessToken string) error {
+	if err := r.Redis.SAdd(ctx, "blacklist", accessToken).Err(); err != nil {
+		global.Logger.Error("could not set access token to blacklist redis", zap.Error(err))
+		return fmt.Errorf("could not find refresh token to redis for userID: %d", err)
+	}
+	return nil
+}
+
+func (r *RedisTokenRepository) CheckBlackListToken(ctx *gin.Context, accessToken string) error {
+	result := r.Redis.SIsMember(ctx, "blacklist", accessToken)
+
+	if result.Err() != nil {
+		global.Logger.Error("could not check blacklist redis", zap.Error(result.Err()))
+		return fmt.Errorf("could not check blacklist redis for userID: %d", result.Err())
+	}
+
+	if result.Val() {
+		global.Logger.Error("access token have blacklist", zap.Error(result.Err()))
+		return fmt.Errorf("access token have blacklist")
+	}
+
+	fmt.Println(result.Val())
 
 	return nil
 }

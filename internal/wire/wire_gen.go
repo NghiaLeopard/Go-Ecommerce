@@ -20,9 +20,9 @@ import (
 // Injectors from wire.go:
 
 func InitServer(sqlcDB *db.Queries, config2 config.Config, redis2 *redis.Client) (*api.ServerHTTP, error) {
-	middlewareMiddleware := middleware.NewMiddleware()
-	auth := repository.NewAuthRepository()
 	redisToken := repository.NewRedisTokenRepository(redis2)
+	middlewareMiddleware := middleware.NewMiddleware(redisToken)
+	auth := repository.NewAuthRepository()
 	iUseCaseAuth := usecase.NewAuthUseCase(auth, redisToken)
 	iHandlerAuth := handler.NewAuthHandler(iUseCaseAuth)
 	city := repository.NewCityRepository()

@@ -59,6 +59,13 @@ func (a *AuthUseCase) RefreshTokenUseCase(ctx *gin.Context) (IResponse.GetAccess
 		return IResponse.GetAccessToken{}, fmt.Errorf(err.Error()), 401
 	}
 
+	err = a.RedisTokenRepo.CheckRefreshToken(ctx, int64(payload.Id), fields[1])
+
+	if err != nil {
+		global.Logger.Error("Refresh token is invalid", zap.String("Status", "Error"))
+		return IResponse.GetAccessToken{}, fmt.Errorf(err.Error()), 401
+	}
+
 	accessToken, _, err := global.Token.CreateTokenPaseto(int(payload.Id), payload.Permissions, global.Config.Access_token)
 
 	if err != nil {
@@ -201,7 +208,48 @@ func (a *AuthUseCase) ChangePasswordUseCase(ctx *gin.Context, currentPassword st
 }
 
 func (a *AuthUseCase) LogoutUseCase(ctx *gin.Context) (error, int) {
-	// TODO: blackList
+	authorization := ctx.GetHeader(AuthorizationHeader)
+
+	if len(authorization) == 0 {
+		global.Logger.Error("please provide authorization", zap.String("Status", "Error"))
+		return fmt.Errorf("please provide authorization"), 401
+	}
+
+	fields := strings.Fields(authorization)
+
+	if len(fields) < 2 {
+		global.Logger.Error("invalid format header", zap.String("Status", "Error"))
+		return fmt.Errorf("invalid format header"), 401
+
+	}
+
+	if fields[0] != AuthorizationType {
+		global.Logger.Error("invalid type header", zap.String("Status", "Error"))
+		return fmt.Errorf("invalid type header"), 401
+
+	}
+
+	payload, err := global.Token.VerifyTokenPaseto(fields[1])
+
+	if err != nil {
+		global.Logger.Error("Verify token invalid", zap.String("Status", "Error"))
+		return fmt.Errorf(err.Error()), 401
+	}
+
+	err = a.RedisTokenRepo.DeleteRefreshToken(ctx, int64(payload.Id))
+
+	if err != nil {
+		global.Logger.Error("Delete refresh token is false", zap.String("Status", "Error"))
+		return fmt.Errorf(err.Error()), 400
+	}
+
+	err = a.RedisTokenRepo.BlackListToken(ctx, fields[1])
+
+	if err != nil {
+		global.Logger.Error("Set blacklist token is false", zap.String("Status", "Error"))
+		return fmt.Errorf(err.Error()), 400
+	}
+
 	return nil, 200
 }
 
