@@ -1,4 +1,4 @@
-DB_URL=postgresql://root:secret@localhost:5432/ECOMMERCE?sslmode=disable
+DB_URL=postgresql://root:0945639220beo@localhost:5432/ECOMMERCE?sslmode=disable
 
 postgres:
 	docker run --name DB_ECOMMERCE -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:16-alpine
