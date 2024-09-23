@@ -118,10 +118,19 @@ func (q *Queries) GetRoleByName(ctx context.Context, name string) (Role, error) 
 
 const listRole = `-- name: ListRole :many
 SELECT id, name, permission, create_at, update_at FROM "Role"
+WHERE  $3 ::text = '' or name ILIKE concat('%',$3,'%')
+LIMIT $1
+OFFSET $2
 `
 
-func (q *Queries) ListRole(ctx context.Context) ([]Role, error) {
-	rows, err := q.db.QueryContext(ctx, listRole)
+type ListRoleParams struct {
+	Limit  int32  `json:"limit"`
+	Offset int32  `json:"offset"`
+	Search string `json:"search"`
+}
+
+func (q *Queries) ListRole(ctx context.Context, arg ListRoleParams) ([]Role, error) {
+	rows, err := q.db.QueryContext(ctx, listRole, arg.Limit, arg.Offset, arg.Search)
 	if err != nil {
 		return nil, err
 	}

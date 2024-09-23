@@ -36,6 +36,21 @@ func (c *CityRepository) GetCityById(ctx *gin.Context, id int64) (city db.City, 
 	return
 }
 
+func (c *CityRepository) GetAllCity(ctx *gin.Context, page int, limit int, search string, order string) (city []db.City, err error) {
+
+	offset := limit * (page - 1)
+
+	arg := db.ListCityParams{
+		Limit:   int32(limit),
+		Offset:  int32(offset),
+		OrderBy: order,
+		Search:  search,
+	}
+	city, err = global.DB.ListCity(ctx, arg)
+
+	return
+}
+
 func (c *CityRepository) GetCityByName(ctx *gin.Context, name string) (city db.City, err error) {
 	city, err = global.DB.GetCityByName(ctx, name)
 

@@ -7,7 +7,6 @@ package db
 
 import (
 	"context"
-	"database/sql"
 
 	"github.com/lib/pq"
 )
@@ -89,25 +88,29 @@ func (q *Queries) GetCityByName(ctx context.Context, name string) (City, error) 
 
 const listCity = `-- name: ListCity :many
 SELECT id, name, create_at, update_at FROM "City"
-WHERE name ILIKE '%' || $1 || '%'
-ORDER BY $2
-LIMIT $3
-OFFSET $4
+WHERE  $3 ::text = '' or name ILIKE concat('%',$3,'%')
+ORDER BY 
+  CASE 
+        WHEN $4 ::varchar = 'name asc' THEN name END ASC,
+  CASE 
+        WHEN $4 = 'name desc' THEN name END DESC
+LIMIT $1
+OFFSET $2
 `
 
 type ListCityParams struct {
-	Column1 sql.NullString `json:"column_1"`
-	Column2 interface{}    `json:"column_2"`
-	Limit   int32          `json:"limit"`
-	Offset  int32          `json:"offset"`
+	Limit   int32  `json:"limit"`
+	Offset  int32  `json:"offset"`
+	Search  string `json:"search"`
+	OrderBy string `json:"order_by"`
 }
 
 func (q *Queries) ListCity(ctx context.Context, arg ListCityParams) ([]City, error) {
 	rows, err := q.db.QueryContext(ctx, listCity,
-		arg.Column1,
-		arg.Column2,
 		arg.Limit,
 		arg.Offset,
+		arg.Search,
+		arg.OrderBy,
 	)
 	if err != nil {
 		return nil, err

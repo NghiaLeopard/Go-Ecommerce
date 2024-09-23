@@ -32,7 +32,7 @@ type Querier interface {
 	InitDefaultAdmin(ctx context.Context, arg InitDefaultAdminParams) (User, error)
 	ListCity(ctx context.Context, arg ListCityParams) ([]City, error)
 	ListProductType(ctx context.Context) ([]ProductType, error)
-	ListRole(ctx context.Context) ([]Role, error)
+	ListRole(ctx context.Context, arg ListRoleParams) ([]Role, error)
 	ListUsers(ctx context.Context) ([]User, error)
 	UpdateCity(ctx context.Context, arg UpdateCityParams) (City, error)
 	UpdatePasswordUser(ctx context.Context, arg UpdatePasswordUserParams) error

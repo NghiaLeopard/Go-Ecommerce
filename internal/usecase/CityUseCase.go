@@ -5,6 +5,7 @@ import (
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
+	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
 	"github.com/gin-gonic/gin"
@@ -51,9 +52,22 @@ func (c *CityUseCase) GetCityUseCase(ctx *gin.Context, id int) (IResponse.City, 
 	}
 
 	return IResponse.City{
-		Id:   city.ID,
-		Name: city.Name,
+		Id:       city.ID,
+		Name:     city.Name,
+		CreateAt: city.CreateAt,
 	}, nil, 200
+}
+
+func (c *CityUseCase) GetAllCityUseCase(ctx *gin.Context, page int, limit int, search string, order string) ([]db.City, error, int) {
+
+	city, err := c.CityRepo.GetAllCity(ctx, page, limit, search, order)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return []db.City{}, fmt.Errorf("get city is not exist"), 401
+	}
+
+	return city, nil, 200
 }
 
 func (c *CityUseCase) UpdateCityUseCase(ctx *gin.Context, id int, name string) (IResponse.City, error, int) {
