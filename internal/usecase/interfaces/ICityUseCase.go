@@ -9,7 +9,7 @@ import (
 type City interface {
 	CreateCityUseCase(ctx *gin.Context, name string) (IResponse.City, error, int)
 	GetCityUseCase(ctx *gin.Context, id int) (IResponse.City, error, int)
-	GetAllCityUseCase(ctx *gin.Context, page int, limit int, search string, order string) ([]db.City, error, int)
+	GetAllCityUseCase(ctx *gin.Context, page int32, limit int32, search string, order string) ([]db.City, error, int)
 	UpdateCityUseCase(ctx *gin.Context, id int, name string) (IResponse.City, error, int)
 	DeleteCityUseCase(ctx *gin.Context, id int) (error, int)
 	DeleteManyCityUseCase(ctx *gin.Context, id []int) (error, int)

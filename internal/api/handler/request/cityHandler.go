@@ -5,10 +5,10 @@ type CreateCity struct {
 }
 
 type GetAllCity struct {
-	Limit  int    `json:"limit" binding:"required,min=1"`
-	Page   int    `json:"page" binding:"required,min=1"`
-	Search string `json:"search"`
-	Order  string `json:"order"`
+	Limit  int32  `form:"limit" binding:"required,min=1"`
+	Page   int32  `form:"page" binding:"required,min=1"`
+	Search string `form:"search"`
+	Order  string `form:"order"`
 }
 
 type GetCity struct {

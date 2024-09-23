@@ -58,7 +58,7 @@ func (c *CityUseCase) GetCityUseCase(ctx *gin.Context, id int) (IResponse.City, 
 	}, nil, 200
 }
 
-func (c *CityUseCase) GetAllCityUseCase(ctx *gin.Context, page int, limit int, search string, order string) ([]db.City, error, int) {
+func (c *CityUseCase) GetAllCityUseCase(ctx *gin.Context, page int32, limit int32, search string, order string) ([]db.City, error, int) {
 
 	city, err := c.CityRepo.GetAllCity(ctx, page, limit, search, order)
 

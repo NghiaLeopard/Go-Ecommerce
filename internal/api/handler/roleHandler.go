@@ -61,6 +61,26 @@ func (c *RoleHandler) GetRole(ctx *gin.Context) {
 
 }
 
+func (c *RoleHandler) GetAllRole(ctx *gin.Context) {
+	var req IRequest.GetAllRole
+	if err := ctx.ShouldBindQuery(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	role, err, codeStatus := c.RoleUseCase.GetAllRoleUseCase(ctx, req)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Error("get Role", zap.String("Status", "Error"))
+	response.SuccessResponse(ctx, "Get Role success", codeStatus, role)
+
+}
+
 func (c *RoleHandler) UpdateRole(ctx *gin.Context) {
 	var params IRequest.GetParamsUpdateRole
 	var body IRequest.GetBodyUpdateRole

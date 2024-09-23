@@ -2,6 +2,7 @@ package repository
 
 import (
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
+	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	"github.com/gin-gonic/gin"
@@ -28,6 +29,18 @@ func (r *RoleRepository) GetRoleById(ctx *gin.Context, id int64) (db.Role, error
 
 func (r *RoleRepository) GetRoleByName(ctx *gin.Context, name string) (db.Role, error) {
 	role, err := global.DB.GetRoleByName(ctx, name)
+
+	return role, err
+}
+
+func (r *RoleRepository) GetAllRole(ctx *gin.Context, req IRequest.GetAllRole) ([]db.Role, error) {
+	offset := req.Limit * (req.Page - 1)
+	arg := db.ListRoleParams{
+		Limit:  req.Limit,
+		Offset: offset,
+		Search: req.Search,
+	}
+	role, err := global.DB.ListRole(ctx, arg)
 
 	return role, err
 }

@@ -58,7 +58,7 @@ func (c *CityHandler) GetCity(ctx *gin.Context) {
 
 func (c *CityHandler) GetAllCity(ctx *gin.Context) {
 	var req IRequest.GetAllCity
-	if err := ctx.ShouldBindJSON(&req); err != nil {
+	if err := ctx.ShouldBindQuery(&req); err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
 		return

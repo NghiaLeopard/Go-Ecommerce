@@ -5,8 +5,10 @@ import (
 	"slices"
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
+	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
 	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/constant"
+	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
 	"github.com/gin-gonic/gin"
@@ -58,6 +60,17 @@ func (c *RoleUseCase) GetRoleUseCase(ctx *gin.Context, id int) (IResponse.Role, 
 		Id:   Role.ID,
 		Name: Role.Name,
 	}, nil, 200
+}
+
+func (c *RoleUseCase) GetAllRoleUseCase(ctx *gin.Context, req IRequest.GetAllRole) ([]db.Role, error, int) {
+	Role, err := c.RoleRepo.GetAllRole(ctx, req)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return []db.Role{}, fmt.Errorf("get Role is not exist"), 401
+	}
+
+	return Role, nil, 200
 }
 
 func (c *RoleUseCase) UpdateRoleUseCase(ctx *gin.Context, id int, name string, permission []string) (IResponse.Role, error, int) {

@@ -4,6 +4,13 @@ type CreateRole struct {
 	Name string `json:"name" binding:"required,min=6"`
 }
 
+type GetAllRole struct {
+	Limit  int32  `form:"limit" binding:"required,min=1"`
+	Page   int32  `form:"page" binding:"required,min=1"`
+	Search string `form:"search"`
+	Order  string `form:"order"`
+}
+
 type GetRole struct {
 	ID int `uri:"id" binding:"required,min=1"`
 }

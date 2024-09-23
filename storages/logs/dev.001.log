@@ -813,3 +813,42 @@
 {"level":"INFO","time":"2024-09-23T13:30:21.128+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
 {"level":"INFO","time":"2024-09-23T13:30:21.129+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
 {"level":"INFO","time":"2024-09-23T13:30:21.130+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-23T15:03:07.193+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-23T15:03:07.218+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-23T15:03:07.218+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-23T15:03:07.219+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-23T15:03:20.079+0700","caller":"usecase/AuthUseCase.go:142","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-23T15:03:20.081+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-23T15:03:37.545+0700","caller":"usecase/CityUseCase.go:38","msg":"Create city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:03:37.546+0700","caller":"handler/cityHandler.go:36","msg":"create city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:03:45.373+0700","caller":"repository/RedisTokenRepository.go:117","msg":"access token have blacklist"}
+{"level":"ERROR","time":"2024-09-23T15:03:45.374+0700","caller":"middleware/authMiddleware.go:53","msg":"Token in blacklist","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:03:55.872+0700","caller":"handler/cityHandler.go:55","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:03:59.517+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:04:04.936+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:04:14.322+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:04:26.981+0700","caller":"middleware/authMiddleware.go:62","msg":"Verify token invalid","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:04:38.959+0700","caller":"handler/cityHandler.go:100","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:04:50.145+0700","caller":"handler/cityHandler.go:119","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:05:10.002+0700","caller":"middleware/authMiddleware.go:62","msg":"Verify token invalid","Status":"Error"}
+{"level":"INFO","time":"2024-09-23T15:05:18.242+0700","caller":"usecase/RoleUseCase.go:43","msg":"Create ","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:05:18.242+0700","caller":"handler/roleHandler.go:38","msg":"create role","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:05:33.610+0700","caller":"middleware/authMiddleware.go:62","msg":"Verify token invalid","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:05:39.366+0700","caller":"handler/roleHandler.go:59","msg":"get Role","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:06:17.647+0700","caller":"middleware/authMiddleware.go:30","msg":"please provide authorization","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:06:24.774+0700","caller":"handler/roleHandler.go:59","msg":"get Role","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T15:06:42.691+0700","caller":"handler/roleHandler.go:67","msg":"Key: 'GetAllRole.Limit' Error:Field validation for 'Limit' failed on the 'required' tag\nKey: 'GetAllRole.Page' Error:Field validation for 'Page' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-23T15:10:27.763+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-23T15:10:27.777+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-23T15:10:27.777+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-23T15:10:27.778+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-23T15:10:45.630+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-23T15:10:45.637+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-23T15:10:45.637+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-23T15:10:45.637+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-23T15:10:49.922+0700","caller":"handler/roleHandler.go:67","msg":"Key: 'GetAllRole.Limit' Error:Field validation for 'Limit' failed on the 'required' tag\nKey: 'GetAllRole.Page' Error:Field validation for 'Page' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-23T15:11:36.672+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-23T15:11:36.682+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-23T15:11:36.683+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-23T15:11:36.683+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-23T15:11:38.610+0700","caller":"handler/roleHandler.go:67","msg":"Key: 'GetAllRole.Limit' Error:Field validation for 'Limit' failed on the 'required' tag\nKey: 'GetAllRole.Page' Error:Field validation for 'Page' failed on the 'required' tag","Status":"Error"}
