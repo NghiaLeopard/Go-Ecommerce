@@ -744,3 +744,72 @@
 {"level":"INFO","time":"2024-09-22T09:21:12.663+0700","caller":"handler/authHandler.go:148","msg":"Reset password","Status":"Success"}
 {"level":"INFO","time":"2024-09-22T09:21:30.294+0700","caller":"usecase/AuthUseCase.go:288","msg":"Forgot password","Status":"success"}
 {"level":"INFO","time":"2024-09-22T09:21:30.297+0700","caller":"handler/authHandler.go:125","msg":"Forgot password","Status":"Success"}
+{"level":"ERROR","time":"2024-09-22T09:26:22.109+0700","caller":"middleware/authMiddleware.go:30","msg":"please provide authorization","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T09:26:46.747+0700","caller":"usecase/AuthUseCase.go:58","msg":"Verify token invalid","Status":"Error"}
+{"level":"INFO","time":"2024-09-22T09:26:53.580+0700","caller":"usecase/AuthUseCase.go:142","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-22T09:26:53.580+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T09:27:07.967+0700","caller":"handler/authHandler.go:172","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T09:27:27.759+0700","caller":"usecase/AuthUseCase.go:367","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-22T09:27:27.763+0700","caller":"handler/authHandler.go:160","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-22T21:38:15.302+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-22T21:38:15.401+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-22T21:38:15.402+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-22T21:38:15.402+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-22T21:40:03.772+0700","caller":"repository/RedisTokenRepository.go:117","msg":"access token have blacklist"}
+{"level":"ERROR","time":"2024-09-22T21:40:03.778+0700","caller":"middleware/authMiddleware.go:53","msg":"Token in blacklist","Status":"Error"}
+{"level":"INFO","time":"2024-09-22T21:40:19.769+0700","caller":"usecase/AuthUseCase.go:142","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-22T21:40:19.770+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-22T21:40:33.155+0700","caller":"handler/cityHandler.go:62","msg":"Key: 'GetAllCity.Limit' Error:Field validation for 'Limit' failed on the 'required' tag\nKey: 'GetAllCity.Page' Error:Field validation for 'Page' failed on the 'required' tag\nKey: 'GetAllCity.Search' Error:Field validation for 'Search' failed on the 'required' tag\nKey: 'GetAllCity.Order' Error:Field validation for 'Order' failed on the 'required' tag","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:41:00.819+0700","caller":"handler/cityHandler.go:62","msg":"Key: 'GetAllCity.Limit' Error:Field validation for 'Limit' failed on the 'required' tag\nKey: 'GetAllCity.Page' Error:Field validation for 'Page' failed on the 'required' tag\nKey: 'GetAllCity.Search' Error:Field validation for 'Search' failed on the 'required' tag\nKey: 'GetAllCity.Order' Error:Field validation for 'Order' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-22T21:41:37.544+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-22T21:41:37.577+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-22T21:41:37.578+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-22T21:41:37.578+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-22T21:41:51.841+0700","caller":"handler/cityHandler.go:62","msg":"Key: 'GetAllCity.Limit' Error:Field validation for 'Limit' failed on the 'required' tag\nKey: 'GetAllCity.Page' Error:Field validation for 'Page' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-22T21:42:37.316+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-22T21:42:37.353+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-22T21:42:37.355+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-22T21:42:37.356+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-22T21:42:39.943+0700","caller":"handler/cityHandler.go:62","msg":"Key: 'GetAllCity.Search' Error:Field validation for 'Search' failed on the 'required' tag\nKey: 'GetAllCity.Order' Error:Field validation for 'Order' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-22T21:42:58.924+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-22T21:42:58.952+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-22T21:42:58.952+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-22T21:42:58.952+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-22T21:43:04.897+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"INFO","time":"2024-09-22T21:43:30.148+0700","caller":"usecase/CityUseCase.go:38","msg":"Create city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:43:30.151+0700","caller":"handler/cityHandler.go:36","msg":"create city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:43:34.822+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:44:05.532+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:44:07.339+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:44:10.862+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:44:14.774+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:44:17.013+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:44:19.015+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:45:14.974+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:45:43.571+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:45:52.751+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:52:57.225+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T21:53:13.332+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T22:13:48.644+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-22T22:13:55.193+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"INFO","time":"2024-09-23T07:56:29.556+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-23T07:56:29.666+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-23T07:56:29.670+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-23T07:56:29.671+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-23T07:57:34.261+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T07:57:40.349+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T07:57:45.448+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-23T07:57:59.725+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"INFO","time":"2024-09-23T08:10:11.292+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-23T08:10:11.341+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-23T08:10:11.341+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-23T08:10:11.341+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-23T08:10:20.272+0700","caller":"handler/cityHandler.go:74","msg":"get city","Status":"Error"}
+{"level":"INFO","time":"2024-09-23T13:13:54.127+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-23T13:13:54.209+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-23T13:13:54.209+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-23T13:13:54.210+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-23T13:30:21.117+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-23T13:30:21.128+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-23T13:30:21.129+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-23T13:30:21.130+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}

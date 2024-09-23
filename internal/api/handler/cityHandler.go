@@ -54,7 +54,25 @@ func (c *CityHandler) GetCity(ctx *gin.Context) {
 
 	global.Logger.Error("get city", zap.String("Status", "Error"))
 	response.SuccessResponse(ctx, "Get city success", codeStatus, city)
+}
 
+func (c *CityHandler) GetAllCity(ctx *gin.Context) {
+	var req IRequest.GetAllCity
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	city, err, codeStatus := c.CityUseCase.GetAllCityUseCase(ctx, req.Page, req.Limit, req.Search, req.Order)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Error("get city", zap.String("Status", "Error"))
+	response.SuccessResponse(ctx, "Get city success", codeStatus, city)
 }
 
 func (c *CityHandler) UpdateCity(ctx *gin.Context) {

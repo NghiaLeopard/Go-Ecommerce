@@ -16,10 +16,14 @@ WHERE name = sqlc.arg(name) LIMIT 1;
 
 -- name: ListCity :many
 SELECT * FROM "City"
-WHERE name ILIKE '%' || $1 || '%'
-ORDER BY $2
-LIMIT $3
-OFFSET $4;
+WHERE  @search ::text = '' or name ILIKE concat('%',@search,'%')
+ORDER BY 
+  CASE 
+        WHEN @order_by ::varchar = 'name asc' THEN name END ASC,
+  CASE 
+        WHEN @order_by = 'name desc' THEN name END DESC
+LIMIT $1
+OFFSET $2;
 
 -- name: UpdateCity :one
 UPDATE "City" SET name = $1,update_at = NOW()
