@@ -20,6 +20,15 @@ func NewProductTypeHandler(ProductTypeUseCase IUseCase.ProductType) IHandler.Pro
 	return &ProductTypeHandler{ProductTypeUseCase: ProductTypeUseCase}
 }
 
+// CreateProductType 		godoc
+// @security 				BearerAuth
+// @Summary 				Create ProductType
+// @Description 			Create ProductType
+// @Param 					tags body IRequest.CreateProductType true "Create ProductType"
+// @Produce 				application/json
+// @Tags 					ProductType
+// @Success 				200 {object} IResponse.ProductType{}
+// @Router 					/api/product-types [post]
 func (r *ProductTypeHandler) CreateProductType(ctx *gin.Context) {
 	var req IRequest.CreateProductType
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -39,6 +48,15 @@ func (r *ProductTypeHandler) CreateProductType(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Create ProductType success", codeStatus, ProductType)
 }
 
+// GetProductType 			godoc
+// @security 				BearerAuth
+// @Summary 				Get ProductType by id
+// @Description 			Get ProductType by id
+// @Param ProductTypeId  	path int true "User ID"
+// @Produce 				application/json
+// @Tags 					ProductType
+// @Success 				200 {object} IResponse.ProductType{}
+// @Router 					/api/product-types/{ProductTypeId} [get]
 func (c *ProductTypeHandler) GetProductType(ctx *gin.Context) {
 	var req IRequest.GetProductType
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -61,6 +79,16 @@ func (c *ProductTypeHandler) GetProductType(ctx *gin.Context) {
 
 }
 
+// UpdateProductType 		godoc
+// @security 				BearerAuth
+// @Summary 				Update ProductType
+// @Description 			Update ProductType
+// @Param ProductTypeId 	path int true "Update ProductType"
+// @Param 					tags body IRequest.GetBodyUpdateProductType true "Update ProductType"
+// @Produce 				application/json
+// @Tags 					ProductType
+// @Success 				200 {object} IResponse.ProductType{}
+// @Router 					/api/product-types/{ProductTypeId} [put]
 func (c *ProductTypeHandler) UpdateProductType(ctx *gin.Context) {
 	var params IRequest.GetParamsUpdateProductType
 	var body IRequest.GetBodyUpdateProductType
@@ -87,6 +115,15 @@ func (c *ProductTypeHandler) UpdateProductType(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Get ProductType success", codeStatus, ProductType)
 }
 
+// DeleteProductType 		godoc
+// @security 				BearerAuth
+// @Summary 				Delete ProductType
+// @Description 			Delete ProductType
+// @Param ProductTypeId 	path int true "Delete ProductType"
+// @Produce 				application/json
+// @Tags 					ProductType
+// @Success 				200 {string} string [delete ProductType success]
+// @Router 					/api/product-types/{ProductTypeId} [delete]
 func (c *ProductTypeHandler) DeleteProductType(ctx *gin.Context) {
 	var req IRequest.DeleteProductType
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -106,6 +143,15 @@ func (c *ProductTypeHandler) DeleteProductType(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Delete ProductType success", codeStatus, "")
 }
 
+// DeleteManyProductType 	godoc
+// @security 				BearerAuth
+// @Summary 				Delete many ProductType
+// @Description 			Delete many ProductType
+// @Param 					tags body IRequest.DeleteManyProductType true "DeleteMany ProductType"
+// @Produce 				application/json
+// @Tags 					ProductType
+// @Success 				200 {string} string "Delete many ProductType success"
+// @Router 					/api/product-types [delete]
 func (c *ProductTypeHandler) DeleteManyProductType(ctx *gin.Context) {
 	var req IRequest.DeleteManyProductType
 	if err := ctx.ShouldBindJSON(&req); err != nil {

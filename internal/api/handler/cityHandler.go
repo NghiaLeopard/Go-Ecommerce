@@ -18,6 +18,15 @@ func NewCityHandler(cityUseCase IUseCase.City) IHandler.City {
 	return &CityHandler{CityUseCase: cityUseCase}
 }
 
+// CreateCity 		godoc
+// @security 		BearerAuth
+// @Summary 		Create city
+// @Description 	Create city
+// @Param 			tags body IRequest.CreateCity true "Create city"
+// @Produce 		application/json
+// @Tags 			City
+// @Success 		200 {object} IResponse.City{}
+// @Router 			/api/city [post]
 func (c *CityHandler) CreateCity(ctx *gin.Context) {
 	var req IRequest.CreateCity
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -37,6 +46,15 @@ func (c *CityHandler) CreateCity(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Create city success", codeStatus, city)
 }
 
+// GetCity 			godoc
+// @security 		BearerAuth
+// @Summary 		Get city by id
+// @Description 	Get city by id
+// @Param cityId  	path int true "User ID"
+// @Produce 		application/json
+// @Tags 			City
+// @Success 		200 {object} IResponse.City{}
+// @Router 			/api/city/{cityId} [get]
 func (c *CityHandler) GetCity(ctx *gin.Context) {
 	var req IRequest.GetCity
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -56,6 +74,15 @@ func (c *CityHandler) GetCity(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Get city success", codeStatus, city)
 }
 
+// GetAllCity 		godoc
+// @security 		BearerAuth
+// @Summary 		Get all city
+// @Description 	Get all city
+// @Param 			request query IRequest.GetAllCity true "get all city"
+// @Produce 		application/json
+// @Tags 			City
+// @Success 		200 {array} []IResponse.City{}
+// @Router 			/api/city [get]
 func (c *CityHandler) GetAllCity(ctx *gin.Context) {
 	var req IRequest.GetAllCity
 	if err := ctx.ShouldBindQuery(&req); err != nil {
@@ -75,6 +102,16 @@ func (c *CityHandler) GetAllCity(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Get city success", codeStatus, city)
 }
 
+// UpdateCity 		godoc
+// @security 		BearerAuth
+// @Summary 		Update city
+// @Description 	Update city
+// @Param cityId 	path int true "Update city"
+// @Param 			tags body IRequest.GetBodyUpdateCity true "Update city"
+// @Produce 		application/json
+// @Tags 			City
+// @Success 		200 {object} IResponse.City{}
+// @Router 			/api/city/{cityId} [put]
 func (c *CityHandler) UpdateCity(ctx *gin.Context) {
 	var params IRequest.GetParamsUpdateCity
 	var body IRequest.GetBodyUpdateCity
@@ -101,6 +138,15 @@ func (c *CityHandler) UpdateCity(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Get city success", codeStatus, city)
 }
 
+// DeleteCity 		godoc
+// @security 		BearerAuth
+// @Summary 		Delete city
+// @Description 	Delete city
+// @Param cityId 	path int true "Delete city"
+// @Produce 		application/json
+// @Tags 			City
+// @Success 		200 {string} string [delete city success]
+// @Router 			/api/city/{cityId} [delete]
 func (c *CityHandler) DeleteCity(ctx *gin.Context) {
 	var req IRequest.DeleteCity
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -120,6 +166,15 @@ func (c *CityHandler) DeleteCity(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Delete city success", codeStatus, "")
 }
 
+// DeleteManyCity 		godoc
+// @security 		BearerAuth
+// @Summary 		Delete many city
+// @Description 	Delete many city
+// @Param 			tags body IRequest.DeleteManyCity true "DeleteMany city"
+// @Produce 		application/json
+// @Tags 			City
+// @Success 		200 {string} string "Delete many city success"
+// @Router 			/api/city [delete]
 func (c *CityHandler) DeleteManyCity(ctx *gin.Context) {
 	var req IRequest.DeleteManyCity
 	if err := ctx.ShouldBindJSON(&req); err != nil {

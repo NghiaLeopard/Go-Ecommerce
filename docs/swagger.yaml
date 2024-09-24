@@ -1,5 +1,103 @@
-basePath: /api
 definitions:
+  IRequest.ChangePasswordRequest:
+    properties:
+      currentPassword:
+        minLength: 6
+        type: string
+      newPassword:
+        minLength: 6
+        type: string
+    required:
+    - currentPassword
+    - newPassword
+    type: object
+  IRequest.CreateCity:
+    properties:
+      name:
+        minLength: 6
+        type: string
+    required:
+    - name
+    type: object
+  IRequest.CreateProductType:
+    properties:
+      name:
+        minLength: 4
+        type: string
+      slug:
+        minLength: 1
+        type: string
+    required:
+    - name
+    - slug
+    type: object
+  IRequest.CreateRole:
+    properties:
+      name:
+        minLength: 6
+        type: string
+    required:
+    - name
+    type: object
+  IRequest.DeleteManyCity:
+    properties:
+      arrayId:
+        items:
+          type: integer
+        minItems: 1
+        type: array
+    required:
+    - arrayId
+    type: object
+  IRequest.DeleteManyProductType:
+    properties:
+      arrayId:
+        items:
+          type: integer
+        type: array
+    required:
+    - arrayId
+    type: object
+  IRequest.DeleteManyRole:
+    properties:
+      arrayId:
+        items:
+          type: integer
+        type: array
+    required:
+    - arrayId
+    type: object
+  IRequest.ForgotPasswordRequest:
+    properties:
+      email:
+        type: string
+    required:
+    - email
+    type: object
+  IRequest.GetBodyUpdateCity:
+    properties:
+      name:
+        minLength: 1
+        type: string
+    required:
+    - name
+    type: object
+  IRequest.GetBodyUpdateProductType:
+    properties:
+      name:
+        type: string
+      slug:
+        type: string
+    type: object
+  IRequest.GetBodyUpdateRole:
+    properties:
+      name:
+        type: string
+      permission:
+        items:
+          type: string
+        type: array
+    type: object
   IRequest.LoginRequest:
     properties:
       email:
@@ -10,6 +108,28 @@ definitions:
     required:
     - email
     - password
+    type: object
+  IRequest.RegisterRequest:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 6
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  IRequest.ResetPasswordRequest:
+    properties:
+      newPassword:
+        minLength: 6
+        type: string
+      secretKey:
+        type: string
+    required:
+    - newPassword
+    - secretKey
     type: object
   IResponse.Addresses:
     properties:
@@ -28,6 +148,51 @@ definitions:
       phoneNumber:
         type: string
     type: object
+  IResponse.AuthMe:
+    properties:
+      _id:
+        type: integer
+      address:
+        type: string
+      addresses:
+        items:
+          $ref: '#/definitions/IResponse.Addresses'
+        type: array
+      avatar:
+        type: string
+      city:
+        type: integer
+      create_at:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      middleName:
+        type: string
+      phoneNumber:
+        type: integer
+      role:
+        $ref: '#/definitions/IResponse.Role'
+      status:
+        $ref: '#/definitions/db.UsersStatus'
+    type: object
+  IResponse.City:
+    properties:
+      _id:
+        type: integer
+      create_at:
+        type: string
+      name:
+        type: string
+    type: object
+  IResponse.GetAccessToken:
+    properties:
+      access_token:
+        type: string
+    type: object
   IResponse.Login:
     properties:
       access_token:
@@ -36,6 +201,19 @@ definitions:
         type: string
       user:
         $ref: '#/definitions/IResponse.User'
+    type: object
+  IResponse.ProductType:
+    properties:
+      _id:
+        type: integer
+      create_at:
+        type: string
+      name:
+        type: string
+      slug:
+        type: string
+      update_at:
+        type: string
     type: object
   IResponse.Role:
     properties:
@@ -111,6 +289,48 @@ info:
   description: This is a server ecommerce.
   title: Swagger Golang Ecommerce
 paths:
+  /api/auth/change-password:
+    patch:
+      description: ChangePassword account
+      parameters:
+      - description: ChangePassword user
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.ChangePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Change password success
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: ChangePassword accounts
+      tags:
+      - Auth
+  /api/auth/forgot-password:
+    post:
+      description: ForgotPassword account
+      parameters:
+      - description: ForgotPassword user
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.ForgotPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Forgot password success
+          schema:
+            type: string
+      summary: ForgotPassword accounts
+      tags:
+      - Auth
   /api/auth/login:
     post:
       description: Login account
@@ -131,8 +351,492 @@ paths:
       summary: Login accounts
       tags:
       - Auth
+  /api/auth/logout:
+    post:
+      description: Logout account
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Logout success
+          schema:
+            type: string
+      summary: Logout accounts
+      tags:
+      - Auth
+  /api/auth/me:
+    get:
+      description: get me
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.AuthMe'
+      security:
+      - BearerAuth: []
+      summary: get me
+      tags:
+      - Auth
+  /api/auth/refresh-token:
+    post:
+      description: RefreshToken account
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.GetAccessToken'
+      security:
+      - BearerAuth: []
+      summary: RefreshToken accounts
+      tags:
+      - Auth
+  /api/auth/register:
+    post:
+      description: Register account
+      parameters:
+      - description: Register user
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Register success
+          schema:
+            type: string
+      summary: Register accounts
+      tags:
+      - Auth
+  /api/auth/reset-password:
+    post:
+      description: ResetPassword account
+      parameters:
+      - description: ResetPassword user
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.ResetPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Reset password success
+          schema:
+            type: string
+      summary: ResetPassword accounts
+      tags:
+      - Auth
+  /api/city:
+    delete:
+      description: Delete many city
+      parameters:
+      - description: DeleteMany city
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.DeleteManyCity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Delete many city success
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete many city
+      tags:
+      - City
+    get:
+      description: Get all city
+      parameters:
+      - in: query
+        minimum: 1
+        name: limit
+        required: true
+        type: integer
+      - in: query
+        name: order
+        type: string
+      - in: query
+        minimum: 1
+        name: page
+        required: true
+        type: integer
+      - in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/IResponse.City'
+              type: array
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get all city
+      tags:
+      - City
+    post:
+      description: Create city
+      parameters:
+      - description: Create city
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.CreateCity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.City'
+      security:
+      - BearerAuth: []
+      summary: Create city
+      tags:
+      - City
+  /api/city/{cityId}:
+    delete:
+      description: Delete city
+      parameters:
+      - description: Delete city
+        in: path
+        name: cityId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete city
+      tags:
+      - City
+    get:
+      description: Get city by id
+      parameters:
+      - description: User ID
+        in: path
+        name: cityId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.City'
+      security:
+      - BearerAuth: []
+      summary: Get city by id
+      tags:
+      - City
+    put:
+      description: Update city
+      parameters:
+      - description: Update city
+        in: path
+        name: cityId
+        required: true
+        type: integer
+      - description: Update city
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.GetBodyUpdateCity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.City'
+      security:
+      - BearerAuth: []
+      summary: Update city
+      tags:
+      - City
+  /api/product-types:
+    delete:
+      description: Delete many ProductType
+      parameters:
+      - description: DeleteMany ProductType
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.DeleteManyProductType'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Delete many ProductType success
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete many ProductType
+      tags:
+      - ProductType
+    post:
+      description: Create ProductType
+      parameters:
+      - description: Create ProductType
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.CreateProductType'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.ProductType'
+      security:
+      - BearerAuth: []
+      summary: Create ProductType
+      tags:
+      - ProductType
+  /api/product-types/{ProductTypeId}:
+    delete:
+      description: Delete ProductType
+      parameters:
+      - description: Delete ProductType
+        in: path
+        name: ProductTypeId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete ProductType
+      tags:
+      - ProductType
+    get:
+      description: Get ProductType by id
+      parameters:
+      - description: User ID
+        in: path
+        name: ProductTypeId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.ProductType'
+      security:
+      - BearerAuth: []
+      summary: Get ProductType by id
+      tags:
+      - ProductType
+    put:
+      description: Update ProductType
+      parameters:
+      - description: Update ProductType
+        in: path
+        name: ProductTypeId
+        required: true
+        type: integer
+      - description: Update ProductType
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.GetBodyUpdateProductType'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.ProductType'
+      security:
+      - BearerAuth: []
+      summary: Update ProductType
+      tags:
+      - ProductType
+  /api/role:
+    delete:
+      description: Delete many role
+      parameters:
+      - description: DeleteMany Role
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.DeleteManyRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Delete many Role success
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete many role
+      tags:
+      - Role
+    get:
+      description: Get all role
+      parameters:
+      - in: query
+        minimum: 1
+        name: limit
+        required: true
+        type: integer
+      - in: query
+        name: order
+        type: string
+      - in: query
+        minimum: 1
+        name: page
+        required: true
+        type: integer
+      - in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/IResponse.Role'
+              type: array
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get all role
+      tags:
+      - Role
+    post:
+      description: Create role
+      parameters:
+      - description: Create Role
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.CreateRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.Role'
+      security:
+      - BearerAuth: []
+      summary: Create role
+      tags:
+      - Role
+  /api/role/{roleId}:
+    delete:
+      description: Delete Role
+      parameters:
+      - description: Delete Role
+        in: path
+        name: RoleId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete Role
+      tags:
+      - Role
+    get:
+      description: Get role by id
+      parameters:
+      - description: User ID
+        in: path
+        name: roleId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.Role'
+      security:
+      - BearerAuth: []
+      summary: Get role by id
+      tags:
+      - Role
+    put:
+      description: Update role
+      parameters:
+      - description: Update Role
+        in: path
+        name: roleId
+        required: true
+        type: integer
+      - description: Update Role
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.GetBodyUpdateRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.Role'
+      security:
+      - BearerAuth: []
+      summary: Update role
+      tags:
+      - Role
 securityDefinitions:
-  AccessToken:
+  BearerAuth:
+    description: 'Add prefix of Bearer before  token Ex: "Bearer token"'
     in: header
     name: Authorization
     type: apiKey

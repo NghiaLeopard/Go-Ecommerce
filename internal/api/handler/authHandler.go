@@ -48,6 +48,14 @@ func (a *AuthHandler) LoginUser(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Login success", 201, user)
 }
 
+// RegisterUser 	godoc
+// @Summary 		Register accounts
+// @Description 	Register account
+// @Param 			tags body IRequest.RegisterRequest true "Register user"
+// @Produce 		application/json
+// @Tags 			Auth
+// @Success 		200 {string} string "Register success"
+// @Router 			/api/auth/register [post]
 func (a *AuthHandler) SignUpUser(ctx *gin.Context) {
 	var req *IRequest.RegisterRequest
 
@@ -70,6 +78,13 @@ func (a *AuthHandler) SignUpUser(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Register success", 201, "")
 }
 
+// LogoutUser 		godoc
+// @Summary 		Logout accounts
+// @Description 	Logout account
+// @Produce 		application/json
+// @Tags 			Auth
+// @Success 		200 {string} string "Logout success"
+// @Router 			/api/auth/logout [post]
 func (a *AuthHandler) LogoutUser(ctx *gin.Context) {
 	err, statusCode := a.AuthUseCase.LogoutUseCase(ctx)
 
@@ -82,6 +97,15 @@ func (a *AuthHandler) LogoutUser(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Logout success", statusCode, "")
 }
 
+// ChangePasswordUser 	godoc
+// @security 		BearerAuth
+// @Summary 			ChangePassword accounts
+// @Description 		ChangePassword account
+// @Param 				tags body IRequest.ChangePasswordRequest true "ChangePassword user"
+// @Produce 			application/json
+// @Tags 				Auth
+// @Success 			200 {string} string "Change password success"
+// @Router 				/api/auth/change-password [patch]
 func (a *AuthHandler) ChangePasswordUser(ctx *gin.Context) {
 	var req *IRequest.ChangePasswordRequest
 
@@ -104,6 +128,14 @@ func (a *AuthHandler) ChangePasswordUser(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "change password success", statusCode, "")
 }
 
+// ForgotPasswordUser 	godoc
+// @Summary 			ForgotPassword accounts
+// @Description 		ForgotPassword account
+// @Param 				tags body IRequest.ForgotPasswordRequest true "ForgotPassword user"
+// @Produce 			application/json
+// @Tags 				Auth
+// @Success 			200 {string} string "Forgot password success"
+// @Router 				/api/auth/forgot-password [post]
 func (a *AuthHandler) ForgotPasswordUser(ctx *gin.Context) {
 	var req *IRequest.ForgotPasswordRequest
 
@@ -126,6 +158,14 @@ func (a *AuthHandler) ForgotPasswordUser(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Send gmail", statusCode, "")
 }
 
+// ResetPasswordUser 	godoc
+// @Summary 			ResetPassword accounts
+// @Description 		ResetPassword account
+// @Param 				tags body IRequest.ResetPasswordRequest true "ResetPassword user"
+// @Produce 			application/json
+// @Tags 				Auth
+// @Success 			200 {string} string "Reset password success"
+// @Router 				/api/auth/reset-password [post]
 func (a *AuthHandler) ResetPasswordUser(ctx *gin.Context) {
 	var res *IRequest.ResetPasswordRequest
 
@@ -149,6 +189,14 @@ func (a *AuthHandler) ResetPasswordUser(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Reset password success", statusCode, "")
 }
 
+// GetAuthMe 			godoc
+// @security 			BearerAuth
+// @Summary 			get me
+// @Description 		get me
+// @Produce 			application/json
+// @Tags 				Auth
+// @Success 			200 {object} IResponse.AuthMe{}
+// @Router 				/api/auth/me [get]
 func (a *AuthHandler) GetAuthMe(ctx *gin.Context) {
 	authMe, err, codeStatus := a.AuthUseCase.GetAuthMeUserCase(ctx)
 
@@ -161,6 +209,14 @@ func (a *AuthHandler) GetAuthMe(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Get auth me success", codeStatus, authMe)
 }
 
+// RefreshTokenUser 	godoc
+// @security 			BearerAuth
+// @Summary 			RefreshToken accounts
+// @Description 		RefreshToken account
+// @Produce 			application/json
+// @Tags 				Auth
+// @Success 			200 {object} IResponse.GetAccessToken{}
+// @Router 				/api/auth/refresh-token [post]
 func (a *AuthHandler) RefreshToken(ctx *gin.Context) {
 	data, err, codeStatus := a.AuthUseCase.RefreshTokenUseCase(ctx)
 

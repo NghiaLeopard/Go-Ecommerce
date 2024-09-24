@@ -12,14 +12,14 @@ import (
 // @contact.email  nghiabeo1605@gmail.com
 
 // @host      localhost:8080
-// @BasePath  /api
 
 // @externalDocs.description  OpenAPI
 // @externalDocs.url          https://swagger.io/resources/open-api/
 
-// @securityDefinitions.apikey AccessToken
-// @in header
-// @name Authorization
+// @SecurityDefinitions.apikey	BearerAuth
+// @Name						Authorization
+// @In							header
+// @Description					Add prefix of Bearer before  token Ex: "Bearer token"
 
 func main() {
 	initialize.Run()

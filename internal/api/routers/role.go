@@ -12,7 +12,7 @@ func RoleRouter(api *gin.RouterGroup, middleware middleware.Middleware, RoleHand
 		apiRole.POST("", middleware.AuthMiddleware("ROLE.CREATE", false, false), RoleHandler.CreateRole)
 		apiRole.GET("", middleware.AuthMiddleware("1", true, false), RoleHandler.GetAllRole)
 		apiRole.GET("/:id", middleware.AuthMiddleware("1", true, false), RoleHandler.GetRole)
-		apiRole.PATCH("/:id", middleware.AuthMiddleware("1", true, false), RoleHandler.UpdateRole)
+		apiRole.PUT("/:id", middleware.AuthMiddleware("1", true, false), RoleHandler.UpdateRole)
 		apiRole.DELETE("/:id", middleware.AuthMiddleware("1", true, false), RoleHandler.DeleteRole)
 		apiRole.DELETE("", middleware.AuthMiddleware("1", true, false), RoleHandler.DeleteManyRole)
 	}
