@@ -4,7 +4,9 @@ import (
 	"fmt"
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
+	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
 	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
+	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
 	"github.com/gin-gonic/gin"
@@ -44,6 +46,17 @@ func (c *ProductTypeUseCase) CreateProductType(ctx *gin.Context, name string, sl
 		CreateAt: ProductType.CreateAt,
 		UpdateAt: ProductType.UpdateAt.Time,
 	}, nil, 201
+}
+
+func (c *ProductTypeUseCase) GetAllProductTypeUseCase(ctx *gin.Context, req IRequest.GetAllProductType) ([]db.ProductType, error, int) {
+	ProductType, err := c.ProductTypeRepo.GetAllProductType(ctx, req)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return []db.ProductType{}, fmt.Errorf("get ProductType is not exist"), 401
+	}
+
+	return ProductType, nil, 200
 }
 
 func (c *ProductTypeUseCase) GetProductTypeUseCase(ctx *gin.Context, id int) (IResponse.ProductType, error, int) {

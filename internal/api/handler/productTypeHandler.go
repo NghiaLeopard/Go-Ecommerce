@@ -48,6 +48,35 @@ func (r *ProductTypeHandler) CreateProductType(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Create ProductType success", codeStatus, ProductType)
 }
 
+// GetAllProductType 		godoc
+// @security 			BearerAuth
+// @Summary 			Get all ProductType
+// @Description 		Get all ProductType
+// @Param 				request query IRequest.GetAllProductType true "get all product type"
+// @Produce 			application/json
+// @Tags 				ProductType
+// @Success 			200 {array} []IResponse.ProductType{}
+// @Router 				/api/product-types [get]
+func (c *ProductTypeHandler) GetAllProductType(ctx *gin.Context) {
+	var req IRequest.GetAllProductType
+	if err := ctx.ShouldBindQuery(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	ProductType, err, codeStatus := c.ProductTypeUseCase.GetAllProductTypeUseCase(ctx, req)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Error("get ProductType", zap.String("Status", "Error"))
+	response.SuccessResponse(ctx, "Get ProductType success", codeStatus, ProductType)
+
+}
+
 // GetProductType 			godoc
 // @security 				BearerAuth
 // @Summary 				Get ProductType by id

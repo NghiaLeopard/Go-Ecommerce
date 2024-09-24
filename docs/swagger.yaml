@@ -435,27 +435,6 @@ paths:
       tags:
       - Auth
   /api/city:
-    delete:
-      description: Delete many city
-      parameters:
-      - description: DeleteMany city
-        in: body
-        name: tags
-        required: true
-        schema:
-          $ref: '#/definitions/IRequest.DeleteManyCity'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: Delete many city success
-          schema:
-            type: string
-      security:
-      - BearerAuth: []
-      summary: Delete many city
-      tags:
-      - City
     get:
       description: Get all city
       parameters:
@@ -579,26 +558,62 @@ paths:
       summary: Update city
       tags:
       - City
-  /api/product-types:
+  /api/city/delete-many:
     delete:
-      description: Delete many ProductType
+      description: Delete many city
       parameters:
-      - description: DeleteMany ProductType
+      - description: DeleteMany city
         in: body
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.DeleteManyProductType'
+          $ref: '#/definitions/IRequest.DeleteManyCity'
       produces:
       - application/json
       responses:
         "200":
-          description: Delete many ProductType success
+          description: Delete many city success
           schema:
             type: string
       security:
       - BearerAuth: []
-      summary: Delete many ProductType
+      summary: Delete many city
+      tags:
+      - City
+  /api/product-types:
+    get:
+      description: Get all ProductType
+      parameters:
+      - in: query
+        minimum: 1
+        name: limit
+        required: true
+        type: integer
+      - in: query
+        name: order
+        type: string
+      - in: query
+        minimum: 1
+        name: page
+        required: true
+        type: integer
+      - in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/IResponse.ProductType'
+              type: array
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get all ProductType
       tags:
       - ProductType
     post:
@@ -689,28 +704,29 @@ paths:
       summary: Update ProductType
       tags:
       - ProductType
-  /api/role:
+  /api/product-types/delete-many:
     delete:
-      description: Delete many role
+      description: Delete many ProductType
       parameters:
-      - description: DeleteMany Role
+      - description: DeleteMany ProductType
         in: body
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.DeleteManyRole'
+          $ref: '#/definitions/IRequest.DeleteManyProductType'
       produces:
       - application/json
       responses:
         "200":
-          description: Delete many Role success
+          description: Delete many ProductType success
           schema:
             type: string
       security:
       - BearerAuth: []
-      summary: Delete many role
+      summary: Delete many ProductType
       tags:
-      - Role
+      - ProductType
+  /api/role:
     get:
       description: Get all role
       parameters:
@@ -832,6 +848,28 @@ paths:
       security:
       - BearerAuth: []
       summary: Update role
+      tags:
+      - Role
+  /api/role/delete-many:
+    delete:
+      description: Delete many role
+      parameters:
+      - description: DeleteMany Role
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.DeleteManyRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Delete many Role success
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete many role
       tags:
       - Role
 securityDefinitions:

@@ -5,6 +5,13 @@ type CreateProductType struct {
 	Slug string `json:"slug" binding:"required,min=1"`
 }
 
+type GetAllProductType struct {
+	Limit  int32  `form:"limit" binding:"required,min=1"`
+	Page   int32  `form:"page" binding:"required,min=1"`
+	Search string `form:"search"`
+	Order  string `form:"order"`
+}
+
 type GetProductType struct {
 	ID int `uri:"id" binding:"required,min=1"`
 }
