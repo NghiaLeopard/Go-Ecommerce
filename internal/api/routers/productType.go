@@ -11,6 +11,7 @@ func ProductTypeRouter(api *gin.RouterGroup, middleware middleware.Middleware, P
 	{
 		apiProductType.POST("", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.CREATE", false, false), ProductTypeHandler.CreateProductType)
 		apiProductType.GET("/:id", middleware.AuthMiddleware("1", true, false), ProductTypeHandler.GetProductType)
+		apiProductType.GET("", middleware.AuthMiddleware("1", true, false), ProductTypeHandler.GetAllProductType)
 		apiProductType.PATCH("/:id", middleware.AuthMiddleware("1", true, false), ProductTypeHandler.UpdateProductType)
 		apiProductType.DELETE("/:id", middleware.AuthMiddleware("1", true, false), ProductTypeHandler.DeleteProductType)
 		apiProductType.DELETE("", middleware.AuthMiddleware("1", true, false), ProductTypeHandler.DeleteManyProductType)

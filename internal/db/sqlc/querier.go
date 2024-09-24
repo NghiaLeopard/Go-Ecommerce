@@ -31,7 +31,7 @@ type Querier interface {
 	GetUserById(ctx context.Context, id int64) (GetUserByIdRow, error)
 	InitDefaultAdmin(ctx context.Context, arg InitDefaultAdminParams) (User, error)
 	ListCity(ctx context.Context, arg ListCityParams) ([]City, error)
-	ListProductType(ctx context.Context) ([]ProductType, error)
+	ListProductType(ctx context.Context, arg ListProductTypeParams) ([]ProductType, error)
 	ListRole(ctx context.Context) ([]Role, error)
 	ListUsers(ctx context.Context) ([]User, error)
 	SaveResetToken(ctx context.Context, arg SaveResetTokenParams) error

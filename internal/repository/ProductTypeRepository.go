@@ -2,6 +2,7 @@ package repository
 
 import (
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
+	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	"github.com/gin-gonic/gin"
@@ -26,6 +27,20 @@ func (r *ProductTypeRepository) CreateProductType(ctx *gin.Context, name string,
 
 func (r *ProductTypeRepository) GetProductTypeById(ctx *gin.Context, id int64) (db.ProductType, error) {
 	ProductType, err := global.DB.GetProductTypeById(ctx, id)
+
+	return ProductType, err
+}
+
+func (r *ProductTypeRepository) GetAllProductType(ctx *gin.Context, req IRequest.GetAllProductType) ([]db.ProductType, error) {
+
+	offset := req.Limit * (req.Page - 1)
+	arg := db.ListProductTypeParams{
+		Limit:  req.Limit,
+		Offset: offset,
+		Search: req.Search,
+	}
+
+	ProductType, err := global.DB.ListProductType(ctx, arg)
 
 	return ProductType, err
 }

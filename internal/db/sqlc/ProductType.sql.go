@@ -96,10 +96,19 @@ func (q *Queries) GetProductTypeByName(ctx context.Context, name string) (Produc
 
 const listProductType = `-- name: ListProductType :many
 SELECT id, name, slug, create_at, update_at FROM "Product_Type"
+WHERE  $3 ::text = '' or name ILIKE concat('%',$3,'%')
+LIMIT $1
+OFFSET $2
 `
 
-func (q *Queries) ListProductType(ctx context.Context) ([]ProductType, error) {
-	rows, err := q.db.QueryContext(ctx, listProductType)
+type ListProductTypeParams struct {
+	Limit  int32  `json:"limit"`
+	Offset int32  `json:"offset"`
+	Search string `json:"search"`
+}
+
+func (q *Queries) ListProductType(ctx context.Context, arg ListProductTypeParams) ([]ProductType, error) {
+	rows, err := q.db.QueryContext(ctx, listProductType, arg.Limit, arg.Offset, arg.Search)
 	if err != nil {
 		return nil, err
 	}

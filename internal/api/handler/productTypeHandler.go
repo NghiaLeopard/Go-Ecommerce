@@ -61,6 +61,26 @@ func (c *ProductTypeHandler) GetProductType(ctx *gin.Context) {
 
 }
 
+func (c *ProductTypeHandler) GetAllProductType(ctx *gin.Context) {
+	var req IRequest.GetAllProductType
+	if err := ctx.ShouldBindQuery(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	ProductType, err, codeStatus := c.ProductTypeUseCase.GetAllProductTypeUseCase(ctx, req)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Error("get ProductType", zap.String("Status", "Error"))
+	response.SuccessResponse(ctx, "Get ProductType success", codeStatus, ProductType)
+
+}
+
 func (c *ProductTypeHandler) UpdateProductType(ctx *gin.Context) {
 	var params IRequest.GetParamsUpdateProductType
 	var body IRequest.GetBodyUpdateProductType
