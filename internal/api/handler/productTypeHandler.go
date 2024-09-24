@@ -151,7 +151,7 @@ func (c *ProductTypeHandler) DeleteProductType(ctx *gin.Context) {
 // @Produce 				application/json
 // @Tags 					ProductType
 // @Success 				200 {string} string "Delete many ProductType success"
-// @Router 					/api/product-types [delete]
+// @Router 					/api/product-types/delete-many [delete]
 func (c *ProductTypeHandler) DeleteManyProductType(ctx *gin.Context) {
 	var req IRequest.DeleteManyProductType
 	if err := ctx.ShouldBindJSON(&req); err != nil {

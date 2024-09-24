@@ -174,7 +174,7 @@ func (c *CityHandler) DeleteCity(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			City
 // @Success 		200 {string} string "Delete many city success"
-// @Router 			/api/city [delete]
+// @Router 			/api/city/delete-many [delete]
 func (c *CityHandler) DeleteManyCity(ctx *gin.Context) {
 	var req IRequest.DeleteManyCity
 	if err := ctx.ShouldBindJSON(&req); err != nil {

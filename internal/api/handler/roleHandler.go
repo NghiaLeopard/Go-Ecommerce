@@ -180,7 +180,7 @@ func (c *RoleHandler) DeleteRole(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			Role
 // @Success 		200 {string} string "Delete many Role success"
-// @Router 			/api/role [delete]
+// @Router 			/api/role/delete-many [delete]
 func (c *RoleHandler) DeleteManyRole(ctx *gin.Context) {
 	var req IRequest.DeleteManyRole
 	if err := ctx.ShouldBindJSON(&req); err != nil {
