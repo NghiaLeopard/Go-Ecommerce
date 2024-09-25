@@ -1010,3 +1010,142 @@
 {"level":"ERROR","time":"2024-09-24T17:06:55.897+0700","caller":"handler/productTypeHandler.go:66","msg":"get ProductType","Status":"Error"}
 {"level":"ERROR","time":"2024-09-24T17:06:57.678+0700","caller":"handler/productTypeHandler.go:66","msg":"get ProductType","Status":"Error"}
 {"level":"ERROR","time":"2024-09-24T17:07:05.586+0700","caller":"handler/productTypeHandler.go:66","msg":"get ProductType","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T07:11:58.926+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T07:11:58.979+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T07:11:58.979+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T07:11:58.980+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-25T07:12:15.847+0700","caller":"middleware/authMiddleware.go:30","msg":"please provide authorization","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T07:12:58.796+0700","caller":"usecase/AuthUseCase.go:142","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-25T07:12:58.800+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-25T07:13:16.241+0700","caller":"handler/productTypeHandler.go:75","msg":"get ProductType","Status":"Error"}
+{"level":"ERROR","time":"2024-09-25T07:13:24.678+0700","caller":"handler/productTypeHandler.go:75","msg":"get ProductType","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T10:32:23.780+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T10:32:23.852+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T10:32:23.852+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T10:32:23.853+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T10:33:48.986+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T10:33:49.006+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T10:33:49.006+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T10:33:49.006+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T10:36:37.018+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T10:36:37.044+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T10:36:37.044+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T10:36:37.044+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-25T10:37:14.347+0700","caller":"usecase/AuthUseCase.go:93","msg":"crypto/bcrypt: hashedPassword is not the hash of the given password","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T10:37:44.869+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-25T10:37:44.870+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T10:38:39.721+0700","caller":"usecase/AuthUseCase.go:375","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T10:38:39.723+0700","caller":"handler/authHandler.go:208","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T10:39:03.918+0700","caller":"usecase/CityUseCase.go:38","msg":"Create city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-25T10:39:03.919+0700","caller":"handler/cityHandler.go:45","msg":"create city","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T10:39:14.006+0700","caller":"usecase/CityUseCase.go:38","msg":"Create city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-25T10:39:14.006+0700","caller":"handler/cityHandler.go:45","msg":"create city","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T10:39:36.352+0700","caller":"usecase/RoleUseCase.go:43","msg":"Create ","Status":"Error"}
+{"level":"ERROR","time":"2024-09-25T10:39:36.353+0700","caller":"handler/roleHandler.go:47","msg":"create role","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T10:48:06.213+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T10:48:06.228+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T10:48:06.229+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T10:48:06.229+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T10:54:15.085+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T10:54:15.103+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T10:54:15.104+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T10:54:15.104+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-25T10:54:57.466+0700","caller":"middleware/authMiddleware.go:30","msg":"please provide authorization","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T10:55:23.050+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-25T10:55:23.051+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-25T10:55:44.454+0700","caller":"handler/authHandler.go:227","msg":"json: cannot unmarshal string into Go struct field UpdateAuthMe.address of type sql.NullString","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T10:59:17.734+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T10:59:17.755+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T10:59:17.755+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T10:59:17.755+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T11:00:25.687+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-25T11:00:25.688+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-25T11:15:00.114+0700","caller":"handler/cityHandler.go:101","msg":"get city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-25T11:15:54.936+0700","caller":"handler/authHandler.go:227","msg":"json: cannot unmarshal string into Go struct field UpdateAuthMe.address of type sql.NullString","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T11:57:36.727+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T11:57:36.757+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T11:57:36.758+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T11:57:36.758+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-25T11:58:19.199+0700","caller":"middleware/authMiddleware.go:30","msg":"please provide authorization","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T11:58:38.090+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-25T11:58:38.090+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T11:59:07.174+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-25T11:59:07.178+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-25T11:59:11.815+0700","caller":"handler/authHandler.go:227","msg":"json: cannot unmarshal string into Go struct field UpdateAuthMe.city of type int64","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T12:00:27.301+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T12:00:27.312+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T12:00:27.312+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T12:00:27.312+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T12:00:53.748+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-25T12:00:53.751+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-25T12:01:14.003+0700","caller":"handler/authHandler.go:227","msg":"Key: 'UpdateAuthMe.City' Error:Field validation for 'City' failed on the 'required' tag\nKey: 'UpdateAuthMe.PhoneNumber' Error:Field validation for 'PhoneNumber' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T14:36:02.059+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T14:36:02.152+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T14:36:02.153+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T14:36:02.153+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:36:52.120+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-25T14:36:52.122+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-25T14:37:30.748+0700","caller":"handler/authHandler.go:227","msg":"Key: 'UpdateAuthMe.City' Error:Field validation for 'City' failed on the 'required' tag\nKey: 'UpdateAuthMe.PhoneNumber' Error:Field validation for 'PhoneNumber' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T14:40:49.665+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T14:40:49.703+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T14:40:49.703+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T14:40:49.704+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:41:29.015+0700","caller":"usecase/AuthUseCase.go:407","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T14:41:29.018+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:46:25.865+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-25T14:46:25.870+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:46:50.139+0700","caller":"usecase/AuthUseCase.go:407","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T14:46:50.144+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:47:06.345+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T14:47:06.386+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T14:47:06.386+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T14:47:06.387+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:48:16.083+0700","caller":"usecase/AuthUseCase.go:407","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T14:48:16.089+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:48:37.122+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T14:48:37.159+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T14:48:37.159+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T14:48:37.160+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:50:50.094+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T14:50:50.124+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T14:50:50.124+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T14:50:50.124+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:51:48.270+0700","caller":"usecase/AuthUseCase.go:407","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T14:51:48.271+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:52:29.692+0700","caller":"usecase/AuthUseCase.go:407","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T14:52:29.694+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:52:30.778+0700","caller":"usecase/AuthUseCase.go:407","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T14:52:30.779+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:52:32.556+0700","caller":"usecase/AuthUseCase.go:407","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T14:52:32.557+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:54:35.497+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T14:54:35.578+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T14:54:35.579+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T14:54:35.581+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:54:53.117+0700","caller":"usecase/AuthUseCase.go:407","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T14:54:53.118+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T14:58:18.902+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T14:58:18.922+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T14:58:18.922+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T14:58:18.922+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T15:00:46.859+0700","caller":"usecase/AuthUseCase.go:407","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T15:00:46.862+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T15:03:46.421+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T15:03:46.445+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T15:03:46.445+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T15:03:46.445+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T15:03:49.432+0700","caller":"usecase/AuthUseCase.go:407","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T15:03:49.433+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T19:02:13.290+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T19:02:13.611+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T19:02:13.628+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T19:02:13.642+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T19:02:52.845+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T19:02:52.893+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T19:02:52.893+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T19:02:52.893+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T19:03:22.809+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-25T19:03:22.812+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-25T19:03:45.561+0700","caller":"handler/authHandler.go:227","msg":"Key: 'UpdateAuthMe.City' Error:Field validation for 'City' failed on the 'required' tag\nKey: 'UpdateAuthMe.PhoneNumber' Error:Field validation for 'PhoneNumber' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-25T19:03:55.859+0700","caller":"usecase/AuthUseCase.go:407","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T19:03:55.873+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}

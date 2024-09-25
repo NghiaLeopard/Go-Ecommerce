@@ -209,6 +209,37 @@ func (a *AuthHandler) GetAuthMe(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Get auth me success", codeStatus, authMe)
 }
 
+// UpdateAuthMe 		godoc
+// @security 			BearerAuth
+// @Summary 			Update me
+// @Description 		Update me
+// @Param				tags body IRequest.UpdateAuthMe true "Update auth me"
+// @Produce 			application/json
+// @Tags 				Auth
+// @Success 			200 {object} IResponse.UpdateAuthMe{}
+// @Router 				/api/auth/me [put]
+func (a *AuthHandler) UpdateAuthMe(ctx *gin.Context) {
+	var req IRequest.UpdateAuthMe
+
+	err := ctx.ShouldBindJSON(&req)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, err.Error(), 400)
+		return
+	}
+
+	authMe, err, codeStatus := a.AuthUseCase.UpdateAuthMeUserCase(ctx, req)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Info("Get auth", zap.String("Status", "Success"))
+	response.SuccessResponse(ctx, "Get auth me success", codeStatus, authMe)
+}
+
 // RefreshTokenUser 	godoc
 // @security 			BearerAuth
 // @Summary 			RefreshToken accounts

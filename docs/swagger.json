@@ -152,6 +152,40 @@
                         }
                     }
                 }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update me",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Update me",
+                "parameters": [
+                    {
+                        "description": "Update auth me",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/IRequest.UpdateAuthMe"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/IResponse.UpdateAuthMe"
+                        }
+                    }
+                }
             }
         },
         "/api/auth/refresh-token": {
@@ -1142,6 +1176,43 @@
                 }
             }
         },
+        "IRequest.UpdateAuthMe": {
+            "type": "object",
+            "required": [
+                "address",
+                "avatar",
+                "city",
+                "firstName",
+                "lastName",
+                "middleName",
+                "phoneNumber"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "avatar": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "middleName": {
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
         "IResponse.Addresses": {
             "type": "object",
             "properties": {
@@ -1285,6 +1356,53 @@
                     "items": {
                         "type": "string"
                     }
+                }
+            }
+        },
+        "IResponse.UpdateAuthMe": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "integer"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "addresses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/IResponse.Addresses"
+                    }
+                },
+                "avatar": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "integer"
+                },
+                "create_at": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "middleName": {
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "type": "integer"
+                },
+                "role": {
+                    "type": "integer"
+                },
+                "status": {
+                    "$ref": "#/definitions/db.UsersStatus"
                 }
             }
         },

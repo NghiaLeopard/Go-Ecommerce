@@ -1,13 +1,23 @@
 package repository
 
 import (
+	"database/sql"
+	"fmt"
+
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
+	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	"github.com/gin-gonic/gin"
 )
 
 type AuthRepository struct {
+}
+
+func (a *AuthRepository) FindUserById(ctx *gin.Context, id int64) error {
+	err := global.DB.FindUserById(ctx, id)
+
+	return err
 }
 
 func NewAuthRepository() IRepository.Auth {
@@ -57,8 +67,21 @@ func (a *AuthRepository) UpdatePasswordUser(ctx *gin.Context, arg db.UpdatePassw
 }
 
 // UpdateUser implements IRepository.IAuth.
-func (a *AuthRepository) UpdateUser(ctx *gin.Context, arg db.UpdateUserParams) (user db.User, err error) {
-	user, err = global.DB.UpdateUser(ctx, arg)
+func (a *AuthRepository) UpdateAuthMe(ctx *gin.Context, req IRequest.UpdateAuthMe, id int64) (user db.User, err error) {
+	fmt.Println(req)
+
+	arg := db.UpdateAuthMeParams{
+		Avatar:      sql.NullString{String: req.Avatar, Valid: true},
+		Address:     sql.NullString{String: req.Address, Valid: true},
+		FirstName:   sql.NullString{String: req.FirstName, Valid: true},
+		LastName:    sql.NullString{String: req.LastName, Valid: true},
+		MiddleName:  sql.NullString{String: req.MiddleName, Valid: true},
+		PhoneNumber: sql.NullInt64{Int64: req.PhoneNumber, Valid: req.PhoneNumber != 0},
+		City:        sql.NullInt64{Int64: req.City, Valid: req.PhoneNumber != 0},
+		ID:          id,
+	}
+	user, err = global.DB.UpdateAuthMe(ctx, arg)
+	fmt.Println(user)
 
 	return
 }

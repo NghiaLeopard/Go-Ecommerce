@@ -52,6 +52,22 @@ type AuthMe struct {
 	Create_at   time.Time      `json:"create_at"`
 }
 
+type UpdateAuthMe struct {
+	Id          int64          `json:"_id" swaggertype:"integer"`
+	Email       string         `json:"email"`
+	Status      db.UsersStatus `json:"status"`
+	Address     string         `json:"address" swaggertype:"string"`
+	Avatar      string         `json:"avatar" swaggertype:"string"`
+	PhoneNumber int64          `json:"phoneNumber" swaggertype:"integer"`
+	Role        int64          `json:"role" `
+	FirstName   string         `json:"firstName" swaggertype:"string"`
+	LastName    string         `json:"lastName" swaggertype:"string"`
+	MiddleName  string         `json:"middleName" swaggertype:"string"`
+	City        int64          `json:"city" swaggertype:"integer"`
+	Addresses   []Addresses    `json:"addresses"`
+	Create_at   time.Time      `json:"create_at"`
+}
+
 type Login struct {
 	AccessToken  string `json:"access_token"`
 	RefreshToken string `json:"refresh_token"`

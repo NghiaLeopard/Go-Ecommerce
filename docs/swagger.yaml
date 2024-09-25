@@ -131,6 +131,33 @@ definitions:
     - newPassword
     - secretKey
     type: object
+  IRequest.UpdateAuthMe:
+    properties:
+      address:
+        type: string
+      avatar:
+        type: string
+      city:
+        format: int64
+        type: integer
+      firstName:
+        type: string
+      lastName:
+        type: string
+      middleName:
+        type: string
+      phoneNumber:
+        format: int64
+        type: integer
+    required:
+    - address
+    - avatar
+    - city
+    - firstName
+    - lastName
+    - middleName
+    - phoneNumber
+    type: object
   IResponse.Addresses:
     properties:
       address:
@@ -225,6 +252,37 @@ definitions:
         items:
           type: string
         type: array
+    type: object
+  IResponse.UpdateAuthMe:
+    properties:
+      _id:
+        type: integer
+      address:
+        type: string
+      addresses:
+        items:
+          $ref: '#/definitions/IResponse.Addresses'
+        type: array
+      avatar:
+        type: string
+      city:
+        type: integer
+      create_at:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      middleName:
+        type: string
+      phoneNumber:
+        type: integer
+      role:
+        type: integer
+      status:
+        $ref: '#/definitions/db.UsersStatus'
     type: object
   IResponse.User:
     properties:
@@ -377,6 +435,27 @@ paths:
       security:
       - BearerAuth: []
       summary: get me
+      tags:
+      - Auth
+    put:
+      description: Update me
+      parameters:
+      - description: Update auth me
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.UpdateAuthMe'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.UpdateAuthMe'
+      security:
+      - BearerAuth: []
+      summary: Update me
       tags:
       - Auth
   /api/auth/refresh-token:

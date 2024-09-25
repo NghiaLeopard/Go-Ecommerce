@@ -21,6 +21,7 @@ type Querier interface {
 	DeleteProductTypeById(ctx context.Context, id int64) error
 	DeleteRoleById(ctx context.Context, id int64) error
 	DeleteUser(ctx context.Context, id int64) error
+	FindUserById(ctx context.Context, id int64) error
 	GetCityById(ctx context.Context, id int64) (City, error)
 	GetCityByName(ctx context.Context, name string) (City, error)
 	GetProductTypeById(ctx context.Context, id int64) (ProductType, error)
@@ -34,11 +35,11 @@ type Querier interface {
 	ListProductType(ctx context.Context, arg ListProductTypeParams) ([]ProductType, error)
 	ListRole(ctx context.Context, arg ListRoleParams) ([]Role, error)
 	ListUsers(ctx context.Context) ([]User, error)
+	UpdateAuthMe(ctx context.Context, arg UpdateAuthMeParams) (User, error)
 	UpdateCity(ctx context.Context, arg UpdateCityParams) (City, error)
 	UpdatePasswordUser(ctx context.Context, arg UpdatePasswordUserParams) error
 	UpdateProductType(ctx context.Context, arg UpdateProductTypeParams) (ProductType, error)
 	UpdateRole(ctx context.Context, arg UpdateRoleParams) (Role, error)
-	UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error)
 }
 
 var _ Querier = (*Queries)(nil)

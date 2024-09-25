@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
+	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
 	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/middleware"
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
@@ -337,6 +338,13 @@ func (a *AuthUseCase) ResetPasswordUseCase(ctx *gin.Context, newPassword string,
 func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (IResponse.AuthMe, error, int) {
 	payload := ctx.MustGet(middleware.AuthorizationKey).(*token.Payload)
 
+	err := a.AuthRepo.FindUserById(ctx, int64(payload.Id))
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.AuthMe{}, fmt.Errorf("User is not exist"), 400
+	}
+
 	user, err := a.AuthRepo.GetUserById(ctx, int64(payload.Id))
 
 	if err != nil {
@@ -359,6 +367,43 @@ func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (IResponse.AuthMe, err
 		MiddleName:  user.MiddleName.String,
 		City:        int(user.City.Int64),
 		PhoneNumber: int(user.PhoneNumber.Int64),
+		Avatar:      user.Avatar.String,
+		Addresses:   []IResponse.Addresses{},
+		Create_at:   user.CreateAt,
+	}
+
+	global.Logger.Info("get auth me", zap.String("Status", "success"))
+	return data, nil, 200
+}
+
+func (a *AuthUseCase) UpdateAuthMeUserCase(ctx *gin.Context, req IRequest.UpdateAuthMe) (IResponse.UpdateAuthMe, error, int) {
+	payload := ctx.MustGet(middleware.AuthorizationKey).(*token.Payload)
+
+	err := a.AuthRepo.FindUserById(ctx, int64(payload.Id))
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.UpdateAuthMe{}, fmt.Errorf("User is not exist"), 400
+	}
+
+	user, err := a.AuthRepo.UpdateAuthMe(ctx, req, int64(payload.Id))
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.UpdateAuthMe{}, fmt.Errorf("Update auth me fail"), 500
+	}
+
+	data := IResponse.UpdateAuthMe{
+		Id:          user.ID,
+		Email:       user.Email,
+		Address:     user.Address.String,
+		Status:      user.Status.UsersStatus,
+		Role:        user.ID,
+		FirstName:   user.FirstName.String,
+		LastName:    user.LastName.String,
+		MiddleName:  user.MiddleName.String,
+		City:        user.City.Int64,
+		PhoneNumber: user.PhoneNumber.Int64,
 		Avatar:      user.Avatar.String,
 		Addresses:   []IResponse.Addresses{},
 		Create_at:   user.CreateAt,

@@ -359,33 +359,33 @@ func (mr *MockQuerierMockRecorder) ListCity(arg0, arg1 interface{}) *gomock.Call
 }
 
 // ListProductType mocks base method.
-func (m *MockQuerier) ListProductType(arg0 context.Context) ([]db.ProductType, error) {
+func (m *MockQuerier) ListProductType(arg0 context.Context, arg1 db.ListProductTypeParams) ([]db.ProductType, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListProductType", arg0)
+	ret := m.ctrl.Call(m, "ListProductType", arg0, arg1)
 	ret0, _ := ret[0].([]db.ProductType)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // ListProductType indicates an expected call of ListProductType.
-func (mr *MockQuerierMockRecorder) ListProductType(arg0 interface{}) *gomock.Call {
+func (mr *MockQuerierMockRecorder) ListProductType(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListProductType", reflect.TypeOf((*MockQuerier)(nil).ListProductType), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListProductType", reflect.TypeOf((*MockQuerier)(nil).ListProductType), arg0, arg1)
 }
 
 // ListRole mocks base method.
-func (m *MockQuerier) ListRole(arg0 context.Context) ([]db.Role, error) {
+func (m *MockQuerier) ListRole(arg0 context.Context, arg1 db.ListRoleParams) ([]db.Role, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListRole", arg0)
+	ret := m.ctrl.Call(m, "ListRole", arg0, arg1)
 	ret0, _ := ret[0].([]db.Role)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // ListRole indicates an expected call of ListRole.
-func (mr *MockQuerierMockRecorder) ListRole(arg0 interface{}) *gomock.Call {
+func (mr *MockQuerierMockRecorder) ListRole(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListRole", reflect.TypeOf((*MockQuerier)(nil).ListRole), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListRole", reflect.TypeOf((*MockQuerier)(nil).ListRole), arg0, arg1)
 }
 
 // ListUsers mocks base method.
@@ -401,6 +401,21 @@ func (m *MockQuerier) ListUsers(arg0 context.Context) ([]db.User, error) {
 func (mr *MockQuerierMockRecorder) ListUsers(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUsers", reflect.TypeOf((*MockQuerier)(nil).ListUsers), arg0)
+}
+
+// UpdateAuthMe mocks base method.
+func (m *MockQuerier) UpdateAuthMe(arg0 context.Context, arg1 db.UpdateAuthMeParams) (db.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateAuthMe", arg0, arg1)
+	ret0, _ := ret[0].(db.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateAuthMe indicates an expected call of UpdateAuthMe.
+func (mr *MockQuerierMockRecorder) UpdateAuthMe(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAuthMe", reflect.TypeOf((*MockQuerier)(nil).UpdateAuthMe), arg0, arg1)
 }
 
 // UpdateCity mocks base method.
@@ -460,19 +475,4 @@ func (m *MockQuerier) UpdateRole(arg0 context.Context, arg1 db.UpdateRoleParams)
 func (mr *MockQuerierMockRecorder) UpdateRole(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateRole", reflect.TypeOf((*MockQuerier)(nil).UpdateRole), arg0, arg1)
-}
-
-// UpdateUser mocks base method.
-func (m *MockQuerier) UpdateUser(arg0 context.Context, arg1 db.UpdateUserParams) (db.User, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateUser", arg0, arg1)
-	ret0, _ := ret[0].(db.User)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// UpdateUser indicates an expected call of UpdateUser.
-func (mr *MockQuerierMockRecorder) UpdateUser(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUser", reflect.TypeOf((*MockQuerier)(nil).UpdateUser), arg0, arg1)
 }

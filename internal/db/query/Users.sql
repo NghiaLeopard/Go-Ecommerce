@@ -20,6 +20,10 @@ FROM "Users"
 JOIN "Role" ON "Role".id = "Users".role
 WHERE "Users".id = $1;
 
+-- name: FindUserById :exec
+SELECT * FROM "Users"
+WHERE id = $1;
+
 -- name: GetUserByEmail :one
 SELECT "Users".*,"Role".*
 FROM "Users"
@@ -30,14 +34,14 @@ WHERE "Users".email = $1;
 SELECT * FROM "Users"
 ORDER BY create_at DESC;
 
--- name: UpdateUser :one
-UPDATE "Users" SET "firstName" = $1,"lastName" = $2,"middleName" = $3, "phoneNumber" = $4,avatar = $5,address = $6,city = $7
-WHERE id = $8
-RETURNING *;
-
 -- name: UpdatePasswordUser :exec
 UPDATE "Users" SET password = $1
 WHERE id = $2;
+
+-- name: UpdateAuthMe :one
+UPDATE "Users" SET "avatar" = $1,"address" = $2, "city" = $3,"firstName" = $4,"lastName" = $5,"middleName" = $6,"phoneNumber" = $7
+WHERE id = $8
+RETURNING *;
 
 -- name: DeleteUser :exec
 DELETE FROM "Users"

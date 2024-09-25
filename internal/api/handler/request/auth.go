@@ -23,3 +23,13 @@ type ResetPasswordRequest struct {
 type ForgotPasswordRequest struct {
 	Email string `json:"email" binding:"required,email"`
 }
+
+type UpdateAuthMe struct {
+	Address     string `json:"address" binding:"required"`
+	Avatar      string `json:"avatar" binding:"required"`
+	City        int64  `json:"city" binding:"required" format:"int64"`
+	FirstName   string `json:"firstName" binding:"required"`
+	LastName    string `json:"lastName" binding:"required"`
+	MiddleName  string `json:"middleName" binding:"required"`
+	PhoneNumber int64  `json:"phoneNumber" binding:"required" format:"int64"`
+}

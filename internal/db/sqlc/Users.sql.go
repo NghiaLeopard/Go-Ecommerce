@@ -64,6 +64,16 @@ func (q *Queries) DeleteUser(ctx context.Context, id int64) error {
 	return err
 }
 
+const findUserById = `-- name: FindUserById :exec
+SELECT id, email, password, "userType", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", "deviceToken", addresses, create_at FROM "Users"
+WHERE id = $1
+`
+
+func (q *Queries) FindUserById(ctx context.Context, id int64) error {
+	_, err := q.db.ExecContext(ctx, findUserById, id)
+	return err
+}
+
 const getUserByEmail = `-- name: GetUserByEmail :one
 SELECT "Users".id, "Users".email, "Users".password, "Users"."userType", "Users".status, "Users".address, "Users".avatar, "Users"."phoneNumber", "Users".role, "Users"."firstName", "Users"."lastName", "Users"."middleName", "Users".city, "Users"."likeProducts", "Users"."viewedProducts", "Users"."deviceToken", "Users".addresses, "Users".create_at,"Role".id, "Role".name, "Role".permission, "Role".create_at, "Role".update_at
 FROM "Users"
@@ -280,47 +290,32 @@ func (q *Queries) ListUsers(ctx context.Context) ([]User, error) {
 	return items, nil
 }
 
-const updatePasswordUser = `-- name: UpdatePasswordUser :exec
-UPDATE "Users" SET password = $1
-WHERE id = $2
-`
-
-type UpdatePasswordUserParams struct {
-	Password string `json:"password"`
-	ID       int64  `json:"id"`
-}
-
-func (q *Queries) UpdatePasswordUser(ctx context.Context, arg UpdatePasswordUserParams) error {
-	_, err := q.db.ExecContext(ctx, updatePasswordUser, arg.Password, arg.ID)
-	return err
-}
-
-const updateUser = `-- name: UpdateUser :one
-UPDATE "Users" SET "firstName" = $1,"lastName" = $2,"middleName" = $3, "phoneNumber" = $4,avatar = $5,address = $6,city = $7
+const updateAuthMe = `-- name: UpdateAuthMe :one
+UPDATE "Users" SET "avatar" = $1,"address" = $2, "city" = $3,"firstName" = $4,"lastName" = $5,"middleName" = $6,"phoneNumber" = $7
 WHERE id = $8
 RETURNING id, email, password, "userType", status, address, avatar, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", "deviceToken", addresses, create_at
 `
 
-type UpdateUserParams struct {
+type UpdateAuthMeParams struct {
+	Avatar      sql.NullString `json:"avatar"`
+	Address     sql.NullString `json:"address"`
+	City        sql.NullInt64  `json:"city"`
 	FirstName   sql.NullString `json:"firstName"`
 	LastName    sql.NullString `json:"lastName"`
 	MiddleName  sql.NullString `json:"middleName"`
 	PhoneNumber sql.NullInt64  `json:"phoneNumber"`
-	Avatar      sql.NullString `json:"avatar"`
-	Address     sql.NullString `json:"address"`
-	City        sql.NullInt64  `json:"city"`
 	ID          int64          `json:"id"`
 }
 
-func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error) {
-	row := q.db.QueryRowContext(ctx, updateUser,
+func (q *Queries) UpdateAuthMe(ctx context.Context, arg UpdateAuthMeParams) (User, error) {
+	row := q.db.QueryRowContext(ctx, updateAuthMe,
+		arg.Avatar,
+		arg.Address,
+		arg.City,
 		arg.FirstName,
 		arg.LastName,
 		arg.MiddleName,
 		arg.PhoneNumber,
-		arg.Avatar,
-		arg.Address,
-		arg.City,
 		arg.ID,
 	)
 	var i User
@@ -345,4 +340,19 @@ func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, e
 		&i.CreateAt,
 	)
 	return i, err
+}
+
+const updatePasswordUser = `-- name: UpdatePasswordUser :exec
+UPDATE "Users" SET password = $1
+WHERE id = $2
+`
+
+type UpdatePasswordUserParams struct {
+	Password string `json:"password"`
+	ID       int64  `json:"id"`
+}
+
+func (q *Queries) UpdatePasswordUser(ctx context.Context, arg UpdatePasswordUserParams) error {
+	_, err := q.db.ExecContext(ctx, updatePasswordUser, arg.Password, arg.ID)
+	return err
 }
