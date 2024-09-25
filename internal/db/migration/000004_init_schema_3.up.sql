@@ -1,7 +1,4 @@
-CREATE TYPE product_status AS ENUM (
-  '0',
-  '1'
-);
+
 
 CREATE TABLE "Product" (
     "id" bigserial PRIMARY KEY,
@@ -14,10 +11,11 @@ CREATE TABLE "Product" (
     "discountStartDate" date,
     "discountEndDate" date,
     "type" integer NOT NULL,
-    "status" product_status DEFAULT '1',
+    "status"integer NOT NULL,
     "slug" varchar NOT NULL,
     "views" integer DEFAULT 0,
     "price" integer NOT NULL,
-    "location" varchar NOT NULL,
-    "create_at" timestamptz NOT NULL DEFAULT (now())
+    "location" integer NOT NULL,
+    "create_at" timestamptz NOT NULL DEFAULT (now()),
+    CONSTRAINT "fk_ProductCity" FOREIGN KEY("location") REFERENCES "City"(id)
 )

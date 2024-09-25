@@ -1,3 +1,3 @@
-DROP TABLE IF EXISTS "Product";
+ALTER TABLE IF EXISTS "Product" DROP CONSTRAINT IF EXISTS "fk_ProductCity";
 
-DROP TYPE IF EXISTS product_status;
+DROP TABLE IF EXISTS "Product";

@@ -1149,3 +1149,15 @@
 {"level":"ERROR","time":"2024-09-25T19:03:45.561+0700","caller":"handler/authHandler.go:227","msg":"Key: 'UpdateAuthMe.City' Error:Field validation for 'City' failed on the 'required' tag\nKey: 'UpdateAuthMe.PhoneNumber' Error:Field validation for 'PhoneNumber' failed on the 'required' tag","Status":"Error"}
 {"level":"INFO","time":"2024-09-25T19:03:55.859+0700","caller":"usecase/AuthUseCase.go:407","msg":"get auth me","Status":"success"}
 {"level":"INFO","time":"2024-09-25T19:03:55.873+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T19:07:42.983+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T19:07:43.002+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T19:07:43.002+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T19:07:43.002+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T19:07:54.510+0700","caller":"usecase/AuthUseCase.go:414","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T19:07:54.516+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T19:12:34.177+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-25T19:12:34.212+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-25T19:12:34.212+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-25T19:12:34.213+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-25T19:12:40.383+0700","caller":"usecase/AuthUseCase.go:414","msg":"get auth me","Status":"success"}
+{"level":"INFO","time":"2024-09-25T19:12:40.386+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}

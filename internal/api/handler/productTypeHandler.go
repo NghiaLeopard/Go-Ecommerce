@@ -48,7 +48,7 @@ func (r *ProductTypeHandler) CreateProductType(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Create ProductType success", codeStatus, ProductType)
 }
 
-// GetAllProductType 		godoc
+// GetAllProductType 	godoc
 // @security 			BearerAuth
 // @Summary 			Get all ProductType
 // @Description 		Get all ProductType

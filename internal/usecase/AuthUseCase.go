@@ -368,7 +368,7 @@ func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (IResponse.AuthMe, err
 		City:        int(user.City.Int64),
 		PhoneNumber: int(user.PhoneNumber.Int64),
 		Avatar:      user.Avatar.String,
-		Addresses:   []IResponse.Addresses{},
+		Addresses:   user.Addresses.RawMessage,
 		Create_at:   user.CreateAt,
 	}
 
@@ -393,6 +393,8 @@ func (a *AuthUseCase) UpdateAuthMeUserCase(ctx *gin.Context, req IRequest.Update
 		return IResponse.UpdateAuthMe{}, fmt.Errorf("Update auth me fail"), 500
 	}
 
+	fmt.Println(user.Addresses)
+
 	data := IResponse.UpdateAuthMe{
 		Id:          user.ID,
 		Email:       user.Email,
@@ -405,7 +407,7 @@ func (a *AuthUseCase) UpdateAuthMeUserCase(ctx *gin.Context, req IRequest.Update
 		City:        user.City.Int64,
 		PhoneNumber: user.PhoneNumber.Int64,
 		Avatar:      user.Avatar.String,
-		Addresses:   []IResponse.Addresses{},
+		Addresses:   user.Addresses.RawMessage,
 		Create_at:   user.CreateAt,
 	}
 
