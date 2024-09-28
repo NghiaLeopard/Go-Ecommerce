@@ -75,6 +75,24 @@ func (q *Queries) CreateProduct(ctx context.Context, arg CreateProductParams) (P
 	return i, err
 }
 
+const createProductUniqueView = `-- name: CreateProductUniqueView :exec
+INSERT INTO "Product_UniqueView" (
+  "product_id","user_id"
+) VALUES (
+  $1, $2
+)
+`
+
+type CreateProductUniqueViewParams struct {
+	ProductID int32 `json:"product_id"`
+	UserID    int32 `json:"user_id"`
+}
+
+func (q *Queries) CreateProductUniqueView(ctx context.Context, arg CreateProductUniqueViewParams) error {
+	_, err := q.db.ExecContext(ctx, createProductUniqueView, arg.ProductID, arg.UserID)
+	return err
+}
+
 const deleteManyProductsByIds = `-- name: DeleteManyProductsByIds :exec
 DELETE FROM "Product"
 WHERE id = ANY($1::bigint[])
@@ -215,32 +233,17 @@ func (q *Queries) GetProductBySlug(ctx context.Context, slug string) (GetProduct
 	return i, err
 }
 
-const updateViewProduct = `-- name: UpdateViewProduct :one
+const updateViewProduct = `-- name: UpdateViewProduct :exec
 UPDATE "Product" SET views = $1
-WHERE id = $1
-RETURNING id, name, image, "countInStock", description, sold, discount, "discountStartDate", "discountEndDate", type, status, slug, price, location, views, create_at
+WHERE id = $2
 `
 
-func (q *Queries) UpdateViewProduct(ctx context.Context, views sql.NullInt32) (Product, error) {
-	row := q.db.QueryRowContext(ctx, updateViewProduct, views)
-	var i Product
-	err := row.Scan(
-		&i.ID,
-		&i.Name,
-		&i.Image,
-		&i.CountInStock,
-		&i.Description,
-		&i.Sold,
-		&i.Discount,
-		&i.DiscountStartDate,
-		&i.DiscountEndDate,
-		&i.Type,
-		&i.Status,
-		&i.Slug,
-		&i.Price,
-		&i.Location,
-		&i.Views,
-		&i.CreateAt,
-	)
-	return i, err
+type UpdateViewProductParams struct {
+	Views sql.NullInt32 `json:"views"`
+	ID    int64         `json:"id"`
+}
+
+func (q *Queries) UpdateViewProduct(ctx context.Context, arg UpdateViewProductParams) error {
+	_, err := q.db.ExecContext(ctx, updateViewProduct, arg.Views, arg.ID)
+	return err
 }

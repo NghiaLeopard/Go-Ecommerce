@@ -139,8 +139,8 @@ func (c *ProductUseCase) GetProductUseCase(ctx *gin.Context, id int64) (IRespons
 	return res, nil, 201
 }
 
-func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, id int64, isViewed bool) (IResponse.GetProduct, error, int) {
-	Product, err := c.ProductRepo.GetProductById(ctx, id)
+func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, slug string, isViewed bool) (IResponse.GetProduct, error, int) {
+	Product, err := c.ProductRepo.GetProductBySlug(ctx, slug, isViewed)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))

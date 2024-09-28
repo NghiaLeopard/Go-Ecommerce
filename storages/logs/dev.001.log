@@ -1269,3 +1269,34 @@
 {"level":"INFO","time":"2024-09-28T09:55:46.140+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
 {"level":"ERROR","time":"2024-09-28T09:55:57.167+0700","caller":"handler/productHandler.go:171","msg":"get Product","Status":"Error"}
 {"level":"ERROR","time":"2024-09-28T09:56:14.323+0700","caller":"handler/productHandler.go:199","msg":"get Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T15:33:32.655+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T15:33:32.772+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T15:33:32.773+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T15:33:32.773+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-28T15:35:34.077+0700","caller":"usecase/ProductUseCase.go:94","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-28T15:35:34.081+0700","caller":"handler/productHandler.go:45","msg":"create Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T15:35:41.081+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-28T15:35:41.082+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-28T15:38:06.578+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T15:38:06.608+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T15:38:06.609+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T15:38:06.609+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-28T15:38:19.662+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-28T15:38:19.662+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-28T15:39:32.679+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T15:39:32.694+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T15:39:32.695+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T15:39:32.695+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-28T15:40:41.035+0700","caller":"usecase/AuthUseCase.go:167","msg":"Register","Status":"success"}
+{"level":"INFO","time":"2024-09-28T15:40:41.040+0700","caller":"handler/authHandler.go:77","msg":"Register","Status":"Success"}
+{"level":"ERROR","time":"2024-09-28T15:40:48.314+0700","caller":"usecase/AuthUseCase.go:93","msg":"crypto/bcrypt: hashedPassword is not the hash of the given password","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T15:41:02.285+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-28T15:41:02.286+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-28T15:41:16.653+0700","caller":"middleware/authMiddleware.go:58","msg":"Verify token invalid","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T15:41:26.790+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-28T15:41:26.790+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-28T15:41:39.490+0700","caller":"middleware/authMiddleware.go:58","msg":"Verify token invalid","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T15:42:58.878+0700","caller":"usecase/AuthUseCase.go:207","msg":"Change password","Status":"success"}
+{"level":"INFO","time":"2024-09-28T15:42:58.881+0700","caller":"handler/authHandler.go:127","msg":"Change password","Status":"Success"}
+{"level":"INFO","time":"2024-09-28T15:44:37.001+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-28T15:44:37.005+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}

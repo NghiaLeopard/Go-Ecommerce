@@ -127,7 +127,7 @@ func (c *ProductHandler) GetProductBySlug(ctx *gin.Context) {
 		return
 	}
 
-	Product, err, codeStatus := c.ProductUseCase.GetProductBySlugUseCase(ctx, reqUrl.ID,reqViewed.IsViewed)
+	Product, err, codeStatus := c.ProductUseCase.GetProductBySlugUseCase(ctx, reqUrl.Slug, reqViewed.IsViewed)
 
 	if err != nil {
 		response.ErrorResponse(ctx, err.Error(), codeStatus)

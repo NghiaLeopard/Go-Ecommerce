@@ -29,7 +29,7 @@ type GetProduct struct {
 }
 
 type GetProductBySlug struct {
-	ID int64 `uri:"id" binding:"required,min=1"`
+	Slug string `uri:"slug" binding:"required,min=1"`
 }
 
 type GetParamsIsViewed struct {

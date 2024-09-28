@@ -72,3 +72,9 @@ var CONFIG_USER_TYPE = map[string]int{
 	"GOOGLE":   2,
 	"DEFAULT":  3,
 }
+
+const (
+	AuthorizationHeader = "authorization"
+	AuthorizationType   = "Bearer"
+	AuthorizationKey    = "authorization_payload"
+)

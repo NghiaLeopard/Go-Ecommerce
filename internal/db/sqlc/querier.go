@@ -6,14 +6,13 @@ package db
 
 import (
 	"context"
-	"database/sql"
 )
 
 type Querier interface {
 	CreateCity(ctx context.Context, name string) (City, error)
 	CreateProduct(ctx context.Context, arg CreateProductParams) (Product, error)
 	CreateProductType(ctx context.Context, arg CreateProductTypeParams) (ProductType, error)
-	CreateProductView(ctx context.Context, arg CreateProductViewParams) (ProductUniqueView, error)
+	CreateProductUniqueView(ctx context.Context, arg CreateProductUniqueViewParams) error
 	CreateRole(ctx context.Context, name string) (Role, error)
 	CreateRoleByDefault(ctx context.Context, arg CreateRoleByDefaultParams) (Role, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
@@ -47,7 +46,7 @@ type Querier interface {
 	UpdatePasswordUser(ctx context.Context, arg UpdatePasswordUserParams) error
 	UpdateProductType(ctx context.Context, arg UpdateProductTypeParams) (ProductType, error)
 	UpdateRole(ctx context.Context, arg UpdateRoleParams) (Role, error)
-	UpdateViewProduct(ctx context.Context, views sql.NullInt32) (Product, error)
+	UpdateViewProduct(ctx context.Context, arg UpdateViewProductParams) error
 }
 
 var _ Querier = (*Queries)(nil)

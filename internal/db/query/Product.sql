@@ -6,6 +6,13 @@ INSERT INTO "Product" (
 )
 RETURNING *;
 
+-- name: CreateProductUniqueView :exec
+INSERT INTO "Product_UniqueView" (
+  "product_id","user_id"
+) VALUES (
+  $1, $2
+);
+
 -- name: GetProductById :one
 SELECT p.*,COUNT(l."user_id") AS "totalLikes",
 json_agg(l."user_id") AS "likedBy",
@@ -26,10 +33,9 @@ WHERE p.slug = $1
 GROUP BY p.id
 LIMIT 1;
 
--- name: UpdateViewProduct :one
+-- name: UpdateViewProduct :exec
 UPDATE "Product" SET views = $1
-WHERE id = $1
-RETURNING *;
+WHERE id = $2;
 
 -- name: DeleteProductById :exec
 DELETE FROM "Product"

@@ -11,11 +11,7 @@ import (
 	"go.uber.org/zap"
 )
 
-const (
-	AuthorizationHeader = "authorization"
-	AuthorizationType   = "Bearer"
-	AuthorizationKey    = "authorization_payload"
-)
+
 
 func (c *middleware) AuthMiddleware(permission string, isAuthMe bool, isPublic bool) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
@@ -24,7 +20,7 @@ func (c *middleware) AuthMiddleware(permission string, isAuthMe bool, isPublic b
 			return
 		}
 
-		authorization := ctx.GetHeader(AuthorizationHeader)
+		authorization := ctx.GetHeader(constant.AuthorizationHeader)
 
 		if len(authorization) == 0 {
 			global.Logger.Error("please provide authorization", zap.String("Status", "Error"))
@@ -40,7 +36,7 @@ func (c *middleware) AuthMiddleware(permission string, isAuthMe bool, isPublic b
 			response.ErrorResponse(ctx, "invalid format header", 401)
 		}
 
-		if fields[0] != AuthorizationType {
+		if fields[0] != constant.AuthorizationType {
 			global.Logger.Error("invalid type header", zap.String("Status", "Error"))
 			response.ErrorResponse(ctx, "invalid type header", 401)
 			ctx.Abort()
@@ -66,7 +62,7 @@ func (c *middleware) AuthMiddleware(permission string, isAuthMe bool, isPublic b
 		}
 
 		if slices.Contains(payload.Permissions, permission) || slices.Contains(payload.Permissions, constant.CONFIG_PERMISSIONS["ADMIN"].(string)) || isAuthMe {
-			ctx.Set(AuthorizationKey, payload)
+			ctx.Set(constant.AuthorizationKey, payload)
 			ctx.Next()
 			return
 		} else {
