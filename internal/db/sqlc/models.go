@@ -13,48 +13,6 @@ import (
 	"github.com/sqlc-dev/pqtype"
 )
 
-type ProductStatus string
-
-const (
-	ProductStatus0 ProductStatus = "0"
-	ProductStatus1 ProductStatus = "1"
-)
-
-func (e *ProductStatus) Scan(src interface{}) error {
-	switch s := src.(type) {
-	case []byte:
-		*e = ProductStatus(s)
-	case string:
-		*e = ProductStatus(s)
-	default:
-		return fmt.Errorf("unsupported scan type for ProductStatus: %T", src)
-	}
-	return nil
-}
-
-type NullProductStatus struct {
-	ProductStatus ProductStatus `json:"product_status"`
-	Valid         bool          `json:"valid"` // Valid is true if ProductStatus is not NULL
-}
-
-// Scan implements the Scanner interface.
-func (ns *NullProductStatus) Scan(value interface{}) error {
-	if value == nil {
-		ns.ProductStatus, ns.Valid = "", false
-		return nil
-	}
-	ns.Valid = true
-	return ns.ProductStatus.Scan(value)
-}
-
-// Value implements the driver Valuer interface.
-func (ns NullProductStatus) Value() (driver.Value, error) {
-	if !ns.Valid {
-		return nil, nil
-	}
-	return string(ns.ProductStatus), nil
-}
-
 type UsersStatus string
 
 const (
@@ -148,22 +106,22 @@ type City struct {
 }
 
 type Product struct {
-	ID                int64             `json:"id"`
-	Name              string            `json:"name"`
-	Image             string            `json:"image"`
-	CountInStock      int32             `json:"countInStock"`
-	Description       string            `json:"description"`
-	Sold              sql.NullInt32     `json:"sold"`
-	Discount          sql.NullInt32     `json:"discount"`
-	DiscountStartDate sql.NullTime      `json:"discountStartDate"`
-	DiscountEndDate   sql.NullTime      `json:"discountEndDate"`
-	Type              int32             `json:"type"`
-	Status            NullProductStatus `json:"status"`
-	Slug              string            `json:"slug"`
-	Views             sql.NullInt32     `json:"views"`
-	Price             int32             `json:"price"`
-	Location          string            `json:"location"`
-	CreateAt          time.Time         `json:"create_at"`
+	ID                int64         `json:"id"`
+	Name              string        `json:"name"`
+	Image             string        `json:"image"`
+	CountInStock      int32         `json:"countInStock"`
+	Description       string        `json:"description"`
+	Sold              sql.NullInt32 `json:"sold"`
+	Discount          sql.NullInt32 `json:"discount"`
+	DiscountStartDate sql.NullTime  `json:"discountStartDate"`
+	DiscountEndDate   sql.NullTime  `json:"discountEndDate"`
+	Type              int32         `json:"type"`
+	Status            int32         `json:"status"`
+	Slug              string        `json:"slug"`
+	Price             int32         `json:"price"`
+	Location          int32         `json:"location"`
+	Views             sql.NullInt32 `json:"views"`
+	CreateAt          time.Time     `json:"create_at"`
 }
 
 type ProductLiked struct {
@@ -184,6 +142,7 @@ type ProductUniqueView struct {
 	ProductID int32        `json:"product_id"`
 	UserID    int32        `json:"user_id"`
 	ViewDate  sql.NullTime `json:"view_date"`
+	CreateAt  time.Time    `json:"create_at"`
 }
 
 type Role struct {

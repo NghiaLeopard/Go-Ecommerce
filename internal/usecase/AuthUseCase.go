@@ -7,7 +7,7 @@ import (
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
 	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
-	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/middleware"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/constant"
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
@@ -169,7 +169,7 @@ func (a *AuthUseCase) RegisterUseCase(ctx *gin.Context, email string, password s
 }
 
 func (a *AuthUseCase) ChangePasswordUseCase(ctx *gin.Context, currentPassword string, newPassword string) (error, int) {
-	payload := ctx.MustGet(middleware.AuthorizationKey).(*token.Payload)
+	payload := ctx.MustGet(constant.AuthorizationKey).(*token.Payload)
 
 	user, err := a.AuthRepo.GetUserById(ctx, int64(payload.Id))
 
@@ -336,7 +336,7 @@ func (a *AuthUseCase) ResetPasswordUseCase(ctx *gin.Context, newPassword string,
 }
 
 func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (IResponse.AuthMe, error, int) {
-	payload := ctx.MustGet(middleware.AuthorizationKey).(*token.Payload)
+	payload := ctx.MustGet(constant.AuthorizationKey).(*token.Payload)
 
 	err := a.AuthRepo.FindUserById(ctx, int64(payload.Id))
 
@@ -377,13 +377,13 @@ func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (IResponse.AuthMe, err
 }
 
 func (a *AuthUseCase) UpdateAuthMeUserCase(ctx *gin.Context, req IRequest.UpdateAuthMe) (IResponse.UpdateAuthMe, error, int) {
-	payload := ctx.MustGet(middleware.AuthorizationKey).(*token.Payload)
+	payload := ctx.MustGet(constant.AuthorizationKey).(*token.Payload)
 
 	err := a.AuthRepo.FindUserById(ctx, int64(payload.Id))
 
 	if err != nil {
-		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return IResponse.UpdateAuthMe{}, fmt.Errorf("User is not exist"), 400
+		global.Logger.Error(err.Error(), zap.String("status", "Error"))
+		return IResponse.UpdateAuthMe{}, fmt.Errorf("user is not exist"), 400
 	}
 
 	user, err := a.AuthRepo.UpdateAuthMe(ctx, req, int64(payload.Id))

@@ -7,6 +7,7 @@ const (
 	ACTION_SUCCESS = 201
 	INVALID        = 400
 	UNAUTHORIZED   = 401
+	NOT_FOUND      = 404
 	ALREADY_EXIST  = 409
 	INTERNAL_ERROR = 500
 )
@@ -36,6 +37,10 @@ var httpResponse = map[int]TypeResponse{
 	UNAUTHORIZED: {
 		Type:   "UNAUTHORIZED",
 		Status: http.StatusUnauthorized,
+	},
+	NOT_FOUND: {
+		Type:   "NOT_FOUND",
+		Status: http.StatusNotFound,
 	},
 	INTERNAL_ERROR: {
 		Type:   "INTERNAL_SERVER_ERROR",

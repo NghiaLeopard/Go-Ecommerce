@@ -16,7 +16,7 @@ type ServerHTTP struct {
 	config config.Config
 }
 
-func NewServerHTTP(config config.Config, middleware middleware.Middleware, authHandler IHandler.Auth, cityHandler IHandler.City, roleHandler IHandler.Role, productTypeHandler IHandler.ProductType) *ServerHTTP {
+func NewServerHTTP(config config.Config, middleware middleware.Middleware, authHandler IHandler.Auth, productHandler IHandler.Product, cityHandler IHandler.City, roleHandler IHandler.Role, productTypeHandler IHandler.ProductType) *ServerHTTP {
 	engine := gin.Default()
 
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
@@ -26,6 +26,7 @@ func NewServerHTTP(config config.Config, middleware middleware.Middleware, authH
 	routers.UserRouter(api, middleware, authHandler)
 	routers.CityRouter(api, middleware, cityHandler)
 	routers.RoleRouter(api, middleware, roleHandler)
+	routers.ProductRouter(api, middleware, productHandler)
 	routers.ProductTypeRouter(api, middleware, productTypeHandler)
 
 	return &ServerHTTP{Engine: engine, config: config}

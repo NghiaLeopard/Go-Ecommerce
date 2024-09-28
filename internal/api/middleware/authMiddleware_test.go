@@ -155,7 +155,7 @@ func TestAuthMiddleware(t *testing.T) {
 			router := gin.Default()
 
 			redisRepo := repository.NewRedisTokenRepository(global.Rdb)
-			
+
 			middleware := NewMiddleware(redisRepo)
 
 			recorder := httptest.NewRecorder()
@@ -163,7 +163,7 @@ func TestAuthMiddleware(t *testing.T) {
 			request, err := http.NewRequest(http.MethodGet, "/auth", nil)
 			tc.caseGet(router, middleware)
 
-			tc.setupAuth(t, request, global.Token, AuthorizationHeader, AuthorizationType, 1, []string{constant.CONFIG_PERMISSIONS["ADMIN"].(string)}, 10*time.Hour)
+			tc.setupAuth(t, request, global.Token, constant.AuthorizationHeader, constant.AuthorizationType, 1, []string{constant.CONFIG_PERMISSIONS["ADMIN"].(string)}, 10*time.Hour)
 
 			require.NoError(t, err)
 
