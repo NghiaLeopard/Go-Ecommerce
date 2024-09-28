@@ -44,7 +44,7 @@ func (r *RoleHandler) CreateRole(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("create role", zap.String("Status", "Error"))
+	global.Logger.Info("create role", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Create role success", codeStatus, Role)
 }
 
@@ -74,7 +74,7 @@ func (c *RoleHandler) GetRole(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get Role", zap.String("Status", "Error"))
+	global.Logger.Info("get Role", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Get Role success", codeStatus, role)
 
 }
@@ -103,7 +103,7 @@ func (c *RoleHandler) GetAllRole(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get Role", zap.String("Status", "Error"))
+	global.Logger.Info("get Role", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Get Role success", codeStatus, role)
 
 }
@@ -140,7 +140,7 @@ func (c *RoleHandler) UpdateRole(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get Role", zap.String("Status", "Error"))
+	global.Logger.Info("get Role", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Get Role success", codeStatus, Role)
 }
 
@@ -168,7 +168,7 @@ func (c *RoleHandler) DeleteRole(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get Role", zap.String("Status", "Error"))
+	global.Logger.Info("get Role", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Delete Role success", codeStatus, "")
 }
 
@@ -196,6 +196,6 @@ func (c *RoleHandler) DeleteManyRole(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get Role", zap.String("Status", "Error"))
+	global.Logger.Info("get Role", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Delete Role success", codeStatus, "")
 }

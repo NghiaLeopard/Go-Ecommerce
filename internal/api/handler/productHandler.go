@@ -42,7 +42,7 @@ func (r *ProductHandler) CreateProduct(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("create Product", zap.String("Status", "Error"))
+	global.Logger.Info("create Product", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Create Product success", codeStatus, Product)
 }
 
@@ -99,7 +99,7 @@ func (c *ProductHandler) GetProduct(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get Product", zap.String("Status", "Error"))
+	global.Logger.Info("get Product", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
 }
 
@@ -134,7 +134,7 @@ func (c *ProductHandler) GetProductBySlug(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get Product", zap.String("Status", "Error"))
+	global.Logger.Info("get Product", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
 
 }
@@ -187,7 +187,7 @@ func (c *ProductHandler) GetProductBySlug(ctx *gin.Context) {
 func (c *ProductHandler) DeleteProduct(ctx *gin.Context) {
 	var req IRequest.DeleteProduct
 	if err := ctx.ShouldBindUri(&req); err != nil {
-		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		global.Logger.Error(err.Error(), zap.String("Status", "Success"))
 		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
 		return
 	}
@@ -199,7 +199,7 @@ func (c *ProductHandler) DeleteProduct(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get Product", zap.String("Status", "Error"))
+	global.Logger.Info("get Product", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Delete Product success", codeStatus, "")
 }
 
@@ -227,6 +227,6 @@ func (c *ProductHandler) DeleteManyProduct(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get Product", zap.String("Status", "Error"))
+	global.Logger.Info("get Product", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Delete Product success", codeStatus, "")
 }

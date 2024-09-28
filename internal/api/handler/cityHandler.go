@@ -42,7 +42,7 @@ func (c *CityHandler) CreateCity(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("create city", zap.String("Status", "Error"))
+	global.Logger.Info("create city", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Create city success", codeStatus, city)
 }
 
@@ -70,7 +70,7 @@ func (c *CityHandler) GetCity(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get city", zap.String("Status", "Error"))
+	global.Logger.Info("get city", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Get city success", codeStatus, city)
 }
 
@@ -98,7 +98,7 @@ func (c *CityHandler) GetAllCity(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get city", zap.String("Status", "Error"))
+	global.Logger.Info("get city", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Get city success", codeStatus, city)
 }
 
@@ -134,7 +134,7 @@ func (c *CityHandler) UpdateCity(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get city", zap.String("Status", "Error"))
+	global.Logger.Info("get city", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Get city success", codeStatus, city)
 }
 
@@ -162,7 +162,7 @@ func (c *CityHandler) DeleteCity(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get city", zap.String("Status", "Error"))
+	global.Logger.Info("get city", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Delete city success", codeStatus, "")
 }
 
@@ -190,6 +190,6 @@ func (c *CityHandler) DeleteManyCity(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get city", zap.String("Status", "Error"))
+	global.Logger.Info("get city", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Delete city success", codeStatus, "")
 }

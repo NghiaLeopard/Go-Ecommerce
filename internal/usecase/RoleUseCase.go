@@ -40,7 +40,6 @@ func (c *RoleUseCase) CreateRole(ctx *gin.Context, name string) (IResponse.Role,
 		return IResponse.Role{}, err, 401
 	}
 
-	global.Logger.Info("Create ", zap.String("Status", "Error"))
 	return IResponse.Role{
 		Id:         role.ID,
 		Name:       role.Name,

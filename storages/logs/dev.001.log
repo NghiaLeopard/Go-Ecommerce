@@ -1300,3 +1300,9 @@
 {"level":"INFO","time":"2024-09-28T15:42:58.881+0700","caller":"handler/authHandler.go:127","msg":"Change password","Status":"Success"}
 {"level":"INFO","time":"2024-09-28T15:44:37.001+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
 {"level":"INFO","time":"2024-09-28T15:44:37.005+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-28T15:51:51.707+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T15:51:51.776+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T15:51:51.776+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T15:51:51.777+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-28T15:52:01.825+0700","caller":"usecase/ProductUseCase.go:170","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-28T15:52:01.829+0700","caller":"handler/productHandler.go:137","msg":"get Product","Status":"Error"}
