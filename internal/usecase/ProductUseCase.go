@@ -91,7 +91,6 @@ func (c *ProductUseCase) CreateProduct(ctx *gin.Context, req IRequest.CreateProd
 		CreateAt:          Product.CreateAt,
 	}
 
-	global.Logger.Info("Create ", zap.String("Status", "success"))
 	return res, nil, 201
 
 }
@@ -135,7 +134,6 @@ func (c *ProductUseCase) GetProductUseCase(ctx *gin.Context, id int64) (IRespons
 		CreateAt:          Product.CreateAt,
 	}
 
-	global.Logger.Info("Create ", zap.String("Status", "success"))
 	return res, nil, 201
 }
 
@@ -167,7 +165,6 @@ func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, slug string, 
 		CreateAt:          Product.CreateAt,
 	}
 
-	global.Logger.Info("Create ", zap.String("Status", "success"))
 	return res, nil, 201
 }
 

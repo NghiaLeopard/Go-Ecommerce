@@ -35,7 +35,6 @@ func (c *CityUseCase) CreateCityUseCase(ctx *gin.Context, name string) (IRespons
 		return IResponse.City{}, err, 401
 	}
 
-	global.Logger.Info("Create city", zap.String("Status", "Error"))
 	return IResponse.City{
 		Id:   city.ID,
 		Name: city.Name,

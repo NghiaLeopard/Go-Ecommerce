@@ -38,7 +38,6 @@ func (c *ProductTypeUseCase) CreateProductType(ctx *gin.Context, name string, sl
 		return IResponse.ProductType{}, err, 401
 	}
 
-	global.Logger.Info("Create ", zap.String("Status", "Error"))
 	return IResponse.ProductType{
 		Id:       ProductType.ID,
 		Name:     ProductType.Name,

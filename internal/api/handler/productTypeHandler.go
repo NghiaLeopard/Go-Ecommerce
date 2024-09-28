@@ -44,7 +44,7 @@ func (r *ProductTypeHandler) CreateProductType(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("create ProductType", zap.String("Status", "Error"))
+	global.Logger.Info("create ProductType", zap.String("Status", "success"))
 	response.SuccessResponse(ctx, "Create ProductType success", codeStatus, ProductType)
 }
 
@@ -72,7 +72,7 @@ func (c *ProductTypeHandler) GetAllProductType(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get ProductType", zap.String("Status", "Error"))
+	global.Logger.Info("get ProductType", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Get ProductType success", codeStatus, ProductType)
 
 }
@@ -103,7 +103,7 @@ func (c *ProductTypeHandler) GetProductType(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get ProductType", zap.String("Status", "Error"))
+	global.Logger.Info("get ProductType", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Get ProductType success", codeStatus, ProductType)
 
 }
@@ -140,7 +140,7 @@ func (c *ProductTypeHandler) UpdateProductType(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get ProductType", zap.String("Status", "Error"))
+	global.Logger.Info("get ProductType", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Get ProductType success", codeStatus, ProductType)
 }
 
@@ -168,7 +168,7 @@ func (c *ProductTypeHandler) DeleteProductType(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get ProductType", zap.String("Status", "Error"))
+	global.Logger.Info("get ProductType", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Delete ProductType success", codeStatus, "")
 }
 
@@ -196,6 +196,6 @@ func (c *ProductTypeHandler) DeleteManyProductType(ctx *gin.Context) {
 		return
 	}
 
-	global.Logger.Error("get ProductType", zap.String("Status", "Error"))
+	global.Logger.Info("get ProductType", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Delete ProductType success", codeStatus, "")
 }

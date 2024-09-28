@@ -68,7 +68,7 @@ func (r *ProductRepository) GetProductBySlug(ctx *gin.Context, slug string, isVi
 
 	Product, err := global.DB.GetProductBySlug(ctx, slug)
 
-	if err == nil && isViewed == true {
+	if err == nil && isViewed {
 		var wg sync.WaitGroup
 		wg.Add(1)
 		view := Product.Views.Int32 + 1

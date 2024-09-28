@@ -140,7 +140,6 @@ func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password stri
 		},
 	}
 
-	global.Logger.Info("Login", zap.String("Status", "success"))
 	return data, nil, 0
 }
 
@@ -164,7 +163,6 @@ func (a *AuthUseCase) RegisterUseCase(ctx *gin.Context, email string, password s
 		return fmt.Errorf("create user fail: %w", err)
 	}
 
-	global.Logger.Info("Register", zap.String("Status", "success"))
 	return nil
 }
 
@@ -204,7 +202,6 @@ func (a *AuthUseCase) ChangePasswordUseCase(ctx *gin.Context, currentPassword st
 		return fmt.Errorf("update user fail"), 500
 	}
 
-	global.Logger.Info("Change password", zap.String("Status", "success"))
 	return nil, 200
 }
 
@@ -286,7 +283,6 @@ func (a *AuthUseCase) ForgotPasswordUseCase(ctx *gin.Context, email string) (err
 		return fmt.Errorf("save reset token false"), 400
 	}
 
-	global.Logger.Info("Forgot password", zap.String("Status", "success"))
 	return nil, 200
 }
 
@@ -331,7 +327,6 @@ func (a *AuthUseCase) ResetPasswordUseCase(ctx *gin.Context, newPassword string,
 		return fmt.Errorf("update err"), 500
 	}
 
-	global.Logger.Info("Reset password", zap.String("Status", "success"))
 	return nil, 200
 }
 
@@ -372,7 +367,6 @@ func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (IResponse.AuthMe, err
 		Create_at:   user.CreateAt,
 	}
 
-	global.Logger.Info("get auth me", zap.String("Status", "success"))
 	return data, nil, 200
 }
 
@@ -411,6 +405,5 @@ func (a *AuthUseCase) UpdateAuthMeUserCase(ctx *gin.Context, req IRequest.Update
 		Create_at:   user.CreateAt,
 	}
 
-	global.Logger.Info("get auth me", zap.String("Status", "success"))
 	return data, nil, 200
 }
