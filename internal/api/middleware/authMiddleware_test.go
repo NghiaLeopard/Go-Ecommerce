@@ -155,7 +155,7 @@ func TestAuthMiddleware(t *testing.T) {
 			router := gin.Default()
 
 			redisRepo := repository.NewRedisTokenRepository(global.Rdb)
-			
+
 			middleware := NewMiddleware(redisRepo)
 
 			recorder := httptest.NewRecorder()

@@ -1,5 +1,4 @@
-ALTER TABLE IF EXISTS "Product_UniqueView" DROP CONSTRAINT IF EXISTS "fk_ProductView";
-ALTER TABLE IF EXISTS "Product_UniqueView" DROP CONSTRAINT IF EXISTS "fk_UserView";
+ALTER TABLE IF EXISTS "Product_liked" DROP CONSTRAINT IF EXISTS "fk_ProductLiked";
+ALTER TABLE IF EXISTS "Product_liked" DROP CONSTRAINT IF EXISTS "fk_UserLiked";
 
-DROP TABLE IF EXISTS "Product_UniqueView"
-
+DROP TABLE IF EXISTS "Product_liked"

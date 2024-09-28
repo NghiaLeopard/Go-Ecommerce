@@ -1161,3 +1161,111 @@
 {"level":"INFO","time":"2024-09-25T19:12:34.213+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
 {"level":"INFO","time":"2024-09-25T19:12:40.383+0700","caller":"usecase/AuthUseCase.go:414","msg":"get auth me","Status":"success"}
 {"level":"INFO","time":"2024-09-25T19:12:40.386+0700","caller":"handler/authHandler.go:239","msg":"Get auth","Status":"Success"}
+{"level":"INFO","time":"2024-09-26T14:54:43.180+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-26T14:54:43.334+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-26T14:54:43.334+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-26T14:54:43.334+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-26T14:58:14.994+0700","caller":"usecase/AuthUseCase.go:86","msg":"sql: no rows in result set","Status":"Error"}
+{"level":"INFO","time":"2024-09-26T15:01:14.721+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-26T15:01:14.846+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-26T15:01:14.849+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-26T15:01:14.849+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-26T15:08:14.492+0700","caller":"usecase/CityUseCase.go:38","msg":"Create city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-26T15:08:14.498+0700","caller":"handler/cityHandler.go:45","msg":"create city","Status":"Error"}
+{"level":"INFO","time":"2024-09-26T15:08:20.498+0700","caller":"usecase/RoleUseCase.go:43","msg":"Create ","Status":"Error"}
+{"level":"ERROR","time":"2024-09-26T15:08:20.501+0700","caller":"handler/roleHandler.go:47","msg":"create role","Status":"Error"}
+{"level":"INFO","time":"2024-09-26T15:08:25.284+0700","caller":"usecase/ProductTypeUseCase.go:41","msg":"Create ","Status":"Error"}
+{"level":"ERROR","time":"2024-09-26T15:08:25.285+0700","caller":"handler/productTypeHandler.go:47","msg":"create ProductType","Status":"Error"}
+{"level":"INFO","time":"2024-09-26T15:09:41.210+0700","caller":"usecase/ProductUseCase.go:46","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-26T15:09:41.211+0700","caller":"handler/productHandler.go:45","msg":"create Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-26T15:09:59.140+0700","caller":"usecase/ProductUseCase.go:46","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-26T15:09:59.140+0700","caller":"handler/productHandler.go:45","msg":"create Product","Status":"Error"}
+{"level":"ERROR","time":"2024-09-26T15:10:20.148+0700","caller":"usecase/ProductUseCase.go:42","msg":"pq: insert or update on table \"Product\" violates foreign key constraint \"fk_ProductType\"","Status":"Error"}
+{"level":"INFO","time":"2024-09-26T15:15:25.687+0700","caller":"usecase/ProductUseCase.go:46","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-26T15:15:25.693+0700","caller":"handler/productHandler.go:45","msg":"create Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-26T18:53:52.120+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-26T18:53:52.252+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-26T18:53:52.252+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-26T18:53:52.253+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-26T18:54:58.287+0700","caller":"usecase/ProductUseCase.go:99","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-26T18:54:58.289+0700","caller":"handler/productHandler.go:45","msg":"create Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-26T18:56:47.392+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-26T18:56:47.422+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-26T18:56:47.422+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-26T18:56:47.422+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-26T18:56:50.382+0700","caller":"usecase/ProductUseCase.go:99","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-26T18:56:50.384+0700","caller":"handler/productHandler.go:45","msg":"create Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T08:37:29.975+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T08:37:30.531+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T08:37:30.535+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T08:37:30.536+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-28T08:37:36.958+0700","caller":"usecase/ProductUseCase.go:115","msg":"pq: column l.id does not exist","Status":"Error"}
+{"level":"ERROR","time":"2024-09-28T08:38:01.577+0700","caller":"usecase/ProductUseCase.go:64","msg":"pq: insert or update on table \"Product\" violates foreign key constraint \"fk_ProductCity\"","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T08:38:13.700+0700","caller":"usecase/CityUseCase.go:38","msg":"Create city","Status":"Error"}
+{"level":"ERROR","time":"2024-09-28T08:38:13.700+0700","caller":"handler/cityHandler.go:45","msg":"create city","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T08:38:17.441+0700","caller":"usecase/RoleUseCase.go:43","msg":"Create ","Status":"Error"}
+{"level":"ERROR","time":"2024-09-28T08:38:17.441+0700","caller":"handler/roleHandler.go:47","msg":"create role","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T08:38:21.691+0700","caller":"usecase/ProductTypeUseCase.go:41","msg":"Create ","Status":"Error"}
+{"level":"ERROR","time":"2024-09-28T08:38:21.691+0700","caller":"handler/productTypeHandler.go:47","msg":"create ProductType","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T08:38:27.073+0700","caller":"usecase/ProductUseCase.go:95","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-28T08:38:27.074+0700","caller":"handler/productHandler.go:47","msg":"create Product","Status":"Error"}
+{"level":"ERROR","time":"2024-09-28T08:38:35.144+0700","caller":"usecase/ProductUseCase.go:115","msg":"pq: column l.id does not exist","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T08:39:39.146+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T08:39:39.189+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T08:39:39.190+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T08:39:39.190+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-28T08:39:42.472+0700","caller":"usecase/ProductUseCase.go:116","msg":"pq: column l.id does not exist","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T08:41:49.056+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T08:41:49.096+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T08:41:49.097+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T08:41:49.098+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-28T08:41:52.768+0700","caller":"usecase/ProductUseCase.go:116","msg":"pq: column l.id does not exist","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T08:50:37.011+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T08:50:37.055+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T08:50:37.056+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T08:50:37.057+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-28T08:50:52.317+0700","caller":"usecase/ProductUseCase.go:116","msg":"pq: column l.id does not exist","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T08:54:18.089+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T08:54:18.130+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T08:54:18.131+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T08:54:18.131+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-28T08:54:25.264+0700","caller":"usecase/ProductUseCase.go:116","msg":"pq: column l.id does not exist","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T08:59:10.039+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T08:59:10.070+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T08:59:10.071+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T08:59:10.071+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-28T08:59:17.069+0700","caller":"usecase/ProductUseCase.go:116","msg":"pq: column p.product_id does not exist","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T08:59:47.930+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T08:59:47.949+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T08:59:47.950+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T08:59:47.950+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-28T08:59:50.161+0700","caller":"usecase/ProductUseCase.go:116","msg":"pq: type \"int32[]\" does not exist","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T09:00:16.508+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T09:00:16.526+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T09:00:16.526+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T09:00:16.526+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-28T09:00:19.791+0700","caller":"usecase/ProductUseCase.go:120","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-28T09:00:19.791+0700","caller":"handler/productHandler.go:106","msg":"get Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T09:26:27.022+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T09:26:27.080+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T09:26:27.080+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T09:26:27.080+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-28T09:26:31.049+0700","caller":"usecase/ProductUseCase.go:138","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-28T09:26:31.051+0700","caller":"handler/productHandler.go:106","msg":"get Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T09:37:53.464+0700","caller":"usecase/ProductUseCase.go:138","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-28T09:37:53.472+0700","caller":"handler/productHandler.go:106","msg":"get Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T09:39:39.181+0700","caller":"usecase/ProductUseCase.go:138","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-28T09:39:39.184+0700","caller":"handler/productHandler.go:106","msg":"get Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T09:55:12.681+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-28T09:55:12.774+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-28T09:55:12.784+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-28T09:55:12.785+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-28T09:55:19.833+0700","caller":"usecase/ProductUseCase.go:94","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-28T09:55:19.837+0700","caller":"handler/productHandler.go:47","msg":"create Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T09:55:21.784+0700","caller":"usecase/ProductUseCase.go:94","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-28T09:55:21.786+0700","caller":"handler/productHandler.go:47","msg":"create Product","Status":"Error"}
+{"level":"ERROR","time":"2024-09-28T09:55:39.151+0700","caller":"middleware/authMiddleware.go:62","msg":"Verify token invalid","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T09:55:46.139+0700","caller":"usecase/AuthUseCase.go:143","msg":"Login","Status":"success"}
+{"level":"INFO","time":"2024-09-28T09:55:46.140+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-28T09:55:57.167+0700","caller":"handler/productHandler.go:171","msg":"get Product","Status":"Error"}
+{"level":"ERROR","time":"2024-09-28T09:56:14.323+0700","caller":"handler/productHandler.go:199","msg":"get Product","Status":"Error"}

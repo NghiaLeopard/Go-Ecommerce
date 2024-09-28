@@ -1,7 +1,6 @@
 package token
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -30,7 +29,5 @@ func NewPayload(id int, permissions []string, duration time.Duration) *Payload {
 }
 
 func (p *Payload) Valid() bool {
-	fmt.Println(p.Expired)
-	fmt.Println(time.Now())
 	return time.Now().After(p.Expired)
 }

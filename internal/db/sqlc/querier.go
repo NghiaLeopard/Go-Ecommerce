@@ -6,24 +6,31 @@ package db
 
 import (
 	"context"
+	"database/sql"
 )
 
 type Querier interface {
 	CreateCity(ctx context.Context, name string) (City, error)
+	CreateProduct(ctx context.Context, arg CreateProductParams) (Product, error)
 	CreateProductType(ctx context.Context, arg CreateProductTypeParams) (ProductType, error)
+	CreateProductView(ctx context.Context, arg CreateProductViewParams) (ProductUniqueView, error)
 	CreateRole(ctx context.Context, name string) (Role, error)
 	CreateRoleByDefault(ctx context.Context, arg CreateRoleByDefaultParams) (Role, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteCityById(ctx context.Context, id int64) error
 	DeleteManyCityByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteManyProductTypesByIds(ctx context.Context, dollar_1 []int64) error
+	DeleteManyProductsByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteManyRolesByIds(ctx context.Context, dollar_1 []int64) error
+	DeleteProductById(ctx context.Context, id int64) error
 	DeleteProductTypeById(ctx context.Context, id int64) error
 	DeleteRoleById(ctx context.Context, id int64) error
 	DeleteUser(ctx context.Context, id int64) error
 	FindUserById(ctx context.Context, id int64) error
 	GetCityById(ctx context.Context, id int64) (City, error)
 	GetCityByName(ctx context.Context, name string) (City, error)
+	GetProductById(ctx context.Context, id int64) (GetProductByIdRow, error)
+	GetProductBySlug(ctx context.Context, slug string) (GetProductBySlugRow, error)
 	GetProductTypeById(ctx context.Context, id int64) (ProductType, error)
 	GetProductTypeByName(ctx context.Context, name string) (ProductType, error)
 	GetRoleById(ctx context.Context, id int64) (Role, error)
@@ -40,6 +47,7 @@ type Querier interface {
 	UpdatePasswordUser(ctx context.Context, arg UpdatePasswordUserParams) error
 	UpdateProductType(ctx context.Context, arg UpdateProductTypeParams) (ProductType, error)
 	UpdateRole(ctx context.Context, arg UpdateRoleParams) (Role, error)
+	UpdateViewProduct(ctx context.Context, views sql.NullInt32) (Product, error)
 }
 
 var _ Querier = (*Queries)(nil)

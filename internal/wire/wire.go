@@ -19,6 +19,7 @@ func InitServer(sqlcDB *db.Queries, config config.Config, redis *redis.Client) (
 	wire.Build(
 		// middleware
 		repository.NewRedisTokenRepository,
+		repository.NewRedisProductRepository,
 		middleware.NewMiddleware,
 
 		// repository
@@ -26,18 +27,21 @@ func InitServer(sqlcDB *db.Queries, config config.Config, redis *redis.Client) (
 		repository.NewCityRepository,
 		repository.NewRoleRepository,
 		repository.NewProductTypeRepository,
+		repository.NewProductRepository,
 
 		// use case
 		usecase.NewAuthUseCase,
 		usecase.NewCityUseCase,
 		usecase.NewRoleUseCase,
 		usecase.NewProductTypeUseCase,
+		usecase.NewProductUseCase,
 
 		// handler
 		handler.NewAuthHandler,
 		handler.NewCityHandler,
 		handler.NewRoleHandler,
 		handler.NewProductTypeHandler,
+		handler.NewProductHandler,
 
 		api.NewServerHTTP,
 	)

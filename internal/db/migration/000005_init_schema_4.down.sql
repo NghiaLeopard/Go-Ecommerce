@@ -1,5 +1,0 @@
-ALTER TABLE IF EXISTS "Product_liked" DROP CONSTRAINT IF EXISTS "fk_ProductLiked";
-ALTER TABLE IF EXISTS "Product_liked" DROP CONSTRAINT IF EXISTS "fk_UserLiked";
-
-DROP TABLE IF EXISTS "Product_liked"
-
