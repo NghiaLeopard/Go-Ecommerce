@@ -6,10 +6,8 @@ import (
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
-	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/constant"
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
-	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -64,18 +62,8 @@ func (r *ProductRepository) GetProductById(ctx *gin.Context, id int64) (db.GetPr
 	return Product, err
 }
 
-func (r *ProductRepository) GetProductBySlug(ctx *gin.Context, slug string, isViewed bool) (db.GetProductBySlugRow, error) {
-
+func (r *ProductRepository) GetProductBySlug(ctx *gin.Context, slug string) (db.GetProductBySlugRow, error) {
 	Product, err := global.DB.GetProductBySlug(ctx, slug)
-
-	if err == nil && isViewed {
-		var wg sync.WaitGroup
-		wg.Add(1)
-		view := Product.Views.Int32 + 1
-		go r.UpdateViewProduct(ctx, Product.ID, view, &wg)
-
-		wg.Wait()
-	}
 
 	return Product, err
 }
@@ -120,11 +108,10 @@ func (r *ProductRepository) UpdateViewProduct(ctx *gin.Context, id int64, view i
 	}
 }
 
-func (r *ProductRepository) UpdateUniqueView(ctx *gin.Context, productId int64, wg *sync.WaitGroup) {
-	payload := ctx.MustGet(constant.AuthorizationKey).(*token.Payload)
+func (r *ProductRepository) UpdateUniqueView(ctx *gin.Context, productId int64, userId int, wg *sync.WaitGroup) {
 	arg := db.CreateProductUniqueViewParams{
 		ProductID: int32(productId),
-		UserID:    int32(payload.Id),
+		UserID:    int32(userId),
 	}
 
 	err := global.DB.CreateProductUniqueView(ctx, arg)

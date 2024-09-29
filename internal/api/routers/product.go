@@ -18,8 +18,8 @@ func ProductRouter(api *gin.RouterGroup, middleware middleware.Middleware, Produ
 
 		productPublic := apiProduct.Group("/public")
 		{
-			productPublic.GET("/:id", middleware.AuthMiddleware("1", false, true), ProductHandler.GetProduct)
-			productPublic.GET("/slug/:slug", middleware.AuthMiddleware("1", false, true), ProductHandler.GetProductBySlug)
+			productPublic.GET("/:id", middleware.AuthMiddleware("1", true, true), ProductHandler.GetProduct)
+			productPublic.GET("/slug/:slug", middleware.AuthMiddleware("1", true, true), ProductHandler.GetProductBySlug)
 		}
 
 	}

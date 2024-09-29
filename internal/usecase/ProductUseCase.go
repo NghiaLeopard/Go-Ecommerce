@@ -2,13 +2,16 @@ package usecase
 
 import (
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
 	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/constant"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -62,13 +65,6 @@ func (c *ProductUseCase) CreateProduct(ctx *gin.Context, req IRequest.CreateProd
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return IResponse.Product{}, err, 401
-	}
-
-	err = c.RedisProduct.SetViewProduct(ctx, Product.ID)
-
-	if err != nil {
-		global.Logger.Error("Redis product error", zap.String("Status", "Error"))
-		return IResponse.Product{}, fmt.Errorf("redis product error"), 500
 	}
 
 	res := IResponse.Product{
@@ -138,11 +134,35 @@ func (c *ProductUseCase) GetProductUseCase(ctx *gin.Context, id int64) (IRespons
 }
 
 func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, slug string, isViewed bool) (IResponse.GetProduct, error, int) {
-	Product, err := c.ProductRepo.GetProductBySlug(ctx, slug, isViewed)
+	Product, err := c.ProductRepo.GetProductBySlug(ctx, slug)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return IResponse.GetProduct{}, fmt.Errorf("get Product is not exist"), 401
+	}
+
+	if isViewed {
+		var wg sync.WaitGroup
+		wg.Add(1)
+		view := Product.Views.Int32 + 1
+		go c.ProductRepo.UpdateViewProduct(ctx, Product.ID, view, &wg)
+
+		if value, exists := ctx.MustGet(constant.AuthorizationKey).(*token.Payload); exists {
+			boolRedis, err := c.RedisProduct.CheckProductUniqueView(ctx, Product.ID, value.Id)
+			if !boolRedis && err == nil {
+				go c.ProductRepo.UpdateUniqueView(ctx, Product.ID, value.Id, &wg)
+				err := c.RedisProduct.SetProductUniqueView(ctx, Product.ID, value.Id)
+
+				if err != nil {
+					global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+					return IResponse.GetProduct{}, fmt.Errorf("redis set unique product"), 500
+
+				}
+
+			}
+		}
+
+		wg.Wait()
 	}
 
 	res := IResponse.GetProduct{
