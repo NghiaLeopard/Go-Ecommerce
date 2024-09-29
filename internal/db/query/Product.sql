@@ -41,8 +41,6 @@ WHERE id = $2;
 DELETE FROM "Product"
 WHERE id = $1;
 
-
-
 -- name: DeleteManyProductsByIds :exec
 DELETE FROM "Product"
 WHERE id = ANY($1::bigint[]);
