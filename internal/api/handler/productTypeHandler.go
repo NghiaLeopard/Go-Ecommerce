@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"fmt"
-
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IHandler "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/interfaces"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
@@ -93,8 +91,6 @@ func (c *ProductTypeHandler) GetProductType(ctx *gin.Context) {
 		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
 		return
 	}
-
-	fmt.Println(req.ID)
 
 	ProductType, err, codeStatus := c.ProductTypeUseCase.GetProductTypeUseCase(ctx, req.ID)
 

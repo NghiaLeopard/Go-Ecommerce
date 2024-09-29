@@ -15,6 +15,8 @@ func ProductRouter(api *gin.RouterGroup, middleware middleware.Middleware, Produ
 		// apiProduct.PUT("/:id", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.UPDATE", true, false), ProductHandler.UpdateProduct)
 		apiProduct.DELETE("/:id", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.DELETE", true, false), ProductHandler.DeleteProduct)
 		apiProduct.DELETE("", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.DELETE", true, false), ProductHandler.DeleteManyProduct)
+		apiProduct.POST("/like", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.VIEW", true, false), ProductHandler.LikeProduct)
+		apiProduct.POST("/unlike", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.VIEW", true, false), ProductHandler.UnLikeProduct)
 
 		productPublic := apiProduct.Group("/public")
 		{

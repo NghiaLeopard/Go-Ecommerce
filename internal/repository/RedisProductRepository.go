@@ -43,3 +43,39 @@ func (r *RedisProductRepository) CheckProductUniqueView(ctx *gin.Context, produc
 
 	return result.Val(), nil
 }
+
+func (r *RedisProductRepository) SetLikeProduct(ctx *gin.Context, productId int64, userID int) error {
+	key := fmt.Sprintf("%d:LikeProduct", productId)
+
+	if err := r.Redis.SAdd(ctx, key, userID).Err(); err != nil {
+		global.Logger.Error("could not delete like product to redis", zap.Error(err))
+		return fmt.Errorf("could not delete like product to redis for userID: %d: %v", userID, err)
+	}
+
+	return nil
+}
+
+func (r *RedisProductRepository) CheckLikeProduct(ctx *gin.Context, productId int64, userID int) (bool, error) {
+	key := fmt.Sprintf("%d:LikeProduct", productId)
+
+	result := r.Redis.SIsMember(ctx, key, userID)
+
+	if result.Err() != nil {
+		global.Logger.Error("could not delete like product to redis", zap.Error(result.Err()))
+		return true, fmt.Errorf("could not delete like product to redis for userID: %d: %v", userID, result.Err())
+	}
+
+	return result.Val(), nil
+}
+
+func (r *RedisProductRepository) DeleteLikeProduct(ctx *gin.Context, productId int64, userID int) error {
+	key := fmt.Sprintf("%d:LikeProduct", productId)
+
+	result := r.Redis.SRem(ctx, key, userID)
+
+	if result.Err() != nil {
+		global.Logger.Error("could not delete like product to redis", zap.Error(result.Err()))
+		return fmt.Errorf("could not delete like product to redis for userID: %d: %v", userID, result.Err())
+	}
+	return nil
+}

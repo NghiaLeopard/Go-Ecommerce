@@ -10,4 +10,6 @@ type Product interface {
 	// UpdateProduct(ctx *gin.Context)
 	DeleteProduct(ctx *gin.Context)
 	DeleteManyProduct(ctx *gin.Context)
+	LikeProduct(ctx *gin.Context)
+	UnLikeProduct(ctx *gin.Context)
 }

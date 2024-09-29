@@ -28,6 +28,14 @@ type GetProduct struct {
 	ID int64 `uri:"id" binding:"required,min=1"`
 }
 
+type LikeProduct struct {
+	ID int64 `json:"productId" binding:"required"`
+}
+
+type UnLikeProduct struct {
+	ID int64 `json:"productId" binding:"required"`
+}
+
 type GetProductBySlug struct {
 	Slug string `uri:"slug" binding:"required,min=1"`
 }

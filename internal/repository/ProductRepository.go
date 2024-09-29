@@ -123,8 +123,25 @@ func (r *ProductRepository) UpdateUniqueView(ctx *gin.Context, productId int64, 
 	}
 }
 
+func (r *ProductRepository) UpdateLikeProduct(ctx *gin.Context, productId int64, userId int) error {
+	arg := db.CreateProductLikeParams{
+		ProductID: int32(productId),
+		UserID:    int32(userId),
+	}
+
+	err := global.DB.CreateProductLike(ctx, arg)
+
+	return err
+}
+
 func (r *ProductRepository) DeleteProduct(ctx *gin.Context, id int64) error {
 	err := global.DB.DeleteProductById(ctx, id)
+
+	return err
+}
+
+func (r *ProductRepository) DeleteLikeProduct(ctx *gin.Context, id int) error {
+	err := global.DB.DeleteLikedProductByUserId(ctx, int32(id))
 
 	return err
 }

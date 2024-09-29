@@ -118,7 +118,5 @@ func (r *RedisTokenRepository) CheckBlackListToken(ctx *gin.Context, accessToken
 		return fmt.Errorf("access token have blacklist")
 	}
 
-	fmt.Println(result.Val())
-
 	return nil
 }

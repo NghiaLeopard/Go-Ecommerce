@@ -11,12 +11,14 @@ import (
 type Querier interface {
 	CreateCity(ctx context.Context, name string) (City, error)
 	CreateProduct(ctx context.Context, arg CreateProductParams) (Product, error)
+	CreateProductLike(ctx context.Context, arg CreateProductLikeParams) error
 	CreateProductType(ctx context.Context, arg CreateProductTypeParams) (ProductType, error)
 	CreateProductUniqueView(ctx context.Context, arg CreateProductUniqueViewParams) error
 	CreateRole(ctx context.Context, name string) (Role, error)
 	CreateRoleByDefault(ctx context.Context, arg CreateRoleByDefaultParams) (Role, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteCityById(ctx context.Context, id int64) error
+	DeleteLikedProductByUserId(ctx context.Context, userID int32) error
 	DeleteManyCityByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteManyProductTypesByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteManyProductsByIds(ctx context.Context, dollar_1 []int64) error

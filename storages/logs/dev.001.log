@@ -1353,3 +1353,70 @@
 {"level":"INFO","time":"2024-09-29T10:13:16.929+0700","caller":"handler/productHandler.go:137","msg":"get Product","Status":"Success"}
 {"level":"INFO","time":"2024-09-29T10:19:46.335+0700","caller":"handler/productHandler.go:137","msg":"get Product","Status":"Success"}
 {"level":"INFO","time":"2024-09-29T10:19:47.574+0700","caller":"handler/productHandler.go:137","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-29T10:21:29.016+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-29T10:21:29.035+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-29T10:21:29.035+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-29T10:21:29.035+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-29T10:21:31.994+0700","caller":"handler/productHandler.go:137","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-29T10:28:25.482+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-29T10:28:25.507+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-29T10:28:25.508+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-29T10:28:25.508+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-29T10:28:28.408+0700","caller":"usecase/ProductUseCase.go:140","msg":"pq: function array_remove(integer, unknown) does not exist","Status":"Error"}
+{"level":"INFO","time":"2024-09-29T10:29:14.212+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-29T10:29:14.235+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-29T10:29:14.235+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-29T10:29:14.235+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-29T10:29:19.554+0700","caller":"handler/productHandler.go:137","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-29T16:07:13.406+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-29T16:07:13.535+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-29T16:07:13.538+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-29T16:07:13.539+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-29T16:08:01.867+0700","caller":"handler/productHandler.go:90","msg":"strconv.ParseInt: parsing \"like\": invalid syntax","Status":"Error"}
+{"level":"INFO","time":"2024-09-29T16:09:06.473+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-29T16:09:06.511+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-29T16:09:06.512+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-29T16:09:06.512+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-29T16:09:23.890+0700","caller":"handler/productHandler.go:90","msg":"strconv.ParseInt: parsing \"like\": invalid syntax","Status":"Error"}
+{"level":"ERROR","time":"2024-09-29T16:09:39.844+0700","caller":"handler/productHandler.go:90","msg":"strconv.ParseInt: parsing \"like\": invalid syntax","Status":"Error"}
+{"level":"INFO","time":"2024-09-29T16:10:29.904+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-29T16:10:29.956+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-29T16:10:29.957+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-29T16:10:29.957+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-29T16:10:33.650+0700","caller":"handler/productHandler.go:90","msg":"strconv.ParseInt: parsing \"like\": invalid syntax","Status":"Error"}
+{"level":"ERROR","time":"2024-09-29T16:11:23.510+0700","caller":"usecase/ProductUseCase.go:277","msg":"pq: insert or update on table \"Product_liked\" violates foreign key constraint \"fk_productliked\"","Status":"Error"}
+{"level":"INFO","time":"2024-09-29T16:13:10.297+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-29T16:13:10.313+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-29T16:13:10.313+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-29T16:13:10.313+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-29T16:13:12.242+0700","caller":"handler/productHandler.go:258","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-29T16:13:15.479+0700","caller":"usecase/ProductUseCase.go:263","msg":"user liked Product","Status":"Error"}
+{"level":"ERROR","time":"2024-09-29T16:14:15.544+0700","caller":"usecase/ProductUseCase.go:296","msg":"deleted user liked Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-29T16:15:16.443+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-29T16:15:16.497+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-29T16:15:16.500+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-29T16:15:16.501+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-29T16:15:22.145+0700","caller":"usecase/ProductUseCase.go:296","msg":"deleted user liked Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-29T16:15:34.532+0700","caller":"handler/productHandler.go:286","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-29T16:19:17.038+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-29T16:19:17.068+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-29T16:19:17.069+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-29T16:19:17.069+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-29T16:19:19.603+0700","caller":"usecase/ProductUseCase.go:296","msg":"deleted user liked Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-29T16:22:24.374+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-29T16:22:24.391+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-29T16:22:24.391+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-29T16:22:24.391+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-29T16:22:30.804+0700","caller":"usecase/ProductUseCase.go:277","msg":"pq: duplicate key value violates unique constraint \"Product_liked_pkey\"","Status":"Error"}
+{"level":"INFO","time":"2024-09-29T16:26:35.055+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-29T16:26:48.103+0700","caller":"handler/productHandler.go:258","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-29T16:26:51.909+0700","caller":"handler/productHandler.go:286","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-29T16:27:15.148+0700","caller":"usecase/ProductUseCase.go:263","msg":"userId is not exist in productLike","Status":"Error"}
+{"level":"ERROR","time":"2024-09-29T16:30:02.497+0700","caller":"usecase/ProductUseCase.go:263","msg":"userId is not exist in productLike","Status":"Error"}
+{"level":"INFO","time":"2024-09-29T16:31:19.085+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-29T16:31:19.120+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-29T16:31:19.125+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-29T16:31:19.126+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-29T16:31:23.988+0700","caller":"usecase/ProductUseCase.go:296","msg":"deleted user liked Product","Status":"Error"}
+{"level":"ERROR","time":"2024-09-29T16:32:03.075+0700","caller":"usecase/ProductUseCase.go:263","msg":"userId is exist in productLike","Status":"Error"}
+{"level":"ERROR","time":"2024-09-29T16:32:11.641+0700","caller":"usecase/ProductUseCase.go:296","msg":"deleted user liked Product","Status":"Error"}

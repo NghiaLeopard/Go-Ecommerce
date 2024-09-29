@@ -387,8 +387,6 @@ func (a *AuthUseCase) UpdateAuthMeUserCase(ctx *gin.Context, req IRequest.Update
 		return IResponse.UpdateAuthMe{}, fmt.Errorf("Update auth me fail"), 500
 	}
 
-	fmt.Println(user.Addresses)
-
 	data := IResponse.UpdateAuthMe{
 		Id:          user.ID,
 		Email:       user.Email,
