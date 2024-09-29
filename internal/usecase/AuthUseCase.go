@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"strings"
 
+	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
 	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/constant"
-	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
@@ -386,8 +386,6 @@ func (a *AuthUseCase) UpdateAuthMeUserCase(ctx *gin.Context, req IRequest.Update
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return IResponse.UpdateAuthMe{}, fmt.Errorf("Update auth me fail"), 500
 	}
-
-	fmt.Println(user.Addresses)
 
 	data := IResponse.UpdateAuthMe{
 		Id:          user.ID,

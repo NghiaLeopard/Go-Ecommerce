@@ -5,8 +5,8 @@ import (
 	"database/sql"
 	"log"
 
+	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/constant"
-	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/utils"
 	_ "github.com/lib/pq"

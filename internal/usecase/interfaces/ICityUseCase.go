@@ -1,8 +1,8 @@
 package IUseCase
 
 import (
+	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
-	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	"github.com/gin-gonic/gin"
 )
 

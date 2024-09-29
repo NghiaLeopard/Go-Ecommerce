@@ -156,7 +156,6 @@ func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, slug string, 
 				if err != nil {
 					global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 					return IResponse.GetProduct{}, fmt.Errorf("redis set unique product"), 500
-
 				}
 
 			}
@@ -247,4 +246,70 @@ func (c *ProductUseCase) DeleteManyProductUseCase(ctx *gin.Context, arrayId []in
 	}
 
 	return nil, 200
+}
+
+func (c *ProductUseCase) LikeProductUseCase(ctx *gin.Context, productId int64) (error, int) {
+	payload := ctx.MustGet(constant.AuthorizationKey).(*token.Payload)
+
+	boolLike, err := c.RedisProduct.CheckLikeProduct(ctx, productId, payload.Id)
+	fmt.Println(boolLike)
+	fmt.Println(payload.Id)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return fmt.Errorf("redis error"), 500
+	}
+
+	if boolLike {
+		global.Logger.Error("userId is exist in productLike", zap.String("Status", "Error"))
+		return fmt.Errorf("userId is exist in productLike"), 400
+	}
+
+	err = c.RedisProduct.SetLikeProduct(ctx, productId, payload.Id)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return fmt.Errorf("redis error"), 500
+	}
+
+	err = c.ProductRepo.UpdateLikeProduct(ctx, productId, payload.Id)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return fmt.Errorf("update product fail"), 400
+	}
+
+	return nil, 201
+}
+
+func (c *ProductUseCase) UnLikeProductUseCase(ctx *gin.Context, productId int64) (error, int) {
+	payload := ctx.MustGet(constant.AuthorizationKey).(*token.Payload)
+
+	boolLike, err := c.RedisProduct.CheckLikeProduct(ctx, productId, payload.Id)
+	fmt.Println(boolLike)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return fmt.Errorf("redis error"), 500
+	}
+
+	if !boolLike {
+		global.Logger.Error("deleted user liked Product", zap.String("Status", "Error"))
+		return fmt.Errorf("deleted user liked Product"), 400
+	}
+	err = c.RedisProduct.DeleteLikeProduct(ctx, productId, payload.Id)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return fmt.Errorf("redis error"), 500
+	}
+
+	err = c.ProductRepo.DeleteLikeProduct(ctx, payload.Id)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return fmt.Errorf("get Product is not exist"), 400
+	}
+
+	return nil, 201
 }

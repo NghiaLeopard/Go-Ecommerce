@@ -230,3 +230,59 @@ func (c *ProductHandler) DeleteManyProduct(ctx *gin.Context) {
 	global.Logger.Info("get Product", zap.String("Status", "Success"))
 	response.SuccessResponse(ctx, "Delete Product success", codeStatus, "")
 }
+
+// LikeProduct 				godoc
+// @security 				BearerAuth
+// @Summary 				Get Product by id
+// @Description 			Get Product by id
+// @Param ProductId  		path int true "product ID"
+// @Produce 				application/json
+// @Tags 					Product
+// @Success 				200 {object} IResponse.Product{}
+// @Router 					/api/product/{ProductId} [get]
+func (c *ProductHandler) LikeProduct(ctx *gin.Context) {
+	var req IRequest.LikeProduct
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	err, codeStatus := c.ProductUseCase.LikeProductUseCase(ctx, req.ID)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Info("get Product", zap.String("Status", "Success"))
+	response.SuccessResponse(ctx, "Like Product success", codeStatus, "")
+}
+
+// UnLikeProduct 				godoc
+// @security 				BearerAuth
+// @Summary 				Get Product by id
+// @Description 			Get Product by id
+// @Param ProductId  		path int true "product ID"
+// @Produce 				application/json
+// @Tags 					Product
+// @Success 				200 {object} IResponse.Product{}
+// @Router 					/api/product/{ProductId} [get]
+func (c *ProductHandler) UnLikeProduct(ctx *gin.Context) {
+	var req IRequest.UnLikeProduct
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	err, codeStatus := c.ProductUseCase.UnLikeProductUseCase(ctx, req.ID)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Info("get Product", zap.String("Status", "Success"))
+	response.SuccessResponse(ctx, "Unlike Product success", codeStatus, "")
+}

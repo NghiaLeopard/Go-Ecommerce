@@ -7,10 +7,10 @@
 package wire
 
 import (
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/middleware"
-	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"

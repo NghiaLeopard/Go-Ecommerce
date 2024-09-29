@@ -3,8 +3,8 @@ package IRepository
 import (
 	"sync"
 
+	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
-	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,8 +14,14 @@ type Product interface {
 	// GetAllProduct(ctx *gin.Context, req IRequest.GetAllProduct) ([]db.Product, error)
 	GetProductById(ctx *gin.Context, id int64) (db.GetProductByIdRow, error)
 	GetProductBySlug(ctx *gin.Context, slug string) (db.GetProductBySlugRow, error)
+	DeleteProduct(ctx *gin.Context, userId int64) error
+	DeleteManyProduct(ctx *gin.Context, arrayId []int64) error
+
+	// View product
 	UpdateViewProduct(ctx *gin.Context, id int64, view int32, wg *sync.WaitGroup)
 	UpdateUniqueView(ctx *gin.Context, productId int64, userId int, wg *sync.WaitGroup)
-	DeleteProduct(ctx *gin.Context, id int64) error
-	DeleteManyProduct(ctx *gin.Context, arrayId []int64) error
+
+	// Liked product
+	UpdateLikeProduct(ctx *gin.Context, productId int64, userId int) error
+	DeleteLikeProduct(ctx *gin.Context, userId int) error
 }

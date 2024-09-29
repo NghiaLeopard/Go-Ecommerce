@@ -2,11 +2,10 @@ package repository
 
 import (
 	"database/sql"
-	"fmt"
 
+	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
-	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	"github.com/gin-gonic/gin"
 )
@@ -68,7 +67,6 @@ func (a *AuthRepository) UpdatePasswordUser(ctx *gin.Context, arg db.UpdatePassw
 
 // UpdateUser implements IRepository.IAuth.
 func (a *AuthRepository) UpdateAuthMe(ctx *gin.Context, req IRequest.UpdateAuthMe, id int64) (user db.User, err error) {
-	fmt.Println(req)
 
 	arg := db.UpdateAuthMeParams{
 		Avatar:      sql.NullString{String: req.Avatar, Valid: true},
@@ -81,7 +79,6 @@ func (a *AuthRepository) UpdateAuthMe(ctx *gin.Context, req IRequest.UpdateAuthM
 		ID:          id,
 	}
 	user, err = global.DB.UpdateAuthMe(ctx, arg)
-	fmt.Println(user)
 
 	return
 }

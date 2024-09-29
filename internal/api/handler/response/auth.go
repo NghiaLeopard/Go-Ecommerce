@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"time"
 
-	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
+	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 )
 
 type User struct {

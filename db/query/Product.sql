@@ -13,6 +13,13 @@ INSERT INTO "Product_UniqueView" (
   $1, $2
 );
 
+-- name: CreateProductLike :exec
+INSERT INTO "Product_liked" (
+  "product_id","user_id"
+) VALUES (
+  $1, $2
+);
+
 -- name: GetProductById :one
 SELECT p.*,COUNT(l."user_id") AS "totalLikes",
 json_agg(l."user_id") AS "likedBy",
@@ -40,6 +47,10 @@ WHERE id = $2;
 -- name: DeleteProductById :exec
 DELETE FROM "Product"
 WHERE id = $1;
+
+-- name: DeleteLikedProductByUserId :exec
+DELETE FROM "Product_liked"
+WHERE user_id = $1;
 
 -- name: DeleteManyProductsByIds :exec
 DELETE FROM "Product"

@@ -75,6 +75,24 @@ func (q *Queries) CreateProduct(ctx context.Context, arg CreateProductParams) (P
 	return i, err
 }
 
+const createProductLike = `-- name: CreateProductLike :exec
+INSERT INTO "Product_liked" (
+  "product_id","user_id"
+) VALUES (
+  $1, $2
+)
+`
+
+type CreateProductLikeParams struct {
+	ProductID int32 `json:"product_id"`
+	UserID    int32 `json:"user_id"`
+}
+
+func (q *Queries) CreateProductLike(ctx context.Context, arg CreateProductLikeParams) error {
+	_, err := q.db.ExecContext(ctx, createProductLike, arg.ProductID, arg.UserID)
+	return err
+}
+
 const createProductUniqueView = `-- name: CreateProductUniqueView :exec
 INSERT INTO "Product_UniqueView" (
   "product_id","user_id"
@@ -90,6 +108,16 @@ type CreateProductUniqueViewParams struct {
 
 func (q *Queries) CreateProductUniqueView(ctx context.Context, arg CreateProductUniqueViewParams) error {
 	_, err := q.db.ExecContext(ctx, createProductUniqueView, arg.ProductID, arg.UserID)
+	return err
+}
+
+const deleteLikedProductByUserId = `-- name: DeleteLikedProductByUserId :exec
+DELETE FROM "Product_liked"
+WHERE user_id = $1
+`
+
+func (q *Queries) DeleteLikedProductByUserId(ctx context.Context, userID int32) error {
+	_, err := q.db.ExecContext(ctx, deleteLikedProductByUserId, userID)
 	return err
 }
 

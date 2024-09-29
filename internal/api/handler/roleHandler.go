@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"fmt"
-
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IHandler "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/interfaces"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
@@ -64,8 +62,6 @@ func (c *RoleHandler) GetRole(ctx *gin.Context) {
 		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
 		return
 	}
-
-	fmt.Println(req.ID)
 
 	role, err, codeStatus := c.RoleUseCase.GetRoleUseCase(ctx, req.ID)
 
