@@ -1306,3 +1306,5 @@
 {"level":"INFO","time":"2024-09-28T15:51:51.777+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
 {"level":"INFO","time":"2024-09-28T15:52:01.825+0700","caller":"usecase/ProductUseCase.go:170","msg":"Create ","Status":"success"}
 {"level":"ERROR","time":"2024-09-28T15:52:01.829+0700","caller":"handler/productHandler.go:137","msg":"get Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-28T16:15:37.874+0700","caller":"usecase/ProductUseCase.go:170","msg":"Create ","Status":"success"}
+{"level":"ERROR","time":"2024-09-28T16:15:37.886+0700","caller":"handler/productHandler.go:137","msg":"get Product","Status":"Error"}
