@@ -3,8 +3,8 @@ package handler
 import (
 	"testing"
 
-	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/mock"
-	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/db/mock"
+	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/utils"
 	"github.com/golang/mock/gomock"
 )

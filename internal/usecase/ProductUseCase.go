@@ -156,7 +156,6 @@ func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, slug string, 
 				if err != nil {
 					global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 					return IResponse.GetProduct{}, fmt.Errorf("redis set unique product"), 500
-
 				}
 
 			}

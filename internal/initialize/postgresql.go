@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"time"
 
+	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
-	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
 	"go.uber.org/zap"
 )
 

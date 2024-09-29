@@ -1,7 +1,7 @@
 package IRepository
 
 import (
-	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/db/sqlc"
+	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 	"github.com/gin-gonic/gin"
 )
 
