@@ -19,6 +19,45 @@ definitions:
     required:
     - name
     type: object
+  IRequest.CreateProduct:
+    properties:
+      countInStock:
+        type: integer
+      description:
+        type: string
+      discount:
+        type: integer
+      discountEndDate:
+        example: '[{"value": "null or time"}]'
+        type: string
+      discountStart:
+        example: '[{"value": "null or time"}]'
+        type: string
+      image:
+        type: string
+      location:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      slug:
+        type: string
+      status:
+        type: integer
+      type:
+        type: integer
+    required:
+    - countInStock
+    - description
+    - image
+    - location
+    - name
+    - price
+    - slug
+    - status
+    - type
+    type: object
   IRequest.CreateProductType:
     properties:
       name:
@@ -45,6 +84,15 @@ definitions:
         items:
           type: integer
         minItems: 1
+        type: array
+    required:
+    - arrayId
+    type: object
+  IRequest.DeleteManyProduct:
+    properties:
+      arrayId:
+        items:
+          type: integer
         type: array
     required:
     - arrayId
@@ -98,6 +146,13 @@ definitions:
           type: string
         type: array
     type: object
+  IRequest.LikeProduct:
+    properties:
+      productId:
+        type: integer
+    required:
+    - productId
+    type: object
   IRequest.LoginRequest:
     properties:
       email:
@@ -131,6 +186,13 @@ definitions:
     - newPassword
     - secretKey
     type: object
+  IRequest.UnLikeProduct:
+    properties:
+      productId:
+        type: integer
+    required:
+    - productId
+    type: object
   IRequest.UpdateAuthMe:
     properties:
       address:
@@ -158,33 +220,12 @@ definitions:
     - middleName
     - phoneNumber
     type: object
-  IResponse.Addresses:
-    properties:
-      address:
-        type: string
-      city:
-        type: string
-      firstName:
-        type: string
-      isDefault:
-        type: boolean
-      lastName:
-        type: string
-      middleName:
-        type: string
-      phoneNumber:
-        type: string
-    type: object
   IResponse.AuthMe:
     properties:
       _id:
         type: integer
       address:
         type: string
-      addresses:
-        items:
-          $ref: '#/definitions/IResponse.Addresses'
-        type: array
       avatar:
         type: string
       city:
@@ -229,6 +270,49 @@ definitions:
       user:
         $ref: '#/definitions/IResponse.User'
     type: object
+  IResponse.Product:
+    properties:
+      _id:
+        type: integer
+      countInStock:
+        type: integer
+      createdAt:
+        type: string
+      description:
+        type: string
+      discount:
+        type: integer
+      discountEndDate:
+        type: string
+      discountStartDate:
+        type: string
+      image:
+        type: string
+      likedBy:
+        items:
+          type: integer
+        type: array
+      location:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      slug:
+        type: string
+      status:
+        type: integer
+      totalLikes:
+        type: integer
+      type:
+        type: integer
+      uniqueViews:
+        items:
+          type: integer
+        type: array
+      views:
+        type: integer
+    type: object
   IResponse.ProductType:
     properties:
       _id:
@@ -259,10 +343,6 @@ definitions:
         type: integer
       address:
         type: string
-      addresses:
-        items:
-          $ref: '#/definitions/IResponse.Addresses'
-        type: array
       avatar:
         type: string
       city:
@@ -290,10 +370,6 @@ definitions:
         type: integer
       address:
         type: string
-      addresses:
-        items:
-          $ref: '#/definitions/IResponse.Addresses'
-        type: array
       avatar:
         type: string
       city:
@@ -805,6 +881,185 @@ paths:
       summary: Delete many ProductType
       tags:
       - ProductType
+  /api/products:
+    post:
+      description: Create Product
+      parameters:
+      - description: Create Product
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.CreateProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.Product'
+      security:
+      - BearerAuth: []
+      summary: Create Product
+      tags:
+      - Product
+  /api/products/{productId}:
+    delete:
+      description: Delete Product
+      parameters:
+      - description: Delete Product
+        in: path
+        name: productId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete Product
+      tags:
+      - Product
+    get:
+      description: Get Product by id
+      parameters:
+      - description: product ID
+        in: path
+        name: productId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.Product'
+      security:
+      - BearerAuth: []
+      summary: Get Product by id
+      tags:
+      - Product
+  /api/products/delete-many:
+    delete:
+      description: Delete many Product
+      parameters:
+      - description: DeleteMany Product
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.DeleteManyProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Delete many Product success
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete many Product
+      tags:
+      - Product
+  /api/products/like:
+    post:
+      description: Like product
+      parameters:
+      - description: like product
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.LikeProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Like product success
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Like product
+      tags:
+      - Product
+  /api/products/public/{productId}:
+    get:
+      description: Get Product by id
+      parameters:
+      - description: product ID
+        in: path
+        name: productId
+        required: true
+        type: integer
+      - in: query
+        name: isViewed
+        required: true
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.Product'
+      security:
+      - BearerAuth: []
+      summary: Get Product by id
+      tags:
+      - Product
+  /api/products/public/slug/{productSlug}:
+    get:
+      description: Get Product by slug
+      parameters:
+      - description: product slug
+        in: path
+        name: productSlug
+        required: true
+        type: string
+      - in: query
+        name: isViewed
+        required: true
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/IResponse.Product'
+      security:
+      - BearerAuth: []
+      summary: Get Product by slug
+      tags:
+      - Product
+  /api/products/unlike:
+    post:
+      description: Unlike product
+      parameters:
+      - description: unlike product
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/IRequest.UnLikeProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Unlike product success
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Unlike product
+      tags:
+      - Product
   /api/role:
     get:
       description: Get all role

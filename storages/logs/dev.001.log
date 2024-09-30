@@ -1420,3 +1420,123 @@
 {"level":"ERROR","time":"2024-09-29T16:31:23.988+0700","caller":"usecase/ProductUseCase.go:296","msg":"deleted user liked Product","Status":"Error"}
 {"level":"ERROR","time":"2024-09-29T16:32:03.075+0700","caller":"usecase/ProductUseCase.go:263","msg":"userId is exist in productLike","Status":"Error"}
 {"level":"ERROR","time":"2024-09-29T16:32:11.641+0700","caller":"usecase/ProductUseCase.go:296","msg":"deleted user liked Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-29T16:38:48.982+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-29T16:38:48.999+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-29T16:38:48.999+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-29T16:38:49.000+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-29T16:38:52.710+0700","caller":"usecase/ProductUseCase.go:297","msg":"deleted user liked Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-29T16:39:22.945+0700","caller":"handler/productHandler.go:286","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-29T16:39:31.890+0700","caller":"handler/productHandler.go:258","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-29T16:39:34.723+0700","caller":"usecase/ProductUseCase.go:264","msg":"userId is exist in productLike","Status":"Error"}
+{"level":"INFO","time":"2024-09-29T16:39:40.135+0700","caller":"handler/productHandler.go:286","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-29T16:39:43.175+0700","caller":"usecase/ProductUseCase.go:297","msg":"deleted user liked Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T13:22:20.043+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-30T13:22:20.196+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-30T13:22:20.196+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-30T13:22:20.196+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T13:23:10.335+0700","caller":"handler/productHandler.go:153","msg":"Key: 'GetProductPublicById.ID' Error:Field validation for 'ID' failed on the 'required' tag","Status":"Error"}
+{"level":"ERROR","time":"2024-09-30T13:23:49.157+0700","caller":"handler/productHandler.go:153","msg":"Key: 'GetProductPublicById.ID' Error:Field validation for 'ID' failed on the 'required' tag","Status":"Error"}
+{"level":"ERROR","time":"2024-09-30T13:25:35.573+0700","caller":"handler/productHandler.go:153","msg":"Key: 'GetProductPublicById.ID' Error:Field validation for 'ID' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T13:27:12.133+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-30T13:27:12.157+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-30T13:27:12.157+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-30T13:27:12.157+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T13:27:28.960+0700","caller":"handler/productHandler.go:172","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T13:27:36.182+0700","caller":"handler/productHandler.go:172","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:07:46.520+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-30T14:07:46.571+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-30T14:07:46.571+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-30T14:07:46.572+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:16:53.435+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-30T14:16:53.452+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-30T14:16:53.452+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-30T14:16:53.453+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:19:32.862+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T14:21:16.628+0700","caller":"handler/productHandler.go:33","msg":"parsing time \"string\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"string\" as \"2006\"","Status":"Error"}
+{"level":"ERROR","time":"2024-09-30T14:21:44.603+0700","caller":"handler/productHandler.go:33","msg":"parsing time \"null\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"null\" as \"2006\"","Status":"Error"}
+{"level":"ERROR","time":"2024-09-30T14:22:19.205+0700","caller":"handler/productHandler.go:33","msg":"parsing time \"string\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"string\" as \"2006\"","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T14:23:01.417+0700","caller":"handler/productHandler.go:45","msg":"create Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:23:24.207+0700","caller":"handler/productHandler.go:45","msg":"create Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T14:26:04.377+0700","caller":"handler/productHandler.go:160","msg":"Key: 'GetParamsIsViewed.IsViewed' Error:Field validation for 'IsViewed' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T14:27:04.352+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-30T14:27:04.367+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-30T14:27:04.367+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-30T14:27:04.367+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:34:10.776+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T14:34:40.097+0700","caller":"handler/productHandler.go:160","msg":"Key: 'GetParamsIsViewed.IsViewed' Error:Field validation for 'IsViewed' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T14:35:11.658+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-30T14:35:11.675+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-30T14:35:11.676+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-30T14:35:11.676+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T14:35:38.811+0700","caller":"handler/productHandler.go:153","msg":"strconv.ParseInt: parsing \"{productId}\": invalid syntax","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T14:38:29.381+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-30T14:38:29.395+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-30T14:38:29.396+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-30T14:38:29.396+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T14:39:10.815+0700","caller":"handler/productHandler.go:153","msg":"Key: 'GetProductPublicById.ID' Error:Field validation for 'ID' failed on the 'required' tag","Status":"Error"}
+{"level":"ERROR","time":"2024-09-30T14:39:39.830+0700","caller":"handler/productHandler.go:153","msg":"Key: 'GetProductPublicById.ID' Error:Field validation for 'ID' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T14:40:58.947+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-30T14:40:58.962+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-30T14:40:58.963+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-30T14:40:58.963+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:41:16.528+0700","caller":"handler/productHandler.go:172","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:41:19.360+0700","caller":"handler/productHandler.go:137","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T14:41:51.837+0700","caller":"handler/productHandler.go:160","msg":"Key: 'GetParamsIsViewed.IsViewed' Error:Field validation for 'IsViewed' failed on the 'required' tag","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T14:43:53.463+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-30T14:43:53.485+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-30T14:43:53.485+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-30T14:43:53.485+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:47:00.415+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-30T14:47:00.427+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-30T14:47:00.428+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-30T14:47:00.428+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:47:41.347+0700","caller":"handler/productHandler.go:174","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:50:05.784+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-30T14:50:05.803+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-30T14:50:05.803+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-30T14:50:05.804+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:50:42.095+0700","caller":"handler/productHandler.go:138","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:50:54.539+0700","caller":"handler/productHandler.go:138","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:51:10.575+0700","caller":"handler/productHandler.go:102","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:51:16.881+0700","caller":"handler/productHandler.go:102","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:51:41.558+0700","caller":"handler/productHandler.go:295","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T14:51:44.959+0700","caller":"usecase/ProductUseCase.go:318","msg":"userId is exist in productLike","Status":"Error"}
+{"level":"ERROR","time":"2024-09-30T14:51:59.702+0700","caller":"usecase/ProductUseCase.go:318","msg":"userId is exist in productLike","Status":"Error"}
+{"level":"ERROR","time":"2024-09-30T14:52:00.473+0700","caller":"usecase/ProductUseCase.go:318","msg":"userId is exist in productLike","Status":"Error"}
+{"level":"ERROR","time":"2024-09-30T14:52:01.202+0700","caller":"usecase/ProductUseCase.go:318","msg":"userId is exist in productLike","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T14:52:13.610+0700","caller":"handler/productHandler.go:323","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T14:52:18.032+0700","caller":"usecase/ProductUseCase.go:351","msg":"deleted user liked Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T14:52:38.980+0700","caller":"handler/productHandler.go:295","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T14:52:41.333+0700","caller":"usecase/ProductUseCase.go:318","msg":"userId is exist in productLike","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T14:52:51.946+0700","caller":"handler/productHandler.go:323","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T14:52:53.977+0700","caller":"usecase/ProductUseCase.go:351","msg":"deleted user liked Product","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T14:53:31.162+0700","caller":"handler/productHandler.go:239","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:53:33.542+0700","caller":"handler/productHandler.go:239","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:53:36.658+0700","caller":"handler/productHandler.go:239","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:53:54.468+0700","caller":"handler/productHandler.go:45","msg":"create Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T14:54:00.968+0700","caller":"handler/productHandler.go:227","msg":"strconv.ParseInt: parsing \"delete-many\": invalid syntax","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T14:54:02.315+0700","caller":"handler/productHandler.go:227","msg":"strconv.ParseInt: parsing \"delete-many\": invalid syntax","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T14:56:45.621+0700","caller":"handler/productHandler.go:267","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T14:58:51.931+0700","caller":"handler/productHandler.go:227","msg":"strconv.ParseInt: parsing \"delete-many\": invalid syntax","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T15:01:02.358+0700","caller":"handler/productHandler.go:45","msg":"create Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T15:01:03.503+0700","caller":"handler/productHandler.go:45","msg":"create Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T15:01:15.173+0700","caller":"handler/productHandler.go:227","msg":"strconv.ParseInt: parsing \"delete-many\": invalid syntax","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T15:01:16.390+0700","caller":"handler/productHandler.go:227","msg":"strconv.ParseInt: parsing \"delete-many\": invalid syntax","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T15:13:26.455+0700","caller":"usecase/ProductUseCase.go:285","msg":"ArrayID is empty","Status":"Error"}
+{"level":"ERROR","time":"2024-09-30T15:13:37.287+0700","caller":"usecase/ProductUseCase.go:285","msg":"ArrayID is empty","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T15:13:47.931+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-30T15:13:47.994+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-30T15:13:47.995+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-30T15:13:47.995+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T15:13:51.739+0700","caller":"usecase/ProductUseCase.go:285","msg":"ArrayID is empty","Status":"Error"}
+{"level":"INFO","time":"2024-09-30T15:14:02.818+0700","caller":"handler/productHandler.go:267","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T15:14:13.316+0700","caller":"handler/productHandler.go:267","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-09-30T15:14:52.331+0700","caller":"handler/productHandler.go:227","msg":"strconv.ParseInt: parsing \"delete-many\": invalid syntax","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T15:17:02.167+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-09-30T15:17:02.178+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-09-30T15:17:02.178+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-09-30T15:17:02.178+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T15:19:31.903+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T15:20:13.527+0700","caller":"handler/productHandler.go:267","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T15:20:29.280+0700","caller":"handler/productHandler.go:102","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-09-30T15:20:33.271+0700","caller":"handler/productHandler.go:102","msg":"get Product","Status":"Success"}

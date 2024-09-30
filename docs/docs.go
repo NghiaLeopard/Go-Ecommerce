@@ -751,6 +751,296 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/products": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create Product",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Create Product",
+                "parameters": [
+                    {
+                        "description": "Create Product",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/IRequest.CreateProduct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/IResponse.Product"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/delete-many": {
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete many Product",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Delete many Product",
+                "parameters": [
+                    {
+                        "description": "DeleteMany Product",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/IRequest.DeleteManyProduct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete many Product success",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/like": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Like product",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Like product",
+                "parameters": [
+                    {
+                        "description": "like product",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/IRequest.LikeProduct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Like product success",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/public/slug/{productSlug}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Product by slug",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get Product by slug",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "product slug",
+                        "name": "productSlug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "isViewed",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/IResponse.Product"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/public/{productId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Product by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get Product by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "product ID",
+                        "name": "productId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "isViewed",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/IResponse.Product"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/unlike": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Unlike product",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Unlike product",
+                "parameters": [
+                    {
+                        "description": "unlike product",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/IRequest.UnLikeProduct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Unlike product success",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{productId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Product by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get Product by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "product ID",
+                        "name": "productId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/IResponse.Product"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete Product",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Delete Product",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Delete Product",
+                        "name": "productId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/role": {
             "get": {
                 "security": [
@@ -1016,6 +1306,60 @@ const docTemplate = `{
                 }
             }
         },
+        "IRequest.CreateProduct": {
+            "type": "object",
+            "required": [
+                "countInStock",
+                "description",
+                "image",
+                "location",
+                "name",
+                "price",
+                "slug",
+                "status",
+                "type"
+            ],
+            "properties": {
+                "countInStock": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "integer"
+                },
+                "discountEndDate": {
+                    "type": "string",
+                    "example": "[{\"value\": \"null or time\"}]"
+                },
+                "discountStart": {
+                    "type": "string",
+                    "example": "[{\"value\": \"null or time\"}]"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                }
+            }
+        },
         "IRequest.CreateProductType": {
             "type": "object",
             "required": [
@@ -1054,6 +1398,20 @@ const docTemplate = `{
                 "arrayId": {
                     "type": "array",
                     "minItems": 1,
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "IRequest.DeleteManyProduct": {
+            "type": "object",
+            "required": [
+                "arrayId"
+            ],
+            "properties": {
+                "arrayId": {
+                    "type": "array",
                     "items": {
                         "type": "integer"
                     }
@@ -1136,6 +1494,17 @@ const docTemplate = `{
                 }
             }
         },
+        "IRequest.LikeProduct": {
+            "type": "object",
+            "required": [
+                "productId"
+            ],
+            "properties": {
+                "productId": {
+                    "type": "integer"
+                }
+            }
+        },
         "IRequest.LoginRequest": {
             "type": "object",
             "required": [
@@ -1184,6 +1553,17 @@ const docTemplate = `{
                 }
             }
         },
+        "IRequest.UnLikeProduct": {
+            "type": "object",
+            "required": [
+                "productId"
+            ],
+            "properties": {
+                "productId": {
+                    "type": "integer"
+                }
+            }
+        },
         "IRequest.UpdateAuthMe": {
             "type": "object",
             "required": [
@@ -1221,32 +1601,6 @@ const docTemplate = `{
                 }
             }
         },
-        "IResponse.Addresses": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type": "string"
-                },
-                "city": {
-                    "type": "string"
-                },
-                "firstName": {
-                    "type": "string"
-                },
-                "isDefault": {
-                    "type": "boolean"
-                },
-                "lastName": {
-                    "type": "string"
-                },
-                "middleName": {
-                    "type": "string"
-                },
-                "phoneNumber": {
-                    "type": "string"
-                }
-            }
-        },
         "IResponse.AuthMe": {
             "type": "object",
             "properties": {
@@ -1255,12 +1609,6 @@ const docTemplate = `{
                 },
                 "address": {
                     "type": "string"
-                },
-                "addresses": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/IResponse.Addresses"
-                    }
                 },
                 "avatar": {
                     "type": "string"
@@ -1330,6 +1678,71 @@ const docTemplate = `{
                 }
             }
         },
+        "IResponse.Product": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "integer"
+                },
+                "countInStock": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "integer"
+                },
+                "discountEndDate": {
+                    "type": "string"
+                },
+                "discountStartDate": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "likedBy": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "location": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "totalLikes": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "uniqueViews": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "views": {
+                    "type": "integer"
+                }
+            }
+        },
         "IResponse.ProductType": {
             "type": "object",
             "properties": {
@@ -1376,12 +1789,6 @@ const docTemplate = `{
                 "address": {
                     "type": "string"
                 },
-                "addresses": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/IResponse.Addresses"
-                    }
-                },
                 "avatar": {
                     "type": "string"
                 },
@@ -1422,12 +1829,6 @@ const docTemplate = `{
                 },
                 "address": {
                     "type": "string"
-                },
-                "addresses": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/IResponse.Addresses"
-                    }
                 },
                 "avatar": {
                     "type": "string"
