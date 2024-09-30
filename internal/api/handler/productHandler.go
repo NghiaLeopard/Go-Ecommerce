@@ -26,7 +26,7 @@ func NewProductHandler(ProductUseCase IUseCase.Product) IHandler.Product {
 // @Produce 				application/json
 // @Tags 					Product
 // @Success 				200 {object} IResponse.Product{}
-// @Router 					/api/product-types [post]
+// @Router 					/api/products [post]
 func (r *ProductHandler) CreateProduct(ctx *gin.Context) {
 	var req IRequest.CreateProduct
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -46,7 +46,7 @@ func (r *ProductHandler) CreateProduct(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Create Product success", codeStatus, Product)
 }
 
-// GetAllProduct 	godoc
+// GetAllProduct 		godoc
 // @security 			BearerAuth
 // @Summary 			Get all Product
 // @Description 		Get all Product
@@ -79,11 +79,11 @@ func (r *ProductHandler) CreateProduct(ctx *gin.Context) {
 // @security 				BearerAuth
 // @Summary 				Get Product by id
 // @Description 			Get Product by id
-// @Param ProductId  		path int true "product ID"
+// @Param productId  		path int true "product ID"
 // @Produce 				application/json
 // @Tags 					Product
 // @Success 				200 {object} IResponse.Product{}
-// @Router 					/api/product/{ProductId} [get]
+// @Router 					/api/products/{productId} [get]
 func (c *ProductHandler) GetProduct(ctx *gin.Context) {
 	var req IRequest.GetProduct
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -103,15 +103,16 @@ func (c *ProductHandler) GetProduct(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
 }
 
-// GetProduct 				godoc
+// GetProductBySlug 		godoc
 // @security 				BearerAuth
-// @Summary 				Get Product by id
-// @Description 			Get Product by id
-// @Param ProductId  		path int true "product ID"
+// @Summary 				Get Product by slug
+// @Description 			Get Product by slug
+// @Param productSlug  		path string true "product slug"
+// @Param 					request query IRequest.GetParamsIsViewed true "is viewed product"
 // @Produce 				application/json
 // @Tags 					Product
 // @Success 				200 {object} IResponse.Product{}
-// @Router 					/api/product/{ProductId} [get]
+// @Router 					/api/products/public/slug/{productSlug} [get]
 func (c *ProductHandler) GetProductBySlug(ctx *gin.Context) {
 	var reqUrl IRequest.GetProductBySlug
 	if err := ctx.ShouldBindUri(&reqUrl); err != nil {
@@ -128,6 +129,42 @@ func (c *ProductHandler) GetProductBySlug(ctx *gin.Context) {
 	}
 
 	Product, err, codeStatus := c.ProductUseCase.GetProductBySlugUseCase(ctx, reqUrl.Slug, reqViewed.IsViewed)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Info("get Product", zap.String("Status", "Success"))
+	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
+}
+
+// GetProduct 				godoc
+// @security 				BearerAuth
+// @Summary 				Get Product by id
+// @Description 			Get Product by id
+// @Param productId  		path int true "product ID"
+// @Param 					request query IRequest.GetParamsIsViewed true "is viewed product"
+// @Produce 				application/json
+// @Tags 					Product
+// @Success 				200 {object} IResponse.Product{}
+// @Router 					/api/products/public/{productId} [get]
+func (c *ProductHandler) GetProductPublicById(ctx *gin.Context) {
+	var reqUrl IRequest.GetProductPublicById
+	if err := ctx.ShouldBindUri(&reqUrl); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	var reqViewed IRequest.GetParamsIsViewed
+	if err := ctx.ShouldBindQuery(&reqViewed); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Param is invalid or not exist", 400)
+		return
+	}
+
+	Product, err, codeStatus := c.ProductUseCase.GetProductPublicByIdUseCase(ctx, reqUrl.ID, reqViewed.IsViewed)
 
 	if err != nil {
 		response.ErrorResponse(ctx, err.Error(), codeStatus)
@@ -175,19 +212,19 @@ func (c *ProductHandler) GetProductBySlug(ctx *gin.Context) {
 // 	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
 // }
 
-// DeleteProduct 		godoc
+// DeleteProduct 			godoc
 // @security 				BearerAuth
 // @Summary 				Delete Product
 // @Description 			Delete Product
-// @Param ProductId 	path int true "Delete Product"
+// @Param productId 		path int true "Delete Product"
 // @Produce 				application/json
 // @Tags 					Product
 // @Success 				200 {string} string [delete Product success]
-// @Router 					/api/product-types/{ProductId} [delete]
+// @Router 					/api/products/{productId} [delete]
 func (c *ProductHandler) DeleteProduct(ctx *gin.Context) {
 	var req IRequest.DeleteProduct
 	if err := ctx.ShouldBindUri(&req); err != nil {
-		global.Logger.Error(err.Error(), zap.String("Status", "Success"))
+		global.Logger.Error(err.Error(), zap.String("Status", "error"))
 		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
 		return
 	}
@@ -203,7 +240,7 @@ func (c *ProductHandler) DeleteProduct(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Delete Product success", codeStatus, "")
 }
 
-// DeleteManyProduct 	godoc
+// DeleteManyProduct 		godoc
 // @security 				BearerAuth
 // @Summary 				Delete many Product
 // @Description 			Delete many Product
@@ -211,7 +248,7 @@ func (c *ProductHandler) DeleteProduct(ctx *gin.Context) {
 // @Produce 				application/json
 // @Tags 					Product
 // @Success 				200 {string} string "Delete many Product success"
-// @Router 					/api/product-types/delete-many [delete]
+// @Router 					/api/products/delete-many [delete]
 func (c *ProductHandler) DeleteManyProduct(ctx *gin.Context) {
 	var req IRequest.DeleteManyProduct
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -233,13 +270,13 @@ func (c *ProductHandler) DeleteManyProduct(ctx *gin.Context) {
 
 // LikeProduct 				godoc
 // @security 				BearerAuth
-// @Summary 				Get Product by id
-// @Description 			Get Product by id
-// @Param ProductId  		path int true "product ID"
+// @Summary 				Like product
+// @Description 			Like product
+// @Param 					tags body IRequest.LikeProduct true "like product"
 // @Produce 				application/json
 // @Tags 					Product
-// @Success 				200 {object} IResponse.Product{}
-// @Router 					/api/product/{ProductId} [get]
+// @Success 				200 {string} string "Like product success"
+// @Router 					/api/products/like [post]
 func (c *ProductHandler) LikeProduct(ctx *gin.Context) {
 	var req IRequest.LikeProduct
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -259,15 +296,15 @@ func (c *ProductHandler) LikeProduct(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Like Product success", codeStatus, "")
 }
 
-// UnLikeProduct 				godoc
+// UnLikeProduct 			godoc
 // @security 				BearerAuth
-// @Summary 				Get Product by id
-// @Description 			Get Product by id
-// @Param ProductId  		path int true "product ID"
+// @Summary 				Unlike product
+// @Description 			Unlike product
+// @Param 					tags body IRequest.UnLikeProduct true "unlike product"
 // @Produce 				application/json
 // @Tags 					Product
-// @Success 				200 {object} IResponse.Product{}
-// @Router 					/api/product/{ProductId} [get]
+// @Success 				200 {string} string "Unlike product success"
+// @Router 					/api/products/unlike [post]
 func (c *ProductHandler) UnLikeProduct(ctx *gin.Context) {
 	var req IRequest.UnLikeProduct
 	if err := ctx.ShouldBindJSON(&req); err != nil {

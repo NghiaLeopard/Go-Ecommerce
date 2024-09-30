@@ -68,6 +68,12 @@ func (r *ProductRepository) GetProductBySlug(ctx *gin.Context, slug string) (db.
 	return Product, err
 }
 
+func (r *ProductRepository) GetProductPublicById(ctx *gin.Context, productId int64) (db.GetProductPublicByIdRow, error) {
+	Product, err := global.DB.GetProductPublicById(ctx, productId)
+
+	return Product, err
+}
+
 // func (r *ProductRepository) GetAllProduct(ctx *gin.Context, req IRequest.GetAllProduct) ([]db.Product, error) {
 
 // 	offset := req.Limit * (req.Page - 1)

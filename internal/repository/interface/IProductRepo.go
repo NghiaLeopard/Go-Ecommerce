@@ -14,6 +14,7 @@ type Product interface {
 	// GetAllProduct(ctx *gin.Context, req IRequest.GetAllProduct) ([]db.Product, error)
 	GetProductById(ctx *gin.Context, id int64) (db.GetProductByIdRow, error)
 	GetProductBySlug(ctx *gin.Context, slug string) (db.GetProductBySlugRow, error)
+	GetProductPublicById(ctx *gin.Context, productId int64) (db.GetProductPublicByIdRow, error)
 	DeleteProduct(ctx *gin.Context, userId int64) error
 	DeleteManyProduct(ctx *gin.Context, arrayId []int64) error
 

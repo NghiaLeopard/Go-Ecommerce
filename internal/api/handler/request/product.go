@@ -7,8 +7,8 @@ type CreateProduct struct {
 	Slug            string    `json:"slug" binding:"required"`
 	Description     string    `json:"description" binding:"required"`
 	Discount        int32     `json:"discount"`
-	DiscountEndDate time.Time `json:"discountEndDate"`
-	DiscountStart   time.Time `json:"discountStart"`
+	DiscountEndDate time.Time `json:"discountEndDate" example:"[{\"value\": \"null or time\"}]"`
+	DiscountStart   time.Time `json:"discountStart" example:"[{\"value\": \"null or time\"}]"`
 	Image           string    `json:"image" binding:"required"`
 	Location        int32     `json:"location" binding:"required"`
 	Type            int32     `json:"type" binding:"required"`
@@ -25,9 +25,18 @@ type GetAllProduct struct {
 }
 
 type GetProduct struct {
-	ID int64 `uri:"id" binding:"required,min=1"`
+	ID int64 `uri:"id" binding:"required"`
 }
 
+type GetProductPublicById struct {
+	ID int64 `uri:"productId" binding:"required"`
+}
+
+type GetProductBySlug struct {
+	Slug string `uri:"productSlug" binding:"required,min=1"`
+}
+
+// like
 type LikeProduct struct {
 	ID int64 `json:"productId" binding:"required"`
 }
@@ -36,20 +45,8 @@ type UnLikeProduct struct {
 	ID int64 `json:"productId" binding:"required"`
 }
 
-type GetProductBySlug struct {
-	Slug string `uri:"slug" binding:"required,min=1"`
-}
-
 type GetParamsIsViewed struct {
 	IsViewed bool `form:"isViewed" binding:"required"`
-}
-
-type DeleteProduct struct {
-	ID int64 `uri:"id" binding:"required,min=1"`
-}
-
-type DeleteManyProduct struct {
-	ArrayId []int64 `json:"arrayId" binding:"required"`
 }
 
 type GetParamsUpdateProduct struct {
@@ -59,4 +56,13 @@ type GetParamsUpdateProduct struct {
 type GetBodyUpdateProduct struct {
 	Name string `json:"name" `
 	Slug string `json:"slug"`
+}
+
+// Delete
+type DeleteProduct struct {
+	ID int64 `uri:"id" binding:"required,min=1"`
+}
+
+type DeleteManyProduct struct {
+	ArrayId []int64 `json:"arrayId" binding:"required"`
 }

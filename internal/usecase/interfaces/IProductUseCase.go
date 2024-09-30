@@ -12,6 +12,7 @@ type Product interface {
 	LikeProductUseCase(ctx *gin.Context, id int64) (error, int)
 	UnLikeProductUseCase(ctx *gin.Context, id int64) (error, int)
 	GetProductBySlugUseCase(ctx *gin.Context, slug string, isViewed bool) (IResponse.GetProduct, error, int)
+	GetProductPublicByIdUseCase(ctx *gin.Context, productId int64, isViewed bool) (IResponse.GetProduct, error, int)
 	// GetAllProductUseCase(ctx *gin.Context, req IRequest.GetAllProduct) ([]db.Product, error, int)
 	// UpdateProductUseCase(ctx *gin.Context, id int, name string, slug string) (IResponse.Product, error, int)
 	DeleteProductUseCase(ctx *gin.Context, id int64) (error, int)

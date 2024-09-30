@@ -30,6 +30,17 @@ WHERE p.id = $1
 GROUP BY p.id
 LIMIT 1;
 
+-- name: GetProductRelated :one
+SELECT p.*,COUNT(l."user_id") AS "totalLikes",
+json_agg(l."user_id") AS "likedBy",
+json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
+LEFT JOIN "Product_liked" l ON l."product_id" = p.id
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+WHERE p.type = $1 
+GROUP BY p.id
+LIMIT $2
+OFFSET $3;
+
 -- name: GetProductBySlug :one
 SELECT p.*,COUNT(l."user_id") AS "totalLikes",
 json_agg(l."user_id") AS "likedBy",
@@ -37,6 +48,36 @@ json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
 LEFT JOIN "Product_liked" l ON l."product_id" = p.id
 LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
 WHERE p.slug = $1 
+GROUP BY p.id
+LIMIT 1;
+
+-- name: GetProductPublicById :one
+SELECT p.*,COUNT(l."user_id") AS "totalLikes",
+json_agg(l."user_id") AS "likedBy",
+json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
+LEFT JOIN "Product_liked" l ON l."product_id" = p.id
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+WHERE p.id = $1 
+GROUP BY p.id
+LIMIT 1;
+
+-- name: GetAllProductLike :one
+SELECT p.*,COUNT(l."user_id") AS "totalLikes",
+json_agg(l."user_id") AS "likedBy",
+json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
+LEFT JOIN "Product_liked" l ON l."product_id" = p.id
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+WHERE l.user_id = $1 
+GROUP BY p.id
+LIMIT 1;
+
+-- name: GetAllProductView :one
+SELECT p.*,COUNT(l."user_id") AS "totalLikes",
+json_agg(l."user_id") AS "likedBy",
+json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
+LEFT JOIN "Product_liked" l ON l."product_id" = p.id
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+WHERE v.user_id = $1 
 GROUP BY p.id
 LIMIT 1;
 

@@ -14,14 +14,14 @@ func ProductRouter(api *gin.RouterGroup, middleware middleware.Middleware, Produ
 		// apiProduct.GET("", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.VIEW", true, false), ProductHandler.GetAllProduct)
 		// apiProduct.PUT("/:id", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.UPDATE", true, false), ProductHandler.UpdateProduct)
 		apiProduct.DELETE("/:id", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.DELETE", true, false), ProductHandler.DeleteProduct)
-		apiProduct.DELETE("", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.DELETE", true, false), ProductHandler.DeleteManyProduct)
+		apiProduct.DELETE("/delete-many", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.DELETE", true, false), ProductHandler.DeleteManyProduct)
 		apiProduct.POST("/like", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.VIEW", true, false), ProductHandler.LikeProduct)
 		apiProduct.POST("/unlike", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.VIEW", true, false), ProductHandler.UnLikeProduct)
 
 		productPublic := apiProduct.Group("/public")
 		{
-			productPublic.GET("/:id", middleware.AuthMiddleware("1", true, true), ProductHandler.GetProduct)
-			productPublic.GET("/slug/:slug", middleware.AuthMiddleware("1", true, true), ProductHandler.GetProductBySlug)
+			productPublic.GET("/:productId", middleware.AuthMiddleware("1", true, true), ProductHandler.GetProductPublicById)
+			productPublic.GET("/slug/:productSlug", middleware.AuthMiddleware("1", true, true), ProductHandler.GetProductBySlug)
 		}
 
 	}

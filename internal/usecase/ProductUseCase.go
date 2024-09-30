@@ -130,7 +130,7 @@ func (c *ProductUseCase) GetProductUseCase(ctx *gin.Context, id int64) (IRespons
 		CreateAt:          Product.CreateAt,
 	}
 
-	return res, nil, 201
+	return res, nil, 200
 }
 
 func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, slug string, isViewed bool) (IResponse.GetProduct, error, int) {
@@ -184,7 +184,61 @@ func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, slug string, 
 		CreateAt:          Product.CreateAt,
 	}
 
-	return res, nil, 201
+	return res, nil, 200
+}
+
+func (c *ProductUseCase) GetProductPublicByIdUseCase(ctx *gin.Context, id int64, isViewed bool) (IResponse.GetProduct, error, int) {
+	Product, err := c.ProductRepo.GetProductPublicById(ctx, id)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.GetProduct{}, fmt.Errorf("get Product is not exist"), 401
+	}
+
+	if isViewed {
+		var wg sync.WaitGroup
+		wg.Add(1)
+		view := Product.Views.Int32 + 1
+		go c.ProductRepo.UpdateViewProduct(ctx, Product.ID, view, &wg)
+
+		if value, exists := ctx.MustGet(constant.AuthorizationKey).(*token.Payload); exists {
+			boolRedis, err := c.RedisProduct.CheckProductUniqueView(ctx, Product.ID, value.Id)
+			if !boolRedis && err == nil {
+				go c.ProductRepo.UpdateUniqueView(ctx, Product.ID, value.Id, &wg)
+				err := c.RedisProduct.SetProductUniqueView(ctx, Product.ID, value.Id)
+
+				if err != nil {
+					global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+					return IResponse.GetProduct{}, fmt.Errorf("redis set unique product"), 500
+				}
+
+			}
+		}
+
+		wg.Wait()
+	}
+
+	res := IResponse.GetProduct{
+		Id:                Product.ID,
+		Name:              Product.Name,
+		Slug:              Product.Slug,
+		Price:             Product.Price,
+		CountInStock:      Product.CountInStock,
+		Description:       Product.Description,
+		Discount:          Product.Discount.Int32,
+		DiscountStartDate: Product.DiscountStartDate.Time,
+		DiscountEndDate:   Product.DiscountEndDate.Time,
+		Type:              Product.Type,
+		Location:          Product.Location,
+		Status:            Product.Status,
+		TotalLikes:        Product.TotalLikes,
+		Views:             Product.Views.Int32,
+		LikedBy:           Product.LikedBy,
+		UniqueViews:       Product.UniqueViews,
+		CreateAt:          Product.CreateAt,
+	}
+
+	return res, nil, 200
 }
 
 // func (c *ProductUseCase) UpdateProductUseCase(ctx *gin.Context, id int, name string, slug string) (IResponse.Product, error, int) {
