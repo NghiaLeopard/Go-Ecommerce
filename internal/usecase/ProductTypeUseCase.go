@@ -3,12 +3,12 @@ package usecase
 import (
 	"fmt"
 
-	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
 	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -47,15 +47,21 @@ func (c *ProductTypeUseCase) CreateProductType(ctx *gin.Context, name string, sl
 	}, nil, 201
 }
 
-func (c *ProductTypeUseCase) GetAllProductTypeUseCase(ctx *gin.Context, req IRequest.GetAllProductType) ([]db.ProductType, error, int) {
-	ProductType, err := c.ProductTypeRepo.GetAllProductType(ctx, req)
+func (c *ProductTypeUseCase) GetAllProductTypeUseCase(ctx *gin.Context, req IRequest.GetAllProductType) (IResponse.GetAllProductType, error, int) {
+	productType, err := c.ProductTypeRepo.GetAllProductType(ctx, req)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return []db.ProductType{}, fmt.Errorf("get ProductType is not exist"), 401
+		return IResponse.GetAllProductType{}, fmt.Errorf("get ProductType is not exist"), 401
 	}
 
-	return ProductType, nil, 200
+	totalPage := utils.PageCount(int64(req.Limit), productType[0].TotalCount)
+
+	return IResponse.GetAllProductType{
+		ProductTypes: productType,
+		TotalCount:   productType[0].TotalCount,
+		TotalPage:    totalPage,
+	}, nil, 200
 }
 
 func (c *ProductTypeUseCase) GetProductTypeUseCase(ctx *gin.Context, id int) (IResponse.ProductType, error, int) {

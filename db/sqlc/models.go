@@ -106,28 +106,28 @@ type City struct {
 }
 
 type Product struct {
-	ID                int64         `json:"id"`
-	Name              string        `json:"name"`
-	Image             string        `json:"image"`
-	CountInStock      int32         `json:"countInStock"`
-	Description       string        `json:"description"`
-	Sold              sql.NullInt32 `json:"sold"`
-	Discount          sql.NullInt32 `json:"discount"`
-	DiscountStartDate sql.NullTime  `json:"discountStartDate"`
-	DiscountEndDate   sql.NullTime  `json:"discountEndDate"`
-	Type              int32         `json:"type"`
-	Status            int32         `json:"status"`
-	Slug              string        `json:"slug"`
-	Price             int32         `json:"price"`
-	Location          int32         `json:"location"`
-	Views             sql.NullInt32 `json:"views"`
-	CreateAt          time.Time     `json:"create_at"`
+	ID                int64     `json:"id"`
+	Name              string    `json:"name"`
+	Image             string    `json:"image"`
+	CountInStock      int32     `json:"countInStock"`
+	Description       string    `json:"description"`
+	Sold              int32     `json:"sold"`
+	Discount          int32     `json:"discount"`
+	DiscountStartDate time.Time `json:"discountStartDate"`
+	DiscountEndDate   time.Time `json:"discountEndDate"`
+	Type              int32     `json:"type"`
+	Status            int32     `json:"status"`
+	Slug              string    `json:"slug"`
+	Price             int32     `json:"price"`
+	Location          int32     `json:"location"`
+	Views             int32     `json:"views"`
+	CreateAt          time.Time `json:"create_at"`
 }
 
 type ProductLiked struct {
 	ProductID int32     `json:"product_id"`
 	UserID    int32     `json:"user_id"`
-	CreateAt  time.Time `json:"create_at"`
+	LikeDate  time.Time `json:"like_date"`
 }
 
 type ProductType struct {
@@ -139,10 +139,9 @@ type ProductType struct {
 }
 
 type ProductUniqueView struct {
-	ProductID int32        `json:"product_id"`
-	UserID    int32        `json:"user_id"`
-	ViewDate  sql.NullTime `json:"view_date"`
-	CreateAt  time.Time    `json:"create_at"`
+	ProductID int32     `json:"product_id"`
+	UserID    int32     `json:"user_id"`
+	ViewDate  time.Time `json:"view_date"`
 }
 
 type Role struct {

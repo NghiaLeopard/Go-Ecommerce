@@ -7,6 +7,7 @@ package db
 
 import (
 	"context"
+	"time"
 
 	"github.com/lib/pq"
 )
@@ -117,7 +118,7 @@ func (q *Queries) GetRoleByName(ctx context.Context, name string) (Role, error) 
 }
 
 const listRole = `-- name: ListRole :many
-SELECT id, name, permission, create_at, update_at FROM "Role"
+SELECT id, name, permission, create_at, update_at,COUNT("Role".id) OVER() AS "totalCount" FROM "Role"
 WHERE  $3 ::text = '' or name ILIKE concat('%',$3,'%')
 LIMIT $1
 OFFSET $2
@@ -129,21 +130,31 @@ type ListRoleParams struct {
 	Search string `json:"search"`
 }
 
-func (q *Queries) ListRole(ctx context.Context, arg ListRoleParams) ([]Role, error) {
+type ListRoleRow struct {
+	ID         int64     `json:"id"`
+	Name       string    `json:"name"`
+	Permission []string  `json:"permission"`
+	CreateAt   time.Time `json:"create_at"`
+	UpdateAt   time.Time `json:"update_at"`
+	TotalCount int64     `json:"totalCount"`
+}
+
+func (q *Queries) ListRole(ctx context.Context, arg ListRoleParams) ([]ListRoleRow, error) {
 	rows, err := q.db.QueryContext(ctx, listRole, arg.Limit, arg.Offset, arg.Search)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	items := []Role{}
+	items := []ListRoleRow{}
 	for rows.Next() {
-		var i Role
+		var i ListRoleRow
 		if err := rows.Scan(
 			&i.ID,
 			&i.Name,
 			pq.Array(&i.Permission),
 			&i.CreateAt,
 			&i.UpdateAt,
+			&i.TotalCount,
 		); err != nil {
 			return nil, err
 		}

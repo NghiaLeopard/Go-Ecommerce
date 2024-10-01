@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"database/sql"
 	"sync"
 
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
@@ -47,9 +46,9 @@ func (r *ProductRepository) CreateProductDiscount(ctx *gin.Context, req IRequest
 		Status:            req.Status,
 		Image:             req.Image,
 		Location:          req.Location,
-		Discount:          sql.NullInt32{Int32: req.Discount, Valid: true},
-		DiscountStartDate: sql.NullTime{Time: req.DiscountStart, Valid: true},
-		DiscountEndDate:   sql.NullTime{Time: req.DiscountEndDate, Valid: true},
+		Discount:          req.Discount,
+		DiscountStartDate: req.DiscountStart,
+		DiscountEndDate:   req.DiscountEndDate,
 	}
 
 	Product, err = global.DB.CreateProduct(ctx, arg)
@@ -89,6 +88,21 @@ func (r *ProductRepository) GetProductPublicById(ctx *gin.Context, productId int
 // 	return Product, err
 // }
 
+func (r *ProductRepository) GetAllProductMeLiked(ctx *gin.Context, req IRequest.GetAllProductLiked, userId int) ([]db.GetAllProductLikeRow, error) {
+
+	offset := req.Limit * (req.Page - 1)
+	arg := db.GetAllProductLikeParams{
+		Limit:  req.Limit,
+		Offset: offset,
+		Search: req.Search,
+		UserID: int32(userId),
+	}
+
+	Product, err := global.DB.GetAllProductLike(ctx, arg)
+
+	return Product, err
+}
+
 // func (r *ProductRepository) UpdateProduct(ctx *gin.Context, id int64, name string, slug string) (db.Product, error) {
 // 	arg := db.UpdateProductParams{
 // 		ID:   id,
@@ -103,7 +117,7 @@ func (r *ProductRepository) GetProductPublicById(ctx *gin.Context, productId int
 func (r *ProductRepository) UpdateViewProduct(ctx *gin.Context, id int64, view int32, wg *sync.WaitGroup) {
 	arg := db.UpdateViewProductParams{
 		ID:    id,
-		Views: sql.NullInt32{Int32: view, Valid: true},
+		Views: view,
 	}
 	err := global.DB.UpdateViewProduct(ctx, arg)
 

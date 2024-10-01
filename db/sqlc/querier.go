@@ -28,8 +28,8 @@ type Querier interface {
 	DeleteRoleById(ctx context.Context, id int64) error
 	DeleteUser(ctx context.Context, id int64) error
 	FindUserById(ctx context.Context, id int64) error
-	GetAllProductLike(ctx context.Context, userID int32) (GetAllProductLikeRow, error)
-	GetAllProductView(ctx context.Context, userID int32) (GetAllProductViewRow, error)
+	GetAllProductLike(ctx context.Context, arg GetAllProductLikeParams) ([]GetAllProductLikeRow, error)
+	GetAllProductView(ctx context.Context, arg GetAllProductViewParams) ([]GetAllProductViewRow, error)
 	GetCityById(ctx context.Context, id int64) (City, error)
 	GetCityByName(ctx context.Context, name string) (City, error)
 	GetProductById(ctx context.Context, id int64) (GetProductByIdRow, error)
@@ -43,9 +43,9 @@ type Querier interface {
 	GetUserByEmail(ctx context.Context, email string) (GetUserByEmailRow, error)
 	GetUserById(ctx context.Context, id int64) (GetUserByIdRow, error)
 	InitDefaultAdmin(ctx context.Context, arg InitDefaultAdminParams) (User, error)
-	ListCity(ctx context.Context, arg ListCityParams) ([]City, error)
-	ListProductType(ctx context.Context, arg ListProductTypeParams) ([]ProductType, error)
-	ListRole(ctx context.Context, arg ListRoleParams) ([]Role, error)
+	ListCity(ctx context.Context, arg ListCityParams) ([]ListCityRow, error)
+	ListProductType(ctx context.Context, arg ListProductTypeParams) ([]ListProductTypeRow, error)
+	ListRole(ctx context.Context, arg ListRoleParams) ([]ListRoleRow, error)
 	ListUsers(ctx context.Context) ([]User, error)
 	UpdateAuthMe(ctx context.Context, arg UpdateAuthMeParams) (User, error)
 	UpdateCity(ctx context.Context, arg UpdateCityParams) (City, error)

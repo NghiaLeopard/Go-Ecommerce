@@ -23,7 +23,7 @@ SELECT * FROM "Role"
 WHERE name = $1 LIMIT 1;
 
 -- name: ListRole :many
-SELECT * FROM "Role"
+SELECT *,COUNT("Role".id) OVER() AS "totalCount" FROM "Role"
 WHERE  @search ::text = '' or name ILIKE concat('%',@search,'%')
 LIMIT $1
 OFFSET $2;

@@ -12,6 +12,7 @@ import (
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/token"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -46,9 +47,9 @@ func (c *ProductUseCase) CreateProduct(ctx *gin.Context, req IRequest.CreateProd
 			Price:             Product.Price,
 			CountInStock:      Product.CountInStock,
 			Description:       Product.Description,
-			Discount:          Product.Discount.Int32,
-			DiscountStartDate: Product.DiscountStartDate.Time,
-			DiscountEndDate:   Product.DiscountEndDate.Time,
+			Discount:          Product.Discount,
+			DiscountStartDate: Product.DiscountStartDate,
+			DiscountEndDate:   Product.DiscountEndDate,
 			Type:              Product.Type,
 			Location:          Product.Location,
 			Status:            Product.Status,
@@ -74,9 +75,9 @@ func (c *ProductUseCase) CreateProduct(ctx *gin.Context, req IRequest.CreateProd
 		Price:             Product.Price,
 		CountInStock:      Product.CountInStock,
 		Description:       Product.Description,
-		Discount:          Product.Discount.Int32,
-		DiscountStartDate: Product.DiscountStartDate.Time,
-		DiscountEndDate:   Product.DiscountEndDate.Time,
+		Discount:          Product.Discount,
+		DiscountStartDate: Product.DiscountStartDate,
+		DiscountEndDate:   Product.DiscountEndDate,
 		Type:              Product.Type,
 		Location:          Product.Location,
 		Status:            Product.Status,
@@ -102,6 +103,25 @@ func (c *ProductUseCase) CreateProduct(ctx *gin.Context, req IRequest.CreateProd
 // 	return Product, nil, 200
 // }
 
+func (c *ProductUseCase) GetAllProductMeLikedUseCase(ctx *gin.Context, req IRequest.GetAllProductLiked) (IResponse.GetAllMeLiked, error, int) {
+	payload := ctx.MustGet(constant.AuthorizationKey).(*token.Payload)
+	fmt.Println(payload.Id)
+
+	product, err := c.ProductRepo.GetAllProductMeLiked(ctx, req, payload.Id)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.GetAllMeLiked{}, fmt.Errorf("get Product is not exist"), 401
+	}
+	totalPage := utils.PageCount(int64(req.Limit), product[0].TotalCount)
+
+	return IResponse.GetAllMeLiked{
+		Products:   product,
+		TotalCount: product[0].TotalCount,
+		TotalPage:  totalPage,
+	}, nil, 200
+}
+
 func (c *ProductUseCase) GetProductUseCase(ctx *gin.Context, id int64) (IResponse.GetProduct, error, int) {
 	Product, err := c.ProductRepo.GetProductById(ctx, id)
 
@@ -117,14 +137,14 @@ func (c *ProductUseCase) GetProductUseCase(ctx *gin.Context, id int64) (IRespons
 		Price:             Product.Price,
 		CountInStock:      Product.CountInStock,
 		Description:       Product.Description,
-		Discount:          Product.Discount.Int32,
-		DiscountStartDate: Product.DiscountStartDate.Time,
-		DiscountEndDate:   Product.DiscountEndDate.Time,
+		Discount:          Product.Discount,
+		DiscountStartDate: Product.DiscountStartDate,
+		DiscountEndDate:   Product.DiscountEndDate,
 		Type:              Product.Type,
 		Location:          Product.Location,
 		Status:            Product.Status,
 		TotalLikes:        Product.TotalLikes,
-		Views:             Product.Views.Int32,
+		Views:             Product.Views,
 		LikedBy:           Product.LikedBy,
 		UniqueViews:       Product.UniqueViews,
 		CreateAt:          Product.CreateAt,
@@ -144,7 +164,7 @@ func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, slug string, 
 	if isViewed {
 		var wg sync.WaitGroup
 		wg.Add(1)
-		view := Product.Views.Int32 + 1
+		view := Product.Views + 1
 		go c.ProductRepo.UpdateViewProduct(ctx, Product.ID, view, &wg)
 
 		if value, exists := ctx.MustGet(constant.AuthorizationKey).(*token.Payload); exists {
@@ -171,14 +191,14 @@ func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, slug string, 
 		Price:             Product.Price,
 		CountInStock:      Product.CountInStock,
 		Description:       Product.Description,
-		Discount:          Product.Discount.Int32,
-		DiscountStartDate: Product.DiscountStartDate.Time,
-		DiscountEndDate:   Product.DiscountEndDate.Time,
+		Discount:          Product.Discount,
+		DiscountStartDate: Product.DiscountStartDate,
+		DiscountEndDate:   Product.DiscountEndDate,
 		Type:              Product.Type,
 		Location:          Product.Location,
 		Status:            Product.Status,
 		TotalLikes:        Product.TotalLikes,
-		Views:             Product.Views.Int32,
+		Views:             Product.Views,
 		LikedBy:           Product.LikedBy,
 		UniqueViews:       Product.UniqueViews,
 		CreateAt:          Product.CreateAt,
@@ -198,7 +218,7 @@ func (c *ProductUseCase) GetProductPublicByIdUseCase(ctx *gin.Context, id int64,
 	if isViewed {
 		var wg sync.WaitGroup
 		wg.Add(1)
-		view := Product.Views.Int32 + 1
+		view := Product.Views + 1
 		go c.ProductRepo.UpdateViewProduct(ctx, Product.ID, view, &wg)
 
 		if value, exists := ctx.MustGet(constant.AuthorizationKey).(*token.Payload); exists {
@@ -225,14 +245,14 @@ func (c *ProductUseCase) GetProductPublicByIdUseCase(ctx *gin.Context, id int64,
 		Price:             Product.Price,
 		CountInStock:      Product.CountInStock,
 		Description:       Product.Description,
-		Discount:          Product.Discount.Int32,
-		DiscountStartDate: Product.DiscountStartDate.Time,
-		DiscountEndDate:   Product.DiscountEndDate.Time,
+		Discount:          Product.Discount,
+		DiscountStartDate: Product.DiscountStartDate,
+		DiscountEndDate:   Product.DiscountEndDate,
 		Type:              Product.Type,
 		Location:          Product.Location,
 		Status:            Product.Status,
 		TotalLikes:        Product.TotalLikes,
-		Views:             Product.Views.Int32,
+		Views:             Product.Views,
 		LikedBy:           Product.LikedBy,
 		UniqueViews:       Product.UniqueViews,
 		CreateAt:          Product.CreateAt,

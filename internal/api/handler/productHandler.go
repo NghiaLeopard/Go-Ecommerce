@@ -75,6 +75,34 @@ func (r *ProductHandler) CreateProduct(ctx *gin.Context) {
 
 // }
 
+// GetAllProductMeLiked 		godoc
+// @security 					BearerAuth
+// @Summary 					Get all Product
+// @Description 				Get all Product
+// @Param 						request query IRequest.GetAllProduct true "get all product type"
+// @Produce 					application/json
+// @Tags 						Product
+// @Success 					200 {array} []IResponse.Product{}
+// @Router 						/api/product-types [get]
+func (c *ProductHandler) GetAllProductMeLiked(ctx *gin.Context) {
+	var req IRequest.GetAllProductLiked
+	if err := ctx.ShouldBindQuery(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	Product, err, codeStatus := c.ProductUseCase.GetAllProductMeLikedUseCase(ctx, req)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Error("get Product", zap.String("Status", "success"))
+	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
+}
+
 // GetProduct 				godoc
 // @security 				BearerAuth
 // @Summary 				Get Product by id

@@ -33,7 +33,7 @@ func (r *RoleRepository) GetRoleByName(ctx *gin.Context, name string) (db.Role, 
 	return role, err
 }
 
-func (r *RoleRepository) GetAllRole(ctx *gin.Context, req IRequest.GetAllRole) ([]db.Role, error) {
+func (r *RoleRepository) GetAllRole(ctx *gin.Context, req IRequest.GetAllRole) ([]db.ListRoleRow, error) {
 	offset := req.Limit * (req.Page - 1)
 	arg := db.ListRoleParams{
 		Limit:  req.Limit,

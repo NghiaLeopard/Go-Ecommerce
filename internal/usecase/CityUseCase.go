@@ -3,11 +3,11 @@ package usecase
 import (
 	"fmt"
 
-	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -57,16 +57,22 @@ func (c *CityUseCase) GetCityUseCase(ctx *gin.Context, id int) (IResponse.City, 
 	}, nil, 200
 }
 
-func (c *CityUseCase) GetAllCityUseCase(ctx *gin.Context, page int32, limit int32, search string, order string) ([]db.City, error, int) {
+func (c *CityUseCase) GetAllCityUseCase(ctx *gin.Context, page int32, limit int32, search string, order string) (IResponse.GetAllCity, error, int) {
 
 	city, err := c.CityRepo.GetAllCity(ctx, page, limit, search, order)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return []db.City{}, fmt.Errorf("get city is not exist"), 401
+		return IResponse.GetAllCity{}, fmt.Errorf("get city is not exist"), 401
 	}
 
-	return city, nil, 200
+	totalPage := utils.PageCount(int64(limit), city[0].TotalCount)
+
+	return IResponse.GetAllCity{
+		Cities:     city,
+		TotalCount: city[0].TotalCount,
+		TotalPage:  totalPage,
+	}, nil, 200
 }
 
 func (c *CityUseCase) UpdateCityUseCase(ctx *gin.Context, id int, name string) (IResponse.City, error, int) {

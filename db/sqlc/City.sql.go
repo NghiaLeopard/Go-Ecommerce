@@ -7,6 +7,7 @@ package db
 
 import (
 	"context"
+	"time"
 
 	"github.com/lib/pq"
 )
@@ -87,7 +88,7 @@ func (q *Queries) GetCityByName(ctx context.Context, name string) (City, error) 
 }
 
 const listCity = `-- name: ListCity :many
-SELECT id, name, create_at, update_at FROM "City"
+SELECT id, name, create_at, update_at,COUNT("City".id) OVER() AS "totalCount" FROM "City"
 WHERE  $3 ::text = '' or name ILIKE concat('%',$3,'%')
 ORDER BY 
   CASE 
@@ -105,7 +106,15 @@ type ListCityParams struct {
 	OrderBy string `json:"order_by"`
 }
 
-func (q *Queries) ListCity(ctx context.Context, arg ListCityParams) ([]City, error) {
+type ListCityRow struct {
+	ID         int64     `json:"id"`
+	Name       string    `json:"name"`
+	CreateAt   time.Time `json:"create_at"`
+	UpdateAt   time.Time `json:"update_at"`
+	TotalCount int64     `json:"totalCount"`
+}
+
+func (q *Queries) ListCity(ctx context.Context, arg ListCityParams) ([]ListCityRow, error) {
 	rows, err := q.db.QueryContext(ctx, listCity,
 		arg.Limit,
 		arg.Offset,
@@ -116,14 +125,15 @@ func (q *Queries) ListCity(ctx context.Context, arg ListCityParams) ([]City, err
 		return nil, err
 	}
 	defer rows.Close()
-	items := []City{}
+	items := []ListCityRow{}
 	for rows.Next() {
-		var i City
+		var i ListCityRow
 		if err := rows.Scan(
 			&i.ID,
 			&i.Name,
 			&i.CreateAt,
 			&i.UpdateAt,
+			&i.TotalCount,
 		); err != nil {
 			return nil, err
 		}
