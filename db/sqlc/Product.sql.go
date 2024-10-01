@@ -7,7 +7,6 @@ package db
 
 import (
 	"context"
-	"database/sql"
 	"encoding/json"
 	"time"
 
@@ -24,18 +23,18 @@ RETURNING id, name, image, "countInStock", description, sold, discount, "discoun
 `
 
 type CreateProductParams struct {
-	Name              string        `json:"name"`
-	Image             string        `json:"image"`
-	CountInStock      int32         `json:"countInStock"`
-	Description       string        `json:"description"`
-	Type              int32         `json:"type"`
-	Status            int32         `json:"status"`
-	Slug              string        `json:"slug"`
-	Price             int32         `json:"price"`
-	Discount          sql.NullInt32 `json:"discount"`
-	DiscountStartDate sql.NullTime  `json:"discountStartDate"`
-	DiscountEndDate   sql.NullTime  `json:"discountEndDate"`
-	Location          int32         `json:"location"`
+	Name              string    `json:"name"`
+	Image             string    `json:"image"`
+	CountInStock      int32     `json:"countInStock"`
+	Description       string    `json:"description"`
+	Type              int32     `json:"type"`
+	Status            int32     `json:"status"`
+	Slug              string    `json:"slug"`
+	Price             int32     `json:"price"`
+	Discount          int32     `json:"discount"`
+	DiscountStartDate time.Time `json:"discountStartDate"`
+	DiscountEndDate   time.Time `json:"discountEndDate"`
+	Location          int32     `json:"location"`
 }
 
 func (q *Queries) CreateProduct(ctx context.Context, arg CreateProductParams) (Product, error) {
@@ -141,16 +140,26 @@ func (q *Queries) DeleteProductById(ctx context.Context, id int64) error {
 	return err
 }
 
-const getAllProductLike = `-- name: GetAllProductLike :one
-SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",
-json_agg(l."user_id") AS "likedBy",
-json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
+const getAllProductLike = `-- name: GetAllProductLike :many
+SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
+CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
+CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
+FROM "Product" p
 LEFT JOIN "Product_liked" l ON l."product_id" = p.id
 LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
-WHERE l.user_id = $1 
+WHERE l.user_id = $1 AND ($4 ::text = '' or name ILIKE concat('%',$4,'%'))     
 GROUP BY p.id
-LIMIT 1
+ORDER BY MAX(l.like_date) asc
+LIMIT $2
+OFFSET $3
 `
+
+type GetAllProductLikeParams struct {
+	UserID int32  `json:"user_id"`
+	Limit  int32  `json:"limit"`
+	Offset int32  `json:"offset"`
+	Search string `json:"search"`
+}
 
 type GetAllProductLikeRow struct {
 	ID                int64           `json:"id"`
@@ -158,59 +167,91 @@ type GetAllProductLikeRow struct {
 	Image             string          `json:"image"`
 	CountInStock      int32           `json:"countInStock"`
 	Description       string          `json:"description"`
-	Sold              sql.NullInt32   `json:"sold"`
-	Discount          sql.NullInt32   `json:"discount"`
-	DiscountStartDate sql.NullTime    `json:"discountStartDate"`
-	DiscountEndDate   sql.NullTime    `json:"discountEndDate"`
+	Sold              int32           `json:"sold"`
+	Discount          int32           `json:"discount"`
+	DiscountStartDate time.Time       `json:"discountStartDate"`
+	DiscountEndDate   time.Time       `json:"discountEndDate"`
 	Type              int32           `json:"type"`
 	Status            int32           `json:"status"`
 	Slug              string          `json:"slug"`
 	Price             int32           `json:"price"`
 	Location          int32           `json:"location"`
-	Views             sql.NullInt32   `json:"views"`
+	Views             int32           `json:"views"`
 	CreateAt          time.Time       `json:"create_at"`
 	TotalLikes        int64           `json:"totalLikes"`
+	TotalCount        int64           `json:"totalCount"`
 	LikedBy           json.RawMessage `json:"likedBy"`
 	UniqueViews       json.RawMessage `json:"uniqueViews"`
 }
 
-func (q *Queries) GetAllProductLike(ctx context.Context, userID int32) (GetAllProductLikeRow, error) {
-	row := q.db.QueryRowContext(ctx, getAllProductLike, userID)
-	var i GetAllProductLikeRow
-	err := row.Scan(
-		&i.ID,
-		&i.Name,
-		&i.Image,
-		&i.CountInStock,
-		&i.Description,
-		&i.Sold,
-		&i.Discount,
-		&i.DiscountStartDate,
-		&i.DiscountEndDate,
-		&i.Type,
-		&i.Status,
-		&i.Slug,
-		&i.Price,
-		&i.Location,
-		&i.Views,
-		&i.CreateAt,
-		&i.TotalLikes,
-		&i.LikedBy,
-		&i.UniqueViews,
+func (q *Queries) GetAllProductLike(ctx context.Context, arg GetAllProductLikeParams) ([]GetAllProductLikeRow, error) {
+	rows, err := q.db.QueryContext(ctx, getAllProductLike,
+		arg.UserID,
+		arg.Limit,
+		arg.Offset,
+		arg.Search,
 	)
-	return i, err
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []GetAllProductLikeRow{}
+	for rows.Next() {
+		var i GetAllProductLikeRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Image,
+			&i.CountInStock,
+			&i.Description,
+			&i.Sold,
+			&i.Discount,
+			&i.DiscountStartDate,
+			&i.DiscountEndDate,
+			&i.Type,
+			&i.Status,
+			&i.Slug,
+			&i.Price,
+			&i.Location,
+			&i.Views,
+			&i.CreateAt,
+			&i.TotalLikes,
+			&i.TotalCount,
+			&i.LikedBy,
+			&i.UniqueViews,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
-const getAllProductView = `-- name: GetAllProductView :one
+const getAllProductView = `-- name: GetAllProductView :many
 SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",
-json_agg(l."user_id") AS "likedBy",
-json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
+CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
+CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
+FROM "Product" p
 LEFT JOIN "Product_liked" l ON l."product_id" = p.id
 LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
 WHERE v.user_id = $1 
 GROUP BY p.id
-LIMIT 1
+ORDER BY v.view_date asc
+LIMIT $2
+OFFSET $3
 `
+
+type GetAllProductViewParams struct {
+	UserID int32 `json:"user_id"`
+	Limit  int32 `json:"limit"`
+	Offset int32 `json:"offset"`
+}
 
 type GetAllProductViewRow struct {
 	ID                int64           `json:"id"`
@@ -218,47 +259,63 @@ type GetAllProductViewRow struct {
 	Image             string          `json:"image"`
 	CountInStock      int32           `json:"countInStock"`
 	Description       string          `json:"description"`
-	Sold              sql.NullInt32   `json:"sold"`
-	Discount          sql.NullInt32   `json:"discount"`
-	DiscountStartDate sql.NullTime    `json:"discountStartDate"`
-	DiscountEndDate   sql.NullTime    `json:"discountEndDate"`
+	Sold              int32           `json:"sold"`
+	Discount          int32           `json:"discount"`
+	DiscountStartDate time.Time       `json:"discountStartDate"`
+	DiscountEndDate   time.Time       `json:"discountEndDate"`
 	Type              int32           `json:"type"`
 	Status            int32           `json:"status"`
 	Slug              string          `json:"slug"`
 	Price             int32           `json:"price"`
 	Location          int32           `json:"location"`
-	Views             sql.NullInt32   `json:"views"`
+	Views             int32           `json:"views"`
 	CreateAt          time.Time       `json:"create_at"`
 	TotalLikes        int64           `json:"totalLikes"`
 	LikedBy           json.RawMessage `json:"likedBy"`
 	UniqueViews       json.RawMessage `json:"uniqueViews"`
 }
 
-func (q *Queries) GetAllProductView(ctx context.Context, userID int32) (GetAllProductViewRow, error) {
-	row := q.db.QueryRowContext(ctx, getAllProductView, userID)
-	var i GetAllProductViewRow
-	err := row.Scan(
-		&i.ID,
-		&i.Name,
-		&i.Image,
-		&i.CountInStock,
-		&i.Description,
-		&i.Sold,
-		&i.Discount,
-		&i.DiscountStartDate,
-		&i.DiscountEndDate,
-		&i.Type,
-		&i.Status,
-		&i.Slug,
-		&i.Price,
-		&i.Location,
-		&i.Views,
-		&i.CreateAt,
-		&i.TotalLikes,
-		&i.LikedBy,
-		&i.UniqueViews,
-	)
-	return i, err
+func (q *Queries) GetAllProductView(ctx context.Context, arg GetAllProductViewParams) ([]GetAllProductViewRow, error) {
+	rows, err := q.db.QueryContext(ctx, getAllProductView, arg.UserID, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []GetAllProductViewRow{}
+	for rows.Next() {
+		var i GetAllProductViewRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Image,
+			&i.CountInStock,
+			&i.Description,
+			&i.Sold,
+			&i.Discount,
+			&i.DiscountStartDate,
+			&i.DiscountEndDate,
+			&i.Type,
+			&i.Status,
+			&i.Slug,
+			&i.Price,
+			&i.Location,
+			&i.Views,
+			&i.CreateAt,
+			&i.TotalLikes,
+			&i.LikedBy,
+			&i.UniqueViews,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const getProductById = `-- name: GetProductById :one
@@ -278,16 +335,16 @@ type GetProductByIdRow struct {
 	Image             string          `json:"image"`
 	CountInStock      int32           `json:"countInStock"`
 	Description       string          `json:"description"`
-	Sold              sql.NullInt32   `json:"sold"`
-	Discount          sql.NullInt32   `json:"discount"`
-	DiscountStartDate sql.NullTime    `json:"discountStartDate"`
-	DiscountEndDate   sql.NullTime    `json:"discountEndDate"`
+	Sold              int32           `json:"sold"`
+	Discount          int32           `json:"discount"`
+	DiscountStartDate time.Time       `json:"discountStartDate"`
+	DiscountEndDate   time.Time       `json:"discountEndDate"`
 	Type              int32           `json:"type"`
 	Status            int32           `json:"status"`
 	Slug              string          `json:"slug"`
 	Price             int32           `json:"price"`
 	Location          int32           `json:"location"`
-	Views             sql.NullInt32   `json:"views"`
+	Views             int32           `json:"views"`
 	CreateAt          time.Time       `json:"create_at"`
 	TotalLikes        int64           `json:"totalLikes"`
 	LikedBy           json.RawMessage `json:"likedBy"`
@@ -338,16 +395,16 @@ type GetProductBySlugRow struct {
 	Image             string          `json:"image"`
 	CountInStock      int32           `json:"countInStock"`
 	Description       string          `json:"description"`
-	Sold              sql.NullInt32   `json:"sold"`
-	Discount          sql.NullInt32   `json:"discount"`
-	DiscountStartDate sql.NullTime    `json:"discountStartDate"`
-	DiscountEndDate   sql.NullTime    `json:"discountEndDate"`
+	Sold              int32           `json:"sold"`
+	Discount          int32           `json:"discount"`
+	DiscountStartDate time.Time       `json:"discountStartDate"`
+	DiscountEndDate   time.Time       `json:"discountEndDate"`
 	Type              int32           `json:"type"`
 	Status            int32           `json:"status"`
 	Slug              string          `json:"slug"`
 	Price             int32           `json:"price"`
 	Location          int32           `json:"location"`
-	Views             sql.NullInt32   `json:"views"`
+	Views             int32           `json:"views"`
 	CreateAt          time.Time       `json:"create_at"`
 	TotalLikes        int64           `json:"totalLikes"`
 	LikedBy           json.RawMessage `json:"likedBy"`
@@ -398,16 +455,16 @@ type GetProductPublicByIdRow struct {
 	Image             string          `json:"image"`
 	CountInStock      int32           `json:"countInStock"`
 	Description       string          `json:"description"`
-	Sold              sql.NullInt32   `json:"sold"`
-	Discount          sql.NullInt32   `json:"discount"`
-	DiscountStartDate sql.NullTime    `json:"discountStartDate"`
-	DiscountEndDate   sql.NullTime    `json:"discountEndDate"`
+	Sold              int32           `json:"sold"`
+	Discount          int32           `json:"discount"`
+	DiscountStartDate time.Time       `json:"discountStartDate"`
+	DiscountEndDate   time.Time       `json:"discountEndDate"`
 	Type              int32           `json:"type"`
 	Status            int32           `json:"status"`
 	Slug              string          `json:"slug"`
 	Price             int32           `json:"price"`
 	Location          int32           `json:"location"`
-	Views             sql.NullInt32   `json:"views"`
+	Views             int32           `json:"views"`
 	CreateAt          time.Time       `json:"create_at"`
 	TotalLikes        int64           `json:"totalLikes"`
 	LikedBy           json.RawMessage `json:"likedBy"`
@@ -465,16 +522,16 @@ type GetProductRelatedRow struct {
 	Image             string          `json:"image"`
 	CountInStock      int32           `json:"countInStock"`
 	Description       string          `json:"description"`
-	Sold              sql.NullInt32   `json:"sold"`
-	Discount          sql.NullInt32   `json:"discount"`
-	DiscountStartDate sql.NullTime    `json:"discountStartDate"`
-	DiscountEndDate   sql.NullTime    `json:"discountEndDate"`
+	Sold              int32           `json:"sold"`
+	Discount          int32           `json:"discount"`
+	DiscountStartDate time.Time       `json:"discountStartDate"`
+	DiscountEndDate   time.Time       `json:"discountEndDate"`
 	Type              int32           `json:"type"`
 	Status            int32           `json:"status"`
 	Slug              string          `json:"slug"`
 	Price             int32           `json:"price"`
 	Location          int32           `json:"location"`
-	Views             sql.NullInt32   `json:"views"`
+	Views             int32           `json:"views"`
 	CreateAt          time.Time       `json:"create_at"`
 	TotalLikes        int64           `json:"totalLikes"`
 	LikedBy           json.RawMessage `json:"likedBy"`
@@ -514,8 +571,8 @@ WHERE id = $2
 `
 
 type UpdateViewProductParams struct {
-	Views sql.NullInt32 `json:"views"`
-	ID    int64         `json:"id"`
+	Views int32 `json:"views"`
+	ID    int64 `json:"id"`
 }
 
 func (q *Queries) UpdateViewProduct(ctx context.Context, arg UpdateViewProductParams) error {

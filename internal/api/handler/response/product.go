@@ -3,6 +3,8 @@ package IResponse
 import (
 	"encoding/json"
 	"time"
+
+	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 )
 
 type Product struct {
@@ -45,4 +47,10 @@ type GetProduct struct {
 	Views             int32           `json:"views"`
 	UniqueViews       json.RawMessage `json:"uniqueViews"`
 	CreateAt          time.Time       `json:"createdAt"`
+}
+
+type GetAllMeLiked struct {
+	Products   []db.GetAllProductLikeRow `json:"products"`
+	TotalCount int64                     `json:"totalCount"`
+	TotalPage  int64                     `json:"totalPage"`
 }

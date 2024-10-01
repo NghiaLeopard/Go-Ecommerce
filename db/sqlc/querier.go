@@ -28,8 +28,8 @@ type Querier interface {
 	DeleteRoleById(ctx context.Context, id int64) error
 	DeleteUser(ctx context.Context, id int64) error
 	FindUserById(ctx context.Context, id int64) error
-	GetAllProductLike(ctx context.Context, userID int32) (GetAllProductLikeRow, error)
-	GetAllProductView(ctx context.Context, userID int32) (GetAllProductViewRow, error)
+	GetAllProductLike(ctx context.Context, arg GetAllProductLikeParams) ([]GetAllProductLikeRow, error)
+	GetAllProductView(ctx context.Context, arg GetAllProductViewParams) ([]GetAllProductViewRow, error)
 	GetCityById(ctx context.Context, id int64) (City, error)
 	GetCityByName(ctx context.Context, name string) (City, error)
 	GetProductById(ctx context.Context, id int64) (GetProductByIdRow, error)

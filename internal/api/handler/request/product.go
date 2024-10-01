@@ -24,6 +24,12 @@ type GetAllProduct struct {
 	Order  string `form:"order"`
 }
 
+type GetAllProductLiked struct {
+	Limit  int32  `form:"limit" binding:"required,min=1"`
+	Page   int32  `form:"page" binding:"required,min=1"`
+	Search string `form:"search"`
+}
+
 type GetProduct struct {
 	ID int64 `uri:"id" binding:"required"`
 }
