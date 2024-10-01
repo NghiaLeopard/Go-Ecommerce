@@ -1841,3 +1841,19 @@
 {"level":"INFO","time":"2024-10-01T13:58:17.292+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
 {"level":"INFO","time":"2024-10-01T13:58:17.292+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
 {"level":"ERROR","time":"2024-10-01T13:58:42.200+0700","caller":"usecase/ProductUseCase.go:113","msg":"pq: column lp.like_date does not exist","Status":"Error"}
+{"level":"INFO","time":"2024-10-01T14:13:33.495+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-10-01T14:13:33.525+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-10-01T14:13:33.526+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-10-01T14:13:33.526+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"ERROR","time":"2024-10-01T14:13:54.384+0700","caller":"handler/productHandler.go:102","msg":"get Product","Status":"success"}
+{"level":"INFO","time":"2024-10-01T14:14:34.857+0700","caller":"handler/productHandler.go:323","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-10-01T14:14:38.672+0700","caller":"handler/productHandler.go:102","msg":"get Product","Status":"success"}
+{"level":"ERROR","time":"2024-10-01T14:14:53.123+0700","caller":"handler/productHandler.go:102","msg":"get Product","Status":"success"}
+{"level":"INFO","time":"2024-10-01T14:15:04.232+0700","caller":"handler/productHandler.go:323","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-10-01T14:15:07.189+0700","caller":"handler/productHandler.go:102","msg":"get Product","Status":"success"}
+{"level":"INFO","time":"2024-10-01T14:15:37.572+0700","caller":"handler/productHandler.go:323","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-10-01T14:15:40.125+0700","caller":"handler/productHandler.go:102","msg":"get Product","Status":"success"}
+{"level":"ERROR","time":"2024-10-01T14:15:49.099+0700","caller":"handler/productHandler.go:102","msg":"get Product","Status":"success"}
+{"level":"ERROR","time":"2024-10-01T14:15:56.582+0700","caller":"handler/productHandler.go:102","msg":"get Product","Status":"success"}
+{"level":"ERROR","time":"2024-10-01T14:16:01.709+0700","caller":"handler/productHandler.go:102","msg":"get Product","Status":"success"}
+{"level":"INFO","time":"2024-10-01T14:19:52.575+0700","caller":"handler/productTypeHandler.go:73","msg":"get ProductType","Status":"Success"}

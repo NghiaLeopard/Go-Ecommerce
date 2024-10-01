@@ -37,7 +37,7 @@ func (r *ProductTypeRepository) GetProductTypeByName(ctx *gin.Context, name stri
 	return ProductType, err
 }
 
-func (r *ProductTypeRepository) GetAllProductType(ctx *gin.Context, req IRequest.GetAllProductType) ([]db.ProductType, error) {
+func (r *ProductTypeRepository) GetAllProductType(ctx *gin.Context, req IRequest.GetAllProductType) ([]db.ListProductTypeRow, error) {
 
 	offset := req.Limit * (req.Page - 1)
 	arg := db.ListProductTypeParams{

@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"slices"
 
-	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
 	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/constant"
 	IRepository "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/repository/interface"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
+	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -61,15 +61,21 @@ func (c *RoleUseCase) GetRoleUseCase(ctx *gin.Context, id int) (IResponse.Role, 
 	}, nil, 200
 }
 
-func (c *RoleUseCase) GetAllRoleUseCase(ctx *gin.Context, req IRequest.GetAllRole) ([]db.Role, error, int) {
-	Role, err := c.RoleRepo.GetAllRole(ctx, req)
+func (c *RoleUseCase) GetAllRoleUseCase(ctx *gin.Context, req IRequest.GetAllRole) (IResponse.GetAllRole, error, int) {
+	role, err := c.RoleRepo.GetAllRole(ctx, req)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-		return []db.Role{}, fmt.Errorf("get Role is not exist"), 401
+		return IResponse.GetAllRole{}, fmt.Errorf("get Role is not exist"), 401
 	}
 
-	return Role, nil, 200
+	totalPage := utils.PageCount(int64(req.Limit), role[0].TotalCount)
+
+	return IResponse.GetAllRole{
+		Roles:      role,
+		TotalCount: role[0].TotalCount,
+		TotalPage:  totalPage,
+	}, nil, 200
 }
 
 func (c *RoleUseCase) UpdateRoleUseCase(ctx *gin.Context, id int, name string, permission []string) (IResponse.Role, error, int) {

@@ -15,7 +15,7 @@ SELECT * FROM "Product_Type"
 WHERE name = $1 LIMIT 1;
 
 -- name: ListProductType :many
-SELECT * FROM "Product_Type"
+SELECT *,COUNT("Product_Type".id) OVER() AS "totalCount" FROM "Product_Type"
 WHERE  @search ::text = '' or name ILIKE concat('%',@search,'%')
 ORDER BY 
   CASE 

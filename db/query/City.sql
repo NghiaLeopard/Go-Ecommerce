@@ -15,7 +15,7 @@ SELECT * FROM "City"
 WHERE name = sqlc.arg(name) LIMIT 1;
 
 -- name: ListCity :many
-SELECT * FROM "City"
+SELECT *,COUNT("City".id) OVER() AS "totalCount" FROM "City"
 WHERE  @search ::text = '' or name ILIKE concat('%',@search,'%')
 ORDER BY 
   CASE 

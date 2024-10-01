@@ -7,6 +7,8 @@ package db
 
 import (
 	"context"
+	"database/sql"
+	"time"
 
 	"github.com/lib/pq"
 )
@@ -95,7 +97,7 @@ func (q *Queries) GetProductTypeByName(ctx context.Context, name string) (Produc
 }
 
 const listProductType = `-- name: ListProductType :many
-SELECT id, name, slug, create_at, update_at FROM "Product_Type"
+SELECT id, name, slug, create_at, update_at,COUNT("Product_Type".id) OVER() AS "totalCount" FROM "Product_Type"
 WHERE  $3 ::text = '' or name ILIKE concat('%',$3,'%')
 ORDER BY 
   CASE 
@@ -121,7 +123,16 @@ type ListProductTypeParams struct {
 	OrderBy string `json:"order_by"`
 }
 
-func (q *Queries) ListProductType(ctx context.Context, arg ListProductTypeParams) ([]ProductType, error) {
+type ListProductTypeRow struct {
+	ID         int64        `json:"id"`
+	Name       string       `json:"name"`
+	Slug       string       `json:"slug"`
+	CreateAt   time.Time    `json:"create_at"`
+	UpdateAt   sql.NullTime `json:"update_at"`
+	TotalCount int64        `json:"totalCount"`
+}
+
+func (q *Queries) ListProductType(ctx context.Context, arg ListProductTypeParams) ([]ListProductTypeRow, error) {
 	rows, err := q.db.QueryContext(ctx, listProductType,
 		arg.Limit,
 		arg.Offset,
@@ -132,15 +143,16 @@ func (q *Queries) ListProductType(ctx context.Context, arg ListProductTypeParams
 		return nil, err
 	}
 	defer rows.Close()
-	items := []ProductType{}
+	items := []ListProductTypeRow{}
 	for rows.Next() {
-		var i ProductType
+		var i ListProductTypeRow
 		if err := rows.Scan(
 			&i.ID,
 			&i.Name,
 			&i.Slug,
 			&i.CreateAt,
 			&i.UpdateAt,
+			&i.TotalCount,
 		); err != nil {
 			return nil, err
 		}

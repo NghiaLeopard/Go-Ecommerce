@@ -8,7 +8,7 @@ import (
 
 type ProductType interface {
 	CreateProductType(ctx *gin.Context, name string, slug string) (db.ProductType, error)
-	GetAllProductType(ctx *gin.Context, req IRequest.GetAllProductType) ([]db.ProductType, error)
+	GetAllProductType(ctx *gin.Context, req IRequest.GetAllProductType) ([]db.ListProductTypeRow, error)
 	GetProductTypeById(ctx *gin.Context, id int64) (db.ProductType, error)
 	GetProductTypeByName(ctx *gin.Context, name string) (db.ProductType, error)
 	UpdateProductType(ctx *gin.Context, id int64, name string, slug string) (db.ProductType, error)
