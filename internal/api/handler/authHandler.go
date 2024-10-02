@@ -4,6 +4,7 @@ import (
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IHandler "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/interfaces"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
+	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/response"
 	"github.com/gin-gonic/gin"
@@ -28,6 +29,7 @@ func NewAuthHandler(authUseCase IUseCase.Auth) IHandler.Auth {
 // @Router 			/api/auth/login [post]
 func (a *AuthHandler) LoginUser(ctx *gin.Context) {
 	var req *IRequest.RegisterRequest
+	var _ *IResponse.Login
 
 	err := ctx.ShouldBindJSON(&req)
 

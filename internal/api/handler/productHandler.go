@@ -4,6 +4,7 @@ import (
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IHandler "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/interfaces"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
+	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/response"
 	"github.com/gin-gonic/gin"
@@ -79,11 +80,11 @@ func (r *ProductHandler) CreateProduct(ctx *gin.Context) {
 // @security 					BearerAuth
 // @Summary 					Get all Product
 // @Description 				Get all Product
-// @Param 						request query IRequest.GetAllProduct true "get all product type"
+// @Param 						request query IRequest.GetAllProductLiked true "get all product me liked"
 // @Produce 					application/json
 // @Tags 						Product
 // @Success 					200 {array} []IResponse.Product{}
-// @Router 						/api/product-types [get]
+// @Router 						/api/products/liked/me [get]
 func (c *ProductHandler) GetAllProductMeLiked(ctx *gin.Context) {
 	var req IRequest.GetAllProductLiked
 	if err := ctx.ShouldBindQuery(&req); err != nil {
@@ -103,15 +104,15 @@ func (c *ProductHandler) GetAllProductMeLiked(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
 }
 
-// GetAllProductMeLiked 		godoc
+// GetAllProductMeViewed 		godoc
 // @security 					BearerAuth
-// @Summary 					Get all Product
-// @Description 				Get all Product
-// @Param 						request query IRequest.GetAllProduct true "get all product type"
+// @Summary 					Get all Product me viewed
+// @Description 				Get all Product me viewed
+// @Param 						request query IRequest.GetAllProductViewed true "get all product type"
 // @Produce 					application/json
 // @Tags 						Product
-// @Success 					200 {array} []IResponse.Product{}
-// @Router 						/api/product-types [get]
+// @Success 					200 {array} []IResponse.GetAllMeLiked{}
+// @Router 						/api/products/viewed/me [get]
 func (c *ProductHandler) GetAllProductMeViewed(ctx *gin.Context) {
 	var req IRequest.GetAllProductViewed
 	if err := ctx.ShouldBindQuery(&req); err != nil {
@@ -138,10 +139,11 @@ func (c *ProductHandler) GetAllProductMeViewed(ctx *gin.Context) {
 // @Param productId  		path int true "product ID"
 // @Produce 				application/json
 // @Tags 					Product
-// @Success 				200 {object} IResponse.Product{}
+// @Success 				200 {object} IResponse.GetAllMeViewed{}
 // @Router 					/api/products/{productId} [get]
 func (c *ProductHandler) GetProduct(ctx *gin.Context) {
 	var req IRequest.GetProduct
+	var _ *IResponse.Product
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
@@ -195,10 +197,10 @@ func (c *ProductHandler) GetProductBySlug(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
 }
 
-// GetProduct 				godoc
+// GetProductPublicById 	godoc
 // @security 				BearerAuth
-// @Summary 				Get Product by id
-// @Description 			Get Product by id
+// @Summary 				Get Product public by id
+// @Description 			Get Product public by id
 // @Param productId  		path int true "product ID"
 // @Param 					request query IRequest.GetParamsIsViewed true "is viewed product"
 // @Produce 				application/json

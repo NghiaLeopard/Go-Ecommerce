@@ -22,7 +22,7 @@ type User struct {
 	City                 int             `json:"city"`
 	LikeProducts         []int64         `json:"likeProducts"`
 	ViewedProducts       []int64         `json:"viewedProducts"`
-	Addresses            json.RawMessage `json:"addresses" swaggerignore:"true"`
+	Addresses            json.RawMessage `json:"addresses"`
 	ResetTokenExpiration time.Time       `json:"resetTokenExpiration"`
 	Create_at            time.Time       `json:"create_at"`
 }
@@ -39,7 +39,7 @@ type AuthMe struct {
 	LastName    string          `json:"lastName"`
 	MiddleName  string          `json:"middleName"`
 	City        int             `json:"city"`
-	Addresses   json.RawMessage `json:"addresses" swaggerignore:"true"`
+	Addresses   json.RawMessage `json:"addresses"`
 	Create_at   time.Time       `json:"create_at"`
 }
 
@@ -55,7 +55,7 @@ type UpdateAuthMe struct {
 	LastName    string          `json:"lastName" swaggertype:"string"`
 	MiddleName  string          `json:"middleName" swaggertype:"string"`
 	City        int64           `json:"city" swaggertype:"integer"`
-	Addresses   json.RawMessage `json:"addresses" swaggerignore:"true"`
+	Addresses   json.RawMessage `json:"addresses"`
 	Create_at   time.Time       `json:"create_at"`
 }
 

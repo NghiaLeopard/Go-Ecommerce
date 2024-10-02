@@ -4,6 +4,7 @@ import (
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IHandler "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/interfaces"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
+	IResponse "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/response"
 	IUseCase "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/usecase/interfaces"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/response"
 	"github.com/gin-gonic/gin"
@@ -29,6 +30,8 @@ func NewProductTypeHandler(ProductTypeUseCase IUseCase.ProductType) IHandler.Pro
 // @Router 					/api/product-types [post]
 func (r *ProductTypeHandler) CreateProductType(ctx *gin.Context) {
 	var req IRequest.CreateProductType
+	var _ *IResponse.ProductType
+
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)

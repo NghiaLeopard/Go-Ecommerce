@@ -1897,3 +1897,19 @@
 {"level":"INFO","time":"2024-10-02T07:53:57.575+0700","caller":"handler/productHandler.go:230","msg":"get Product","Status":"Success"}
 {"level":"INFO","time":"2024-10-02T07:56:45.275+0700","caller":"handler/authHandler.go:47","msg":"Login","Status":"Success"}
 {"level":"INFO","time":"2024-10-02T07:57:18.185+0700","caller":"handler/productHandler.go:230","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-10-02T07:59:41.873+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-10-02T07:59:41.908+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-10-02T07:59:41.908+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-10-02T07:59:41.908+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-10-02T07:59:52.657+0700","caller":"handler/productHandler.go:230","msg":"get Product","Status":"Success"}
+{"level":"ERROR","time":"2024-10-02T08:00:18.994+0700","caller":"handler/productHandler.go:130","msg":"get Product","Status":"success"}
+{"level":"INFO","time":"2024-10-02T08:00:29.919+0700","caller":"handler/productHandler.go:230","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-10-02T08:00:40.112+0700","caller":"handler/productHandler.go:230","msg":"get Product","Status":"Success"}
+{"level":"INFO","time":"2024-10-02T08:10:54.282+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-10-02T08:10:54.297+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-10-02T08:10:54.298+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-10-02T08:10:54.298+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
+{"level":"INFO","time":"2024-10-02T08:38:36.723+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-10-02T08:38:36.754+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-10-02T08:38:36.755+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-10-02T08:38:36.755+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}

@@ -41,6 +41,6 @@ mock:
 	mockgen -package mock -destination db/mock/mock.go github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc Querier
 
 swagger:
-	swag init -g ./cmd/server/main.go
+	swag init --parseDependency --parseInternal -g cmd/server/main.go
 
 .PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc test server initDB wire mock

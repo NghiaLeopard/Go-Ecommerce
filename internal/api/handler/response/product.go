@@ -45,7 +45,7 @@ type GetProduct struct {
 	TotalLikes        int64           `json:"totalLikes"`
 	Status            int32           `json:"status"`
 	Views             int32           `json:"views"`
-	UniqueViews       json.RawMessage `json:"uniqueViews"`
+	UniqueViews       json.RawMessage `json:"uniqueViews" `
 	CreateAt          time.Time       `json:"createdAt"`
 }
 
