@@ -103,6 +103,21 @@ func (r *ProductRepository) GetAllProductMeLiked(ctx *gin.Context, req IRequest.
 	return Product, err
 }
 
+func (r *ProductRepository) GetAllProductMeViewed(ctx *gin.Context, req IRequest.GetAllProductViewed, userId int) ([]db.GetAllProductViewRow, error) {
+
+	offset := req.Limit * (req.Page - 1)
+	arg := db.GetAllProductViewParams{
+		Limit:  req.Limit,
+		Offset: offset,
+		Search: req.Search,
+		UserID: int32(userId),
+	}
+
+	Product, err := global.DB.GetAllProductView(ctx, arg)
+
+	return Product, err
+}
+
 // func (r *ProductRepository) UpdateProduct(ctx *gin.Context, id int64, name string, slug string) (db.Product, error) {
 // 	arg := db.UpdateProductParams{
 // 		ID:   id,

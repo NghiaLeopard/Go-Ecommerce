@@ -113,9 +113,45 @@ func (c *ProductUseCase) GetAllProductMeLikedUseCase(ctx *gin.Context, req IRequ
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return IResponse.GetAllMeLiked{}, fmt.Errorf("get Product is not exist"), 401
 	}
+	if len(product) == 0 {
+		return IResponse.GetAllMeLiked{
+			Products:   product,
+			TotalCount: 0,
+			TotalPage:  0,
+		}, nil, 200
+	}
+
 	totalPage := utils.PageCount(int64(req.Limit), product[0].TotalCount)
 
 	return IResponse.GetAllMeLiked{
+		Products:   product,
+		TotalCount: product[0].TotalCount,
+		TotalPage:  totalPage,
+	}, nil, 200
+}
+
+func (c *ProductUseCase) GetAllProductMeViewedUseCase(ctx *gin.Context, req IRequest.GetAllProductViewed) (IResponse.GetAllMeViewed, error, int) {
+	payload := ctx.MustGet(constant.AuthorizationKey).(*token.Payload)
+	fmt.Println(payload.Id)
+
+	product, err := c.ProductRepo.GetAllProductMeViewed(ctx, req, payload.Id)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.GetAllMeViewed{}, fmt.Errorf("get Product is not exist"), 401
+	}
+
+	if len(product) == 0 {
+		return IResponse.GetAllMeViewed{
+			Products:   product,
+			TotalCount: 0,
+			TotalPage:  0,
+		}, nil, 200
+	}
+
+	totalPage := utils.PageCount(int64(req.Limit), product[0].TotalCount)
+
+	return IResponse.GetAllMeViewed{
 		Products:   product,
 		TotalCount: product[0].TotalCount,
 		TotalPage:  totalPage,
@@ -170,6 +206,7 @@ func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, slug string, 
 		if value, exists := ctx.MustGet(constant.AuthorizationKey).(*token.Payload); exists {
 			boolRedis, err := c.RedisProduct.CheckProductUniqueView(ctx, Product.ID, value.Id)
 			if !boolRedis && err == nil {
+				wg.Add(1)
 				go c.ProductRepo.UpdateUniqueView(ctx, Product.ID, value.Id, &wg)
 				err := c.RedisProduct.SetProductUniqueView(ctx, Product.ID, value.Id)
 
@@ -224,6 +261,7 @@ func (c *ProductUseCase) GetProductPublicByIdUseCase(ctx *gin.Context, id int64,
 		if value, exists := ctx.MustGet(constant.AuthorizationKey).(*token.Payload); exists {
 			boolRedis, err := c.RedisProduct.CheckProductUniqueView(ctx, Product.ID, value.Id)
 			if !boolRedis && err == nil {
+				wg.Add(1)
 				go c.ProductRepo.UpdateUniqueView(ctx, Product.ID, value.Id, &wg)
 				err := c.RedisProduct.SetProductUniqueView(ctx, Product.ID, value.Id)
 

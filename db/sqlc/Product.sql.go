@@ -234,23 +234,24 @@ func (q *Queries) GetAllProductLike(ctx context.Context, arg GetAllProductLikePa
 }
 
 const getAllProductView = `-- name: GetAllProductView :many
-SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",
+SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
 CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
 CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
 FROM "Product" p
 LEFT JOIN "Product_liked" l ON l."product_id" = p.id
 LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
-WHERE v.user_id = $1 
-GROUP BY p.id
-ORDER BY v.view_date asc
+WHERE v.user_id = $1 AND ($4 ::text = '' or name ILIKE concat('%',$4,'%'))
+GROUP BY p.id 
+ORDER BY MAX(v.view_date) asc
 LIMIT $2
 OFFSET $3
 `
 
 type GetAllProductViewParams struct {
-	UserID int32 `json:"user_id"`
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
+	UserID int32  `json:"user_id"`
+	Limit  int32  `json:"limit"`
+	Offset int32  `json:"offset"`
+	Search string `json:"search"`
 }
 
 type GetAllProductViewRow struct {
@@ -271,12 +272,18 @@ type GetAllProductViewRow struct {
 	Views             int32           `json:"views"`
 	CreateAt          time.Time       `json:"create_at"`
 	TotalLikes        int64           `json:"totalLikes"`
+	TotalCount        int64           `json:"totalCount"`
 	LikedBy           json.RawMessage `json:"likedBy"`
 	UniqueViews       json.RawMessage `json:"uniqueViews"`
 }
 
 func (q *Queries) GetAllProductView(ctx context.Context, arg GetAllProductViewParams) ([]GetAllProductViewRow, error) {
-	rows, err := q.db.QueryContext(ctx, getAllProductView, arg.UserID, arg.Limit, arg.Offset)
+	rows, err := q.db.QueryContext(ctx, getAllProductView,
+		arg.UserID,
+		arg.Limit,
+		arg.Offset,
+		arg.Search,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -302,6 +309,7 @@ func (q *Queries) GetAllProductView(ctx context.Context, arg GetAllProductViewPa
 			&i.Views,
 			&i.CreateAt,
 			&i.TotalLikes,
+			&i.TotalCount,
 			&i.LikedBy,
 			&i.UniqueViews,
 		); err != nil {

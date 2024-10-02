@@ -75,15 +75,15 @@ LIMIT $2
 OFFSET $3;
 
 -- name: GetAllProductView :many
-SELECT p.*,COUNT(l."user_id") AS "totalLikes",
+SELECT p.*,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
 CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
 CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
 FROM "Product" p
 LEFT JOIN "Product_liked" l ON l."product_id" = p.id
 LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
-WHERE v.user_id = $1 
-GROUP BY p.id
-ORDER BY v.view_date asc
+WHERE v.user_id = $1 AND (@search ::text = '' or name ILIKE concat('%',@search,'%'))
+GROUP BY p.id 
+ORDER BY MAX(v.view_date) asc
 LIMIT $2
 OFFSET $3;
 
