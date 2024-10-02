@@ -54,3 +54,9 @@ type GetAllMeLiked struct {
 	TotalCount int64                     `json:"totalCount"`
 	TotalPage  int64                     `json:"totalPage"`
 }
+
+type GetAllMeViewed struct {
+	Products   []db.GetAllProductViewRow `json:"products"`
+	TotalCount int64                     `json:"totalCount"`
+	TotalPage  int64                     `json:"totalPage"`
+}

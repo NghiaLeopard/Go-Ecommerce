@@ -13,6 +13,7 @@ type Product interface {
 	CreateProductDiscount(ctx *gin.Context, req IRequest.CreateProduct) (db.Product, error)
 	// GetAllProduct(ctx *gin.Context, req IRequest.GetAllProduct) ([]db.Product, error)
 	GetAllProductMeLiked(ctx *gin.Context, req IRequest.GetAllProductLiked, userId int) ([]db.GetAllProductLikeRow, error)
+	GetAllProductMeViewed(ctx *gin.Context, req IRequest.GetAllProductViewed, userId int) ([]db.GetAllProductViewRow, error)
 	GetProductById(ctx *gin.Context, id int64) (db.GetProductByIdRow, error)
 	GetProductBySlug(ctx *gin.Context, slug string) (db.GetProductBySlugRow, error)
 	GetProductPublicById(ctx *gin.Context, productId int64) (db.GetProductPublicByIdRow, error)

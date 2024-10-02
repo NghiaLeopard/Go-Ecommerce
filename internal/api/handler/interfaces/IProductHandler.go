@@ -8,6 +8,7 @@ type Product interface {
 	GetProductPublicById(ctx *gin.Context)
 	GetProductBySlug(ctx *gin.Context)
 	GetAllProductMeLiked(ctx *gin.Context)
+	GetAllProductMeViewed(ctx *gin.Context)
 	// GetAllProduct(ctx *gin.Context)
 	// UpdateProduct(ctx *gin.Context)
 	DeleteProduct(ctx *gin.Context)
