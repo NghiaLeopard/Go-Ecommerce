@@ -189,6 +189,39 @@ func (c *ProductUseCase) GetProductUseCase(ctx *gin.Context, id int64) (IRespons
 	return res, nil, 200
 }
 
+func (c *ProductUseCase) GetProductRelatedUseCase(ctx *gin.Context, req IRequest.GetAllProductRelated) (IResponse.GetAllProductRelated, error, int) {
+	product, err := c.ProductRepo.GetProductTypeBySlug(ctx, req.Slug)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.GetAllProductRelated{}, fmt.Errorf("product is not exist"), 401
+	}
+
+	productRelate, err := c.ProductRepo.GetAllProductRelated(ctx, req, product.ID, product.Type)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.GetAllProductRelated{}, fmt.Errorf("server error"), 500
+	}
+
+	if len(productRelate) == 0 {
+		return IResponse.GetAllProductRelated{
+			Products:   productRelate,
+			TotalCount: 0,
+			TotalPage:  0,
+		}, nil, 200
+	}
+
+	totalPage := utils.PageCount(int64(req.Limit), productRelate[0].TotalCount)
+
+	return IResponse.GetAllProductRelated{
+		Products:   productRelate,
+		TotalCount: productRelate[0].TotalCount,
+		TotalPage:  totalPage,
+	}, nil, 200
+
+}
+
 func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, slug string, isViewed bool) (IResponse.GetProduct, error, int) {
 	Product, err := c.ProductRepo.GetProductBySlug(ctx, slug)
 
@@ -299,33 +332,43 @@ func (c *ProductUseCase) GetProductPublicByIdUseCase(ctx *gin.Context, id int64,
 	return res, nil, 200
 }
 
-// func (c *ProductUseCase) UpdateProductUseCase(ctx *gin.Context, id int, name string, slug string) (IResponse.Product, error, int) {
-// 	idInt64 := int64(id)
+func (c *ProductUseCase) UpdateProductUseCase(ctx *gin.Context, id int64, body IRequest.UpdateProduct) (IResponse.UpdateProduct, error, int) {
 
-// 	Product, err := global.DB.GetProductById(ctx, idInt64)
+	_, err := global.DB.CheckProduct(ctx, id)
 
-// 	if err != nil {
-// 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-// 		return IResponse.Product{}, fmt.Errorf("Product is not exist"), 401
-// 	}
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.UpdateProduct{}, fmt.Errorf("product is not exist"), 409
+	}
 
-// 	Product, err = c.ProductRepo.UpdateProduct(ctx, idInt64, name, slug)
+	fmt.Println(err)
 
-// 	if err != nil {
-// 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-// 		return IResponse.Product{}, fmt.Errorf("update Product is fail"), 401
-// 	}
+	Product, err := c.ProductRepo.UpdateProduct(ctx, id, body)
 
-// 	res := IResponse.Product{
-// 		Id:       Product.ID,
-// 		Name:     Product.Name,
-// 		Slug:     Product.Slug,
-// 		CreateAt: Product.CreateAt,
-// 		UpdateAt: Product.UpdateAt.Time,
-// 	}
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.UpdateProduct{}, fmt.Errorf("update Product is fail"), 400
+	}
 
-// 	return res, nil, 200
-// }
+	res := IResponse.UpdateProduct{
+		Id:                Product.ID,
+		Name:              Product.Name,
+		Slug:              Product.Slug,
+		Price:             Product.Price,
+		CountInStock:      Product.CountInStock,
+		Description:       Product.Description,
+		Discount:          Product.Discount,
+		DiscountStartDate: Product.DiscountStartDate,
+		DiscountEndDate:   Product.DiscountEndDate,
+		Type:              Product.Type,
+		Location:          Product.Location,
+		Status:            Product.Status,
+		Views:             Product.Views,
+		CreateAt:          Product.CreateAt,
+	}
+
+	return res, nil, 200
+}
 
 func (c *ProductUseCase) DeleteProductUseCase(ctx *gin.Context, id int64) (error, int) {
 	err := global.DB.DeleteProductById(ctx, int64(id))

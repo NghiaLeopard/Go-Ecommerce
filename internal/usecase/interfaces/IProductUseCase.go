@@ -9,13 +9,18 @@ import (
 type Product interface {
 	CreateProduct(ctx *gin.Context, req IRequest.CreateProduct) (IResponse.Product, error, int)
 	GetProductUseCase(ctx *gin.Context, id int64) (IResponse.GetProduct, error, int)
+	GetProductRelatedUseCase(ctx *gin.Context, req IRequest.GetAllProductRelated) (IResponse.GetAllProductRelated, error, int)
+
+	// Public
 	GetProductBySlugUseCase(ctx *gin.Context, slug string, isViewed bool) (IResponse.GetProduct, error, int)
 	GetProductPublicByIdUseCase(ctx *gin.Context, productId int64, isViewed bool) (IResponse.GetProduct, error, int)
+
+	// Me Action
 	GetAllProductMeLikedUseCase(ctx *gin.Context, req IRequest.GetAllProductLiked) (IResponse.GetAllMeLiked, error, int)
 	GetAllProductMeViewedUseCase(ctx *gin.Context, req IRequest.GetAllProductViewed) (IResponse.GetAllMeViewed, error, int)
 
 	// GetAllProductUseCase(ctx *gin.Context, req IRequest.GetAllProduct) ([]db.Product, error, int)
-	// UpdateProductUseCase(ctx *gin.Context, id int, name string, slug string) (IResponse.Product, error, int)
+	UpdateProductUseCase(ctx *gin.Context, id int64, body IRequest.UpdateProduct) (IResponse.UpdateProduct, error, int)
 
 	// Delete
 	DeleteProductUseCase(ctx *gin.Context, id int64) (error, int)

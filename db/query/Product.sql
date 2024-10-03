@@ -20,6 +20,19 @@ INSERT INTO "Product_liked" (
   $1, $2
 );
 
+-- name: UpdateProduct :one
+UPDATE "Product" SET name = $1,image = $2,"countInStock" = $3,description = $4,type = $5,status = $6,slug = $7,price = $8,discount = $9,"discountStartDate" = $10,"discountEndDate" = $11,location = $12
+WHERE id = $13
+RETURNING *;
+
+-- name: GetProductTypeBySlug :one
+SELECT id,type from "Product"
+WHERE slug = $1 LIMIT 1;
+
+-- name: CheckProduct :one
+SELECT id FROM "Product"
+WHERE id = $1 LIMIT 1;
+
 -- name: GetProductById :one
 SELECT p.*,COUNT(l."user_id") AS "totalLikes",
 json_agg(l."user_id") AS "likedBy",
@@ -30,16 +43,17 @@ WHERE p.id = $1
 GROUP BY p.id
 LIMIT 1;
 
--- name: GetProductRelated :one
-SELECT p.*,COUNT(l."user_id") AS "totalLikes",
-json_agg(l."user_id") AS "likedBy",
-json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
+-- name: GetAllProductRelated :many
+SELECT p.*,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
+CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
+CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
+FROM "Product" p
 LEFT JOIN "Product_liked" l ON l."product_id" = p.id
 LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
-WHERE p.type = $1 
+WHERE p.type = $1 AND p.id <> $2
 GROUP BY p.id
-LIMIT $2
-OFFSET $3;
+LIMIT $3
+OFFSET $4;
 
 -- name: GetProductBySlug :one
 SELECT p.*,COUNT(l."user_id") AS "totalLikes",

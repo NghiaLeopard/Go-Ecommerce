@@ -61,6 +61,25 @@ func (r *ProductRepository) GetProductById(ctx *gin.Context, id int64) (db.GetPr
 	return Product, err
 }
 
+func (r *ProductRepository) GetProductTypeBySlug(ctx *gin.Context, slug string) (db.GetProductTypeBySlugRow, error) {
+	Product, err := global.DB.GetProductTypeBySlug(ctx, slug)
+	return Product, err
+}
+
+func (r *ProductRepository) GetAllProductRelated(ctx *gin.Context, req IRequest.GetAllProductRelated, id int64, city int32) ([]db.GetAllProductRelatedRow, error) {
+
+	offset := req.Limit * (req.Page - 1)
+	arg := db.GetAllProductRelatedParams{
+		Limit:  req.Limit,
+		Offset: offset,
+		ID:     id,
+		Type:   city,
+	}
+
+	Product, err := global.DB.GetAllProductRelated(ctx, arg)
+	return Product, err
+}
+
 func (r *ProductRepository) GetProductBySlug(ctx *gin.Context, slug string) (db.GetProductBySlugRow, error) {
 	Product, err := global.DB.GetProductBySlug(ctx, slug)
 
@@ -118,16 +137,27 @@ func (r *ProductRepository) GetAllProductMeViewed(ctx *gin.Context, req IRequest
 	return Product, err
 }
 
-// func (r *ProductRepository) UpdateProduct(ctx *gin.Context, id int64, name string, slug string) (db.Product, error) {
-// 	arg := db.UpdateProductParams{
-// 		ID:   id,
-// 		Name: name,
-// 		Slug: slug,
-// 	}
-// 	Product, err := global.DB.UpdateProduct(ctx, arg)
+func (r *ProductRepository) UpdateProduct(ctx *gin.Context, id int64, body IRequest.UpdateProduct) (db.Product, error) {
+	arg := db.UpdateProductParams{
+		ID:                id,
+		Name:              body.Name,
+		Slug:              body.Slug,
+		Price:             body.Price,
+		CountInStock:      body.CountInStock,
+		Description:       body.Description,
+		Discount:          body.Discount,
+		DiscountStartDate: body.DiscountStart,
+		DiscountEndDate:   body.DiscountEndDate,
+		Type:              body.Type,
+		Location:          body.Location,
+		Status:            body.Status,
+		Image:             body.Image,
+	}
 
-// 	return Product, err
-// }
+	Product, err := global.DB.UpdateProduct(ctx, arg)
+
+	return Product, err
+}
 
 func (r *ProductRepository) UpdateViewProduct(ctx *gin.Context, id int64, view int32, wg *sync.WaitGroup) {
 	arg := db.UpdateViewProductParams{
@@ -171,6 +201,12 @@ func (r *ProductRepository) UpdateLikeProduct(ctx *gin.Context, productId int64,
 
 func (r *ProductRepository) DeleteProduct(ctx *gin.Context, id int64) error {
 	err := global.DB.DeleteProductById(ctx, id)
+
+	return err
+}
+
+func (r *ProductRepository) CheckProduct(ctx *gin.Context, id int64) error {
+	_, err := global.DB.CheckProduct(ctx, id)
 
 	return err
 }

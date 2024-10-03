@@ -41,7 +41,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.ChangePasswordRequest"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ChangePasswordRequest"
                         }
                     }
                 ],
@@ -72,7 +72,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.ForgotPasswordRequest"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ForgotPasswordRequest"
                         }
                     }
                 ],
@@ -103,7 +103,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.LoginRequest"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.LoginRequest"
                         }
                     }
                 ],
@@ -111,7 +111,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.Login"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Login"
                         }
                     }
                 }
@@ -156,7 +156,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.AuthMe"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.AuthMe"
                         }
                     }
                 }
@@ -182,7 +182,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.UpdateAuthMe"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UpdateAuthMe"
                         }
                     }
                 ],
@@ -190,7 +190,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.UpdateAuthMe"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.UpdateAuthMe"
                         }
                     }
                 }
@@ -215,7 +215,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.GetAccessToken"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAccessToken"
                         }
                     }
                 }
@@ -238,7 +238,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.RegisterRequest"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.RegisterRequest"
                         }
                     }
                 ],
@@ -269,7 +269,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.ResetPasswordRequest"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ResetPasswordRequest"
                         }
                     }
                 ],
@@ -332,7 +332,7 @@ const docTemplate = `{
                             "items": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/definitions/IResponse.City"
+                                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.City"
                                 }
                             }
                         }
@@ -360,7 +360,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.CreateCity"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateCity"
                         }
                     }
                 ],
@@ -368,7 +368,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.City"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.City"
                         }
                     }
                 }
@@ -396,7 +396,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.DeleteManyCity"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyCity"
                         }
                     }
                 ],
@@ -438,7 +438,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.City"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.City"
                         }
                     }
                 }
@@ -471,7 +471,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.GetBodyUpdateCity"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateCity"
                         }
                     }
                 ],
@@ -479,7 +479,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.City"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.City"
                         }
                     }
                 }
@@ -566,7 +566,7 @@ const docTemplate = `{
                             "items": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/definitions/IResponse.ProductType"
+                                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.ProductType"
                                 }
                             }
                         }
@@ -594,7 +594,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.CreateProductType"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProductType"
                         }
                     }
                 ],
@@ -602,7 +602,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.ProductType"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.ProductType"
                         }
                     }
                 }
@@ -630,7 +630,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.DeleteManyProductType"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyProductType"
                         }
                     }
                 ],
@@ -672,7 +672,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.ProductType"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.ProductType"
                         }
                     }
                 }
@@ -705,7 +705,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.GetBodyUpdateProductType"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateProductType"
                         }
                     }
                 ],
@@ -713,7 +713,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.ProductType"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.ProductType"
                         }
                     }
                 }
@@ -773,7 +773,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.CreateProduct"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProduct"
                         }
                     }
                 ],
@@ -781,7 +781,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.Product"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Product"
                         }
                     }
                 }
@@ -809,7 +809,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.DeleteManyProduct"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyProduct"
                         }
                     }
                 ],
@@ -845,7 +845,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.LikeProduct"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.LikeProduct"
                         }
                     }
                 ],
@@ -854,6 +854,58 @@ const docTemplate = `{
                         "description": "Like product success",
                         "schema": {
                             "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/liked/me": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get all Product",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get all Product",
+                "parameters": [
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Product"
+                                }
+                            }
                         }
                     }
                 }
@@ -893,7 +945,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.Product"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Product"
                         }
                     }
                 }
@@ -906,14 +958,14 @@ const docTemplate = `{
                         "BearerAuth": []
                     }
                 ],
-                "description": "Get Product by id",
+                "description": "Get Product public by id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Product"
                 ],
-                "summary": "Get Product by id",
+                "summary": "Get Product public by id",
                 "parameters": [
                     {
                         "type": "integer",
@@ -933,7 +985,52 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.Product"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Product"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/related": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get product related",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get product related",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "slug",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllProductRelated"
                         }
                     }
                 }
@@ -961,7 +1058,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.UnLikeProduct"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UnLikeProduct"
                         }
                     }
                 ],
@@ -970,6 +1067,58 @@ const docTemplate = `{
                         "description": "Unlike product success",
                         "schema": {
                             "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/viewed/me": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get all Product me viewed",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get all Product me viewed",
+                "parameters": [
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllMeLiked"
+                                }
+                            }
                         }
                     }
                 }
@@ -1003,7 +1152,48 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.Product"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllMeViewed"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update Product",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Update Product",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Update Product",
+                        "name": "productId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Product",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UpdateProduct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.UpdateProduct"
                         }
                     }
                 }
@@ -1090,7 +1280,7 @@ const docTemplate = `{
                             "items": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/definitions/IResponse.Role"
+                                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role"
                                 }
                             }
                         }
@@ -1118,7 +1308,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.CreateRole"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateRole"
                         }
                     }
                 ],
@@ -1126,7 +1316,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.Role"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role"
                         }
                     }
                 }
@@ -1154,7 +1344,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.DeleteManyRole"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyRole"
                         }
                     }
                 ],
@@ -1196,7 +1386,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.Role"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role"
                         }
                     }
                 }
@@ -1229,7 +1419,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/IRequest.GetBodyUpdateRole"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateRole"
                         }
                     }
                 ],
@@ -1237,7 +1427,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/IResponse.Role"
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role"
                         }
                     }
                 }
@@ -1277,7 +1467,231 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "IRequest.ChangePasswordRequest": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductLikeRow": {
+            "type": "object",
+            "properties": {
+                "countInStock": {
+                    "type": "integer"
+                },
+                "create_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "integer"
+                },
+                "discountEndDate": {
+                    "type": "string"
+                },
+                "discountStartDate": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "likedBy": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "location": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "sold": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "totalCount": {
+                    "type": "integer"
+                },
+                "totalLikes": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "uniqueViews": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "views": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductRelatedRow": {
+            "type": "object",
+            "properties": {
+                "countInStock": {
+                    "type": "integer"
+                },
+                "create_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "integer"
+                },
+                "discountEndDate": {
+                    "type": "string"
+                },
+                "discountStartDate": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "likedBy": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "location": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "sold": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "totalCount": {
+                    "type": "integer"
+                },
+                "totalLikes": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "uniqueViews": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "views": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductViewRow": {
+            "type": "object",
+            "properties": {
+                "countInStock": {
+                    "type": "integer"
+                },
+                "create_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "integer"
+                },
+                "discountEndDate": {
+                    "type": "string"
+                },
+                "discountStartDate": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "likedBy": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "location": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "sold": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "totalCount": {
+                    "type": "integer"
+                },
+                "totalLikes": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "uniqueViews": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "views": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.UsersStatus": {
+            "type": "string",
+            "enum": [
+                "0",
+                "1"
+            ],
+            "x-enum-varnames": [
+                "UsersStatus0",
+                "UsersStatus1"
+            ]
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ChangePasswordRequest": {
             "type": "object",
             "required": [
                 "currentPassword",
@@ -1294,7 +1708,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.CreateCity": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateCity": {
             "type": "object",
             "required": [
                 "name"
@@ -1306,7 +1720,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.CreateProduct": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProduct": {
             "type": "object",
             "required": [
                 "countInStock",
@@ -1360,7 +1774,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.CreateProductType": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProductType": {
             "type": "object",
             "required": [
                 "name",
@@ -1377,7 +1791,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.CreateRole": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateRole": {
             "type": "object",
             "required": [
                 "name"
@@ -1389,7 +1803,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.DeleteManyCity": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyCity": {
             "type": "object",
             "required": [
                 "arrayId"
@@ -1404,7 +1818,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.DeleteManyProduct": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyProduct": {
             "type": "object",
             "required": [
                 "arrayId"
@@ -1418,7 +1832,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.DeleteManyProductType": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyProductType": {
             "type": "object",
             "required": [
                 "arrayId"
@@ -1432,7 +1846,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.DeleteManyRole": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyRole": {
             "type": "object",
             "required": [
                 "arrayId"
@@ -1446,7 +1860,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.ForgotPasswordRequest": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ForgotPasswordRequest": {
             "type": "object",
             "required": [
                 "email"
@@ -1457,7 +1871,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.GetBodyUpdateCity": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateCity": {
             "type": "object",
             "required": [
                 "name"
@@ -1469,7 +1883,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.GetBodyUpdateProductType": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateProductType": {
             "type": "object",
             "properties": {
                 "name": {
@@ -1480,7 +1894,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.GetBodyUpdateRole": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateRole": {
             "type": "object",
             "properties": {
                 "name": {
@@ -1494,7 +1908,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.LikeProduct": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.LikeProduct": {
             "type": "object",
             "required": [
                 "productId"
@@ -1505,7 +1919,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.LoginRequest": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.LoginRequest": {
             "type": "object",
             "required": [
                 "email",
@@ -1521,7 +1935,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.RegisterRequest": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.RegisterRequest": {
             "type": "object",
             "required": [
                 "email",
@@ -1537,7 +1951,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.ResetPasswordRequest": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ResetPasswordRequest": {
             "type": "object",
             "required": [
                 "newPassword",
@@ -1553,7 +1967,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.UnLikeProduct": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UnLikeProduct": {
             "type": "object",
             "required": [
                 "productId"
@@ -1564,7 +1978,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IRequest.UpdateAuthMe": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UpdateAuthMe": {
             "type": "object",
             "required": [
                 "address",
@@ -1601,7 +2015,61 @@ const docTemplate = `{
                 }
             }
         },
-        "IResponse.AuthMe": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UpdateProduct": {
+            "type": "object",
+            "required": [
+                "countInStock",
+                "description",
+                "image",
+                "location",
+                "name",
+                "price",
+                "slug",
+                "status",
+                "type"
+            ],
+            "properties": {
+                "countInStock": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "integer"
+                },
+                "discountEndDate": {
+                    "type": "string",
+                    "example": "[{\"value\": \"null or time\"}]"
+                },
+                "discountStart": {
+                    "type": "string",
+                    "example": "[{\"value\": \"null or time\"}]"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.AuthMe": {
             "type": "object",
             "properties": {
                 "_id": {
@@ -1609,6 +2077,12 @@ const docTemplate = `{
                 },
                 "address": {
                     "type": "string"
+                },
+                "addresses": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 },
                 "avatar": {
                     "type": "string"
@@ -1635,14 +2109,14 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "role": {
-                    "$ref": "#/definitions/IResponse.Role"
+                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role"
                 },
                 "status": {
-                    "$ref": "#/definitions/db.UsersStatus"
+                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.UsersStatus"
                 }
             }
         },
-        "IResponse.City": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.City": {
             "type": "object",
             "properties": {
                 "_id": {
@@ -1656,7 +2130,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IResponse.GetAccessToken": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAccessToken": {
             "type": "object",
             "properties": {
                 "access_token": {
@@ -1664,7 +2138,58 @@ const docTemplate = `{
                 }
             }
         },
-        "IResponse.Login": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllMeLiked": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductLikeRow"
+                    }
+                },
+                "totalCount": {
+                    "type": "integer"
+                },
+                "totalPage": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllMeViewed": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductViewRow"
+                    }
+                },
+                "totalCount": {
+                    "type": "integer"
+                },
+                "totalPage": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllProductRelated": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductRelatedRow"
+                    }
+                },
+                "totalCount": {
+                    "type": "integer"
+                },
+                "totalPage": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Login": {
             "type": "object",
             "properties": {
                 "access_token": {
@@ -1674,11 +2199,11 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "user": {
-                    "$ref": "#/definitions/IResponse.User"
+                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User"
                 }
             }
         },
-        "IResponse.Product": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Product": {
             "type": "object",
             "properties": {
                 "_id": {
@@ -1743,7 +2268,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IResponse.ProductType": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.ProductType": {
             "type": "object",
             "properties": {
                 "_id": {
@@ -1763,7 +2288,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IResponse.Role": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role": {
             "type": "object",
             "properties": {
                 "_id": {
@@ -1780,7 +2305,7 @@ const docTemplate = `{
                 }
             }
         },
-        "IResponse.UpdateAuthMe": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.UpdateAuthMe": {
             "type": "object",
             "properties": {
                 "_id": {
@@ -1788,6 +2313,12 @@ const docTemplate = `{
                 },
                 "address": {
                     "type": "string"
+                },
+                "addresses": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 },
                 "avatar": {
                     "type": "string"
@@ -1817,11 +2348,61 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "status": {
-                    "$ref": "#/definitions/db.UsersStatus"
+                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.UsersStatus"
                 }
             }
         },
-        "IResponse.User": {
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.UpdateProduct": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "integer"
+                },
+                "countInStock": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "integer"
+                },
+                "discountEndDate": {
+                    "type": "string"
+                },
+                "discountStartDate": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "views": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User": {
             "type": "object",
             "properties": {
                 "_id": {
@@ -1829,6 +2410,12 @@ const docTemplate = `{
                 },
                 "address": {
                     "type": "string"
+                },
+                "addresses": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 },
                 "avatar": {
                     "type": "string"
@@ -1867,10 +2454,10 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "role": {
-                    "$ref": "#/definitions/IResponse.Role"
+                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role"
                 },
                 "status": {
-                    "$ref": "#/definitions/db.UsersStatus"
+                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.UsersStatus"
                 },
                 "viewedProducts": {
                     "type": "array",
@@ -1879,17 +2466,6 @@ const docTemplate = `{
                     }
                 }
             }
-        },
-        "db.UsersStatus": {
-            "type": "string",
-            "enum": [
-                "0",
-                "1"
-            ],
-            "x-enum-varnames": [
-                "UsersStatus0",
-                "UsersStatus1"
-            ]
         }
     },
     "securityDefinitions": {

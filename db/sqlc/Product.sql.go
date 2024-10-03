@@ -13,6 +13,17 @@ import (
 	"github.com/lib/pq"
 )
 
+const checkProduct = `-- name: CheckProduct :one
+SELECT id FROM "Product"
+WHERE id = $1 LIMIT 1
+`
+
+func (q *Queries) CheckProduct(ctx context.Context, id int64) (int64, error) {
+	row := q.db.QueryRowContext(ctx, checkProduct, id)
+	err := row.Scan(&id)
+	return id, err
+}
+
 const createProduct = `-- name: CreateProduct :one
 INSERT INTO "Product" (
   "name","image","countInStock","description","type","status","slug","price","discount","discountStartDate","discountEndDate","location"
@@ -198,6 +209,98 @@ func (q *Queries) GetAllProductLike(ctx context.Context, arg GetAllProductLikePa
 	items := []GetAllProductLikeRow{}
 	for rows.Next() {
 		var i GetAllProductLikeRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Image,
+			&i.CountInStock,
+			&i.Description,
+			&i.Sold,
+			&i.Discount,
+			&i.DiscountStartDate,
+			&i.DiscountEndDate,
+			&i.Type,
+			&i.Status,
+			&i.Slug,
+			&i.Price,
+			&i.Location,
+			&i.Views,
+			&i.CreateAt,
+			&i.TotalLikes,
+			&i.TotalCount,
+			&i.LikedBy,
+			&i.UniqueViews,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getAllProductRelated = `-- name: GetAllProductRelated :many
+SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
+CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
+CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
+FROM "Product" p
+LEFT JOIN "Product_liked" l ON l."product_id" = p.id
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+WHERE p.type = $1 AND p.id <> $2
+GROUP BY p.id
+LIMIT $3
+OFFSET $4
+`
+
+type GetAllProductRelatedParams struct {
+	Type   int32 `json:"type"`
+	ID     int64 `json:"id"`
+	Limit  int32 `json:"limit"`
+	Offset int32 `json:"offset"`
+}
+
+type GetAllProductRelatedRow struct {
+	ID                int64           `json:"id"`
+	Name              string          `json:"name"`
+	Image             string          `json:"image"`
+	CountInStock      int32           `json:"countInStock"`
+	Description       string          `json:"description"`
+	Sold              int32           `json:"sold"`
+	Discount          int32           `json:"discount"`
+	DiscountStartDate time.Time       `json:"discountStartDate"`
+	DiscountEndDate   time.Time       `json:"discountEndDate"`
+	Type              int32           `json:"type"`
+	Status            int32           `json:"status"`
+	Slug              string          `json:"slug"`
+	Price             int32           `json:"price"`
+	Location          int32           `json:"location"`
+	Views             int32           `json:"views"`
+	CreateAt          time.Time       `json:"create_at"`
+	TotalLikes        int64           `json:"totalLikes"`
+	TotalCount        int64           `json:"totalCount"`
+	LikedBy           json.RawMessage `json:"likedBy"`
+	UniqueViews       json.RawMessage `json:"uniqueViews"`
+}
+
+func (q *Queries) GetAllProductRelated(ctx context.Context, arg GetAllProductRelatedParams) ([]GetAllProductRelatedRow, error) {
+	rows, err := q.db.QueryContext(ctx, getAllProductRelated,
+		arg.Type,
+		arg.ID,
+		arg.Limit,
+		arg.Offset,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []GetAllProductRelatedRow{}
+	for rows.Next() {
+		var i GetAllProductRelatedRow
 		if err := rows.Scan(
 			&i.ID,
 			&i.Name,
@@ -506,49 +609,62 @@ func (q *Queries) GetProductPublicById(ctx context.Context, id int64) (GetProduc
 	return i, err
 }
 
-const getProductRelated = `-- name: GetProductRelated :one
-SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",
-json_agg(l."user_id") AS "likedBy",
-json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
-WHERE p.type = $1 
-GROUP BY p.id
-LIMIT $2
-OFFSET $3
+const getProductTypeBySlug = `-- name: GetProductTypeBySlug :one
+SELECT id,type from "Product"
+WHERE slug = $1 LIMIT 1
 `
 
-type GetProductRelatedParams struct {
-	Type   int32 `json:"type"`
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
+type GetProductTypeBySlugRow struct {
+	ID   int64 `json:"id"`
+	Type int32 `json:"type"`
 }
 
-type GetProductRelatedRow struct {
-	ID                int64           `json:"id"`
-	Name              string          `json:"name"`
-	Image             string          `json:"image"`
-	CountInStock      int32           `json:"countInStock"`
-	Description       string          `json:"description"`
-	Sold              int32           `json:"sold"`
-	Discount          int32           `json:"discount"`
-	DiscountStartDate time.Time       `json:"discountStartDate"`
-	DiscountEndDate   time.Time       `json:"discountEndDate"`
-	Type              int32           `json:"type"`
-	Status            int32           `json:"status"`
-	Slug              string          `json:"slug"`
-	Price             int32           `json:"price"`
-	Location          int32           `json:"location"`
-	Views             int32           `json:"views"`
-	CreateAt          time.Time       `json:"create_at"`
-	TotalLikes        int64           `json:"totalLikes"`
-	LikedBy           json.RawMessage `json:"likedBy"`
-	UniqueViews       json.RawMessage `json:"uniqueViews"`
+func (q *Queries) GetProductTypeBySlug(ctx context.Context, slug string) (GetProductTypeBySlugRow, error) {
+	row := q.db.QueryRowContext(ctx, getProductTypeBySlug, slug)
+	var i GetProductTypeBySlugRow
+	err := row.Scan(&i.ID, &i.Type)
+	return i, err
 }
 
-func (q *Queries) GetProductRelated(ctx context.Context, arg GetProductRelatedParams) (GetProductRelatedRow, error) {
-	row := q.db.QueryRowContext(ctx, getProductRelated, arg.Type, arg.Limit, arg.Offset)
-	var i GetProductRelatedRow
+const updateProduct = `-- name: UpdateProduct :one
+UPDATE "Product" SET name = $1,image = $2,"countInStock" = $3,description = $4,type = $5,status = $6,slug = $7,price = $8,discount = $9,"discountStartDate" = $10,"discountEndDate" = $11,location = $12
+WHERE id = $13
+RETURNING id, name, image, "countInStock", description, sold, discount, "discountStartDate", "discountEndDate", type, status, slug, price, location, views, create_at
+`
+
+type UpdateProductParams struct {
+	Name              string    `json:"name"`
+	Image             string    `json:"image"`
+	CountInStock      int32     `json:"countInStock"`
+	Description       string    `json:"description"`
+	Type              int32     `json:"type"`
+	Status            int32     `json:"status"`
+	Slug              string    `json:"slug"`
+	Price             int32     `json:"price"`
+	Discount          int32     `json:"discount"`
+	DiscountStartDate time.Time `json:"discountStartDate"`
+	DiscountEndDate   time.Time `json:"discountEndDate"`
+	Location          int32     `json:"location"`
+	ID                int64     `json:"id"`
+}
+
+func (q *Queries) UpdateProduct(ctx context.Context, arg UpdateProductParams) (Product, error) {
+	row := q.db.QueryRowContext(ctx, updateProduct,
+		arg.Name,
+		arg.Image,
+		arg.CountInStock,
+		arg.Description,
+		arg.Type,
+		arg.Status,
+		arg.Slug,
+		arg.Price,
+		arg.Discount,
+		arg.DiscountStartDate,
+		arg.DiscountEndDate,
+		arg.Location,
+		arg.ID,
+	)
+	var i Product
 	err := row.Scan(
 		&i.ID,
 		&i.Name,
@@ -566,9 +682,6 @@ func (q *Queries) GetProductRelated(ctx context.Context, arg GetProductRelatedPa
 		&i.Location,
 		&i.Views,
 		&i.CreateAt,
-		&i.TotalLikes,
-		&i.LikedBy,
-		&i.UniqueViews,
 	)
 	return i, err
 }

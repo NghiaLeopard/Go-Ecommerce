@@ -1,5 +1,154 @@
 definitions:
-  IRequest.ChangePasswordRequest:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductLikeRow:
+    properties:
+      countInStock:
+        type: integer
+      create_at:
+        type: string
+      description:
+        type: string
+      discount:
+        type: integer
+      discountEndDate:
+        type: string
+      discountStartDate:
+        type: string
+      id:
+        type: integer
+      image:
+        type: string
+      likedBy:
+        items:
+          type: integer
+        type: array
+      location:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      slug:
+        type: string
+      sold:
+        type: integer
+      status:
+        type: integer
+      totalCount:
+        type: integer
+      totalLikes:
+        type: integer
+      type:
+        type: integer
+      uniqueViews:
+        items:
+          type: integer
+        type: array
+      views:
+        type: integer
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductRelatedRow:
+    properties:
+      countInStock:
+        type: integer
+      create_at:
+        type: string
+      description:
+        type: string
+      discount:
+        type: integer
+      discountEndDate:
+        type: string
+      discountStartDate:
+        type: string
+      id:
+        type: integer
+      image:
+        type: string
+      likedBy:
+        items:
+          type: integer
+        type: array
+      location:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      slug:
+        type: string
+      sold:
+        type: integer
+      status:
+        type: integer
+      totalCount:
+        type: integer
+      totalLikes:
+        type: integer
+      type:
+        type: integer
+      uniqueViews:
+        items:
+          type: integer
+        type: array
+      views:
+        type: integer
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductViewRow:
+    properties:
+      countInStock:
+        type: integer
+      create_at:
+        type: string
+      description:
+        type: string
+      discount:
+        type: integer
+      discountEndDate:
+        type: string
+      discountStartDate:
+        type: string
+      id:
+        type: integer
+      image:
+        type: string
+      likedBy:
+        items:
+          type: integer
+        type: array
+      location:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      slug:
+        type: string
+      sold:
+        type: integer
+      status:
+        type: integer
+      totalCount:
+        type: integer
+      totalLikes:
+        type: integer
+      type:
+        type: integer
+      uniqueViews:
+        items:
+          type: integer
+        type: array
+      views:
+        type: integer
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.UsersStatus:
+    enum:
+    - "0"
+    - "1"
+    type: string
+    x-enum-varnames:
+    - UsersStatus0
+    - UsersStatus1
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ChangePasswordRequest:
     properties:
       currentPassword:
         minLength: 6
@@ -11,7 +160,7 @@ definitions:
     - currentPassword
     - newPassword
     type: object
-  IRequest.CreateCity:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateCity:
     properties:
       name:
         minLength: 6
@@ -19,7 +168,7 @@ definitions:
     required:
     - name
     type: object
-  IRequest.CreateProduct:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProduct:
     properties:
       countInStock:
         type: integer
@@ -58,7 +207,7 @@ definitions:
     - status
     - type
     type: object
-  IRequest.CreateProductType:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProductType:
     properties:
       name:
         minLength: 4
@@ -70,7 +219,7 @@ definitions:
     - name
     - slug
     type: object
-  IRequest.CreateRole:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateRole:
     properties:
       name:
         minLength: 6
@@ -78,7 +227,7 @@ definitions:
     required:
     - name
     type: object
-  IRequest.DeleteManyCity:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyCity:
     properties:
       arrayId:
         items:
@@ -88,7 +237,7 @@ definitions:
     required:
     - arrayId
     type: object
-  IRequest.DeleteManyProduct:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyProduct:
     properties:
       arrayId:
         items:
@@ -97,7 +246,7 @@ definitions:
     required:
     - arrayId
     type: object
-  IRequest.DeleteManyProductType:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyProductType:
     properties:
       arrayId:
         items:
@@ -106,7 +255,7 @@ definitions:
     required:
     - arrayId
     type: object
-  IRequest.DeleteManyRole:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyRole:
     properties:
       arrayId:
         items:
@@ -115,14 +264,14 @@ definitions:
     required:
     - arrayId
     type: object
-  IRequest.ForgotPasswordRequest:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ForgotPasswordRequest:
     properties:
       email:
         type: string
     required:
     - email
     type: object
-  IRequest.GetBodyUpdateCity:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateCity:
     properties:
       name:
         minLength: 1
@@ -130,14 +279,14 @@ definitions:
     required:
     - name
     type: object
-  IRequest.GetBodyUpdateProductType:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateProductType:
     properties:
       name:
         type: string
       slug:
         type: string
     type: object
-  IRequest.GetBodyUpdateRole:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateRole:
     properties:
       name:
         type: string
@@ -146,14 +295,14 @@ definitions:
           type: string
         type: array
     type: object
-  IRequest.LikeProduct:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.LikeProduct:
     properties:
       productId:
         type: integer
     required:
     - productId
     type: object
-  IRequest.LoginRequest:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.LoginRequest:
     properties:
       email:
         type: string
@@ -164,7 +313,7 @@ definitions:
     - email
     - password
     type: object
-  IRequest.RegisterRequest:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.RegisterRequest:
     properties:
       email:
         type: string
@@ -175,7 +324,7 @@ definitions:
     - email
     - password
     type: object
-  IRequest.ResetPasswordRequest:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ResetPasswordRequest:
     properties:
       newPassword:
         minLength: 6
@@ -186,14 +335,14 @@ definitions:
     - newPassword
     - secretKey
     type: object
-  IRequest.UnLikeProduct:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UnLikeProduct:
     properties:
       productId:
         type: integer
     required:
     - productId
     type: object
-  IRequest.UpdateAuthMe:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UpdateAuthMe:
     properties:
       address:
         type: string
@@ -220,12 +369,55 @@ definitions:
     - middleName
     - phoneNumber
     type: object
-  IResponse.AuthMe:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UpdateProduct:
+    properties:
+      countInStock:
+        type: integer
+      description:
+        type: string
+      discount:
+        type: integer
+      discountEndDate:
+        example: '[{"value": "null or time"}]'
+        type: string
+      discountStart:
+        example: '[{"value": "null or time"}]'
+        type: string
+      image:
+        type: string
+      location:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      slug:
+        type: string
+      status:
+        type: integer
+      type:
+        type: integer
+    required:
+    - countInStock
+    - description
+    - image
+    - location
+    - name
+    - price
+    - slug
+    - status
+    - type
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.AuthMe:
     properties:
       _id:
         type: integer
       address:
         type: string
+      addresses:
+        items:
+          type: integer
+        type: array
       avatar:
         type: string
       city:
@@ -243,11 +435,11 @@ definitions:
       phoneNumber:
         type: integer
       role:
-        $ref: '#/definitions/IResponse.Role'
+        $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role'
       status:
-        $ref: '#/definitions/db.UsersStatus'
+        $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.UsersStatus'
     type: object
-  IResponse.City:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.City:
     properties:
       _id:
         type: integer
@@ -256,21 +448,54 @@ definitions:
       name:
         type: string
     type: object
-  IResponse.GetAccessToken:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAccessToken:
     properties:
       access_token:
         type: string
     type: object
-  IResponse.Login:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllMeLiked:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductLikeRow'
+        type: array
+      totalCount:
+        type: integer
+      totalPage:
+        type: integer
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllMeViewed:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductViewRow'
+        type: array
+      totalCount:
+        type: integer
+      totalPage:
+        type: integer
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllProductRelated:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductRelatedRow'
+        type: array
+      totalCount:
+        type: integer
+      totalPage:
+        type: integer
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Login:
     properties:
       access_token:
         type: string
       refresh_token:
         type: string
       user:
-        $ref: '#/definitions/IResponse.User'
+        $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User'
     type: object
-  IResponse.Product:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Product:
     properties:
       _id:
         type: integer
@@ -313,7 +538,7 @@ definitions:
       views:
         type: integer
     type: object
-  IResponse.ProductType:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.ProductType:
     properties:
       _id:
         type: integer
@@ -326,7 +551,7 @@ definitions:
       update_at:
         type: string
     type: object
-  IResponse.Role:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role:
     properties:
       _id:
         type: integer
@@ -337,12 +562,16 @@ definitions:
           type: string
         type: array
     type: object
-  IResponse.UpdateAuthMe:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.UpdateAuthMe:
     properties:
       _id:
         type: integer
       address:
         type: string
+      addresses:
+        items:
+          type: integer
+        type: array
       avatar:
         type: string
       city:
@@ -362,14 +591,51 @@ definitions:
       role:
         type: integer
       status:
-        $ref: '#/definitions/db.UsersStatus'
+        $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.UsersStatus'
     type: object
-  IResponse.User:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.UpdateProduct:
+    properties:
+      _id:
+        type: integer
+      countInStock:
+        type: integer
+      createdAt:
+        type: string
+      description:
+        type: string
+      discount:
+        type: integer
+      discountEndDate:
+        type: string
+      discountStartDate:
+        type: string
+      image:
+        type: string
+      location:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      slug:
+        type: string
+      status:
+        type: integer
+      type:
+        type: integer
+      views:
+        type: integer
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User:
     properties:
       _id:
         type: integer
       address:
         type: string
+      addresses:
+        items:
+          type: integer
+        type: array
       avatar:
         type: string
       city:
@@ -395,22 +661,14 @@ definitions:
       resetTokenExpiration:
         type: string
       role:
-        $ref: '#/definitions/IResponse.Role'
+        $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role'
       status:
-        $ref: '#/definitions/db.UsersStatus'
+        $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.UsersStatus'
       viewedProducts:
         items:
           type: integer
         type: array
     type: object
-  db.UsersStatus:
-    enum:
-    - "0"
-    - "1"
-    type: string
-    x-enum-varnames:
-    - UsersStatus0
-    - UsersStatus1
 externalDocs:
   description: OpenAPI
   url: https://swagger.io/resources/open-api/
@@ -432,7 +690,7 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.ChangePasswordRequest'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ChangePasswordRequest'
       produces:
       - application/json
       responses:
@@ -454,7 +712,7 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.ForgotPasswordRequest'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ForgotPasswordRequest'
       produces:
       - application/json
       responses:
@@ -474,14 +732,14 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.LoginRequest'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.LoginRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.Login'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Login'
       summary: Login accounts
       tags:
       - Auth
@@ -507,7 +765,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.AuthMe'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.AuthMe'
       security:
       - BearerAuth: []
       summary: get me
@@ -521,14 +779,14 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.UpdateAuthMe'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UpdateAuthMe'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.UpdateAuthMe'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.UpdateAuthMe'
       security:
       - BearerAuth: []
       summary: Update me
@@ -543,7 +801,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.GetAccessToken'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAccessToken'
       security:
       - BearerAuth: []
       summary: RefreshToken accounts
@@ -558,7 +816,7 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.RegisterRequest'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.RegisterRequest'
       produces:
       - application/json
       responses:
@@ -578,7 +836,7 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.ResetPasswordRequest'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ResetPasswordRequest'
       produces:
       - application/json
       responses:
@@ -617,7 +875,7 @@ paths:
           schema:
             items:
               items:
-                $ref: '#/definitions/IResponse.City'
+                $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.City'
               type: array
             type: array
       security:
@@ -633,14 +891,14 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.CreateCity'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateCity'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.City'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.City'
       security:
       - BearerAuth: []
       summary: Create city
@@ -681,7 +939,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.City'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.City'
       security:
       - BearerAuth: []
       summary: Get city by id
@@ -700,14 +958,14 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.GetBodyUpdateCity'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateCity'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.City'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.City'
       security:
       - BearerAuth: []
       summary: Update city
@@ -722,7 +980,7 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.DeleteManyCity'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyCity'
       produces:
       - application/json
       responses:
@@ -763,7 +1021,7 @@ paths:
           schema:
             items:
               items:
-                $ref: '#/definitions/IResponse.ProductType'
+                $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.ProductType'
               type: array
             type: array
       security:
@@ -779,14 +1037,14 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.CreateProductType'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProductType'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.ProductType'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.ProductType'
       security:
       - BearerAuth: []
       summary: Create ProductType
@@ -827,7 +1085,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.ProductType'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.ProductType'
       security:
       - BearerAuth: []
       summary: Get ProductType by id
@@ -846,14 +1104,14 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.GetBodyUpdateProductType'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateProductType'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.ProductType'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.ProductType'
       security:
       - BearerAuth: []
       summary: Update ProductType
@@ -868,7 +1126,7 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.DeleteManyProductType'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyProductType'
       produces:
       - application/json
       responses:
@@ -890,14 +1148,14 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.CreateProduct'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProduct'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.Product'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Product'
       security:
       - BearerAuth: []
       summary: Create Product
@@ -938,10 +1196,36 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.Product'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllMeViewed'
       security:
       - BearerAuth: []
       summary: Get Product by id
+      tags:
+      - Product
+    put:
+      description: Update Product
+      parameters:
+      - description: Update Product
+        in: path
+        name: productId
+        required: true
+        type: integer
+      - description: Update Product
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UpdateProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.UpdateProduct'
+      security:
+      - BearerAuth: []
+      summary: Update Product
       tags:
       - Product
   /api/products/delete-many:
@@ -953,7 +1237,7 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.DeleteManyProduct'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyProduct'
       produces:
       - application/json
       responses:
@@ -975,7 +1259,7 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.LikeProduct'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.LikeProduct'
       produces:
       - application/json
       responses:
@@ -988,9 +1272,42 @@ paths:
       summary: Like product
       tags:
       - Product
+  /api/products/liked/me:
+    get:
+      description: Get all Product
+      parameters:
+      - in: query
+        minimum: 1
+        name: limit
+        required: true
+        type: integer
+      - in: query
+        minimum: 1
+        name: page
+        required: true
+        type: integer
+      - in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Product'
+              type: array
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get all Product
+      tags:
+      - Product
   /api/products/public/{productId}:
     get:
-      description: Get Product by id
+      description: Get Product public by id
       parameters:
       - description: product ID
         in: path
@@ -1007,10 +1324,10 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.Product'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Product'
       security:
       - BearerAuth: []
-      summary: Get Product by id
+      summary: Get Product public by id
       tags:
       - Product
   /api/products/public/slug/{productSlug}:
@@ -1032,10 +1349,38 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.Product'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Product'
       security:
       - BearerAuth: []
       summary: Get Product by slug
+      tags:
+      - Product
+  /api/products/related:
+    get:
+      description: Get product related
+      parameters:
+      - in: query
+        name: limit
+        required: true
+        type: integer
+      - in: query
+        name: page
+        required: true
+        type: integer
+      - in: query
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllProductRelated'
+      security:
+      - BearerAuth: []
+      summary: Get product related
       tags:
       - Product
   /api/products/unlike:
@@ -1047,7 +1392,7 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.UnLikeProduct'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UnLikeProduct'
       produces:
       - application/json
       responses:
@@ -1058,6 +1403,39 @@ paths:
       security:
       - BearerAuth: []
       summary: Unlike product
+      tags:
+      - Product
+  /api/products/viewed/me:
+    get:
+      description: Get all Product me viewed
+      parameters:
+      - in: query
+        minimum: 1
+        name: limit
+        required: true
+        type: integer
+      - in: query
+        minimum: 1
+        name: page
+        required: true
+        type: integer
+      - in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllMeLiked'
+              type: array
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get all Product me viewed
       tags:
       - Product
   /api/role:
@@ -1088,7 +1466,7 @@ paths:
           schema:
             items:
               items:
-                $ref: '#/definitions/IResponse.Role'
+                $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role'
               type: array
             type: array
       security:
@@ -1104,14 +1482,14 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.CreateRole'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateRole'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.Role'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role'
       security:
       - BearerAuth: []
       summary: Create role
@@ -1152,7 +1530,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.Role'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role'
       security:
       - BearerAuth: []
       summary: Get role by id
@@ -1171,14 +1549,14 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.GetBodyUpdateRole'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateRole'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/IResponse.Role'
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role'
       security:
       - BearerAuth: []
       summary: Update role
@@ -1193,7 +1571,7 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/IRequest.DeleteManyRole'
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyRole'
       produces:
       - application/json
       responses:
