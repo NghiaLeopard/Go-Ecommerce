@@ -46,6 +46,53 @@ definitions:
       views:
         type: integer
     type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductRelatedRow:
+    properties:
+      countInStock:
+        type: integer
+      create_at:
+        type: string
+      description:
+        type: string
+      discount:
+        type: integer
+      discountEndDate:
+        type: string
+      discountStartDate:
+        type: string
+      id:
+        type: integer
+      image:
+        type: string
+      likedBy:
+        items:
+          type: integer
+        type: array
+      location:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      slug:
+        type: string
+      sold:
+        type: integer
+      status:
+        type: integer
+      totalCount:
+        type: integer
+      totalLikes:
+        type: integer
+      type:
+        type: integer
+      uniqueViews:
+        items:
+          type: integer
+        type: array
+      views:
+        type: integer
+    type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductViewRow:
     properties:
       countInStock:
@@ -322,6 +369,45 @@ definitions:
     - middleName
     - phoneNumber
     type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UpdateProduct:
+    properties:
+      countInStock:
+        type: integer
+      description:
+        type: string
+      discount:
+        type: integer
+      discountEndDate:
+        example: '[{"value": "null or time"}]'
+        type: string
+      discountStart:
+        example: '[{"value": "null or time"}]'
+        type: string
+      image:
+        type: string
+      location:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      slug:
+        type: string
+      status:
+        type: integer
+      type:
+        type: integer
+    required:
+    - countInStock
+    - description
+    - image
+    - location
+    - name
+    - price
+    - slug
+    - status
+    - type
+    type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.AuthMe:
     properties:
       _id:
@@ -383,6 +469,17 @@ definitions:
       products:
         items:
           $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductViewRow'
+        type: array
+      totalCount:
+        type: integer
+      totalPage:
+        type: integer
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllProductRelated:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductRelatedRow'
         type: array
       totalCount:
         type: integer
@@ -495,6 +592,39 @@ definitions:
         type: integer
       status:
         $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.UsersStatus'
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.UpdateProduct:
+    properties:
+      _id:
+        type: integer
+      countInStock:
+        type: integer
+      createdAt:
+        type: string
+      description:
+        type: string
+      discount:
+        type: integer
+      discountEndDate:
+        type: string
+      discountStartDate:
+        type: string
+      image:
+        type: string
+      location:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      slug:
+        type: string
+      status:
+        type: integer
+      type:
+        type: integer
+      views:
+        type: integer
     type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User:
     properties:
@@ -1072,6 +1202,32 @@ paths:
       summary: Get Product by id
       tags:
       - Product
+    put:
+      description: Update Product
+      parameters:
+      - description: Update Product
+        in: path
+        name: productId
+        required: true
+        type: integer
+      - description: Update Product
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UpdateProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.UpdateProduct'
+      security:
+      - BearerAuth: []
+      summary: Update Product
+      tags:
+      - Product
   /api/products/delete-many:
     delete:
       description: Delete many Product
@@ -1197,6 +1353,34 @@ paths:
       security:
       - BearerAuth: []
       summary: Get Product by slug
+      tags:
+      - Product
+  /api/products/related:
+    get:
+      description: Get product related
+      parameters:
+      - in: query
+        name: limit
+        required: true
+        type: integer
+      - in: query
+        name: page
+        required: true
+        type: integer
+      - in: query
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllProductRelated'
+      security:
+      - BearerAuth: []
+      summary: Get product related
       tags:
       - Product
   /api/products/unlike:

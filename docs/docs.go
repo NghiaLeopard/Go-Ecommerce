@@ -991,6 +991,51 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/products/related": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get product related",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get product related",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "slug",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllProductRelated"
+                        }
+                    }
+                }
+            }
+        },
         "/api/products/unlike": {
             "post": {
                 "security": [
@@ -1108,6 +1153,47 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllMeViewed"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update Product",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Update Product",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Update Product",
+                        "name": "productId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Product",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UpdateProduct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.UpdateProduct"
                         }
                     }
                 }
@@ -1382,6 +1468,77 @@ const docTemplate = `{
     },
     "definitions": {
         "github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductLikeRow": {
+            "type": "object",
+            "properties": {
+                "countInStock": {
+                    "type": "integer"
+                },
+                "create_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "integer"
+                },
+                "discountEndDate": {
+                    "type": "string"
+                },
+                "discountStartDate": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "likedBy": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "location": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "sold": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "totalCount": {
+                    "type": "integer"
+                },
+                "totalLikes": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "uniqueViews": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "views": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductRelatedRow": {
             "type": "object",
             "properties": {
                 "countInStock": {
@@ -1858,6 +2015,60 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.UpdateProduct": {
+            "type": "object",
+            "required": [
+                "countInStock",
+                "description",
+                "image",
+                "location",
+                "name",
+                "price",
+                "slug",
+                "status",
+                "type"
+            ],
+            "properties": {
+                "countInStock": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "integer"
+                },
+                "discountEndDate": {
+                    "type": "string",
+                    "example": "[{\"value\": \"null or time\"}]"
+                },
+                "discountStart": {
+                    "type": "string",
+                    "example": "[{\"value\": \"null or time\"}]"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.AuthMe": {
             "type": "object",
             "properties": {
@@ -1951,6 +2162,23 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductViewRow"
+                    }
+                },
+                "totalCount": {
+                    "type": "integer"
+                },
+                "totalPage": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllProductRelated": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductRelatedRow"
                     }
                 },
                 "totalCount": {
@@ -2121,6 +2349,56 @@ const docTemplate = `{
                 },
                 "status": {
                     "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.UsersStatus"
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.UpdateProduct": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "integer"
+                },
+                "countInStock": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "integer"
+                },
+                "discountEndDate": {
+                    "type": "string"
+                },
+                "discountStartDate": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "views": {
+                    "type": "integer"
                 }
             }
         },

@@ -161,6 +161,34 @@ func (c *ProductHandler) GetProduct(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
 }
 
+// GetProductRelated 			godoc
+// @security 					BearerAuth
+// @Summary 					Get product related
+// @Description 				Get product related
+// @Param  						request query IRequest.GetAllProductRelated true "product related"
+// @Produce 					application/json
+// @Tags 						Product
+// @Success 					200 {object} IResponse.GetAllProductRelated{}
+// @Router 						/api/products/related [get]
+func (c *ProductHandler) GetProductRelated(ctx *gin.Context) {
+	var req IRequest.GetAllProductRelated
+	if err := ctx.ShouldBindQuery(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	Product, err, codeStatus := c.ProductUseCase.GetProductRelatedUseCase(ctx, req)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Info("get Product", zap.String("Status", "Success"))
+	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
+}
+
 // GetProductBySlug 		godoc
 // @security 				BearerAuth
 // @Summary 				Get Product by slug
@@ -234,41 +262,41 @@ func (c *ProductHandler) GetProductPublicById(ctx *gin.Context) {
 
 }
 
-// // UpdateProduct 		godoc
-// // @security 				BearerAuth
-// // @Summary 				Update Product
-// // @Description 			Update Product
-// // @Param ProductId 	path int true "Update Product"
-// // @Param 					tags body IRequest.GetBodyUpdateProduct true "Update Product"
-// // @Produce 				application/json
-// // @Tags 					Product
-// // @Success 				200 {object} IResponse.Product{}
-// // @Router 					/api/product-types/{ProductId} [put]
-// func (c *ProductHandler) UpdateProduct(ctx *gin.Context) {
-// 	var params IRequest.GetParamsUpdateProduct
-// 	var body IRequest.GetBodyUpdateProduct
-// 	if err := ctx.ShouldBindUri(&params); err != nil {
-// 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-// 		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
-// 		return
-// 	}
+// UpdateProduct 			godoc
+// @security 				BearerAuth
+// @Summary 				Update Product
+// @Description 			Update Product
+// @Param productId 		path int true "Update Product"
+// @Param 					tags body IRequest.UpdateProduct true "Update Product"
+// @Produce 				application/json
+// @Tags 					Product
+// @Success 				200 {object} IResponse.UpdateProduct{}
+// @Router 					/api/products/{productId} [put]
+func (c *ProductHandler) UpdateProduct(ctx *gin.Context) {
+	var params IRequest.UpdateProductUrl
+	var body IRequest.UpdateProduct
+	if err := ctx.ShouldBindUri(&params); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
 
-// 	if err := ctx.ShouldBindJSON(&body); err != nil {
-// 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-// 		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
-// 		return
-// 	}
+	if err := ctx.ShouldBindJSON(&body); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
 
-// 	Product, err, codeStatus := c.ProductUseCase.UpdateProductUseCase(ctx, params.ID, body.Name, body.Slug)
+	Product, err, codeStatus := c.ProductUseCase.UpdateProductUseCase(ctx, params.ID, body)
 
-// 	if err != nil {
-// 		response.ErrorResponse(ctx, err.Error(), codeStatus)
-// 		return
-// 	}
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
 
-// 	global.Logger.Error("get Product", zap.String("Status", "Error"))
-// 	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
-// }
+	global.Logger.Error("get Product", zap.String("Status", "Error"))
+	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
+}
 
 // DeleteProduct 			godoc
 // @security 				BearerAuth
