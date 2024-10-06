@@ -6,7 +6,7 @@ import (
 )
 
 func initToken() {
-	init, err := token.NewPasetoMaker(global.Config)
+	init, err := token.NewJWTMaker(global.Config.SecretKey)
 
 	if err != nil {
 		checkErrorPanic(err, "Initialization token false")

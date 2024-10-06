@@ -160,6 +160,7 @@ type User struct {
 	Status         NullUsersStatus       `json:"status"`
 	Address        sql.NullString        `json:"address"`
 	Avatar         sql.NullString        `json:"avatar"`
+	Image          sql.NullString        `json:"image"`
 	PhoneNumber    sql.NullInt64         `json:"phoneNumber"`
 	Role           sql.NullInt64         `json:"role"`
 	FirstName      sql.NullString        `json:"firstName"`

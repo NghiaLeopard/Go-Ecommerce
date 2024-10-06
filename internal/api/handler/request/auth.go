@@ -1,5 +1,7 @@
 package IRequest
 
+import _ "encoding/base64"
+
 type RegisterRequest struct {
 	Email    string `json:"email" binding:"required,email"`
 	Password string `json:"password" binding:"required,min=6"`
@@ -32,4 +34,5 @@ type UpdateAuthMe struct {
 	LastName    string `json:"lastName" binding:"required"`
 	MiddleName  string `json:"middleName" binding:"required"`
 	PhoneNumber int64  `json:"phoneNumber" binding:"required" format:"int64"`
+	Image       string `json:"image" binding:"required"`
 }

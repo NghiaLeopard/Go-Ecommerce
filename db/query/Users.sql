@@ -39,8 +39,8 @@ UPDATE "Users" SET password = $1
 WHERE id = $2;
 
 -- name: UpdateAuthMe :one
-UPDATE "Users" SET "avatar" = $1,"address" = $2, "city" = $3,"firstName" = $4,"lastName" = $5,"middleName" = $6,"phoneNumber" = $7
-WHERE id = $8
+UPDATE "Users" SET "avatar" = $1,"address" = $2, "city" = $3,"firstName" = $4,"lastName" = $5,"middleName" = $6,"phoneNumber" = $7,"image" = $8
+WHERE id = $9
 RETURNING *;
 
 -- name: DeleteUser :exec

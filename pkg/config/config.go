@@ -10,7 +10,7 @@ type Config struct {
 	DBDrive             string        `mapstructure:"DB_DRIVE"`
 	DBSource            string        `mapstructure:"DB_SOURCE"`
 	ServerAction        string        `mapstructure:"SERVER_ACTION"`
-	Symmetric           string        `mapstructure:"SYMMETRICKEY"`
+	SecretKey           string        `mapstructure:"SECRETKEY"`
 	Access_token        time.Duration `mapstructure:"ACCESS_TOKEN"`
 	Refresh_token       time.Duration `mapstructure:"REFRESH_TOKEN"`
 	ForgotPasswordToken time.Duration `mapstructure:"FORGOT_PASSWORD_TOKEN"`

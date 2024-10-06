@@ -8,26 +8,26 @@ type Payload struct {
 	Id          int       `json:"id"`
 	Permissions []string  `json:"permissions"`
 	IssuedAt    time.Time `json:"issuedAt"`
-	Expired     time.Time `json:"expired"`
+	Expired     int64     `json:"exp"`
 }
-
-var (
-	errInvalid = "token is invalid"
-	errExpired = "token is expired"
-)
 
 func NewPayload(id int, permissions []string, duration time.Duration) *Payload {
 	issuedAt := time.Now()
 	expired := issuedAt.Add(duration)
+	expiredTimestamp := expired.Unix()
 
 	return &Payload{
 		Id:          id,
 		Permissions: permissions,
 		IssuedAt:    issuedAt,
-		Expired:     expired,
+		Expired:     expiredTimestamp,
 	}
 }
 
-func (p *Payload) Valid() bool {
-	return time.Now().After(p.Expired)
+func (payload *Payload) Valid() error {
+	exp := time.Unix(payload.Expired, 0)
+	if time.Now().After(exp) {
+		return errExpired
+	}
+	return nil
 }

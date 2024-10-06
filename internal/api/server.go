@@ -6,6 +6,7 @@ import (
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/middleware"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/routers"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/pkg/config"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -18,6 +19,14 @@ type ServerHTTP struct {
 
 func NewServerHTTP(config config.Config, middleware middleware.Middleware, authHandler IHandler.Auth, productHandler IHandler.Product, cityHandler IHandler.City, roleHandler IHandler.Role, productTypeHandler IHandler.ProductType) *ServerHTTP {
 	engine := gin.Default()
+
+	engine.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowMethods:     []string{"GET", "POST"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
 
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
