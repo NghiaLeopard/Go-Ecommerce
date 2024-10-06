@@ -92,16 +92,63 @@ func (c *ProductUseCase) CreateProduct(ctx *gin.Context, req IRequest.CreateProd
 
 }
 
-// func (c *ProductUseCase) GetAllProductUseCase(ctx *gin.Context, req IRequest.GetAllProduct) ([]db.Product, error, int) {
-// 	Product, err := c.ProductRepo.GetAllProduct(ctx, req)
+func (c *ProductUseCase) GetAllProductAdminUseCase(ctx *gin.Context, req IRequest.GetAllProductAdmin) (IResponse.GetAllProductAdmin, error, int) {
+	product, err := c.ProductRepo.GetAllProductAdmin(ctx, req)
+	fmt.Println(req)
 
-// 	if err != nil {
-// 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-// 		return []db.Product{}, fmt.Errorf("get Product is not exist"), 401
-// 	}
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.GetAllProductAdmin{
+			Products:   product,
+			TotalCount: 0,
+			TotalPage:  0}, fmt.Errorf("get Product is not exist"), 400
+	}
 
-// 	return Product, nil, 200
-// }
+	if len(product) == 0 {
+		return IResponse.GetAllProductAdmin{
+			Products:   product,
+			TotalCount: 0,
+			TotalPage:  0,
+		}, nil, 200
+	}
+
+	totalPage := utils.PageCount(int64(req.Limit), product[0].TotalCount)
+
+	return IResponse.GetAllProductAdmin{
+		Products:   product,
+		TotalCount: product[0].TotalCount,
+		TotalPage:  totalPage,
+	}, nil, 200
+}
+
+func (c *ProductUseCase) GetAllProductPublicUseCase(ctx *gin.Context, req IRequest.GetAllProductPublic) (IResponse.GetAllProductPublic, error, int) {
+	product, err := c.ProductRepo.GetAllProductPublic(ctx, req)
+
+	if err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		return IResponse.GetAllProductPublic{
+			Products:   product,
+			TotalCount: 0,
+			TotalPage:  0,
+		}, fmt.Errorf("get Product is not exist"), 400
+	}
+
+	if len(product) == 0 {
+		return IResponse.GetAllProductPublic{
+			Products:   product,
+			TotalCount: 0,
+			TotalPage:  0,
+		}, nil, 200
+	}
+
+	totalPage := utils.PageCount(int64(req.Limit), product[0].TotalCount)
+
+	return IResponse.GetAllProductPublic{
+		Products:   product,
+		TotalCount: product[0].TotalCount,
+		TotalPage:  totalPage,
+	}, nil, 200
+}
 
 func (c *ProductUseCase) GetAllProductMeLikedUseCase(ctx *gin.Context, req IRequest.GetAllProductLiked) (IResponse.GetAllMeLiked, error, int) {
 	payload := ctx.MustGet(constant.AuthorizationKey).(*token.Payload)

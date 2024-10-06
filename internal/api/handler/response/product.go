@@ -84,3 +84,15 @@ type GetAllProductRelated struct {
 	TotalCount int64                        `json:"totalCount"`
 	TotalPage  int64                        `json:"totalPage"`
 }
+
+type GetAllProductAdmin struct {
+	Products   []db.GetAllProductAdminRow `json:"products"`
+	TotalCount int64                      `json:"totalCount"`
+	TotalPage  int64                      `json:"totalPage"`
+}
+
+type GetAllProductPublic struct {
+	Products   []db.GetAllProductPublicRow `json:"products"`
+	TotalCount int64                       `json:"totalCount"`
+	TotalPage  int64                       `json:"totalPage"`
+}

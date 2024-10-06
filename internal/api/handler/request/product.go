@@ -45,6 +45,23 @@ type GetAllProductLiked struct {
 	Search string `form:"search"`
 }
 
+type GetAllProductAdmin struct {
+	Limit       int32  `form:"limit" binding:"required,min=1"`
+	Page        int32  `form:"page" binding:"required,min=1"`
+	Search      string `form:"search"`
+	ProductType int32  `form:"productType"`
+	Status      int32  `form:"status"`
+	Order  		string `form:"order"`
+}
+
+type GetAllProductPublic struct {
+	Limit       int32  `form:"limit" binding:"required,min=1"`
+	Page        int32  `form:"page" binding:"required,min=1"`
+	Search      string `form:"search"`
+	ProductType int32  `form:"productType"`
+	Status      int32  `form:"status"`
+}
+
 type GetAllProductViewed struct {
 	Limit  int32  `form:"limit" binding:"required,min=1"`
 	Page   int32  `form:"page" binding:"required,min=1"`

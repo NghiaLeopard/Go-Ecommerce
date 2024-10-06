@@ -19,7 +19,11 @@ type Product interface {
 	GetAllProductMeLikedUseCase(ctx *gin.Context, req IRequest.GetAllProductLiked) (IResponse.GetAllMeLiked, error, int)
 	GetAllProductMeViewedUseCase(ctx *gin.Context, req IRequest.GetAllProductViewed) (IResponse.GetAllMeViewed, error, int)
 
-	// GetAllProductUseCase(ctx *gin.Context, req IRequest.GetAllProduct) ([]db.Product, error, int)
+	// Get all product
+	GetAllProductAdminUseCase(ctx *gin.Context, req IRequest.GetAllProductAdmin) (IResponse.GetAllProductAdmin, error, int)
+	GetAllProductPublicUseCase(ctx *gin.Context, req IRequest.GetAllProductPublic) (IResponse.GetAllProductPublic, error, int)
+
+	// Update
 	UpdateProductUseCase(ctx *gin.Context, id int64, body IRequest.UpdateProduct) (IResponse.UpdateProduct, error, int)
 
 	// Delete

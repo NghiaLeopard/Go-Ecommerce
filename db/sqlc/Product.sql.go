@@ -151,6 +151,122 @@ func (q *Queries) DeleteProductById(ctx context.Context, id int64) error {
 	return err
 }
 
+const getAllProductAdmin = `-- name: GetAllProductAdmin :many
+SELECT p.id,p.name,p."countInStock",p.image,p.price,p.slug,p.status,
+json_build_object('id', pt.id, 'name', pt.name) AS "type",
+COUNT(p.id) OVER() AS "totalCount" FROM "Product" p
+JOIN "Product_Type" pt ON p.type = pt.id
+WHERE 
+  CASE
+		WHEN $3 :: text != '' THEN (
+			p.name ILIKE concat('%', $3, '%')
+		)
+		ELSE true
+	END
+  AND CASE
+		WHEN $4 IN (1,2)  THEN
+			status = $4
+		ELSE true
+	END
+  AND CASE
+		WHEN $5 :: integer > 0  THEN
+			type = $5
+		ELSE true
+	END
+ORDER BY 
+  CASE 
+        WHEN $6 ::varchar = 'name asc' THEN p.name END ASC,
+  CASE 
+        WHEN $6 = 'name desc' THEN p.name END DESC,
+  CASE 
+        WHEN $6 = 'slug asc' THEN p.slug END ASC,
+  CASE 
+        WHEN $6 = 'slug desc' THEN p.slug END DESC,
+  CASE 
+        WHEN $6 = 'type asc' THEN type END ASC,
+  CASE 
+        WHEN $6 = 'type desc' THEN type END DESC,
+  CASE 
+        WHEN $6 = 'price asc' THEN price END ASC,
+  CASE 
+        WHEN $6 = 'price desc' THEN price END DESC,
+  CASE 
+        WHEN $6 = 'countInStock asc' THEN "countInStock" END ASC,
+  CASE 
+        WHEN $6 = 'countInStock desc' THEN "countInStock" END DESC,
+  CASE 
+        WHEN $6 = 'status asc' THEN status END ASC,
+  CASE 
+        WHEN $6 = 'status desc' THEN status END DESC,
+  CASE 
+        WHEN $6 = 'created_date asc' THEN p.create_at END ASC,
+  CASE 
+        WHEN $6 = 'created_date desc' THEN p.create_at END DESC
+LIMIT $1
+OFFSET $2
+`
+
+type GetAllProductAdminParams struct {
+	Limit   int32       `json:"limit"`
+	Offset  int32       `json:"offset"`
+	Search  string      `json:"search"`
+	Status  interface{} `json:"status"`
+	Type    int32       `json:"type"`
+	OrderBy string      `json:"order_by"`
+}
+
+type GetAllProductAdminRow struct {
+	ID           int64           `json:"id"`
+	Name         string          `json:"name"`
+	CountInStock int32           `json:"countInStock"`
+	Image        string          `json:"image"`
+	Price        int32           `json:"price"`
+	Slug         string          `json:"slug"`
+	Status       int32           `json:"status"`
+	Type         json.RawMessage `json:"type"`
+	TotalCount   int64           `json:"totalCount"`
+}
+
+func (q *Queries) GetAllProductAdmin(ctx context.Context, arg GetAllProductAdminParams) ([]GetAllProductAdminRow, error) {
+	rows, err := q.db.QueryContext(ctx, getAllProductAdmin,
+		arg.Limit,
+		arg.Offset,
+		arg.Search,
+		arg.Status,
+		arg.Type,
+		arg.OrderBy,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []GetAllProductAdminRow{}
+	for rows.Next() {
+		var i GetAllProductAdminRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.CountInStock,
+			&i.Image,
+			&i.Price,
+			&i.Slug,
+			&i.Status,
+			&i.Type,
+			&i.TotalCount,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getAllProductLike = `-- name: GetAllProductLike :many
 SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
 CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
@@ -158,7 +274,7 @@ CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END 
 FROM "Product" p
 LEFT JOIN "Product_liked" l ON l."product_id" = p.id
 LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
-WHERE l.user_id = $1 AND ($4 ::text = '' or name ILIKE concat('%',$4,'%'))     
+WHERE l.user_id = $1 AND ($4 ::text = '' or name ILIKE concat('%',$4,'%'))   
 GROUP BY p.id
 ORDER BY MAX(l.like_date) asc
 LIMIT $2
@@ -209,6 +325,131 @@ func (q *Queries) GetAllProductLike(ctx context.Context, arg GetAllProductLikePa
 	items := []GetAllProductLikeRow{}
 	for rows.Next() {
 		var i GetAllProductLikeRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Image,
+			&i.CountInStock,
+			&i.Description,
+			&i.Sold,
+			&i.Discount,
+			&i.DiscountStartDate,
+			&i.DiscountEndDate,
+			&i.Type,
+			&i.Status,
+			&i.Slug,
+			&i.Price,
+			&i.Location,
+			&i.Views,
+			&i.CreateAt,
+			&i.TotalLikes,
+			&i.TotalCount,
+			&i.LikedBy,
+			&i.UniqueViews,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getAllProductPublic = `-- name: GetAllProductPublic :many
+SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
+CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
+CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
+FROM "Product" p
+LEFT JOIN "Product_liked" l ON l."product_id" = p.id
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+WHERE 
+  CASE
+		WHEN $3 :: text != '' THEN (
+			p.name ILIKE concat('%', $3, '%')
+		)
+		ELSE true
+	END
+  AND CASE
+		WHEN $4 IN (1,2)  THEN
+			status = $4
+		ELSE true
+	END
+  AND CASE
+		WHEN $5 :: integer > 0  THEN
+			type = $5
+		ELSE true
+	END
+  AND CASE
+		WHEN $6 :: integer > 0  THEN
+			price >= $6
+		ELSE true
+	END
+  AND CASE
+		WHEN $7 :: integer > 0  THEN
+			price <= $7
+		ELSE true
+	END
+GROUP BY p.id
+ORDER BY create_at ASC
+LIMIT $1
+OFFSET $2
+`
+
+type GetAllProductPublicParams struct {
+	Limit    int32       `json:"limit"`
+	Offset   int32       `json:"offset"`
+	Search   string      `json:"search"`
+	Status   interface{} `json:"status"`
+	Type     int32       `json:"type"`
+	Minprice int32       `json:"minprice"`
+	Maxprice int32       `json:"maxprice"`
+}
+
+type GetAllProductPublicRow struct {
+	ID                int64           `json:"id"`
+	Name              string          `json:"name"`
+	Image             string          `json:"image"`
+	CountInStock      int32           `json:"countInStock"`
+	Description       string          `json:"description"`
+	Sold              int32           `json:"sold"`
+	Discount          int32           `json:"discount"`
+	DiscountStartDate time.Time       `json:"discountStartDate"`
+	DiscountEndDate   time.Time       `json:"discountEndDate"`
+	Type              int32           `json:"type"`
+	Status            int32           `json:"status"`
+	Slug              string          `json:"slug"`
+	Price             int32           `json:"price"`
+	Location          int32           `json:"location"`
+	Views             int32           `json:"views"`
+	CreateAt          time.Time       `json:"create_at"`
+	TotalLikes        int64           `json:"totalLikes"`
+	TotalCount        int64           `json:"totalCount"`
+	LikedBy           json.RawMessage `json:"likedBy"`
+	UniqueViews       json.RawMessage `json:"uniqueViews"`
+}
+
+func (q *Queries) GetAllProductPublic(ctx context.Context, arg GetAllProductPublicParams) ([]GetAllProductPublicRow, error) {
+	rows, err := q.db.QueryContext(ctx, getAllProductPublic,
+		arg.Limit,
+		arg.Offset,
+		arg.Search,
+		arg.Status,
+		arg.Type,
+		arg.Minprice,
+		arg.Maxprice,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []GetAllProductPublicRow{}
+	for rows.Next() {
+		var i GetAllProductPublicRow
 		if err := rows.Scan(
 			&i.ID,
 			&i.Name,

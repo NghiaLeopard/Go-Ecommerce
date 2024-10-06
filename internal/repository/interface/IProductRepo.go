@@ -11,13 +11,16 @@ import (
 type Product interface {
 	CreateProductNotDiscount(ctx *gin.Context, req IRequest.CreateProduct) (db.Product, error)
 	CreateProductDiscount(ctx *gin.Context, req IRequest.CreateProduct) (db.Product, error)
-	// GetAllProduct(ctx *gin.Context, req IRequest.GetAllProduct) ([]db.Product, error)
 
 	// Get all product me action
 	GetAllProductMeLiked(ctx *gin.Context, req IRequest.GetAllProductLiked, userId int) ([]db.GetAllProductLikeRow, error)
 	GetAllProductMeViewed(ctx *gin.Context, req IRequest.GetAllProductViewed, userId int) ([]db.GetAllProductViewRow, error)
 
 	// Get all
+	GetAllProductAdmin(ctx *gin.Context, req IRequest.GetAllProductAdmin) ([]db.GetAllProductAdminRow, error)
+	GetAllProductPublic(ctx *gin.Context, req IRequest.GetAllProductPublic) ([]db.GetAllProductPublicRow, error)
+
+	// All product related
 	GetAllProductRelated(ctx *gin.Context, req IRequest.GetAllProductRelated, id int64, city int32) ([]db.GetAllProductRelatedRow, error)
 
 	// Get product
