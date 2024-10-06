@@ -82,7 +82,7 @@ CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END 
 FROM "Product" p
 LEFT JOIN "Product_liked" l ON l."product_id" = p.id
 LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
-WHERE l.user_id = $1 AND (@search ::text = '' or name ILIKE concat('%',@search,'%'))     
+WHERE l.user_id = $1 AND (@search ::text = '' or name ILIKE concat('%',@search,'%'))   
 GROUP BY p.id
 ORDER BY MAX(l.like_date) asc
 LIMIT $2
@@ -100,6 +100,100 @@ GROUP BY p.id
 ORDER BY MAX(v.view_date) asc
 LIMIT $2
 OFFSET $3;
+
+-- name: GetAllProductAdmin :many
+SELECT p.id,p.name,p."countInStock",p.image,p.price,p.slug,p.status,
+json_build_object('id', pt.id, 'name', pt.name) AS "type",
+COUNT(p.id) OVER() AS "totalCount" FROM "Product" p
+JOIN "Product_Type" pt ON p.type = pt.id
+WHERE 
+  CASE
+		WHEN @search :: text != '' THEN (
+			p.name ILIKE concat('%', @search, '%')
+		)
+		ELSE true
+	END
+  AND CASE
+		WHEN @status IN (1,2)  THEN
+			status = @status
+		ELSE true
+	END
+  AND CASE
+		WHEN @type :: integer > 0  THEN
+			type = @type
+		ELSE true
+	END
+ORDER BY 
+  CASE 
+        WHEN @order_by ::varchar = 'name asc' THEN p.name END ASC,
+  CASE 
+        WHEN @order_by = 'name desc' THEN p.name END DESC,
+  CASE 
+        WHEN @order_by = 'slug asc' THEN p.slug END ASC,
+  CASE 
+        WHEN @order_by = 'slug desc' THEN p.slug END DESC,
+  CASE 
+        WHEN @order_by = 'type asc' THEN type END ASC,
+  CASE 
+        WHEN @order_by = 'type desc' THEN type END DESC,
+  CASE 
+        WHEN @order_by = 'price asc' THEN price END ASC,
+  CASE 
+        WHEN @order_by = 'price desc' THEN price END DESC,
+  CASE 
+        WHEN @order_by = 'countInStock asc' THEN "countInStock" END ASC,
+  CASE 
+        WHEN @order_by = 'countInStock desc' THEN "countInStock" END DESC,
+  CASE 
+        WHEN @order_by = 'status asc' THEN status END ASC,
+  CASE 
+        WHEN @order_by = 'status desc' THEN status END DESC,
+  CASE 
+        WHEN @order_by = 'created_date asc' THEN p.create_at END ASC,
+  CASE 
+        WHEN @order_by = 'created_date desc' THEN p.create_at END DESC
+LIMIT $1
+OFFSET $2;
+
+-- name: GetAllProductPublic :many
+SELECT p.*,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
+CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
+CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
+FROM "Product" p
+LEFT JOIN "Product_liked" l ON l."product_id" = p.id
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+WHERE 
+  CASE
+		WHEN @search :: text != '' THEN (
+			p.name ILIKE concat('%', @search, '%')
+		)
+		ELSE true
+	END
+  AND CASE
+		WHEN @status IN (1,2)  THEN
+			status = @status
+		ELSE true
+	END
+  AND CASE
+		WHEN @type :: integer > 0  THEN
+			type = @type
+		ELSE true
+	END
+  AND CASE
+		WHEN @minPrice :: integer > 0  THEN
+			price >= @minPrice
+		ELSE true
+	END
+  AND CASE
+		WHEN @maxPrice :: integer > 0  THEN
+			price <= @maxPrice
+		ELSE true
+	END
+GROUP BY p.id
+ORDER BY create_at ASC
+LIMIT $1
+OFFSET $2;
+
 
 -- name: UpdateViewProduct :exec
 UPDATE "Product" SET views = $1

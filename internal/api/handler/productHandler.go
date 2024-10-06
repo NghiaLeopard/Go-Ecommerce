@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"fmt"
+
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IHandler "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/interfaces"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
@@ -47,34 +49,63 @@ func (r *ProductHandler) CreateProduct(ctx *gin.Context) {
 	response.SuccessResponse(ctx, "Create Product success", codeStatus, Product)
 }
 
-// GetAllProduct 		godoc
+// GetAllProductAdmin 		godoc
 // @security 			BearerAuth
 // @Summary 			Get all Product
 // @Description 		Get all Product
-// @Param 				request query IRequest.GetAllProduct true "get all product type"
+// @Param 				request query IRequest.GetAllProductAdmin true "get all product admin"
 // @Produce 			application/json
 // @Tags 				Product
-// @Success 			200 {array} []IResponse.Product{}
-// @Router 				/api/product-types [get]
-// func (c *ProductHandler) GetAllProduct(ctx *gin.Context) {
-// 	var req IRequest.GetAllProduct
-// 	if err := ctx.ShouldBindQuery(&req); err != nil {
-// 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
-// 		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
-// 		return
-// 	}
+// @Success 			200 {array} []IResponse.GetAllProductAdmin{}
+// @Router 				/api/products [get]
+func (c *ProductHandler) GetAllProductAdmin(ctx *gin.Context) {
+	var req IRequest.GetAllProductAdmin
+	if err := ctx.ShouldBindQuery(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
 
-// 	Product, err, codeStatus := c.ProductUseCase.GetAllProductUseCase(ctx, req)
+	fmt.Println(req.Status)
+	Product, err, codeStatus := c.ProductUseCase.GetAllProductAdminUseCase(ctx, req)
 
-// 	if err != nil {
-// 		response.ErrorResponse(ctx, err.Error(), codeStatus)
-// 		return
-// 	}
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
 
-// 	global.Logger.Error("get Product", zap.String("Status", "Error"))
-// 	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
+	global.Logger.Error("get Product", zap.String("Status", "Success"))
+	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
+}
 
-// }
+// GetAllProductPublic 		godoc
+// @security 			BearerAuth
+// @Summary 			Get all Product
+// @Description 		Get all Product
+// @Param 				request query IRequest.GetAllProductPublic true "get all product type"
+// @Produce 			application/json
+// @Tags 				Product
+// @Success 			200 {array} []IResponse.GetAllProductPublic{}
+// @Router 				/api/products/public [get]
+func (c *ProductHandler) GetAllProductPublic(ctx *gin.Context) {
+	var req IRequest.GetAllProductPublic
+	if err := ctx.ShouldBindQuery(&req); err != nil {
+		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
+		response.ErrorResponse(ctx, "Body is invalid or not exist", 400)
+		return
+	}
+
+	fmt.Println(req.Status)
+	Product, err, codeStatus := c.ProductUseCase.GetAllProductPublicUseCase(ctx, req)
+
+	if err != nil {
+		response.ErrorResponse(ctx, err.Error(), codeStatus)
+		return
+	}
+
+	global.Logger.Error("get Product", zap.String("Status", "Success"))
+	response.SuccessResponse(ctx, "Get Product success", codeStatus, Product)
+}
 
 // GetAllProductMeLiked 		godoc
 // @security 					BearerAuth

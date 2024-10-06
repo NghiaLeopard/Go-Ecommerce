@@ -92,20 +92,38 @@ func (r *ProductRepository) GetProductPublicById(ctx *gin.Context, productId int
 	return Product, err
 }
 
-// func (r *ProductRepository) GetAllProduct(ctx *gin.Context, req IRequest.GetAllProduct) ([]db.Product, error) {
+func (r *ProductRepository) GetAllProductAdmin(ctx *gin.Context, req IRequest.GetAllProductAdmin) ([]db.GetAllProductAdminRow, error) {
 
-// 	offset := req.Limit * (req.Page - 1)
-// 	arg := db.ListProductParams{
-// 		Limit:   req.Limit,
-// 		Offset:  offset,
-// 		Search:  req.Search,
-// 		OrderBy: req.Order,
-// 	}
+	offset := req.Limit * (req.Page - 1)
+	arg := db.GetAllProductAdminParams{
+		Limit:   req.Limit,
+		Offset:  offset,
+		Search:  req.Search,
+		Status:  req.Status,
+		Type:    req.ProductType,
+		OrderBy: req.Order,
+	}
 
-// 	Product, err := global.DB.ListProduct(ctx, arg)
+	Product, err := global.DB.GetAllProductAdmin(ctx, arg)
 
-// 	return Product, err
-// }
+	return Product, err
+}
+
+func (r *ProductRepository) GetAllProductPublic(ctx *gin.Context, req IRequest.GetAllProductPublic) ([]db.GetAllProductPublicRow, error) {
+
+	offset := req.Limit * (req.Page - 1)
+	arg := db.GetAllProductPublicParams{
+		Limit:  req.Limit,
+		Offset: offset,
+		Search: req.Search,
+		Status: req.Status,
+		Type:   req.ProductType,
+	}
+
+	Product, err := global.DB.GetAllProductPublic(ctx, arg)
+
+	return Product, err
+}
 
 func (r *ProductRepository) GetAllProductMeLiked(ctx *gin.Context, req IRequest.GetAllProductLiked, userId int) ([]db.GetAllProductLikeRow, error) {
 
