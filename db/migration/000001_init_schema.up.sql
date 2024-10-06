@@ -17,6 +17,7 @@ CREATE TABLE "Users" (
   "status" users_status DEFAULT '1',
   "address" varchar,
   "avatar" varchar,
+  "image" varchar,
   "phoneNumber" bigint,
   "role" bigint DEFAULT 2,
   "firstName" varchar,

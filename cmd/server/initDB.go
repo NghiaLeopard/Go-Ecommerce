@@ -50,7 +50,7 @@ func initDB() {
 		log.Fatal("create role fail: ", err)
 	}
 
-	password, err := utils.HashPassword("1234567890@1n")
+	password, err := utils.HashPassword("1234567890@1nN")
 
 	if err != nil {
 		log.Fatal("hash password password fail: ", err)

@@ -74,7 +74,7 @@ var CONFIG_USER_TYPE = map[string]int{
 }
 
 const (
-	AuthorizationHeader = "authorization"
+	AuthorizationHeader = "Authorization"
 	AuthorizationType   = "Bearer"
 	AuthorizationKey    = "authorization_payload"
 )

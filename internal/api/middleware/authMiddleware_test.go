@@ -17,7 +17,7 @@ import (
 )
 
 func AddAuthorization(t *testing.T, request *http.Request, makerToken token.Maker, authorizationHeader string, authorizationType string, id int, permission []string, duration time.Duration) {
-	token, payload, err := makerToken.CreateTokenPaseto(id, permission, duration)
+	token, payload, err := makerToken.CreateToken(id, permission, duration)
 
 	require.NoError(t, err)
 	require.NotEmpty(t, payload)

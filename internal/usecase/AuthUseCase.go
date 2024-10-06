@@ -53,7 +53,7 @@ func (a *AuthUseCase) RefreshTokenUseCase(ctx *gin.Context) (IResponse.GetAccess
 
 	}
 
-	payload, err := global.Token.VerifyTokenPaseto(fields[1])
+	payload, err := global.Token.VerifyToken(fields[1])
 
 	if err != nil {
 		global.Logger.Error("Verify token invalid", zap.String("Status", "Error"))
@@ -67,7 +67,7 @@ func (a *AuthUseCase) RefreshTokenUseCase(ctx *gin.Context) (IResponse.GetAccess
 		return IResponse.GetAccessToken{}, fmt.Errorf(err.Error()), 401
 	}
 
-	accessToken, _, err := global.Token.CreateTokenPaseto(int(payload.Id), payload.Permissions, global.Config.Access_token)
+	accessToken, _, err := global.Token.CreateToken(int(payload.Id), payload.Permissions, global.Config.Access_token)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
@@ -94,14 +94,14 @@ func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password stri
 		return IResponse.Login{}, fmt.Errorf("password is not correct: %w", err), 400
 	}
 
-	accessToken, _, err := global.Token.CreateTokenPaseto(int(user.ID), user.Permission, global.Config.Access_token)
+	accessToken, _, err := global.Token.CreateToken(int(user.ID), user.Permission, global.Config.Access_token)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return IResponse.Login{}, fmt.Errorf("generate access token false: %w", err), 500
 	}
 
-	refreshToken, _, err := global.Token.CreateTokenPaseto(int(user.ID), user.Permission, global.Config.Refresh_token)
+	refreshToken, _, err := global.Token.CreateToken(int(user.ID), user.Permission, global.Config.Refresh_token)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
@@ -227,7 +227,7 @@ func (a *AuthUseCase) LogoutUseCase(ctx *gin.Context) (error, int) {
 
 	}
 
-	payload, err := global.Token.VerifyTokenPaseto(fields[1])
+	payload, err := global.Token.VerifyToken(fields[1])
 
 	if err != nil {
 		global.Logger.Error("Verify token invalid", zap.String("Status", "Error"))
@@ -259,7 +259,7 @@ func (a *AuthUseCase) ForgotPasswordUseCase(ctx *gin.Context, email string) (err
 		return fmt.Errorf("email is not exist"), 400
 	}
 
-	token, _, err := global.Token.CreateTokenPaseto(int(user.ID), []string{}, global.Config.ForgotPasswordToken)
+	token, _, err := global.Token.CreateToken(int(user.ID), []string{}, global.Config.ForgotPasswordToken)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
@@ -287,7 +287,7 @@ func (a *AuthUseCase) ForgotPasswordUseCase(ctx *gin.Context, email string) (err
 }
 
 func (a *AuthUseCase) ResetPasswordUseCase(ctx *gin.Context, newPassword string, secretKey string) (error, int) {
-	payload, err := global.Token.VerifyTokenPaseto(secretKey)
+	payload, err := global.Token.VerifyToken(secretKey)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
