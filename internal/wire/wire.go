@@ -26,6 +26,7 @@ func InitServer(sqlcDB *db.Queries, config config.Config, redis *redis.Client) (
 		repository.NewAuthRepository,
 		repository.NewCityRepository,
 		repository.NewDeliveryRepository,
+		repository.NewPaymentRepository,
 		repository.NewRoleRepository,
 		repository.NewProductTypeRepository,
 		repository.NewProductRepository,
@@ -34,6 +35,7 @@ func InitServer(sqlcDB *db.Queries, config config.Config, redis *redis.Client) (
 		usecase.NewAuthUseCase,
 		usecase.NewCityUseCase,
 		usecase.NewDeliveryUseCase,
+		usecase.NewPaymentUseCase,
 		usecase.NewRoleUseCase,
 		usecase.NewProductTypeUseCase,
 		usecase.NewProductUseCase,
@@ -41,6 +43,7 @@ func InitServer(sqlcDB *db.Queries, config config.Config, redis *redis.Client) (
 		// handler
 		handler.NewAuthHandler,
 		handler.NewDeliveryHandler,
+		handler.NewPaymentHandler,
 		handler.NewCityHandler,
 		handler.NewRoleHandler,
 		handler.NewProductTypeHandler,

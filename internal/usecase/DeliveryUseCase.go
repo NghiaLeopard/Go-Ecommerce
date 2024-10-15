@@ -72,18 +72,18 @@ func (c *DeliveryUseCase) GetAllDeliveryUseCase(ctx *gin.Context, page int32, li
 
 	if len(Delivery) == 0 {
 		return IResponse.GetAllDelivery{
-			Cities:     Delivery,
-			TotalCount: 0,
-			TotalPage:  0,
+			DeliveryTypes: Delivery,
+			TotalCount:    0,
+			TotalPage:     0,
 		}, nil, 200
 	}
 
 	totalPage := utils.PageCount(int64(limit), Delivery[0].TotalCount)
 
 	return IResponse.GetAllDelivery{
-		Cities:     Delivery,
-		TotalCount: Delivery[0].TotalCount,
-		TotalPage:  totalPage,
+		DeliveryTypes: Delivery,
+		TotalCount:    Delivery[0].TotalCount,
+		TotalPage:     totalPage,
 	}, nil, 200
 }
 
