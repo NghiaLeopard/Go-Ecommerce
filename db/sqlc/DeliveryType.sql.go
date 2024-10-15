@@ -159,18 +159,19 @@ func (q *Queries) ListDelivery(ctx context.Context, arg ListDeliveryParams) ([]L
 }
 
 const updateDelivery = `-- name: UpdateDelivery :one
-UPDATE "Delivery_Type" SET name = $1,price = $1,update_at = NOW()
-WHERE "_id" = $2
+UPDATE "Delivery_Type" SET name = $1,price = $2,update_at = NOW()
+WHERE "_id" = $3
 RETURNING _id, name, price, "createAt", update_at
 `
 
 type UpdateDeliveryParams struct {
-	Name string `json:"name"`
-	ID   int64  `json:"_id"`
+	Name  string `json:"name"`
+	Price int32  `json:"price"`
+	ID    int64  `json:"_id"`
 }
 
 func (q *Queries) UpdateDelivery(ctx context.Context, arg UpdateDeliveryParams) (DeliveryType, error) {
-	row := q.db.QueryRowContext(ctx, updateDelivery, arg.Name, arg.ID)
+	row := q.db.QueryRowContext(ctx, updateDelivery, arg.Name, arg.Price, arg.ID)
 	var i DeliveryType
 	err := row.Scan(
 		&i.ID,

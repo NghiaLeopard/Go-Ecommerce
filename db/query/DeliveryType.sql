@@ -27,8 +27,8 @@ OFFSET NULLIF(@offset_opt :: int, 0);
 
 
 -- name: UpdateDelivery :one
-UPDATE "Delivery_Type" SET name = $1,price = $1,update_at = NOW()
-WHERE "_id" = $2
+UPDATE "Delivery_Type" SET name = $1,price = $2,update_at = NOW()
+WHERE "_id" = $3
 RETURNING *;
 
 -- name: DeleteDeliveryById :exec

@@ -37,8 +37,8 @@ func (c *DeliveryUseCase) CreateDeliveryUseCase(ctx *gin.Context, req IRequest.C
 	}
 
 	return IResponse.Delivery{
-		Id:   Delivery.ID,
-		Name: Delivery.Name,
+		Id:    Delivery.ID,
+		Name:  Delivery.Name,
 		Price: Delivery.Price,
 	}, nil, 201
 }
@@ -55,6 +55,7 @@ func (c *DeliveryUseCase) GetDeliveryUseCase(ctx *gin.Context, id int) (IRespons
 	return IResponse.Delivery{
 		Id:       Delivery.ID,
 		Name:     Delivery.Name,
+		Price:    Delivery.Price,
 		CreateAt: Delivery.CreateAt,
 	}, nil, 200
 }
@@ -86,7 +87,7 @@ func (c *DeliveryUseCase) GetAllDeliveryUseCase(ctx *gin.Context, page int32, li
 	}, nil, 200
 }
 
-func (c *DeliveryUseCase) UpdateDeliveryUseCase(ctx *gin.Context, id int, name string) (IResponse.Delivery, error, int) {
+func (c *DeliveryUseCase) UpdateDeliveryUseCase(ctx *gin.Context, id int, body IRequest.GetBodyUpdateDelivery) (IResponse.Delivery, error, int) {
 	idInt64 := int64(id)
 
 	_, err := global.DB.GetDeliveryById(ctx, idInt64)
@@ -96,7 +97,7 @@ func (c *DeliveryUseCase) UpdateDeliveryUseCase(ctx *gin.Context, id int, name s
 		return IResponse.Delivery{}, fmt.Errorf("Delivery is not exist"), 401
 	}
 
-	Delivery, err := c.DeliveryRepo.UpdateDelivery(ctx, idInt64, name)
+	Delivery, err := c.DeliveryRepo.UpdateDelivery(ctx, idInt64, body)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
@@ -104,8 +105,9 @@ func (c *DeliveryUseCase) UpdateDeliveryUseCase(ctx *gin.Context, id int, name s
 	}
 
 	res := IResponse.Delivery{
-		Id:   Delivery.ID,
-		Name: Delivery.Name,
+		Id:    Delivery.ID,
+		Name:  Delivery.Name,
+		Price: Delivery.Price,
 	}
 
 	return res, nil, 200

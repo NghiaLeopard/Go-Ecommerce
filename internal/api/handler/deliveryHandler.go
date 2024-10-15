@@ -105,15 +105,15 @@ func (c *DeliveryHandler) GetAllDelivery(ctx *gin.Context) {
 }
 
 // UpdateDelivery 		godoc
-// @security 		BearerAuth
-// @Summary 		Update Delivery
-// @Description 	Update Delivery
+// @security 			BearerAuth
+// @Summary 			Update Delivery
+// @Description 		Update Delivery
 // @Param DeliveryId 	path int true "Update Delivery"
-// @Param 			tags body IRequest.GetBodyUpdateDelivery true "Update Delivery"
-// @Produce 		application/json
-// @Tags 			Delivery
-// @Success 		200 {object} IResponse.Delivery{}
-// @Router 			/api/Delivery/{DeliveryId} [put]
+// @Param 				tags body IRequest.GetBodyUpdateDelivery true "Update Delivery"
+// @Produce 			application/json
+// @Tags 				Delivery
+// @Success 			200 {object} IResponse.Delivery{}
+// @Router 				/api/Delivery/{DeliveryId} [put]
 func (c *DeliveryHandler) UpdateDelivery(ctx *gin.Context) {
 	var params IRequest.GetParamsUpdateDelivery
 	var body IRequest.GetBodyUpdateDelivery
@@ -129,7 +129,7 @@ func (c *DeliveryHandler) UpdateDelivery(ctx *gin.Context) {
 		return
 	}
 
-	Delivery, err, codeStatus := c.DeliveryUseCase.UpdateDeliveryUseCase(ctx, params.ID, body.Name)
+	Delivery, err, codeStatus := c.DeliveryUseCase.UpdateDeliveryUseCase(ctx, params.ID, body)
 
 	if err != nil {
 		response.ErrorResponse(ctx, err.Error(), codeStatus)

@@ -24,10 +24,11 @@ func (c *DeliveryRepository) CreateDelivery(ctx *gin.Context, req IRequest.Creat
 	return
 }
 
-func (c *DeliveryRepository) UpdateDelivery(ctx *gin.Context, id int64, name string) (Delivery db.DeliveryType, err error) {
+func (c *DeliveryRepository) UpdateDelivery(ctx *gin.Context, id int64, body IRequest.GetBodyUpdateDelivery) (Delivery db.DeliveryType, err error) {
 	arg := db.UpdateDeliveryParams{
-		ID:   id,
-		Name: name,
+		ID:    id,
+		Name:  body.Name,
+		Price: body.Price,
 	}
 
 	Delivery, err = global.DB.UpdateDelivery(ctx, arg)

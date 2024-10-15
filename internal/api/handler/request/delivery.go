@@ -29,5 +29,6 @@ type GetParamsUpdateDelivery struct {
 }
 
 type GetBodyUpdateDelivery struct {
-	Name string `json:"name" binding:"required,min=1"`
+	Name  string `json:"name" binding:"required,min=1"`
+	Price int32  `json:"price" binding:"required,min=1"`
 }
