@@ -23,7 +23,7 @@ type RoleHandler struct {
 // @Produce 		application/json
 // @Tags 			Role
 // @Success 		200 {object} IResponse.Role{}
-// @Router 			/api/role [post]
+// @Router 			/api/roles [post]
 func NewRoleHandler(roleUseCase IUseCase.Role) IHandler.Role {
 	return &RoleHandler{RoleUseCase: roleUseCase}
 }
@@ -56,7 +56,7 @@ func (r *RoleHandler) CreateRole(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			Role
 // @Success 		200 {object} IResponse.Role{}
-// @Router 			/api/role/{roleId} [get]
+// @Router 			/api/roles/{roleId} [get]
 func (c *RoleHandler) GetRole(ctx *gin.Context) {
 	var req IRequest.GetRole
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -85,7 +85,7 @@ func (c *RoleHandler) GetRole(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			Role
 // @Success 		200 {array} []IResponse.Role{}
-// @Router 			/api/role [get]
+// @Router 			/api/roles [get]
 func (c *RoleHandler) GetAllRole(ctx *gin.Context) {
 	var req IRequest.GetAllRole
 	if err := ctx.ShouldBindQuery(&req); err != nil {
@@ -115,7 +115,7 @@ func (c *RoleHandler) GetAllRole(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			Role
 // @Success 		200 {object} IResponse.Role{}
-// @Router 			/api/role/{roleId} [put]
+// @Router 			/api/roles/{roleId} [put]
 func (c *RoleHandler) UpdateRole(ctx *gin.Context) {
 	var params IRequest.GetParamsUpdateRole
 	var body IRequest.GetBodyUpdateRole
@@ -150,7 +150,7 @@ func (c *RoleHandler) UpdateRole(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			Role
 // @Success 		200 {string} string [delete Role success]
-// @Router 			/api/role/{roleId} [delete]
+// @Router 			/api/roles/{roleId} [delete]
 func (c *RoleHandler) DeleteRole(ctx *gin.Context) {
 	var req IRequest.DeleteRole
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -167,7 +167,7 @@ func (c *RoleHandler) DeleteRole(ctx *gin.Context) {
 	}
 
 	global.Logger.Info("get Role", zap.String("Status", "Success"))
-	response.SuccessResponse(ctx, "Delete Role success", codeStatus, "")
+	response.SuccessResponse(ctx, "Delete Role success", codeStatus, map[string]int{"_id": 1})
 }
 
 // DeleteManyRole 	godoc
@@ -178,7 +178,7 @@ func (c *RoleHandler) DeleteRole(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			Role
 // @Success 		200 {string} string "Delete many Role success"
-// @Router 			/api/role/delete-many [delete]
+// @Router 			/api/roles/delete-many [delete]
 func (c *RoleHandler) DeleteManyRole(ctx *gin.Context) {
 	var req IRequest.DeleteManyRole
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -195,5 +195,5 @@ func (c *RoleHandler) DeleteManyRole(ctx *gin.Context) {
 	}
 
 	global.Logger.Info("get Role", zap.String("Status", "Success"))
-	response.SuccessResponse(ctx, "Delete Role success", codeStatus, "")
+	response.SuccessResponse(ctx, "Delete Role success", codeStatus, map[string]int{"_id": 1})
 }

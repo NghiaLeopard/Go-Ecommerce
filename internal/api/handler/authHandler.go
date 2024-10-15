@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"fmt"
+
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IHandler "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/interfaces"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
@@ -224,6 +226,8 @@ func (a *AuthHandler) UpdateAuthMe(ctx *gin.Context) {
 	var req IRequest.UpdateAuthMe
 
 	err := ctx.ShouldBindJSON(&req)
+
+	fmt.Println(req)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))

@@ -168,7 +168,7 @@ func (c *ProductTypeHandler) DeleteProductType(ctx *gin.Context) {
 	}
 
 	global.Logger.Info("get ProductType", zap.String("Status", "Success"))
-	response.SuccessResponse(ctx, "Delete ProductType success", codeStatus, "")
+	response.SuccessResponse(ctx, "Delete ProductType success", codeStatus, map[string]int{"_id": 1})
 }
 
 // DeleteManyProductType 	godoc
@@ -196,5 +196,5 @@ func (c *ProductTypeHandler) DeleteManyProductType(ctx *gin.Context) {
 	}
 
 	global.Logger.Info("get ProductType", zap.String("Status", "Success"))
-	response.SuccessResponse(ctx, "Delete ProductType success", codeStatus, "")
+	response.SuccessResponse(ctx, "Delete ProductType success", codeStatus, map[string]int{"_id": 1})
 }

@@ -16,7 +16,7 @@ func SuccessResponse(ctx *gin.Context, message string, code int, data interface{
 		Message:   message,
 		Data:      data,
 		Status:    "Success",
-		TypeError: httpResponse[code].Type,
+		TypeError: "",
 	}
 
 	ctx.JSON(httpResponse[code].Status, rsp)

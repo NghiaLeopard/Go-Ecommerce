@@ -8,14 +8,14 @@ RETURNING *;
 
 -- name: GetProductTypeById :one
 SELECT * FROM "Product_Type"
-WHERE id = $1 LIMIT 1;
+WHERE "_id" = $1 LIMIT 1;
 
 -- name: GetProductTypeByName :one
 SELECT * FROM "Product_Type"
 WHERE name = $1 LIMIT 1;
 
 -- name: ListProductType :many
-SELECT *,COUNT("Product_Type".id) OVER() AS "totalCount" FROM "Product_Type"
+SELECT *,COUNT("Product_Type"."_id") OVER() AS "totalCount" FROM "Product_Type"
 WHERE  @search ::text = '' or name ILIKE concat('%',@search,'%')
 ORDER BY 
   CASE 
@@ -30,19 +30,19 @@ ORDER BY
         WHEN @order_by = 'created_date asc' THEN create_at END ASC,
   CASE 
         WHEN @order_by = 'created_date desc' THEN create_at END DESC
-LIMIT $1
-OFFSET $2;
+LIMIT NULLIF(@limit_opt :: int, 0)
+OFFSET NULLIF(@offset_opt :: int, 0);
 
 -- name: UpdateProductType :one
 UPDATE "Product_Type" SET name = $1,slug = $2,update_at = NOW()
-WHERE id = $3
+WHERE "_id" = $3
 RETURNING *;
 
 -- name: DeleteProductTypeById :exec
 DELETE FROM "Product_Type"
-WHERE id = $1;
+WHERE "_id" = $1;
 
 -- name: DeleteManyProductTypesByIds :exec
 DELETE FROM "Product_Type"
-WHERE id = ANY($1::bigint[]);
+WHERE "_id" = ANY($1::bigint[]);
 

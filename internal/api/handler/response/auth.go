@@ -14,7 +14,7 @@ type User struct {
 	Status               db.UsersStatus  `json:"status"`
 	Address              string          `json:"address"`
 	Avatar               string          `json:"avatar"`
-	PhoneNumber          int             `json:"phoneNumber"`
+	PhoneNumber          string          `json:"phoneNumber"`
 	Role                 Role            `json:"role"`
 	FirstName            string          `json:"firstName"`
 	LastName             string          `json:"lastName"`
@@ -33,7 +33,7 @@ type AuthMe struct {
 	Status      db.UsersStatus  `json:"status"`
 	Address     string          `json:"address"`
 	Avatar      string          `json:"avatar"`
-	PhoneNumber int             `json:"phoneNumber"`
+	PhoneNumber string          `json:"phoneNumber"`
 	Role        Role            `json:"role"`
 	FirstName   string          `json:"firstName"`
 	LastName    string          `json:"lastName"`
@@ -49,7 +49,7 @@ type UpdateAuthMe struct {
 	Status      db.UsersStatus  `json:"status"`
 	Address     string          `json:"address" swaggertype:"string"`
 	Avatar      string          `json:"avatar" swaggertype:"string"`
-	PhoneNumber int64           `json:"phoneNumber" swaggertype:"integer"`
+	PhoneNumber string          `json:"phoneNumber" swaggertype:"integer"`
 	Role        int64           `json:"role" `
 	FirstName   string          `json:"firstName" swaggertype:"string"`
 	LastName    string          `json:"lastName" swaggertype:"string"`

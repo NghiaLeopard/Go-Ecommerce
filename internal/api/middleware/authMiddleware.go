@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"slices"
 	"strings"
 
@@ -15,7 +14,6 @@ import (
 func (c *middleware) AuthMiddleware(permission string, isAuthMe bool, isPublic bool) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		authorization := ctx.GetHeader(constant.AuthorizationHeader)
-		fmt.Println(authorization)
 
 		if authorization != "" {
 			if len(authorization) == 0 {

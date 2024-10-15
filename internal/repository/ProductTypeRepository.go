@@ -41,10 +41,10 @@ func (r *ProductTypeRepository) GetAllProductType(ctx *gin.Context, req IRequest
 
 	offset := req.Limit * (req.Page - 1)
 	arg := db.ListProductTypeParams{
-		Limit:   req.Limit,
-		Offset:  offset,
-		Search:  req.Search,
-		OrderBy: req.Order,
+		LimitOpt:  req.Limit,
+		OffsetOpt: offset,
+		Search:    req.Search,
+		OrderBy:   req.Order,
 	}
 
 	ProductType, err := global.DB.ListProductType(ctx, arg)

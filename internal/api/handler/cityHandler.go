@@ -165,7 +165,7 @@ func (c *CityHandler) DeleteCity(ctx *gin.Context) {
 	}
 
 	global.Logger.Info("get city", zap.String("Status", "Success"))
-	response.SuccessResponse(ctx, "Delete city success", codeStatus, "")
+	response.SuccessResponse(ctx, "Delete city success", codeStatus, map[string]int{"_id": 1})
 }
 
 // DeleteManyCity 		godoc
@@ -193,5 +193,5 @@ func (c *CityHandler) DeleteManyCity(ctx *gin.Context) {
 	}
 
 	global.Logger.Info("get city", zap.String("Status", "Success"))
-	response.SuccessResponse(ctx, "Delete city success", codeStatus, "")
+	response.SuccessResponse(ctx, "Delete city success", codeStatus, map[string]int{"_id": 1})
 }

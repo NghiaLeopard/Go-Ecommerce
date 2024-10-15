@@ -22,36 +22,36 @@ INSERT INTO "Product_liked" (
 
 -- name: UpdateProduct :one
 UPDATE "Product" SET name = $1,image = $2,"countInStock" = $3,description = $4,type = $5,status = $6,slug = $7,price = $8,discount = $9,"discountStartDate" = $10,"discountEndDate" = $11,location = $12
-WHERE id = $13
+WHERE "_id" = $13
 RETURNING *;
 
 -- name: GetProductTypeBySlug :one
-SELECT id,type from "Product"
+SELECT "_id",type from "Product"
 WHERE slug = $1 LIMIT 1;
 
 -- name: CheckProduct :one
-SELECT id FROM "Product"
-WHERE id = $1 LIMIT 1;
+SELECT "_id" FROM "Product"
+WHERE "_id" = $1 LIMIT 1;
 
 -- name: GetProductById :one
 SELECT p.*,COUNT(l."user_id") AS "totalLikes",
 json_agg(l."user_id") AS "likedBy",
 json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
-WHERE p.id = $1 
-GROUP BY p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
+WHERE p."_id" = $1 
+GROUP BY p."_id"
 LIMIT 1;
 
 -- name: GetAllProductRelated :many
-SELECT p.*,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
+SELECT p.*,COUNT(l."user_id") AS "totalLikes",COUNT(p."_id") OVER() AS "totalCount",
 CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
 CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
 FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
-WHERE p.type = $1 AND p.id <> $2
-GROUP BY p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
+WHERE p.type = $1 AND p."_id" <> $2
+GROUP BY p."_id"
 LIMIT $3
 OFFSET $4;
 
@@ -59,53 +59,53 @@ OFFSET $4;
 SELECT p.*,COUNT(l."user_id") AS "totalLikes",
 json_agg(l."user_id") AS "likedBy",
 json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
 WHERE p.slug = $1 
-GROUP BY p.id
+GROUP BY p."_id"
 LIMIT 1;
 
 -- name: GetProductPublicById :one
 SELECT p.*,COUNT(l."user_id") AS "totalLikes",
 json_agg(l."user_id") AS "likedBy",
 json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
-WHERE p.id = $1 
-GROUP BY p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
+WHERE p."_id" = $1 
+GROUP BY p."_id"
 LIMIT 1;
 
 -- name: GetAllProductLike :many
-SELECT p.*,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
+SELECT p.*,COUNT(l."user_id") AS "totalLikes",COUNT(p."_id") OVER() AS "totalCount",
 CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
 CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
 FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
 WHERE l.user_id = $1 AND (@search ::text = '' or name ILIKE concat('%',@search,'%'))   
-GROUP BY p.id
+GROUP BY p."_id"
 ORDER BY MAX(l.like_date) asc
 LIMIT $2
 OFFSET $3;
 
 -- name: GetAllProductView :many
-SELECT p.*,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
+SELECT p.*,COUNT(l."user_id") AS "totalLikes",COUNT(p."_id") OVER() AS "totalCount",
 CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
 CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
 FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
 WHERE v.user_id = $1 AND (@search ::text = '' or name ILIKE concat('%',@search,'%'))
-GROUP BY p.id 
+GROUP BY p."_id" 
 ORDER BY MAX(v.view_date) asc
 LIMIT $2
 OFFSET $3;
 
 -- name: GetAllProductAdmin :many
-SELECT p.id,p.name,p."countInStock",p.image,p.price,p.slug,p.status,
-json_build_object('id', pt.id, 'name', pt.name) AS "type",
-COUNT(p.id) OVER() AS "totalCount" FROM "Product" p
-JOIN "Product_Type" pt ON p.type = pt.id
+SELECT p."_id",p.name,p."countInStock",p.image,p.price,p.slug,p.status,
+json_build_object('_id', pt."_id", 'name', pt.name) AS "type",
+COUNT(p."_id") OVER() AS "totalCount" FROM "Product" p
+JOIN "Product_Type" pt ON p.type = pt."_id"
 WHERE 
   CASE
 		WHEN @search :: text != '' THEN (
@@ -156,12 +156,12 @@ LIMIT $1
 OFFSET $2;
 
 -- name: GetAllProductPublic :many
-SELECT p.*,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
+SELECT p.*,COUNT(l."user_id") AS "totalLikes",COUNT(p."_id") OVER() AS "totalCount",
 CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
 CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
 FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
 WHERE 
   CASE
 		WHEN @search :: text != '' THEN (
@@ -189,7 +189,7 @@ WHERE
 			price <= @maxPrice
 		ELSE true
 	END
-GROUP BY p.id
+GROUP BY p."_id"
 ORDER BY create_at ASC
 LIMIT $1
 OFFSET $2;
@@ -197,11 +197,11 @@ OFFSET $2;
 
 -- name: UpdateViewProduct :exec
 UPDATE "Product" SET views = $1
-WHERE id = $2;
+WHERE "_id" = $2;
 
 -- name: DeleteProductById :exec
 DELETE FROM "Product"
-WHERE id = $1;
+WHERE "_id" = $1;
 
 -- name: DeleteLikedProductByUserId :exec
 DELETE FROM "Product_liked"
@@ -209,4 +209,4 @@ WHERE user_id = $1;
 
 -- name: DeleteManyProductsByIds :exec
 DELETE FROM "Product"
-WHERE id = ANY($1::bigint[]);
+WHERE "_id" = ANY($1::bigint[]);

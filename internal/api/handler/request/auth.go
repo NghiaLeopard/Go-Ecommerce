@@ -33,6 +33,6 @@ type UpdateAuthMe struct {
 	FirstName   string `json:"firstName" binding:"required"`
 	LastName    string `json:"lastName" binding:"required"`
 	MiddleName  string `json:"middleName" binding:"required"`
-	PhoneNumber int64  `json:"phoneNumber" binding:"required" format:"int64"`
-	Image       string `json:"image" binding:"required"`
+	PhoneNumber string `json:"phoneNumber" binding:"required" format:"string"`
+	Image       string `json:"image" `
 }

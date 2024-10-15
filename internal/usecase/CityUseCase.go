@@ -58,12 +58,21 @@ func (c *CityUseCase) GetCityUseCase(ctx *gin.Context, id int) (IResponse.City, 
 }
 
 func (c *CityUseCase) GetAllCityUseCase(ctx *gin.Context, page int32, limit int32, search string, order string) (IResponse.GetAllCity, error, int) {
-
 	city, err := c.CityRepo.GetAllCity(ctx, page, limit, search, order)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return IResponse.GetAllCity{}, fmt.Errorf("get city is not exist"), 401
+	}
+
+	fmt.Println(city, limit, order)
+
+	if len(city) == 0 {
+		return IResponse.GetAllCity{
+			Cities:     city,
+			TotalCount: 0,
+			TotalPage:  0,
+		}, nil, 200
 	}
 
 	totalPage := utils.PageCount(int64(limit), city[0].TotalCount)
