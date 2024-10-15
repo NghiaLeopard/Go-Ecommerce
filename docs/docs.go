@@ -743,6 +743,236 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/payment-type": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get all Payment",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Get all Payment",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Payment"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create Payment",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Create Payment",
+                "parameters": [
+                    {
+                        "description": "Create Payment",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreatePayment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Payment"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/payment-type/delete-many": {
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete many Payment",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Delete many Payment",
+                "parameters": [
+                    {
+                        "description": "DeleteMany Payment",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyPayment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete many Payment success",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/payment-type/{PaymentId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Payment by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Get Payment by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User ID",
+                        "name": "PaymentId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Payment"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update Payment",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Update Payment",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Update Payment",
+                        "name": "PaymentId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Payment",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdatePayment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Payment"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete Payment",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Delete Payment",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Delete Payment",
+                        "name": "PaymentId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/product-types": {
             "get": {
                 "security": [
@@ -2187,6 +2417,22 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreatePayment": {
+            "type": "object",
+            "required": [
+                "name",
+                "type"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
         "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProduct": {
             "type": "object",
             "required": [
@@ -2288,10 +2534,25 @@ const docTemplate = `{
         "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyDelivery": {
             "type": "object",
             "required": [
-                "arrayId"
+                "deliveryTypeIds"
             ],
             "properties": {
-                "arrayId": {
+                "deliveryTypeIds": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyPayment": {
+            "type": "object",
+            "required": [
+                "paymentTypeIds"
+            ],
+            "properties": {
+                "paymentTypeIds": {
                     "type": "array",
                     "minItems": 1,
                     "items": {
@@ -2379,6 +2640,23 @@ const docTemplate = `{
                 "price": {
                     "type": "integer",
                     "minimum": 1
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdatePayment": {
+            "type": "object",
+            "required": [
+                "name",
+                "type"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "type": {
+                    "type": "string",
+                    "minLength": 1
                 }
             }
         },
@@ -2753,6 +3031,23 @@ const docTemplate = `{
                 },
                 "user": {
                     "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User"
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Payment": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "integer"
+                },
+                "create_at": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
                 }
             }
         },

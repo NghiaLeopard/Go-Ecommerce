@@ -249,6 +249,17 @@ definitions:
     - name
     - price
     type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreatePayment:
+    properties:
+      name:
+        type: string
+      type:
+        minLength: 1
+        type: string
+    required:
+    - name
+    - type
+    type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProduct:
     properties:
       countInStock:
@@ -320,13 +331,23 @@ definitions:
     type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyDelivery:
     properties:
-      arrayId:
+      deliveryTypeIds:
         items:
           type: integer
         minItems: 1
         type: array
     required:
-    - arrayId
+    - deliveryTypeIds
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyPayment:
+    properties:
+      paymentTypeIds:
+        items:
+          type: integer
+        minItems: 1
+        type: array
+    required:
+    - paymentTypeIds
     type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyProduct:
     properties:
@@ -381,6 +402,18 @@ definitions:
     required:
     - name
     - price
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdatePayment:
+    properties:
+      name:
+        minLength: 1
+        type: string
+      type:
+        minLength: 1
+        type: string
+    required:
+    - name
+    - type
     type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateProductType:
     properties:
@@ -632,6 +665,17 @@ definitions:
         type: string
       user:
         $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User'
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Payment:
+    properties:
+      _id:
+        type: integer
+      create_at:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
     type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Product:
     properties:
@@ -1269,6 +1313,148 @@ paths:
       summary: Delete many Delivery
       tags:
       - Delivery
+  /api/payment-type:
+    get:
+      description: Get all Payment
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: order
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Payment'
+              type: array
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get all Payment
+      tags:
+      - Payment
+    post:
+      description: Create Payment
+      parameters:
+      - description: Create Payment
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreatePayment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Payment'
+      security:
+      - BearerAuth: []
+      summary: Create Payment
+      tags:
+      - Payment
+  /api/payment-type/{PaymentId}:
+    delete:
+      description: Delete Payment
+      parameters:
+      - description: Delete Payment
+        in: path
+        name: PaymentId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete Payment
+      tags:
+      - Payment
+    get:
+      description: Get Payment by id
+      parameters:
+      - description: User ID
+        in: path
+        name: PaymentId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Payment'
+      security:
+      - BearerAuth: []
+      summary: Get Payment by id
+      tags:
+      - Payment
+    put:
+      description: Update Payment
+      parameters:
+      - description: Update Payment
+        in: path
+        name: PaymentId
+        required: true
+        type: integer
+      - description: Update Payment
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdatePayment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Payment'
+      security:
+      - BearerAuth: []
+      summary: Update Payment
+      tags:
+      - Payment
+  /api/payment-type/delete-many:
+    delete:
+      description: Delete many Payment
+      parameters:
+      - description: DeleteMany Payment
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyPayment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Delete many Payment success
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete many Payment
+      tags:
+      - Payment
   /api/product-types:
     get:
       description: Get all ProductType

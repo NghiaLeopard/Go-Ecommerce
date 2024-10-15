@@ -27,7 +27,7 @@ func NewPaymentHandler(PaymentUseCase IUseCase.Payment) IHandler.Payment {
 // @Produce 		application/json
 // @Tags 			Payment
 // @Success 		200 {object} IResponse.Payment{}
-// @Router 			/api/Payment-type [post]
+// @Router 			/api/payment-type [post]
 func (c *PaymentHandler) CreatePayment(ctx *gin.Context) {
 	var req IRequest.CreatePayment
 	var _ *IResponse.Payment
@@ -56,7 +56,7 @@ func (c *PaymentHandler) CreatePayment(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			Payment
 // @Success 		200 {object} IResponse.Payment{}
-// @Router 			/api/Payment-type/{PaymentId} [get]
+// @Router 			/api/payment-type/{PaymentId} [get]
 func (c *PaymentHandler) GetPayment(ctx *gin.Context) {
 	var req IRequest.GetPayment
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -84,7 +84,7 @@ func (c *PaymentHandler) GetPayment(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			Payment
 // @Success 		200 {array} []IResponse.Payment{}
-// @Router 			/api/Payment-type [get]
+// @Router 			/api/payment-type [get]
 func (c *PaymentHandler) GetAllPayment(ctx *gin.Context) {
 	var req IRequest.GetAllPayment
 	if err := ctx.ShouldBindQuery(&req); err != nil {
@@ -113,7 +113,7 @@ func (c *PaymentHandler) GetAllPayment(ctx *gin.Context) {
 // @Produce 			application/json
 // @Tags 				Payment
 // @Success 			200 {object} IResponse.Payment{}
-// @Router 				/api/Payment-type/{PaymentId} [put]
+// @Router 				/api/payment-type/{PaymentId} [put]
 func (c *PaymentHandler) UpdatePayment(ctx *gin.Context) {
 	var params IRequest.GetParamsUpdatePayment
 	var body IRequest.GetBodyUpdatePayment
@@ -148,7 +148,7 @@ func (c *PaymentHandler) UpdatePayment(ctx *gin.Context) {
 // @Produce 			application/json
 // @Tags 				Payment
 // @Success 			200 {string} string [delete Payment success]
-// @Router 				/api/Payment-type/{PaymentId} [delete]
+// @Router 				/api/payment-type/{PaymentId} [delete]
 func (c *PaymentHandler) DeletePayment(ctx *gin.Context) {
 	var req IRequest.DeletePayment
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -176,7 +176,7 @@ func (c *PaymentHandler) DeletePayment(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			Payment
 // @Success 		200 {string} string "Delete many Payment success"
-// @Router 			/api/Payment-type/delete-many [delete]
+// @Router 			/api/payment-type/delete-many [delete]
 func (c *PaymentHandler) DeleteManyPayment(ctx *gin.Context) {
 	var req IRequest.DeleteManyPayment
 	if err := ctx.ShouldBindJSON(&req); err != nil {
