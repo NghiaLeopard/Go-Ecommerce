@@ -17,7 +17,7 @@ type ServerHTTP struct {
 	config config.Config
 }
 
-func NewServerHTTP(config config.Config, middleware middleware.Middleware, authHandler IHandler.Auth, productHandler IHandler.Product, cityHandler IHandler.City, roleHandler IHandler.Role, productTypeHandler IHandler.ProductType) *ServerHTTP {
+func NewServerHTTP(config config.Config, middleware middleware.Middleware, authHandler IHandler.Auth, productHandler IHandler.Product, cityHandler IHandler.City, DeliveryHandler IHandler.Delivery, roleHandler IHandler.Role, productTypeHandler IHandler.ProductType) *ServerHTTP {
 	engine := gin.Default()
 
 	engine.Use(cors.New(cors.Config{
@@ -36,6 +36,7 @@ func NewServerHTTP(config config.Config, middleware middleware.Middleware, authH
 
 	routers.UserRouter(api, middleware, authHandler)
 	routers.CityRouter(api, middleware, cityHandler)
+	routers.DeliveryRouter(api, middleware, DeliveryHandler)
 	routers.RoleRouter(api, middleware, roleHandler)
 	routers.ProductRouter(api, middleware, productHandler)
 	routers.ProductTypeRouter(api, middleware, productTypeHandler)
