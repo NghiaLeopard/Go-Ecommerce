@@ -513,6 +513,236 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/delivery-type": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get all Delivery",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Delivery"
+                ],
+                "summary": "Get all Delivery",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Delivery"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create Delivery",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Delivery"
+                ],
+                "summary": "Create Delivery",
+                "parameters": [
+                    {
+                        "description": "Create Delivery",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateDelivery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Delivery"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/delivery-type/delete-many": {
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete many Delivery",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Delivery"
+                ],
+                "summary": "Delete many Delivery",
+                "parameters": [
+                    {
+                        "description": "DeleteMany Delivery",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyDelivery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete many Delivery success",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/delivery-type/{DeliveryId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Delivery by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Delivery"
+                ],
+                "summary": "Get Delivery by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User ID",
+                        "name": "DeliveryId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Delivery"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update Delivery",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Delivery"
+                ],
+                "summary": "Update Delivery",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Update Delivery",
+                        "name": "DeliveryId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Delivery",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateDelivery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Delivery"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete Delivery",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Delivery"
+                ],
+                "summary": "Delete Delivery",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Delete Delivery",
+                        "name": "DeliveryId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/product-types": {
             "get": {
                 "security": [
@@ -1941,6 +2171,22 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateDelivery": {
+            "type": "object",
+            "required": [
+                "name",
+                "price"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        },
         "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProduct": {
             "type": "object",
             "required": [
@@ -2004,7 +2250,7 @@ const docTemplate = `{
             "properties": {
                 "name": {
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 4
                 },
                 "slug": {
                     "type": "string",
@@ -2039,6 +2285,21 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyDelivery": {
+            "type": "object",
+            "required": [
+                "arrayId"
+            ],
+            "properties": {
+                "arrayId": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
         "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyProduct": {
             "type": "object",
             "required": [
@@ -2056,10 +2317,10 @@ const docTemplate = `{
         "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyProductType": {
             "type": "object",
             "required": [
-                "arrayId"
+                "productTypeIds"
             ],
             "properties": {
-                "arrayId": {
+                "productTypeIds": {
                     "type": "array",
                     "items": {
                         "type": "integer"
@@ -2104,6 +2365,23 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateDelivery": {
+            "type": "object",
+            "required": [
+                "name",
+                "price"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "price": {
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        },
         "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateProductType": {
             "type": "object",
             "properties": {
@@ -2121,7 +2399,7 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "permission": {
+                "permissions": {
                     "type": "array",
                     "items": {
                         "type": "string"
@@ -2351,6 +2629,23 @@ const docTemplate = `{
                 },
                 "name": {
                     "type": "string"
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Delivery": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "integer"
+                },
+                "create_at": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
                 }
             }
         },

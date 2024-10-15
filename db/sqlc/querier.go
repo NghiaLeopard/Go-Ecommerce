@@ -11,6 +11,7 @@ import (
 type Querier interface {
 	CheckProduct(ctx context.Context, ID int64) (int64, error)
 	CreateCity(ctx context.Context, name string) (City, error)
+	CreateDelivery(ctx context.Context, arg CreateDeliveryParams) (DeliveryType, error)
 	CreateProduct(ctx context.Context, arg CreateProductParams) (Product, error)
 	CreateProductLike(ctx context.Context, arg CreateProductLikeParams) error
 	CreateProductType(ctx context.Context, arg CreateProductTypeParams) (ProductType, error)
@@ -19,8 +20,10 @@ type Querier interface {
 	CreateRoleByDefault(ctx context.Context, arg CreateRoleByDefaultParams) (Role, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteCityById(ctx context.Context, ID int64) error
+	DeleteDeliveryById(ctx context.Context, ID int64) error
 	DeleteLikedProductByUserId(ctx context.Context, userID int32) error
 	DeleteManyCityByIds(ctx context.Context, dollar_1 []int64) error
+	DeleteManyDeliveryByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteManyProductTypesByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteManyProductsByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteManyRolesByIds(ctx context.Context, dollar_1 []int64) error
@@ -36,6 +39,8 @@ type Querier interface {
 	GetAllProductView(ctx context.Context, arg GetAllProductViewParams) ([]GetAllProductViewRow, error)
 	GetCityById(ctx context.Context, ID int64) (City, error)
 	GetCityByName(ctx context.Context, name string) (City, error)
+	GetDeliveryById(ctx context.Context, ID int64) (DeliveryType, error)
+	GetDeliveryByName(ctx context.Context, name string) (DeliveryType, error)
 	GetProductById(ctx context.Context, ID int64) (GetProductByIdRow, error)
 	GetProductBySlug(ctx context.Context, slug string) (GetProductBySlugRow, error)
 	GetProductPublicById(ctx context.Context, ID int64) (GetProductPublicByIdRow, error)
@@ -48,11 +53,13 @@ type Querier interface {
 	GetUserById(ctx context.Context, ID int64) (GetUserByIdRow, error)
 	InitDefaultAdmin(ctx context.Context, arg InitDefaultAdminParams) (User, error)
 	ListCity(ctx context.Context, arg ListCityParams) ([]ListCityRow, error)
+	ListDelivery(ctx context.Context, arg ListDeliveryParams) ([]ListDeliveryRow, error)
 	ListProductType(ctx context.Context, arg ListProductTypeParams) ([]ListProductTypeRow, error)
 	ListRole(ctx context.Context, arg ListRoleParams) ([]ListRoleRow, error)
 	ListUsers(ctx context.Context) ([]User, error)
 	UpdateAuthMe(ctx context.Context, arg UpdateAuthMeParams) (User, error)
 	UpdateCity(ctx context.Context, arg UpdateCityParams) (City, error)
+	UpdateDelivery(ctx context.Context, arg UpdateDeliveryParams) (DeliveryType, error)
 	UpdatePasswordUser(ctx context.Context, arg UpdatePasswordUserParams) error
 	UpdateProduct(ctx context.Context, arg UpdateProductParams) (Product, error)
 	UpdateProductType(ctx context.Context, arg UpdateProductTypeParams) (ProductType, error)

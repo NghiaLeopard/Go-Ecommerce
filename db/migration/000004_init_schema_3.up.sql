@@ -9,7 +9,7 @@ CREATE TABLE "Product" (
     "discountStartDate" date NOT NULL DEFAULT('0001-01-01 00:00:00Z'),
     "discountEndDate" date NOT NULL DEFAULT('0001-01-01 00:00:00Z'),
     "type" integer NOT NULL,
-    "status"integer NOT NULL,
+    "status" integer NOT NULL,
     "slug" varchar NOT NULL,
     "price" integer NOT NULL,
     "location" integer NOT NULL,
