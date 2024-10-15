@@ -99,14 +99,14 @@ func (ns NullUsersType) Value() (driver.Value, error) {
 }
 
 type City struct {
-	ID       int64     `json:"id"`
+	ID       int64     `json:"_id"`
 	Name     string    `json:"name"`
 	CreateAt time.Time `json:"create_at"`
 	UpdateAt time.Time `json:"update_at"`
 }
 
 type Product struct {
-	ID                int64     `json:"id"`
+	ID                int64     `json:"_id"`
 	Name              string    `json:"name"`
 	Image             string    `json:"image"`
 	CountInStock      int32     `json:"countInStock"`
@@ -131,7 +131,7 @@ type ProductLiked struct {
 }
 
 type ProductType struct {
-	ID       int64        `json:"id"`
+	ID       int64        `json:"_id"`
 	Name     string       `json:"name"`
 	Slug     string       `json:"slug"`
 	CreateAt time.Time    `json:"create_at"`
@@ -145,7 +145,7 @@ type ProductUniqueView struct {
 }
 
 type Role struct {
-	ID         int64     `json:"id"`
+	ID         int64     `json:"_id"`
 	Name       string    `json:"name"`
 	Permission []string  `json:"permission"`
 	CreateAt   time.Time `json:"create_at"`
@@ -153,7 +153,7 @@ type Role struct {
 }
 
 type User struct {
-	ID             int64                 `json:"id"`
+	ID             int64                 `json:"_id"`
 	Email          string                `json:"email"`
 	Password       string                `json:"password"`
 	UserType       NullUsersType         `json:"userType"`
@@ -161,7 +161,7 @@ type User struct {
 	Address        sql.NullString        `json:"address"`
 	Avatar         sql.NullString        `json:"avatar"`
 	Image          sql.NullString        `json:"image"`
-	PhoneNumber    sql.NullInt64         `json:"phoneNumber"`
+	PhoneNumber    sql.NullString        `json:"phoneNumber"`
 	Role           sql.NullInt64         `json:"role"`
 	FirstName      sql.NullString        `json:"firstName"`
 	LastName       sql.NullString        `json:"lastName"`

@@ -14,6 +14,6 @@ func CityRouter(api *gin.RouterGroup, middleware middleware.Middleware, cityHand
 		apiCity.GET("/:id", cityHandler.GetCity)
 		apiCity.PUT("/:id", middleware.AuthMiddleware("CITY.UPDATE", false, false), cityHandler.UpdateCity)
 		apiCity.DELETE("/:id", middleware.AuthMiddleware("CITY.DELETE", false, false), cityHandler.DeleteCity)
-		apiCity.DELETE("", middleware.AuthMiddleware("CITY.DELETE", false, false), cityHandler.DeleteManyCity)
+		apiCity.DELETE("/delete-many", middleware.AuthMiddleware("CITY.DELETE", false, false), cityHandler.DeleteManyCity)
 	}
 }

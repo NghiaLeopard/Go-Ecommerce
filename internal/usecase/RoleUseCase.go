@@ -56,8 +56,9 @@ func (c *RoleUseCase) GetRoleUseCase(ctx *gin.Context, id int) (IResponse.Role, 
 	}
 
 	return IResponse.Role{
-		Id:   Role.ID,
-		Name: Role.Name,
+		Id:         Role.ID,
+		Name:       Role.Name,
+		Permission: Role.Permission,
 	}, nil, 200
 }
 
@@ -67,6 +68,14 @@ func (c *RoleUseCase) GetAllRoleUseCase(ctx *gin.Context, req IRequest.GetAllRol
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return IResponse.GetAllRole{}, fmt.Errorf("get Role is not exist"), 401
+	}
+
+	if len(role) == 0 {
+		return IResponse.GetAllRole{
+			Roles:      role,
+			TotalCount: 0,
+			TotalPage:  0,
+		}, nil, 200
 	}
 
 	totalPage := utils.PageCount(int64(req.Limit), role[0].TotalCount)
@@ -93,7 +102,7 @@ func (c *RoleUseCase) UpdateRoleUseCase(ctx *gin.Context, id int, name string, p
 		return IResponse.Role{}, fmt.Errorf("ArrayID is empty"), 401
 	}
 	if len(permission) == 0 {
-		role, err = c.RoleRepo.UpdateRole(ctx, idInt64, name, role.Permission)
+		updateRole, err := c.RoleRepo.UpdateRole(ctx, idInt64, name, role.Permission)
 
 		if err != nil {
 			global.Logger.Error(err.Error(), zap.String("Status", "Error"))
@@ -101,16 +110,16 @@ func (c *RoleUseCase) UpdateRoleUseCase(ctx *gin.Context, id int, name string, p
 		}
 
 		res := IResponse.Role{
-			Id:         role.ID,
-			Name:       role.Name,
-			Permission: role.Permission,
+			Id:         updateRole.ID,
+			Name:       updateRole.Name,
+			Permission: updateRole.Permission,
 		}
 
 		return res, nil, 200
 	}
 
 	if name == "" {
-		role, err = c.RoleRepo.UpdateRole(ctx, idInt64, role.Name, permission)
+		updateRole, err := c.RoleRepo.UpdateRole(ctx, idInt64, role.Name, permission)
 
 		if err != nil {
 			global.Logger.Error(err.Error(), zap.String("Status", "Error"))
@@ -118,15 +127,15 @@ func (c *RoleUseCase) UpdateRoleUseCase(ctx *gin.Context, id int, name string, p
 		}
 
 		res := IResponse.Role{
-			Id:         role.ID,
-			Name:       role.Name,
-			Permission: role.Permission,
+			Id:         updateRole.ID,
+			Name:       updateRole.Name,
+			Permission: updateRole.Permission,
 		}
 
 		return res, nil, 200
 	}
 
-	role, err = c.RoleRepo.UpdateRole(ctx, idInt64, name, permission)
+	updateRole, err := c.RoleRepo.UpdateRole(ctx, idInt64, name, permission)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
@@ -134,9 +143,9 @@ func (c *RoleUseCase) UpdateRoleUseCase(ctx *gin.Context, id int, name string, p
 	}
 
 	res := IResponse.Role{
-		Id:         role.ID,
-		Name:       role.Name,
-		Permission: role.Permission,
+		Id:         updateRole.ID,
+		Name:       updateRole.Name,
+		Permission: updateRole.Permission,
 	}
 
 	return res, nil, 200

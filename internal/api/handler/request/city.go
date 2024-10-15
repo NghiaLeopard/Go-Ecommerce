@@ -5,8 +5,8 @@ type CreateCity struct {
 }
 
 type GetAllCity struct {
-	Limit  int32  `form:"limit" binding:"required,min=1"`
-	Page   int32  `form:"page" binding:"required,min=1"`
+	Limit  int32  `form:"limit"`
+	Page   int32  `form:"page"`
 	Search string `form:"search"`
 	Order  string `form:"order"`
 }

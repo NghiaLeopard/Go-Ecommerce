@@ -1,5 +1,5 @@
 CREATE TABLE "Product" (
-    "id" bigserial PRIMARY KEY,
+    "_id" bigserial PRIMARY KEY,
     "name" varchar NOT NULL,
     "image" varchar NOT NULL,
     "countInStock" integer NOT NULL,
@@ -15,6 +15,6 @@ CREATE TABLE "Product" (
     "location" integer NOT NULL,
     "views" integer NOT NULL DEFAULT 0,
     "create_at" timestamptz NOT NULL DEFAULT (now()),
-    CONSTRAINT "fk_ProductCity" FOREIGN KEY("location") REFERENCES "City"(id) ON DELETE CASCADE
+    CONSTRAINT "fk_ProductCity" FOREIGN KEY("location") REFERENCES "City"("_id") ON DELETE CASCADE
 )
 

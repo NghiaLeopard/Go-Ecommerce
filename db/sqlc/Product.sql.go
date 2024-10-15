@@ -14,14 +14,15 @@ import (
 )
 
 const checkProduct = `-- name: CheckProduct :one
-SELECT id FROM "Product"
-WHERE id = $1 LIMIT 1
+SELECT "_id" FROM "Product"
+WHERE "_id" = $1 LIMIT 1
 `
 
-func (q *Queries) CheckProduct(ctx context.Context, id int64) (int64, error) {
-	row := q.db.QueryRowContext(ctx, checkProduct, id)
-	err := row.Scan(&id)
-	return id, err
+func (q *Queries) CheckProduct(ctx context.Context, ID int64) (int64, error) {
+	row := q.db.QueryRowContext(ctx, checkProduct, ID)
+	var _id int64
+	err := row.Scan(&_id)
+	return _id, err
 }
 
 const createProduct = `-- name: CreateProduct :one
@@ -30,7 +31,7 @@ INSERT INTO "Product" (
 ) VALUES (
   $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12
 )
-RETURNING id, name, image, "countInStock", description, sold, discount, "discountStartDate", "discountEndDate", type, status, slug, price, location, views, create_at
+RETURNING _id, name, image, "countInStock", description, sold, discount, "discountStartDate", "discountEndDate", type, status, slug, price, location, views, create_at
 `
 
 type CreateProductParams struct {
@@ -133,7 +134,7 @@ func (q *Queries) DeleteLikedProductByUserId(ctx context.Context, userID int32) 
 
 const deleteManyProductsByIds = `-- name: DeleteManyProductsByIds :exec
 DELETE FROM "Product"
-WHERE id = ANY($1::bigint[])
+WHERE "_id" = ANY($1::bigint[])
 `
 
 func (q *Queries) DeleteManyProductsByIds(ctx context.Context, dollar_1 []int64) error {
@@ -143,19 +144,19 @@ func (q *Queries) DeleteManyProductsByIds(ctx context.Context, dollar_1 []int64)
 
 const deleteProductById = `-- name: DeleteProductById :exec
 DELETE FROM "Product"
-WHERE id = $1
+WHERE "_id" = $1
 `
 
-func (q *Queries) DeleteProductById(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteProductById, id)
+func (q *Queries) DeleteProductById(ctx context.Context, ID int64) error {
+	_, err := q.db.ExecContext(ctx, deleteProductById, ID)
 	return err
 }
 
 const getAllProductAdmin = `-- name: GetAllProductAdmin :many
-SELECT p.id,p.name,p."countInStock",p.image,p.price,p.slug,p.status,
-json_build_object('id', pt.id, 'name', pt.name) AS "type",
-COUNT(p.id) OVER() AS "totalCount" FROM "Product" p
-JOIN "Product_Type" pt ON p.type = pt.id
+SELECT p."_id",p.name,p."countInStock",p.image,p.price,p.slug,p.status,
+json_build_object('_id', pt."_id", 'name', pt.name) AS "type",
+COUNT(p."_id") OVER() AS "totalCount" FROM "Product" p
+JOIN "Product_Type" pt ON p.type = pt."_id"
 WHERE 
   CASE
 		WHEN $3 :: text != '' THEN (
@@ -216,7 +217,7 @@ type GetAllProductAdminParams struct {
 }
 
 type GetAllProductAdminRow struct {
-	ID           int64           `json:"id"`
+	ID           int64           `json:"_id"`
 	Name         string          `json:"name"`
 	CountInStock int32           `json:"countInStock"`
 	Image        string          `json:"image"`
@@ -268,14 +269,14 @@ func (q *Queries) GetAllProductAdmin(ctx context.Context, arg GetAllProductAdmin
 }
 
 const getAllProductLike = `-- name: GetAllProductLike :many
-SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
+SELECT p._id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",COUNT(p."_id") OVER() AS "totalCount",
 CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
 CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
 FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
 WHERE l.user_id = $1 AND ($4 ::text = '' or name ILIKE concat('%',$4,'%'))   
-GROUP BY p.id
+GROUP BY p."_id"
 ORDER BY MAX(l.like_date) asc
 LIMIT $2
 OFFSET $3
@@ -289,7 +290,7 @@ type GetAllProductLikeParams struct {
 }
 
 type GetAllProductLikeRow struct {
-	ID                int64           `json:"id"`
+	ID                int64           `json:"_id"`
 	Name              string          `json:"name"`
 	Image             string          `json:"image"`
 	CountInStock      int32           `json:"countInStock"`
@@ -361,12 +362,12 @@ func (q *Queries) GetAllProductLike(ctx context.Context, arg GetAllProductLikePa
 }
 
 const getAllProductPublic = `-- name: GetAllProductPublic :many
-SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
+SELECT p._id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",COUNT(p."_id") OVER() AS "totalCount",
 CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
 CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
 FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
 WHERE 
   CASE
 		WHEN $3 :: text != '' THEN (
@@ -394,7 +395,7 @@ WHERE
 			price <= $7
 		ELSE true
 	END
-GROUP BY p.id
+GROUP BY p."_id"
 ORDER BY create_at ASC
 LIMIT $1
 OFFSET $2
@@ -411,7 +412,7 @@ type GetAllProductPublicParams struct {
 }
 
 type GetAllProductPublicRow struct {
-	ID                int64           `json:"id"`
+	ID                int64           `json:"_id"`
 	Name              string          `json:"name"`
 	Image             string          `json:"image"`
 	CountInStock      int32           `json:"countInStock"`
@@ -486,27 +487,27 @@ func (q *Queries) GetAllProductPublic(ctx context.Context, arg GetAllProductPubl
 }
 
 const getAllProductRelated = `-- name: GetAllProductRelated :many
-SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
+SELECT p._id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",COUNT(p."_id") OVER() AS "totalCount",
 CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
 CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
 FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
-WHERE p.type = $1 AND p.id <> $2
-GROUP BY p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
+WHERE p.type = $1 AND p."_id" <> $2
+GROUP BY p."_id"
 LIMIT $3
 OFFSET $4
 `
 
 type GetAllProductRelatedParams struct {
 	Type   int32 `json:"type"`
-	ID     int64 `json:"id"`
+	ID     int64 `json:"_id"`
 	Limit  int32 `json:"limit"`
 	Offset int32 `json:"offset"`
 }
 
 type GetAllProductRelatedRow struct {
-	ID                int64           `json:"id"`
+	ID                int64           `json:"_id"`
 	Name              string          `json:"name"`
 	Image             string          `json:"image"`
 	CountInStock      int32           `json:"countInStock"`
@@ -578,14 +579,14 @@ func (q *Queries) GetAllProductRelated(ctx context.Context, arg GetAllProductRel
 }
 
 const getAllProductView = `-- name: GetAllProductView :many
-SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",COUNT(p.id) OVER() AS "totalCount",
+SELECT p._id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",COUNT(p."_id") OVER() AS "totalCount",
 CASE WHEN COUNT(l."user_id") > 0 THEN json_agg(l."user_id") ELSE '[]'::json END AS "likedBy",
 CASE WHEN COUNT(v."user_id") > 0 THEN json_agg(v."user_id") ELSE '[]'::json END AS "uniqueViews"
 FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
 WHERE v.user_id = $1 AND ($4 ::text = '' or name ILIKE concat('%',$4,'%'))
-GROUP BY p.id 
+GROUP BY p."_id" 
 ORDER BY MAX(v.view_date) asc
 LIMIT $2
 OFFSET $3
@@ -599,7 +600,7 @@ type GetAllProductViewParams struct {
 }
 
 type GetAllProductViewRow struct {
-	ID                int64           `json:"id"`
+	ID                int64           `json:"_id"`
 	Name              string          `json:"name"`
 	Image             string          `json:"image"`
 	CountInStock      int32           `json:"countInStock"`
@@ -671,18 +672,18 @@ func (q *Queries) GetAllProductView(ctx context.Context, arg GetAllProductViewPa
 }
 
 const getProductById = `-- name: GetProductById :one
-SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",
+SELECT p._id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",
 json_agg(l."user_id") AS "likedBy",
 json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
-WHERE p.id = $1 
-GROUP BY p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
+WHERE p."_id" = $1 
+GROUP BY p."_id"
 LIMIT 1
 `
 
 type GetProductByIdRow struct {
-	ID                int64           `json:"id"`
+	ID                int64           `json:"_id"`
 	Name              string          `json:"name"`
 	Image             string          `json:"image"`
 	CountInStock      int32           `json:"countInStock"`
@@ -703,8 +704,8 @@ type GetProductByIdRow struct {
 	UniqueViews       json.RawMessage `json:"uniqueViews"`
 }
 
-func (q *Queries) GetProductById(ctx context.Context, id int64) (GetProductByIdRow, error) {
-	row := q.db.QueryRowContext(ctx, getProductById, id)
+func (q *Queries) GetProductById(ctx context.Context, ID int64) (GetProductByIdRow, error) {
+	row := q.db.QueryRowContext(ctx, getProductById, ID)
 	var i GetProductByIdRow
 	err := row.Scan(
 		&i.ID,
@@ -731,18 +732,18 @@ func (q *Queries) GetProductById(ctx context.Context, id int64) (GetProductByIdR
 }
 
 const getProductBySlug = `-- name: GetProductBySlug :one
-SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",
+SELECT p._id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",
 json_agg(l."user_id") AS "likedBy",
 json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
 WHERE p.slug = $1 
-GROUP BY p.id
+GROUP BY p."_id"
 LIMIT 1
 `
 
 type GetProductBySlugRow struct {
-	ID                int64           `json:"id"`
+	ID                int64           `json:"_id"`
 	Name              string          `json:"name"`
 	Image             string          `json:"image"`
 	CountInStock      int32           `json:"countInStock"`
@@ -791,18 +792,18 @@ func (q *Queries) GetProductBySlug(ctx context.Context, slug string) (GetProduct
 }
 
 const getProductPublicById = `-- name: GetProductPublicById :one
-SELECT p.id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",
+SELECT p._id, p.name, p.image, p."countInStock", p.description, p.sold, p.discount, p."discountStartDate", p."discountEndDate", p.type, p.status, p.slug, p.price, p.location, p.views, p.create_at,COUNT(l."user_id") AS "totalLikes",
 json_agg(l."user_id") AS "likedBy",
 json_agg(v."user_id") AS "uniqueViews" FROM "Product" p
-LEFT JOIN "Product_liked" l ON l."product_id" = p.id
-LEFT JOIN "Product_UniqueView" v ON v."product_id" = p.id
-WHERE p.id = $1 
-GROUP BY p.id
+LEFT JOIN "Product_liked" l ON l."product_id" = p."_id"
+LEFT JOIN "Product_UniqueView" v ON v."product_id" = p."_id"
+WHERE p."_id" = $1 
+GROUP BY p."_id"
 LIMIT 1
 `
 
 type GetProductPublicByIdRow struct {
-	ID                int64           `json:"id"`
+	ID                int64           `json:"_id"`
 	Name              string          `json:"name"`
 	Image             string          `json:"image"`
 	CountInStock      int32           `json:"countInStock"`
@@ -823,8 +824,8 @@ type GetProductPublicByIdRow struct {
 	UniqueViews       json.RawMessage `json:"uniqueViews"`
 }
 
-func (q *Queries) GetProductPublicById(ctx context.Context, id int64) (GetProductPublicByIdRow, error) {
-	row := q.db.QueryRowContext(ctx, getProductPublicById, id)
+func (q *Queries) GetProductPublicById(ctx context.Context, ID int64) (GetProductPublicByIdRow, error) {
+	row := q.db.QueryRowContext(ctx, getProductPublicById, ID)
 	var i GetProductPublicByIdRow
 	err := row.Scan(
 		&i.ID,
@@ -851,12 +852,12 @@ func (q *Queries) GetProductPublicById(ctx context.Context, id int64) (GetProduc
 }
 
 const getProductTypeBySlug = `-- name: GetProductTypeBySlug :one
-SELECT id,type from "Product"
+SELECT "_id",type from "Product"
 WHERE slug = $1 LIMIT 1
 `
 
 type GetProductTypeBySlugRow struct {
-	ID   int64 `json:"id"`
+	ID   int64 `json:"_id"`
 	Type int32 `json:"type"`
 }
 
@@ -869,8 +870,8 @@ func (q *Queries) GetProductTypeBySlug(ctx context.Context, slug string) (GetPro
 
 const updateProduct = `-- name: UpdateProduct :one
 UPDATE "Product" SET name = $1,image = $2,"countInStock" = $3,description = $4,type = $5,status = $6,slug = $7,price = $8,discount = $9,"discountStartDate" = $10,"discountEndDate" = $11,location = $12
-WHERE id = $13
-RETURNING id, name, image, "countInStock", description, sold, discount, "discountStartDate", "discountEndDate", type, status, slug, price, location, views, create_at
+WHERE "_id" = $13
+RETURNING _id, name, image, "countInStock", description, sold, discount, "discountStartDate", "discountEndDate", type, status, slug, price, location, views, create_at
 `
 
 type UpdateProductParams struct {
@@ -886,7 +887,7 @@ type UpdateProductParams struct {
 	DiscountStartDate time.Time `json:"discountStartDate"`
 	DiscountEndDate   time.Time `json:"discountEndDate"`
 	Location          int32     `json:"location"`
-	ID                int64     `json:"id"`
+	ID                int64     `json:"_id"`
 }
 
 func (q *Queries) UpdateProduct(ctx context.Context, arg UpdateProductParams) (Product, error) {
@@ -929,12 +930,12 @@ func (q *Queries) UpdateProduct(ctx context.Context, arg UpdateProductParams) (P
 
 const updateViewProduct = `-- name: UpdateViewProduct :exec
 UPDATE "Product" SET views = $1
-WHERE id = $2
+WHERE "_id" = $2
 `
 
 type UpdateViewProductParams struct {
 	Views int32 `json:"views"`
-	ID    int64 `json:"id"`
+	ID    int64 `json:"_id"`
 }
 
 func (q *Queries) UpdateViewProduct(ctx context.Context, arg UpdateViewProductParams) error {

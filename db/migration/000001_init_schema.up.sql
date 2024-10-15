@@ -10,7 +10,7 @@ CREATE TYPE users_status AS ENUM (
 );
 
 CREATE TABLE "Users" (
-  "id" bigserial PRIMARY KEY,
+  "_id" bigserial PRIMARY KEY,
   "email" varchar UNIQUE NOT NULL,
   "password" varchar NOT NULL,
   "userType" users_type DEFAULT '3',
@@ -18,7 +18,7 @@ CREATE TABLE "Users" (
   "address" varchar,
   "avatar" varchar,
   "image" varchar,
-  "phoneNumber" bigint,
+  "phoneNumber" varchar,
   "role" bigint DEFAULT 2,
   "firstName" varchar,
   "lastName" varchar,

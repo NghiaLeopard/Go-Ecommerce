@@ -17,7 +17,7 @@ func ProductRouter(api *gin.RouterGroup, middleware middleware.Middleware, Produ
 		apiProduct.GET("/public", middleware.AuthMiddleware("1", true, true), ProductHandler.GetAllProductPublic)
 
 		// Get product related
-		apiProduct.GET("/related", middleware.AuthMiddleware("1", true, false), ProductHandler.GetProductRelated)
+		apiProduct.GET("/related", ProductHandler.GetProductRelated)
 
 		// update product
 		apiProduct.PUT("/:productId", middleware.AuthMiddleware("MANAGE_PRODUCT.PRODUCT.UPDATE", true, false), ProductHandler.UpdateProduct)

@@ -9,7 +9,7 @@ import (
 )
 
 type Querier interface {
-	CheckProduct(ctx context.Context, id int64) (int64, error)
+	CheckProduct(ctx context.Context, ID int64) (int64, error)
 	CreateCity(ctx context.Context, name string) (City, error)
 	CreateProduct(ctx context.Context, arg CreateProductParams) (Product, error)
 	CreateProductLike(ctx context.Context, arg CreateProductLikeParams) error
@@ -18,34 +18,34 @@ type Querier interface {
 	CreateRole(ctx context.Context, name string) (Role, error)
 	CreateRoleByDefault(ctx context.Context, arg CreateRoleByDefaultParams) (Role, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
-	DeleteCityById(ctx context.Context, id int64) error
+	DeleteCityById(ctx context.Context, ID int64) error
 	DeleteLikedProductByUserId(ctx context.Context, userID int32) error
 	DeleteManyCityByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteManyProductTypesByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteManyProductsByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteManyRolesByIds(ctx context.Context, dollar_1 []int64) error
-	DeleteProductById(ctx context.Context, id int64) error
-	DeleteProductTypeById(ctx context.Context, id int64) error
-	DeleteRoleById(ctx context.Context, id int64) error
-	DeleteUser(ctx context.Context, id int64) error
-	FindUserById(ctx context.Context, id int64) error
+	DeleteProductById(ctx context.Context, ID int64) error
+	DeleteProductTypeById(ctx context.Context, ID int64) error
+	DeleteRoleById(ctx context.Context, ID int64) error
+	DeleteUser(ctx context.Context, ID int64) error
+	FindUserById(ctx context.Context, ID int64) error
 	GetAllProductAdmin(ctx context.Context, arg GetAllProductAdminParams) ([]GetAllProductAdminRow, error)
 	GetAllProductLike(ctx context.Context, arg GetAllProductLikeParams) ([]GetAllProductLikeRow, error)
 	GetAllProductPublic(ctx context.Context, arg GetAllProductPublicParams) ([]GetAllProductPublicRow, error)
 	GetAllProductRelated(ctx context.Context, arg GetAllProductRelatedParams) ([]GetAllProductRelatedRow, error)
 	GetAllProductView(ctx context.Context, arg GetAllProductViewParams) ([]GetAllProductViewRow, error)
-	GetCityById(ctx context.Context, id int64) (City, error)
+	GetCityById(ctx context.Context, ID int64) (City, error)
 	GetCityByName(ctx context.Context, name string) (City, error)
-	GetProductById(ctx context.Context, id int64) (GetProductByIdRow, error)
+	GetProductById(ctx context.Context, ID int64) (GetProductByIdRow, error)
 	GetProductBySlug(ctx context.Context, slug string) (GetProductBySlugRow, error)
-	GetProductPublicById(ctx context.Context, id int64) (GetProductPublicByIdRow, error)
-	GetProductTypeById(ctx context.Context, id int64) (ProductType, error)
+	GetProductPublicById(ctx context.Context, ID int64) (GetProductPublicByIdRow, error)
+	GetProductTypeById(ctx context.Context, ID int64) (ProductType, error)
 	GetProductTypeByName(ctx context.Context, name string) (ProductType, error)
 	GetProductTypeBySlug(ctx context.Context, slug string) (GetProductTypeBySlugRow, error)
-	GetRoleById(ctx context.Context, id int64) (Role, error)
+	GetRoleById(ctx context.Context, ID int64) (GetRoleByIdRow, error)
 	GetRoleByName(ctx context.Context, name string) (Role, error)
 	GetUserByEmail(ctx context.Context, email string) (GetUserByEmailRow, error)
-	GetUserById(ctx context.Context, id int64) (GetUserByIdRow, error)
+	GetUserById(ctx context.Context, ID int64) (GetUserByIdRow, error)
 	InitDefaultAdmin(ctx context.Context, arg InitDefaultAdminParams) (User, error)
 	ListCity(ctx context.Context, arg ListCityParams) ([]ListCityRow, error)
 	ListProductType(ctx context.Context, arg ListProductTypeParams) ([]ListProductTypeRow, error)

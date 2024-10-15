@@ -18,7 +18,7 @@ INSERT INTO "Role" (
 ) VALUES (
   $1
 )
-RETURNING id, name, permission, create_at, update_at
+RETURNING _id, name, permission, create_at, update_at
 `
 
 func (q *Queries) CreateRole(ctx context.Context, name string) (Role, error) {
@@ -40,7 +40,7 @@ INSERT INTO "Role" (
 ) VALUES (
   $1, $2
 )
-RETURNING id, name, permission, create_at, update_at
+RETURNING _id, name, permission, create_at, update_at
 `
 
 type CreateRoleByDefaultParams struct {
@@ -63,7 +63,7 @@ func (q *Queries) CreateRoleByDefault(ctx context.Context, arg CreateRoleByDefau
 
 const deleteManyRolesByIds = `-- name: DeleteManyRolesByIds :exec
 DELETE FROM "Role"
-WHERE id = ANY($1::bigint[])
+WHERE "_id" = ANY($1::bigint[])
 `
 
 func (q *Queries) DeleteManyRolesByIds(ctx context.Context, dollar_1 []int64) error {
@@ -73,34 +73,34 @@ func (q *Queries) DeleteManyRolesByIds(ctx context.Context, dollar_1 []int64) er
 
 const deleteRoleById = `-- name: DeleteRoleById :exec
 DELETE FROM "Role"
-WHERE id = $1
+WHERE "_id" = $1
 `
 
-func (q *Queries) DeleteRoleById(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteRoleById, id)
+func (q *Queries) DeleteRoleById(ctx context.Context, ID int64) error {
+	_, err := q.db.ExecContext(ctx, deleteRoleById, ID)
 	return err
 }
 
 const getRoleById = `-- name: GetRoleById :one
-SELECT id, name, permission, create_at, update_at FROM "Role"
-WHERE id = $1 LIMIT 1
+SELECT _id,name,coalesce(permission, ARRAY[]::TEXT[]) FROM "Role"
+WHERE _id = $1 LIMIT 1
 `
 
-func (q *Queries) GetRoleById(ctx context.Context, id int64) (Role, error) {
-	row := q.db.QueryRowContext(ctx, getRoleById, id)
-	var i Role
-	err := row.Scan(
-		&i.ID,
-		&i.Name,
-		pq.Array(&i.Permission),
-		&i.CreateAt,
-		&i.UpdateAt,
-	)
+type GetRoleByIdRow struct {
+	ID         int64    `json:"_id"`
+	Name       string   `json:"name"`
+	Permission []string `json:"permission"`
+}
+
+func (q *Queries) GetRoleById(ctx context.Context, ID int64) (GetRoleByIdRow, error) {
+	row := q.db.QueryRowContext(ctx, getRoleById, ID)
+	var i GetRoleByIdRow
+	err := row.Scan(&i.ID, &i.Name, pq.Array(&i.Permission))
 	return i, err
 }
 
 const getRoleByName = `-- name: GetRoleByName :one
-SELECT id, name, permission, create_at, update_at FROM "Role"
+SELECT _id, name, permission, create_at, update_at FROM "Role"
 WHERE name = $1 LIMIT 1
 `
 
@@ -118,20 +118,20 @@ func (q *Queries) GetRoleByName(ctx context.Context, name string) (Role, error) 
 }
 
 const listRole = `-- name: ListRole :many
-SELECT id, name, permission, create_at, update_at,COUNT("Role".id) OVER() AS "totalCount" FROM "Role"
-WHERE  $3 ::text = '' or name ILIKE concat('%',$3,'%')
-LIMIT $1
-OFFSET $2
+SELECT _id, name, permission, create_at, update_at,COUNT("Role"."_id") OVER() AS "totalCount" FROM "Role"
+WHERE  $1 ::text = '' or name ILIKE concat('%',$1,'%')
+LIMIT NULLIF($3 :: int, 0)
+OFFSET NULLIF($2 :: int, 0)
 `
 
 type ListRoleParams struct {
-	Limit  int32  `json:"limit"`
-	Offset int32  `json:"offset"`
-	Search string `json:"search"`
+	Search    string `json:"search"`
+	OffsetOpt int32  `json:"offset_opt"`
+	LimitOpt  int32  `json:"limit_opt"`
 }
 
 type ListRoleRow struct {
-	ID         int64     `json:"id"`
+	ID         int64     `json:"_id"`
 	Name       string    `json:"name"`
 	Permission []string  `json:"permission"`
 	CreateAt   time.Time `json:"create_at"`
@@ -140,7 +140,7 @@ type ListRoleRow struct {
 }
 
 func (q *Queries) ListRole(ctx context.Context, arg ListRoleParams) ([]ListRoleRow, error) {
-	rows, err := q.db.QueryContext(ctx, listRole, arg.Limit, arg.Offset, arg.Search)
+	rows, err := q.db.QueryContext(ctx, listRole, arg.Search, arg.OffsetOpt, arg.LimitOpt)
 	if err != nil {
 		return nil, err
 	}
@@ -171,14 +171,14 @@ func (q *Queries) ListRole(ctx context.Context, arg ListRoleParams) ([]ListRoleR
 
 const updateRole = `-- name: UpdateRole :one
 UPDATE "Role" SET name = $1,permission = $2,update_at = NOW()
-WHERE id = $3
-RETURNING id, name, permission, create_at, update_at
+WHERE "_id" = $3
+RETURNING _id, name, permission, create_at, update_at
 `
 
 type UpdateRoleParams struct {
 	Name       string   `json:"name"`
 	Permission []string `json:"permission"`
-	ID         int64    `json:"id"`
+	ID         int64    `json:"_id"`
 }
 
 func (q *Queries) UpdateRole(ctx context.Context, arg UpdateRoleParams) (Role, error) {

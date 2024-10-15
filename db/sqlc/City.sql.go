@@ -18,7 +18,7 @@ INSERT INTO "City" (
 ) VALUES (
   $1
 )
-RETURNING id, name, create_at, update_at
+RETURNING _id, name, create_at, update_at
 `
 
 func (q *Queries) CreateCity(ctx context.Context, name string) (City, error) {
@@ -35,17 +35,17 @@ func (q *Queries) CreateCity(ctx context.Context, name string) (City, error) {
 
 const deleteCityById = `-- name: DeleteCityById :exec
 DELETE FROM "City"
-WHERE id = $1
+WHERE "_id" = $1
 `
 
-func (q *Queries) DeleteCityById(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteCityById, id)
+func (q *Queries) DeleteCityById(ctx context.Context, ID int64) error {
+	_, err := q.db.ExecContext(ctx, deleteCityById, ID)
 	return err
 }
 
 const deleteManyCityByIds = `-- name: DeleteManyCityByIds :exec
 DELETE FROM "City"
-WHERE id = ANY($1::bigint[])
+WHERE "_id" = ANY($1::bigint[])
 `
 
 func (q *Queries) DeleteManyCityByIds(ctx context.Context, dollar_1 []int64) error {
@@ -54,12 +54,12 @@ func (q *Queries) DeleteManyCityByIds(ctx context.Context, dollar_1 []int64) err
 }
 
 const getCityById = `-- name: GetCityById :one
-SELECT id, name, create_at, update_at FROM "City"
-WHERE id = $1 LIMIT 1
+SELECT _id, name, create_at, update_at FROM "City"
+WHERE "_id" = $1 LIMIT 1
 `
 
-func (q *Queries) GetCityById(ctx context.Context, id int64) (City, error) {
-	row := q.db.QueryRowContext(ctx, getCityById, id)
+func (q *Queries) GetCityById(ctx context.Context, ID int64) (City, error) {
+	row := q.db.QueryRowContext(ctx, getCityById, ID)
 	var i City
 	err := row.Scan(
 		&i.ID,
@@ -71,7 +71,7 @@ func (q *Queries) GetCityById(ctx context.Context, id int64) (City, error) {
 }
 
 const getCityByName = `-- name: GetCityByName :one
-SELECT id, name, create_at, update_at FROM "City"
+SELECT _id, name, create_at, update_at FROM "City"
 WHERE name = $1 LIMIT 1
 `
 
@@ -88,26 +88,26 @@ func (q *Queries) GetCityByName(ctx context.Context, name string) (City, error) 
 }
 
 const listCity = `-- name: ListCity :many
-SELECT id, name, create_at, update_at,COUNT("City".id) OVER() AS "totalCount" FROM "City"
-WHERE  $3 ::text = '' or name ILIKE concat('%',$3,'%')
+SELECT _id, name, create_at, update_at,COUNT("City"."_id") OVER() AS "totalCount" FROM "City"
+WHERE  $1 ::text = '' or name ILIKE concat('%',$1,'%')
 ORDER BY 
   CASE 
-        WHEN $4 ::varchar = 'name asc' THEN name END ASC,
+        WHEN $2 ::varchar = 'name asc' THEN name END ASC,
   CASE 
-        WHEN $4 = 'name desc' THEN name END DESC
-LIMIT $1
-OFFSET $2
+        WHEN $2 = 'name desc' THEN name END DESC
+LIMIT NULLIF($4 :: int, 0)
+OFFSET NULLIF($3 :: int, 0)
 `
 
 type ListCityParams struct {
-	Limit   int32  `json:"limit"`
-	Offset  int32  `json:"offset"`
-	Search  string `json:"search"`
-	OrderBy string `json:"order_by"`
+	Search    string `json:"search"`
+	OrderBy   string `json:"order_by"`
+	OffsetOpt int32  `json:"offset_opt"`
+	LimitOpt  int32  `json:"limit_opt"`
 }
 
 type ListCityRow struct {
-	ID         int64     `json:"id"`
+	ID         int64     `json:"_id"`
 	Name       string    `json:"name"`
 	CreateAt   time.Time `json:"create_at"`
 	UpdateAt   time.Time `json:"update_at"`
@@ -116,10 +116,10 @@ type ListCityRow struct {
 
 func (q *Queries) ListCity(ctx context.Context, arg ListCityParams) ([]ListCityRow, error) {
 	rows, err := q.db.QueryContext(ctx, listCity,
-		arg.Limit,
-		arg.Offset,
 		arg.Search,
 		arg.OrderBy,
+		arg.OffsetOpt,
+		arg.LimitOpt,
 	)
 	if err != nil {
 		return nil, err
@@ -150,13 +150,13 @@ func (q *Queries) ListCity(ctx context.Context, arg ListCityParams) ([]ListCityR
 
 const updateCity = `-- name: UpdateCity :one
 UPDATE "City" SET name = $1,update_at = NOW()
-WHERE id = $2
-RETURNING id, name, create_at, update_at
+WHERE "_id" = $2
+RETURNING _id, name, create_at, update_at
 `
 
 type UpdateCityParams struct {
 	Name string `json:"name"`
-	ID   int64  `json:"id"`
+	ID   int64  `json:"_id"`
 }
 
 func (q *Queries) UpdateCity(ctx context.Context, arg UpdateCityParams) (City, error) {

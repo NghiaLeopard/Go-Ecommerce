@@ -94,7 +94,6 @@ func (c *ProductUseCase) CreateProduct(ctx *gin.Context, req IRequest.CreateProd
 
 func (c *ProductUseCase) GetAllProductAdminUseCase(ctx *gin.Context, req IRequest.GetAllProductAdmin) (IResponse.GetAllProductAdmin, error, int) {
 	product, err := c.ProductRepo.GetAllProductAdmin(ctx, req)
-	fmt.Println(req)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
@@ -152,7 +151,6 @@ func (c *ProductUseCase) GetAllProductPublicUseCase(ctx *gin.Context, req IReque
 
 func (c *ProductUseCase) GetAllProductMeLikedUseCase(ctx *gin.Context, req IRequest.GetAllProductLiked) (IResponse.GetAllMeLiked, error, int) {
 	payload := ctx.MustGet(constant.AuthorizationKey).(*token.Payload)
-	fmt.Println(payload.Id)
 
 	product, err := c.ProductRepo.GetAllProductMeLiked(ctx, req, payload.Id)
 
@@ -179,7 +177,6 @@ func (c *ProductUseCase) GetAllProductMeLikedUseCase(ctx *gin.Context, req IRequ
 
 func (c *ProductUseCase) GetAllProductMeViewedUseCase(ctx *gin.Context, req IRequest.GetAllProductViewed) (IResponse.GetAllMeViewed, error, int) {
 	payload := ctx.MustGet(constant.AuthorizationKey).(*token.Payload)
-	fmt.Println(payload.Id)
 
 	product, err := c.ProductRepo.GetAllProductMeViewed(ctx, req, payload.Id)
 
@@ -217,6 +214,7 @@ func (c *ProductUseCase) GetProductUseCase(ctx *gin.Context, id int64) (IRespons
 		Id:                Product.ID,
 		Name:              Product.Name,
 		Slug:              Product.Slug,
+		Image:             Product.Image,
 		Price:             Product.Price,
 		CountInStock:      Product.CountInStock,
 		Description:       Product.Description,
@@ -283,7 +281,13 @@ func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, slug string, 
 		view := Product.Views + 1
 		go c.ProductRepo.UpdateViewProduct(ctx, Product.ID, view, &wg)
 
-		if value, exists := ctx.MustGet(constant.AuthorizationKey).(*token.Payload); exists {
+		if checkValue, exists := ctx.Get(constant.AuthorizationKey); exists {
+			value, ok := checkValue.(*token.Payload)
+			if !ok {
+				global.Logger.Error("Failed to cast value to *token.Payload")
+				return IResponse.GetProduct{}, fmt.Errorf("invalid authorization token"), 401
+			}
+
 			boolRedis, err := c.RedisProduct.CheckProductUniqueView(ctx, Product.ID, value.Id)
 			if !boolRedis && err == nil {
 				wg.Add(1)
@@ -319,6 +323,7 @@ func (c *ProductUseCase) GetProductBySlugUseCase(ctx *gin.Context, slug string, 
 		LikedBy:           Product.LikedBy,
 		UniqueViews:       Product.UniqueViews,
 		CreateAt:          Product.CreateAt,
+		Image:             Product.Image,
 	}
 
 	return res, nil, 200
@@ -338,7 +343,13 @@ func (c *ProductUseCase) GetProductPublicByIdUseCase(ctx *gin.Context, id int64,
 		view := Product.Views + 1
 		go c.ProductRepo.UpdateViewProduct(ctx, Product.ID, view, &wg)
 
-		if value, exists := ctx.MustGet(constant.AuthorizationKey).(*token.Payload); exists {
+		if checkValue, exists := ctx.Get(constant.AuthorizationKey); exists {
+			value, ok := checkValue.(*token.Payload)
+			if !ok {
+				global.Logger.Error("Failed to cast value to *token.Payload")
+				return IResponse.GetProduct{}, fmt.Errorf("invalid authorization token"), 401
+			}
+
 			boolRedis, err := c.RedisProduct.CheckProductUniqueView(ctx, Product.ID, value.Id)
 			if !boolRedis && err == nil {
 				wg.Add(1)
@@ -387,8 +398,6 @@ func (c *ProductUseCase) UpdateProductUseCase(ctx *gin.Context, id int64, body I
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
 		return IResponse.UpdateProduct{}, fmt.Errorf("product is not exist"), 409
 	}
-
-	fmt.Println(err)
 
 	Product, err := c.ProductRepo.UpdateProduct(ctx, id, body)
 
@@ -454,8 +463,6 @@ func (c *ProductUseCase) LikeProductUseCase(ctx *gin.Context, productId int64) (
 	payload := ctx.MustGet(constant.AuthorizationKey).(*token.Payload)
 
 	boolLike, err := c.RedisProduct.CheckLikeProduct(ctx, productId, payload.Id)
-	fmt.Println(boolLike)
-	fmt.Println(payload.Id)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))
@@ -488,7 +495,6 @@ func (c *ProductUseCase) UnLikeProductUseCase(ctx *gin.Context, productId int64)
 	payload := ctx.MustGet(constant.AuthorizationKey).(*token.Payload)
 
 	boolLike, err := c.RedisProduct.CheckLikeProduct(ctx, productId, payload.Id)
-	fmt.Println(boolLike)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))

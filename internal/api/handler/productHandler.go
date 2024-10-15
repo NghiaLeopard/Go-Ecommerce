@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"fmt"
-
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
 	IHandler "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/interfaces"
 	IRequest "github.com/NghiaLeopard/Go-Ecommerce-Backend/internal/api/handler/request"
@@ -66,7 +64,6 @@ func (c *ProductHandler) GetAllProductAdmin(ctx *gin.Context) {
 		return
 	}
 
-	fmt.Println(req.Status)
 	Product, err, codeStatus := c.ProductUseCase.GetAllProductAdminUseCase(ctx, req)
 
 	if err != nil {
@@ -95,7 +92,6 @@ func (c *ProductHandler) GetAllProductPublic(ctx *gin.Context) {
 		return
 	}
 
-	fmt.Println(req.Status)
 	Product, err, codeStatus := c.ProductUseCase.GetAllProductPublicUseCase(ctx, req)
 
 	if err != nil {
@@ -354,7 +350,7 @@ func (c *ProductHandler) DeleteProduct(ctx *gin.Context) {
 	}
 
 	global.Logger.Info("get Product", zap.String("Status", "Success"))
-	response.SuccessResponse(ctx, "Delete Product success", codeStatus, "")
+	response.SuccessResponse(ctx, "Delete Product success", codeStatus, map[string]int{"_id": 1})
 }
 
 // DeleteManyProduct 		godoc
@@ -382,7 +378,7 @@ func (c *ProductHandler) DeleteManyProduct(ctx *gin.Context) {
 	}
 
 	global.Logger.Info("get Product", zap.String("Status", "Success"))
-	response.SuccessResponse(ctx, "Delete Product success", codeStatus, "")
+	response.SuccessResponse(ctx, "Delete Product success", codeStatus, map[string]int{"_id": 1})
 }
 
 // LikeProduct 				godoc

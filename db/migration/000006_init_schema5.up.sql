@@ -3,6 +3,6 @@ CREATE TABLE "Product_liked" (
     user_id INT NOT NULL,
     like_date timestamptz NOT NULL DEFAULT (now()),
     PRIMARY KEY (product_id, user_id),
-    CONSTRAINT fk_ProductLiked FOREIGN KEY(product_id)  REFERENCES "Product"(id) ON DELETE CASCADE,
-    CONSTRAINT fk_UserLiked FOREIGN KEY(user_id)  REFERENCES "Users"(id) ON DELETE CASCADE
+    CONSTRAINT fk_ProductLiked FOREIGN KEY(product_id)  REFERENCES "Product"("_id") ON DELETE CASCADE,
+    CONSTRAINT fk_UserLiked FOREIGN KEY(user_id)  REFERENCES "Users"("_id") ON DELETE CASCADE
 )

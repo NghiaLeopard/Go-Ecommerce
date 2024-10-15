@@ -1,6 +1,31 @@
 definitions:
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductAdminRow:
+    properties:
+      _id:
+        type: integer
+      countInStock:
+        type: integer
+      image:
+        type: string
+      name:
+        type: string
+      price:
+        type: integer
+      slug:
+        type: string
+      status:
+        type: integer
+      totalCount:
+        type: integer
+      type:
+        items:
+          type: integer
+        type: array
+    type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductLikeRow:
     properties:
+      _id:
+        type: integer
       countInStock:
         type: integer
       create_at:
@@ -13,8 +38,53 @@ definitions:
         type: string
       discountStartDate:
         type: string
-      id:
+      image:
+        type: string
+      likedBy:
+        items:
+          type: integer
+        type: array
+      location:
         type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      slug:
+        type: string
+      sold:
+        type: integer
+      status:
+        type: integer
+      totalCount:
+        type: integer
+      totalLikes:
+        type: integer
+      type:
+        type: integer
+      uniqueViews:
+        items:
+          type: integer
+        type: array
+      views:
+        type: integer
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductPublicRow:
+    properties:
+      _id:
+        type: integer
+      countInStock:
+        type: integer
+      create_at:
+        type: string
+      description:
+        type: string
+      discount:
+        type: integer
+      discountEndDate:
+        type: string
+      discountStartDate:
+        type: string
       image:
         type: string
       likedBy:
@@ -48,6 +118,8 @@ definitions:
     type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductRelatedRow:
     properties:
+      _id:
+        type: integer
       countInStock:
         type: integer
       create_at:
@@ -60,8 +132,6 @@ definitions:
         type: string
       discountStartDate:
         type: string
-      id:
-        type: integer
       image:
         type: string
       likedBy:
@@ -95,6 +165,8 @@ definitions:
     type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductViewRow:
     properties:
+      _id:
+        type: integer
       countInStock:
         type: integer
       create_at:
@@ -107,8 +179,6 @@ definitions:
         type: string
       discountStartDate:
         type: string
-      id:
-        type: integer
       image:
         type: string
       likedBy:
@@ -210,7 +280,7 @@ definitions:
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProductType:
     properties:
       name:
-        minLength: 4
+        minLength: 1
         type: string
       slug:
         minLength: 1
@@ -353,13 +423,15 @@ definitions:
         type: integer
       firstName:
         type: string
+      image:
+        type: string
       lastName:
         type: string
       middleName:
         type: string
       phoneNumber:
-        format: int64
-        type: integer
+        format: string
+        type: string
     required:
     - address
     - avatar
@@ -433,7 +505,7 @@ definitions:
       middleName:
         type: string
       phoneNumber:
-        type: integer
+        type: string
       role:
         $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Role'
       status:
@@ -469,6 +541,28 @@ definitions:
       products:
         items:
           $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductViewRow'
+        type: array
+      totalCount:
+        type: integer
+      totalPage:
+        type: integer
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllProductAdmin:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductAdminRow'
+        type: array
+      totalCount:
+        type: integer
+      totalPage:
+        type: integer
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllProductPublic:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_db_sqlc.GetAllProductPublicRow'
         type: array
       totalCount:
         type: integer
@@ -655,7 +749,7 @@ definitions:
       middleName:
         type: string
       phoneNumber:
-        type: integer
+        type: string
       resetToken:
         type: string
       resetTokenExpiration:
@@ -852,17 +946,13 @@ paths:
       description: Get all city
       parameters:
       - in: query
-        minimum: 1
         name: limit
-        required: true
         type: integer
       - in: query
         name: order
         type: string
       - in: query
-        minimum: 1
         name: page
-        required: true
         type: integer
       - in: query
         name: search
@@ -998,17 +1088,13 @@ paths:
       description: Get all ProductType
       parameters:
       - in: query
-        minimum: 1
         name: limit
-        required: true
         type: integer
       - in: query
         name: order
         type: string
       - in: query
-        minimum: 1
         name: page
-        required: true
         type: integer
       - in: query
         name: search
@@ -1140,6 +1226,47 @@ paths:
       tags:
       - ProductType
   /api/products:
+    get:
+      description: Get all Product
+      parameters:
+      - in: query
+        minimum: 1
+        name: limit
+        required: true
+        type: integer
+      - in: query
+        name: order
+        type: string
+      - in: query
+        minimum: 1
+        name: page
+        required: true
+        type: integer
+      - in: query
+        name: productType
+        type: integer
+      - in: query
+        name: search
+        type: string
+      - in: query
+        name: status
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllProductAdmin'
+              type: array
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get all Product
+      tags:
+      - Product
     post:
       description: Create Product
       parameters:
@@ -1305,6 +1432,45 @@ paths:
       summary: Get all Product
       tags:
       - Product
+  /api/products/public:
+    get:
+      description: Get all Product
+      parameters:
+      - in: query
+        minimum: 1
+        name: limit
+        required: true
+        type: integer
+      - in: query
+        minimum: 1
+        name: page
+        required: true
+        type: integer
+      - in: query
+        name: productType
+        type: integer
+      - in: query
+        name: search
+        type: string
+      - in: query
+        name: status
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAllProductPublic'
+              type: array
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get all Product
+      tags:
+      - Product
   /api/products/public/{productId}:
     get:
       description: Get Product public by id
@@ -1438,22 +1604,18 @@ paths:
       summary: Get all Product me viewed
       tags:
       - Product
-  /api/role:
+  /api/roles:
     get:
       description: Get all role
       parameters:
       - in: query
-        minimum: 1
         name: limit
-        required: true
         type: integer
       - in: query
         name: order
         type: string
       - in: query
-        minimum: 1
         name: page
-        required: true
         type: integer
       - in: query
         name: search
@@ -1495,7 +1657,7 @@ paths:
       summary: Create role
       tags:
       - Role
-  /api/role/{roleId}:
+  /api/roles/{roleId}:
     delete:
       description: Delete Role
       parameters:
@@ -1562,7 +1724,7 @@ paths:
       summary: Update role
       tags:
       - Role
-  /api/role/delete-many:
+  /api/roles/delete-many:
     delete:
       description: Delete many role
       parameters:

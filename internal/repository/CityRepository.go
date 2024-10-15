@@ -41,10 +41,10 @@ func (c *CityRepository) GetAllCity(ctx *gin.Context, page int32, limit int32, s
 	offset := limit * (page - 1)
 
 	arg := db.ListCityParams{
-		Limit:   limit,
-		Offset:  offset,
-		OrderBy: order,
-		Search:  search,
+		LimitOpt:  limit,
+		OffsetOpt: offset,
+		OrderBy:   order,
+		Search:    search,
 	}
 	city, err = global.DB.ListCity(ctx, arg)
 

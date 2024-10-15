@@ -23,8 +23,8 @@ func UserRouter(api *gin.RouterGroup, middleware middleware.Middleware, authHand
 		authMe := auth.Use(middleware.AuthMiddleware("1", true, false))
 		{
 			authMe.PATCH("/change-password", authHandler.ChangePasswordUser)
-			authMe.GET("me", authHandler.GetAuthMe)
-			authMe.PUT("me", authHandler.UpdateAuthMe)
+			authMe.GET("/me", authHandler.GetAuthMe)
+			authMe.PUT("/me", authHandler.UpdateAuthMe)
 		}
 	}
 }

@@ -74,8 +74,8 @@ func (a *AuthRepository) UpdateAuthMe(ctx *gin.Context, req IRequest.UpdateAuthM
 		FirstName:   sql.NullString{String: req.FirstName, Valid: true},
 		LastName:    sql.NullString{String: req.LastName, Valid: true},
 		MiddleName:  sql.NullString{String: req.MiddleName, Valid: true},
-		PhoneNumber: sql.NullInt64{Int64: req.PhoneNumber, Valid: req.PhoneNumber != 0},
-		City:        sql.NullInt64{Int64: req.City, Valid: req.PhoneNumber != 0},
+		PhoneNumber: sql.NullString{String: req.PhoneNumber, Valid: true},
+		City:        sql.NullInt64{Int64: req.City, Valid: req.City != 0},
 		ID:          id,
 		Image:       sql.NullString{String: req.Image, Valid: true},
 	}

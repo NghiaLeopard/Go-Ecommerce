@@ -55,6 +55,14 @@ func (c *ProductTypeUseCase) GetAllProductTypeUseCase(ctx *gin.Context, req IReq
 		return IResponse.GetAllProductType{}, fmt.Errorf("get ProductType is not exist"), 401
 	}
 
+	if len(productType) == 0 {
+		return IResponse.GetAllProductType{
+			ProductTypes: productType,
+			TotalCount:   0,
+			TotalPage:    0,
+		}, nil, 200
+	}
+
 	totalPage := utils.PageCount(int64(req.Limit), productType[0].TotalCount)
 
 	return IResponse.GetAllProductType{
