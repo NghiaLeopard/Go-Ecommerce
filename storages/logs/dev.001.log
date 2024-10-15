@@ -3519,3 +3519,10 @@
 {"level":"INFO","time":"2024-10-15T16:38:34.613+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}
 {"level":"ERROR","time":"2024-10-15T16:42:03.559+0700","caller":"middleware/authMiddleware.go:52","msg":"Verify token invalid","Status":"Error"}
 {"level":"INFO","time":"2024-10-15T16:42:12.701+0700","caller":"handler/deliveryHandler.go:139","msg":"get Delivery","Status":"Success"}
+{"level":"ERROR","time":"2024-10-15T16:43:02.652+0700","caller":"handler/deliveryHandler.go:127","msg":"Key: 'GetBodyUpdateDelivery.Price' Error:Field validation for 'Price' failed on the 'required' tag","Status":"Error"}
+{"level":"ERROR","time":"2024-10-15T16:48:07.666+0700","caller":"middleware/authMiddleware.go:52","msg":"Verify token invalid","Status":"Error"}
+{"level":"INFO","time":"2024-10-15T16:48:16.805+0700","caller":"handler/deliveryHandler.go:167","msg":"get Delivery","Status":"Success"}
+{"level":"INFO","time":"2024-10-15T16:49:12.831+0700","caller":"initialize/postgresql.go:24","msg":"Initialization success"}
+{"level":"INFO","time":"2024-10-15T16:49:12.841+0700","caller":"initialize/redis.go:28","msg":"init redis success"}
+{"level":"INFO","time":"2024-10-15T16:49:12.842+0700","caller":"initialize/gmail.go:10","msg":"Initialization gmail success"}
+{"level":"INFO","time":"2024-10-15T16:49:12.842+0700","caller":"initialize/run.go:19","msg":"Config success","Status":"Success"}

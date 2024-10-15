@@ -238,6 +238,17 @@ definitions:
     required:
     - name
     type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateDelivery:
+    properties:
+      name:
+        type: string
+      price:
+        minimum: 1
+        type: integer
+    required:
+    - name
+    - price
+    type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProduct:
     properties:
       countInStock:
@@ -280,7 +291,7 @@ definitions:
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateProductType:
     properties:
       name:
-        minLength: 1
+        minLength: 4
         type: string
       slug:
         minLength: 1
@@ -307,6 +318,16 @@ definitions:
     required:
     - arrayId
     type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyDelivery:
+    properties:
+      arrayId:
+        items:
+          type: integer
+        minItems: 1
+        type: array
+    required:
+    - arrayId
+    type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyProduct:
     properties:
       arrayId:
@@ -318,12 +339,12 @@ definitions:
     type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyProductType:
     properties:
-      arrayId:
+      productTypeIds:
         items:
           type: integer
         type: array
     required:
-    - arrayId
+    - productTypeIds
     type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyRole:
     properties:
@@ -349,6 +370,18 @@ definitions:
     required:
     - name
     type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateDelivery:
+    properties:
+      name:
+        minLength: 1
+        type: string
+      price:
+        minimum: 1
+        type: integer
+    required:
+    - name
+    - price
+    type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateProductType:
     properties:
       name:
@@ -360,7 +393,7 @@ definitions:
     properties:
       name:
         type: string
-      permission:
+      permissions:
         items:
           type: string
         type: array
@@ -519,6 +552,17 @@ definitions:
         type: string
       name:
         type: string
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Delivery:
+    properties:
+      _id:
+        type: integer
+      create_at:
+        type: string
+      name:
+        type: string
+      price:
+        type: integer
     type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.GetAccessToken:
     properties:
@@ -1083,6 +1127,148 @@ paths:
       summary: Delete many city
       tags:
       - City
+  /api/delivery-type:
+    get:
+      description: Get all Delivery
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: order
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Delivery'
+              type: array
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get all Delivery
+      tags:
+      - Delivery
+    post:
+      description: Create Delivery
+      parameters:
+      - description: Create Delivery
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateDelivery'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Delivery'
+      security:
+      - BearerAuth: []
+      summary: Create Delivery
+      tags:
+      - Delivery
+  /api/delivery-type/{DeliveryId}:
+    delete:
+      description: Delete Delivery
+      parameters:
+      - description: Delete Delivery
+        in: path
+        name: DeliveryId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete Delivery
+      tags:
+      - Delivery
+    get:
+      description: Get Delivery by id
+      parameters:
+      - description: User ID
+        in: path
+        name: DeliveryId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Delivery'
+      security:
+      - BearerAuth: []
+      summary: Get Delivery by id
+      tags:
+      - Delivery
+    put:
+      description: Update Delivery
+      parameters:
+      - description: Update Delivery
+        in: path
+        name: DeliveryId
+        required: true
+        type: integer
+      - description: Update Delivery
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateDelivery'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.Delivery'
+      security:
+      - BearerAuth: []
+      summary: Update Delivery
+      tags:
+      - Delivery
+  /api/delivery-type/delete-many:
+    delete:
+      description: Delete many Delivery
+      parameters:
+      - description: DeleteMany Delivery
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyDelivery'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Delete many Delivery success
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete many Delivery
+      tags:
+      - Delivery
   /api/product-types:
     get:
       description: Get all ProductType

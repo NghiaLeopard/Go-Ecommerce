@@ -27,7 +27,7 @@ func NewDeliveryHandler(DeliveryUseCase IUseCase.Delivery) IHandler.Delivery {
 // @Produce 		application/json
 // @Tags 			Delivery
 // @Success 		200 {object} IResponse.Delivery{}
-// @Router 			/api/Delivery [post]
+// @Router 			/api/delivery-type [post]
 func (c *DeliveryHandler) CreateDelivery(ctx *gin.Context) {
 	var req IRequest.CreateDelivery
 	var _ *IResponse.Delivery
@@ -56,7 +56,7 @@ func (c *DeliveryHandler) CreateDelivery(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			Delivery
 // @Success 		200 {object} IResponse.Delivery{}
-// @Router 			/api/Delivery/{DeliveryId} [get]
+// @Router 			/api/delivery-type/{DeliveryId} [get]
 func (c *DeliveryHandler) GetDelivery(ctx *gin.Context) {
 	var req IRequest.GetDelivery
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -84,7 +84,7 @@ func (c *DeliveryHandler) GetDelivery(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			Delivery
 // @Success 		200 {array} []IResponse.Delivery{}
-// @Router 			/api/Delivery [get]
+// @Router 			/api/delivery-type [get]
 func (c *DeliveryHandler) GetAllDelivery(ctx *gin.Context) {
 	var req IRequest.GetAllDelivery
 	if err := ctx.ShouldBindQuery(&req); err != nil {
@@ -113,7 +113,7 @@ func (c *DeliveryHandler) GetAllDelivery(ctx *gin.Context) {
 // @Produce 			application/json
 // @Tags 				Delivery
 // @Success 			200 {object} IResponse.Delivery{}
-// @Router 				/api/Delivery/{DeliveryId} [put]
+// @Router 				/api/delivery-type/{DeliveryId} [put]
 func (c *DeliveryHandler) UpdateDelivery(ctx *gin.Context) {
 	var params IRequest.GetParamsUpdateDelivery
 	var body IRequest.GetBodyUpdateDelivery
@@ -148,7 +148,7 @@ func (c *DeliveryHandler) UpdateDelivery(ctx *gin.Context) {
 // @Produce 			application/json
 // @Tags 				Delivery
 // @Success 			200 {string} string [delete Delivery success]
-// @Router 				/api/Delivery/{DeliveryId} [delete]
+// @Router 				/api/delivery-type/{DeliveryId} [delete]
 func (c *DeliveryHandler) DeleteDelivery(ctx *gin.Context) {
 	var req IRequest.DeleteDelivery
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -176,7 +176,7 @@ func (c *DeliveryHandler) DeleteDelivery(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			Delivery
 // @Success 		200 {string} string "Delete many Delivery success"
-// @Router 			/api/Delivery/delete-many [delete]
+// @Router 			/api/delivery-type/delete-many [delete]
 func (c *DeliveryHandler) DeleteManyDelivery(ctx *gin.Context) {
 	var req IRequest.DeleteManyDelivery
 	if err := ctx.ShouldBindJSON(&req); err != nil {
