@@ -21,7 +21,7 @@ type DeleteDelivery struct {
 }
 
 type DeleteManyDelivery struct {
-	ArrayId []int `json:"arrayId" binding:"required,min=1"`
+	ArrayId []int `json:"deliveryTypeIds" binding:"required,min=1"`
 }
 
 type GetParamsUpdateDelivery struct {

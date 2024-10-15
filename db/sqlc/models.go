@@ -113,6 +113,14 @@ type DeliveryType struct {
 	UpdateAt time.Time `json:"update_at"`
 }
 
+type PaymentType struct {
+	ID       int64     `json:"_id"`
+	Name     string    `json:"name"`
+	Type     string    `json:"type"`
+	CreateAt time.Time `json:"createAt"`
+	UpdateAt time.Time `json:"update_at"`
+}
+
 type Product struct {
 	ID                int64     `json:"_id"`
 	Name              string    `json:"name"`
