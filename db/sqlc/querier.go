@@ -20,6 +20,7 @@ type Querier interface {
 	CreateRole(ctx context.Context, name string) (Role, error)
 	CreateRoleByDefault(ctx context.Context, arg CreateRoleByDefaultParams) (Role, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
+	CreateUserAdmin(ctx context.Context, arg CreateUserAdminParams) (User, error)
 	DeleteCityById(ctx context.Context, ID int64) error
 	DeleteDeliveryById(ctx context.Context, ID int64) error
 	DeleteLikedProductByUserId(ctx context.Context, userID int32) error
@@ -29,11 +30,13 @@ type Querier interface {
 	DeleteManyProductTypesByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteManyProductsByIds(ctx context.Context, dollar_1 []int64) error
 	DeleteManyRolesByIds(ctx context.Context, dollar_1 []int64) error
+	DeleteManyUserAdminByIds(ctx context.Context, dollar_1 []int64) error
 	DeletePaymentById(ctx context.Context, ID int64) error
 	DeleteProductById(ctx context.Context, ID int64) error
 	DeleteProductTypeById(ctx context.Context, ID int64) error
 	DeleteRoleById(ctx context.Context, ID int64) error
 	DeleteUser(ctx context.Context, ID int64) error
+	DeleteUserAdminById(ctx context.Context, ID int64) error
 	FindUserById(ctx context.Context, ID int64) error
 	GetAllProductAdmin(ctx context.Context, arg GetAllProductAdminParams) ([]GetAllProductAdminRow, error)
 	GetAllProductLike(ctx context.Context, arg GetAllProductLikeParams) ([]GetAllProductLikeRow, error)
@@ -54,6 +57,8 @@ type Querier interface {
 	GetProductTypeBySlug(ctx context.Context, slug string) (GetProductTypeBySlugRow, error)
 	GetRoleById(ctx context.Context, ID int64) (GetRoleByIdRow, error)
 	GetRoleByName(ctx context.Context, name string) (Role, error)
+	GetUserAdminByEmail(ctx context.Context, email string) (User, error)
+	GetUserAdminById(ctx context.Context, ID int64) (GetUserAdminByIdRow, error)
 	GetUserByEmail(ctx context.Context, email string) (GetUserByEmailRow, error)
 	GetUserById(ctx context.Context, ID int64) (GetUserByIdRow, error)
 	InitDefaultAdmin(ctx context.Context, arg InitDefaultAdminParams) (User, error)
@@ -62,7 +67,7 @@ type Querier interface {
 	ListPayment(ctx context.Context, arg ListPaymentParams) ([]ListPaymentRow, error)
 	ListProductType(ctx context.Context, arg ListProductTypeParams) ([]ListProductTypeRow, error)
 	ListRole(ctx context.Context, arg ListRoleParams) ([]ListRoleRow, error)
-	ListUsers(ctx context.Context) ([]User, error)
+	ListUserAdmin(ctx context.Context, arg ListUserAdminParams) ([]ListUserAdminRow, error)
 	UpdateAuthMe(ctx context.Context, arg UpdateAuthMeParams) (User, error)
 	UpdateCity(ctx context.Context, arg UpdateCityParams) (City, error)
 	UpdateDelivery(ctx context.Context, arg UpdateDeliveryParams) (DeliveryType, error)
@@ -71,6 +76,7 @@ type Querier interface {
 	UpdateProduct(ctx context.Context, arg UpdateProductParams) (Product, error)
 	UpdateProductType(ctx context.Context, arg UpdateProductTypeParams) (ProductType, error)
 	UpdateRole(ctx context.Context, arg UpdateRoleParams) (Role, error)
+	UpdateUserAdmin(ctx context.Context, arg UpdateUserAdminParams) (User, error)
 	UpdateViewProduct(ctx context.Context, arg UpdateViewProductParams) error
 }
 

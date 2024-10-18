@@ -14,7 +14,7 @@ type Payment struct {
 }
 
 type GetAllPayment struct {
-	PaymentTypes []db.ListPaymentRow `json:"cities"`
+	PaymentTypes []db.ListPaymentRow `json:"paymentTypes"`
 	TotalCount   int64               `json:"totalCount"`
 	TotalPage    int64               `json:"totalPage"`
 }

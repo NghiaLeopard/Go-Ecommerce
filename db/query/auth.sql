@@ -30,10 +30,6 @@ FROM "Users"
 JOIN "Role" ON "Role"."_id" = "Users".role
 WHERE "Users".email = $1;
 
--- name: ListUsers :many
-SELECT * FROM "Users"
-ORDER BY create_at DESC;
-
 -- name: UpdatePasswordUser :exec
 UPDATE "Users" SET password = $1
 WHERE "_id" = $2;
