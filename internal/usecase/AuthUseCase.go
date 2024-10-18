@@ -122,7 +122,7 @@ func (a *AuthUseCase) LoginUseCase(ctx *gin.Context, email string, password stri
 			Id:          user.ID,
 			Email:       user.Email,
 			Address:     user.Address.String,
-			Status:      user.Status.UsersStatus,
+			Status:      user.Status,
 			Avatar:      user.Avatar.String,
 			PhoneNumber: user.PhoneNumber.String,
 			Role: IResponse.Role{
@@ -351,7 +351,7 @@ func (a *AuthUseCase) GetAuthMeUserCase(ctx *gin.Context) (IResponse.AuthMe, err
 		Id:      user.ID,
 		Email:   user.Email,
 		Address: user.Address.String,
-		Status:  user.Status.UsersStatus,
+		Status:  user.Status,
 		Role: IResponse.Role{
 			Id:         user.ID_2,
 			Name:       user.Name,
@@ -391,7 +391,7 @@ func (a *AuthUseCase) UpdateAuthMeUserCase(ctx *gin.Context, req IRequest.Update
 		Id:          user.ID,
 		Email:       user.Email,
 		Address:     user.Address.String,
-		Status:      user.Status.UsersStatus,
+		Status:      user.Status,
 		Role:        user.ID,
 		FirstName:   user.FirstName.String,
 		LastName:    user.LastName.String,

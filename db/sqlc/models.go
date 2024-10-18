@@ -172,8 +172,8 @@ type User struct {
 	ID             int64                 `json:"_id"`
 	Email          string                `json:"email"`
 	Password       string                `json:"password"`
-	UserType       NullUsersType         `json:"userType"`
-	Status         NullUsersStatus       `json:"status"`
+	UserType       UsersType             `json:"userType"`
+	Status         UsersStatus           `json:"status"`
 	Address        sql.NullString        `json:"address"`
 	Avatar         sql.NullString        `json:"avatar"`
 	Image          sql.NullString        `json:"image"`

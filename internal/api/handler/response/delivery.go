@@ -14,7 +14,7 @@ type Delivery struct {
 }
 
 type GetAllDelivery struct {
-	DeliveryTypes []db.ListDeliveryRow `json:"cities"`
+	DeliveryTypes []db.ListDeliveryRow `json:"deliveryTypes"`
 	TotalCount    int64                `json:"totalCount"`
 	TotalPage     int64                `json:"totalPage"`
 }

@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func UserRouter(api *gin.RouterGroup, middleware middleware.Middleware, authHandler IHandler.Auth) {
+func AuthRouter(api *gin.RouterGroup, middleware middleware.Middleware, authHandler IHandler.Auth) {
 	auth := api.Group("/auth")
 	{
 		auth.POST("/register", authHandler.SignUpUser)
