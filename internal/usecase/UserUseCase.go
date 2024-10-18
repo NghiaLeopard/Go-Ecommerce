@@ -60,8 +60,6 @@ func (c *UserUseCase) GetAllUserUseCase(ctx *gin.Context, page int32, limit int3
 		return IResponse.GetAllUser{}, fmt.Errorf("get User is not exist"), 401
 	}
 
-	fmt.Println(User, limit, order)
-
 	if len(User) == 0 {
 		return IResponse.GetAllUser{
 			Users:      User,
@@ -79,7 +77,7 @@ func (c *UserUseCase) GetAllUserUseCase(ctx *gin.Context, page int32, limit int3
 	}, nil, 200
 }
 
-func (c *UserUseCase) UpdateUserUseCase(ctx *gin.Context, id int, name string) (error, int) {
+func (c *UserUseCase) UpdateUserUseCase(ctx *gin.Context, id int, body IRequest.GetBodyUpdateUser) (error, int) {
 	idInt64 := int64(id)
 
 	_, err := global.DB.GetUserById(ctx, idInt64)
@@ -89,7 +87,7 @@ func (c *UserUseCase) UpdateUserUseCase(ctx *gin.Context, id int, name string) (
 		return fmt.Errorf("User is not exist"), 401
 	}
 
-	_, err = c.UserRepo.UpdateUser(ctx, idInt64, name)
+	_, err = c.UserRepo.UpdateUser(ctx, idInt64, body)
 
 	if err != nil {
 		global.Logger.Error(err.Error(), zap.String("Status", "Error"))

@@ -27,7 +27,7 @@ func NewUserHandler(UserUseCase IUseCase.User) IHandler.User {
 // @Produce 		application/json
 // @Tags 			User
 // @Success 		200 {object} IResponse.User{}
-// @Router 			/api/User [post]
+// @Router 			/api/users [post]
 func (c *UserHandler) CreateUser(ctx *gin.Context) {
 	var req IRequest.CreateUser
 	var _ *IResponse.User
@@ -56,7 +56,7 @@ func (c *UserHandler) CreateUser(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			User
 // @Success 		200 {object} IResponse.User{}
-// @Router 			/api/User/{UserId} [get]
+// @Router 			/api/users/{UserId} [get]
 func (c *UserHandler) GetUser(ctx *gin.Context) {
 	var req IRequest.GetUser
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -84,7 +84,7 @@ func (c *UserHandler) GetUser(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			User
 // @Success 		200 {array} []IResponse.User{}
-// @Router 			/api/User [get]
+// @Router 			/api/users [get]
 func (c *UserHandler) GetAllUser(ctx *gin.Context) {
 	var req IRequest.GetAllUser
 	if err := ctx.ShouldBindQuery(&req); err != nil {
@@ -113,7 +113,7 @@ func (c *UserHandler) GetAllUser(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			User
 // @Success 		200 {object} IResponse.User{}
-// @Router 			/api/User/{UserId} [put]
+// @Router 			/api/users/{UserId} [put]
 func (c *UserHandler) UpdateUser(ctx *gin.Context) {
 	var params IRequest.GetParamsUpdateUser
 	var body IRequest.GetBodyUpdateUser
@@ -129,7 +129,7 @@ func (c *UserHandler) UpdateUser(ctx *gin.Context) {
 		return
 	}
 
-	err, codeStatus := c.UserUseCase.UpdateUserUseCase(ctx, params.ID, body.Name)
+	err, codeStatus := c.UserUseCase.UpdateUserUseCase(ctx, params.ID, body)
 
 	if err != nil {
 		response.ErrorResponse(ctx, err.Error(), codeStatus)
@@ -148,7 +148,7 @@ func (c *UserHandler) UpdateUser(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			User
 // @Success 		200 {string} string [delete User success]
-// @Router 			/api/User/{UserId} [delete]
+// @Router 			/api/users/{UserId} [delete]
 func (c *UserHandler) DeleteUser(ctx *gin.Context) {
 	var req IRequest.DeleteUser
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -176,7 +176,7 @@ func (c *UserHandler) DeleteUser(ctx *gin.Context) {
 // @Produce 		application/json
 // @Tags 			User
 // @Success 		200 {string} string "Delete many User success"
-// @Router 			/api/User/delete-many [delete]
+// @Router 			/api/users/delete-many [delete]
 func (c *UserHandler) DeleteManyUser(ctx *gin.Context) {
 	var req IRequest.DeleteManyUser
 	if err := ctx.ShouldBindJSON(&req); err != nil {

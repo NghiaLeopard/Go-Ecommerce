@@ -20,24 +20,33 @@ func (c *UserRepository) CreateUserAdmin(ctx *gin.Context, req IRequest.CreateUs
 	arg := db.CreateUserAdminParams{
 		Email:       req.Email,
 		Password:    req.Password,
-		FirstName:   sql.NullString{String: req.FirstName,Valid: true},
-		LastName:    sql.NullString{String: req.LastName,Valid: true},
-		MiddleName:  sql.NullString{String: req.MiddleName,Valid: true},
-		Avatar:      sql.NullString{String: req.Avatar,Valid: true},
-		Address:     sql.NullString{String: req.Address,Valid: true},
-		PhoneNumber: sql.NullString{String: req.PhoneNumber,Valid: true},
-		Role:        sql.NullInt64{Int64:req.Role,Valid: req.Role != 0 },
-		City:        sql.NullInt64{Int64:req.City,Valid: req.City != 0 },
+		FirstName:   sql.NullString{String: req.FirstName, Valid: true},
+		LastName:    sql.NullString{String: req.LastName, Valid: true},
+		MiddleName:  sql.NullString{String: req.MiddleName, Valid: true},
+		Avatar:      sql.NullString{String: req.Avatar, Valid: true},
+		Address:     sql.NullString{String: req.Address, Valid: true},
+		PhoneNumber: sql.NullString{String: req.PhoneNumber, Valid: true},
+		Role:        sql.NullInt64{Int64: req.Role, Valid: req.Role != 0},
+		City:        sql.NullInt64{Int64: req.City, Valid: req.City != 0},
 	}
-	
+
 	User, err = global.DB.CreateUserAdmin(ctx, arg)
 
 	return
 }
 
-func (c *UserRepository) UpdateUser(ctx *gin.Context, id int64, name string) (User db.User, err error) {
+func (c *UserRepository) UpdateUser(ctx *gin.Context, id int64, body IRequest.GetBodyUpdateUser) (User db.User, err error) {
 	arg := db.UpdateUserAdminParams{
-		ID: id,
+		FirstName:   sql.NullString{String: body.FirstName, Valid: body.FirstName != ""},
+		LastName:    sql.NullString{String: body.LastName, Valid: body.LastName != ""},
+		MiddleName:  sql.NullString{String: body.MiddleName, Valid: body.MiddleName != ""},
+		Avatar:      sql.NullString{String: body.Avatar, Valid: body.Avatar != ""},
+		Address:     sql.NullString{String: body.Address, Valid: body.Address != ""},
+		PhoneNumber: sql.NullString{String: body.PhoneNumber, Valid: body.PhoneNumber != ""},
+		Role:        sql.NullInt64{Int64: body.Role, Valid: body.Role != 0},
+		City:        sql.NullInt64{Int64: body.City, Valid: body.City != 0},
+		Status:      db.UsersStatus(body.Status),
+		ID:          id,
 	}
 
 	User, err = global.DB.UpdateUserAdmin(ctx, arg)
