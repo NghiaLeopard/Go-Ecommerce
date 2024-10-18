@@ -68,8 +68,6 @@ func (c *DeliveryUseCase) GetAllDeliveryUseCase(ctx *gin.Context, page int32, li
 		return IResponse.GetAllDelivery{}, fmt.Errorf("get Delivery is not exist"), 401
 	}
 
-	fmt.Println(Delivery, limit, order)
-
 	if len(Delivery) == 0 {
 		return IResponse.GetAllDelivery{
 			DeliveryTypes: Delivery,

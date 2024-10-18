@@ -193,7 +193,7 @@ SELECT
   COALESCE(u."phoneNumber", '') AS "phoneNumber",
   COALESCE(u."status", u."status") AS "status",
   COALESCE(u."userType", u."userType") AS "userType",
-  json_build_object('_id', r."_id",'name', r.name) AS "role",
+  json_build_object('_id', r."_id",'name', r.name,'permission',array_to_json(r.permission)) AS "role",
   json_build_object('_id', c."_id",'name', c.name) AS "city",
   COUNT(u."_id") OVER() AS "totalCount" 
 FROM "Users" u
@@ -271,7 +271,7 @@ func (q *Queries) ListUserAdmin(ctx context.Context, arg ListUserAdminParams) ([
 }
 
 const updateUserAdmin = `-- name: UpdateUserAdmin :one
-UPDATE "Users" SET "firstName" = $1,"lastName" = $2,"middleName" = $3,avatar = $4,address = $5,"phoneNumber" = $6,role = $7,city = $8,status = $9,update_at = NOW()
+UPDATE "Users" SET "firstName" = $1,"lastName" = $2,"middleName" = $3,avatar = $4,address = $5,"phoneNumber" = $6,role = $7,city = $8,status = $9
 WHERE "_id" = $10
 RETURNING _id, email, password, "userType", status, address, avatar, image, "phoneNumber", role, "firstName", "lastName", "middleName", city, "likeProducts", "viewedProducts", "deviceToken", addresses, create_at
 `

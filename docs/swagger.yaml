@@ -319,6 +319,43 @@ definitions:
     required:
     - name
     type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateUser:
+    properties:
+      address:
+        type: string
+      avatar:
+        type: string
+      city:
+        format: int64
+        type: integer
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      middleName:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      phoneNumber:
+        format: string
+        type: string
+      role:
+        format: int64
+        type: integer
+    required:
+    - address
+    - city
+    - email
+    - firstName
+    - lastName
+    - middleName
+    - password
+    - phoneNumber
+    - role
+    type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyCity:
     properties:
       arrayId:
@@ -376,6 +413,16 @@ definitions:
     required:
     - arrayId
     type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyUser:
+    properties:
+      userIds:
+        items:
+          type: integer
+        minItems: 1
+        type: array
+    required:
+    - userIds
+    type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ForgotPasswordRequest:
     properties:
       email:
@@ -430,6 +477,41 @@ definitions:
         items:
           type: string
         type: array
+    type: object
+  github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateUser:
+    properties:
+      address:
+        type: string
+      avatar:
+        type: string
+      city:
+        format: int64
+        type: integer
+      firstName:
+        type: string
+      lastName:
+        type: string
+      middleName:
+        type: string
+      phoneNumber:
+        format: string
+        type: string
+      role:
+        format: int64
+        type: integer
+      status:
+        format: string
+        type: string
+    required:
+    - address
+    - avatar
+    - city
+    - firstName
+    - lastName
+    - middleName
+    - phoneNumber
+    - role
+    - status
     type: object
   github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.LikeProduct:
     properties:
@@ -2118,6 +2200,148 @@ paths:
       summary: Delete many role
       tags:
       - Role
+  /api/users:
+    get:
+      description: Get all User
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: order
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User'
+              type: array
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get all User
+      tags:
+      - User
+    post:
+      description: Create User
+      parameters:
+      - description: Create User
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User'
+      security:
+      - BearerAuth: []
+      summary: Create User
+      tags:
+      - User
+  /api/users/{UserId}:
+    delete:
+      description: Delete User
+      parameters:
+      - description: Delete User
+        in: path
+        name: UserId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete User
+      tags:
+      - User
+    get:
+      description: Get User by id
+      parameters:
+      - description: User ID
+        in: path
+        name: UserId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User'
+      security:
+      - BearerAuth: []
+      summary: Get User by id
+      tags:
+      - User
+    put:
+      description: Update User
+      parameters:
+      - description: Update User
+        in: path
+        name: UserId
+        required: true
+        type: integer
+      - description: Update User
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User'
+      security:
+      - BearerAuth: []
+      summary: Update User
+      tags:
+      - User
+  /api/users/delete-many:
+    delete:
+      description: Delete many User
+      parameters:
+      - description: DeleteMany User
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Delete many User success
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete many User
+      tags:
+      - User
 securityDefinitions:
   BearerAuth:
     description: 'Add prefix of Bearer before  token Ex: "Bearer token"'

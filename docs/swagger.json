@@ -2031,6 +2031,236 @@
                     }
                 }
             }
+        },
+        "/api/users": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get all User",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all User",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create User",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create User",
+                "parameters": [
+                    {
+                        "description": "Create User",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/delete-many": {
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete many User",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete many User",
+                "parameters": [
+                    {
+                        "description": "DeleteMany User",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete many User success",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/{UserId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get User by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get User by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User ID",
+                        "name": "UserId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update User",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update User",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Update User",
+                        "name": "UserId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update User",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_response.User"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete User",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete User",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Delete User",
+                        "name": "UserId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -2508,6 +2738,56 @@
                 }
             }
         },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.CreateUser": {
+            "type": "object",
+            "required": [
+                "address",
+                "city",
+                "email",
+                "firstName",
+                "lastName",
+                "middleName",
+                "password",
+                "phoneNumber",
+                "role"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "avatar": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "middleName": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string",
+                    "minLength": 6
+                },
+                "phoneNumber": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "role": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
         "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyCity": {
             "type": "object",
             "required": [
@@ -2595,6 +2875,21 @@
                 }
             }
         },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.DeleteManyUser": {
+            "type": "object",
+            "required": [
+                "userIds"
+            ],
+            "properties": {
+                "userIds": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
         "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.ForgotPasswordRequest": {
             "type": "object",
             "required": [
@@ -2674,6 +2969,53 @@
                     "items": {
                         "type": "string"
                     }
+                }
+            }
+        },
+        "github_com_NghiaLeopard_Go-Ecommerce-Backend_internal_api_handler_request.GetBodyUpdateUser": {
+            "type": "object",
+            "required": [
+                "address",
+                "avatar",
+                "city",
+                "firstName",
+                "lastName",
+                "middleName",
+                "phoneNumber",
+                "role",
+                "status"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "avatar": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "middleName": {
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "role": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "status": {
+                    "type": "string",
+                    "format": "string"
                 }
             }
         },

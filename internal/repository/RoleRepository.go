@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"fmt"
 
 	db "github.com/NghiaLeopard/Go-Ecommerce-Backend/db/sqlc"
 	"github.com/NghiaLeopard/Go-Ecommerce-Backend/global"
@@ -25,7 +24,6 @@ func (r *RoleRepository) CreateRole(ctx *gin.Context, name string) (role db.Role
 
 func (r *RoleRepository) GetRoleById(ctx *gin.Context, id int64) (db.GetRoleByIdRow, error) {
 	role, err := global.DB.GetRoleById(ctx, id)
-	fmt.Println(role)
 
 	return role, err
 }

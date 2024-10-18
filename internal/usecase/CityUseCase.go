@@ -65,8 +65,6 @@ func (c *CityUseCase) GetAllCityUseCase(ctx *gin.Context, page int32, limit int3
 		return IResponse.GetAllCity{}, fmt.Errorf("get city is not exist"), 401
 	}
 
-	fmt.Println(city, limit, order)
-
 	if len(city) == 0 {
 		return IResponse.GetAllCity{
 			Cities:     city,

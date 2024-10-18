@@ -68,8 +68,6 @@ func (c *PaymentUseCase) GetAllPaymentUseCase(ctx *gin.Context, page int32, limi
 		return IResponse.GetAllPayment{}, fmt.Errorf("get Payment is not exist"), 401
 	}
 
-	fmt.Println(Payment, limit, order)
-
 	if len(Payment) == 0 {
 		return IResponse.GetAllPayment{
 			PaymentTypes: Payment,
